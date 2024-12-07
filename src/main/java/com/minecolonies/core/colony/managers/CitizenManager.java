@@ -138,10 +138,9 @@ public class CitizenManager implements ICitizenManager
 
         final Optional<AbstractEntityCitizen> existingCitizen = data.getEntity();
 
-        if (!existingCitizen.isPresent())
+        if (existingCitizen.isEmpty())
         {
             data.setEntity(entity);
-            entity.level.getScoreboard().addPlayerToTeam(entity.getScoreboardName(), colony.getTeam());
             return;
         }
 
@@ -158,18 +157,6 @@ public class CitizenManager implements ICitizenManager
         final ICitizenData data = citizens.get(entity.getCivilianID());
         if (data != null && data.getEntity().isPresent() && data.getEntity().get() == entity)
         {
-            try
-            {
-                if (colony.getWorld().getScoreboard().getPlayersTeam(entity.getScoreboardName()) == colony.getTeam())
-                {
-                    colony.getWorld().getScoreboard().removePlayerFromTeam(entity.getScoreboardName(), colony.getTeam());
-                }
-            }
-            catch (Exception ignored)
-            {
-                // For some weird reason we can get an exception here, though the exception is thrown for team != colony team which we check == on before
-            }
-
             citizens.get(entity.getCivilianID()).setEntity(null);
         }
     }
@@ -300,10 +287,15 @@ public class CitizenManager implements ICitizenManager
 
         if (world instanceof ServerLevel serverLevel)
         {
-            final Entity existing = serverLevel.getEntity(citizenData.getUUID());
+            Entity existing = serverLevel.getEntity(citizenData.getUUID());
             if (existing != null)
             {
                 existing.discard();
+                existing = serverLevel.getEntity(citizenData.getUUID());
+                if (existing != null)
+                {
+                    serverLevel.entityManager.stopTracking(existing);
+                }
             }
         }
 
@@ -569,11 +561,11 @@ public class CitizenManager implements ICitizenManager
     }
 
     @Override
-    public boolean tickCitizenData()
+    public boolean tickCitizenData(final int tickRate)
     {
         for (ICitizenData iCitizenData : this.getCitizens())
         {
-            iCitizenData.update();
+            iCitizenData.update(tickRate);
         }
         return false;
     }

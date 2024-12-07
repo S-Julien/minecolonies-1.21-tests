@@ -22,11 +22,14 @@ import com.minecolonies.core.colony.buildings.modules.BuildingModules;
 import com.minecolonies.core.colony.buildings.modules.TavernBuildingModule;
 import com.minecolonies.core.entity.ai.minimal.EntityAIInteractToggleAble;
 import com.minecolonies.core.entity.ai.minimal.LookAtEntityGoal;
+import com.minecolonies.core.entity.ai.minimal.LookAtEntityInteractGoal;
+import com.minecolonies.core.entity.ai.visitor.EntityAIVisitor;
 import com.minecolonies.core.entity.citizen.EntityCitizen;
 import com.minecolonies.core.entity.citizen.citizenhandlers.*;
 import com.minecolonies.core.entity.pathfinding.navigation.MovementHandler;
 import com.minecolonies.core.entity.pathfinding.proxy.EntityCitizenWalkToProxy;
 import com.minecolonies.core.network.messages.server.colony.OpenInventoryMessage;
+import com.minecolonies.core.util.citizenutils.CitizenItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -40,7 +43,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.InteractGoal;
 import net.minecraft.world.entity.ai.goal.OpenDoorGoal;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -95,11 +97,6 @@ public class VisitorCitizen extends AbstractEntityVisitor
     private ICitizenDataView citizenDataView;
 
     /**
-     * The citizen item handler.
-     */
-    private ICitizenItemHandler citizenItemHandler;
-
-    /**
      * The citizen inv handler.
      */
     private ICitizenInventoryHandler citizenInventoryHandler;
@@ -127,7 +124,7 @@ public class VisitorCitizen extends AbstractEntityVisitor
     /**
      * The citizen disease handler.
      */
-    private ICitizenDiseaseHandler citizenDiseaseHandler;
+    private ILocation              location = null;
 
     /**
      * Constructor for a new citizen typed entity.
@@ -138,15 +135,11 @@ public class VisitorCitizen extends AbstractEntityVisitor
     public VisitorCitizen(final EntityType<? extends PathfinderMob> type, final Level world, final IVisitorType visitorType)
     {
         super(type, world);
-        this.goalSelector = new CustomGoalSelector(this.goalSelector);
-        this.targetSelector = new CustomGoalSelector(this.targetSelector);
-        this.citizenItemHandler = new CitizenItemHandler(this);
         this.citizenInventoryHandler = new CitizenInventoryHandler(this);
         this.citizenColonyHandler = new VisitorColonyHandler(this);
         this.citizenJobHandler = new CitizenJobHandler(this);
         this.citizenSleepHandler = new CitizenSleepHandler(this);
         this.citizenExperienceHandler = new CitizenExperienceHandler(this);
-        this.citizenDiseaseHandler = new CitizenDiseaseHandler(this);
 
         this.visitorType = visitorType;
         this.moveControl = new MovementHandler(this);
@@ -172,8 +165,8 @@ public class VisitorCitizen extends AbstractEntityVisitor
         this.goalSelector.addGoal(priority, new FloatGoal(this));
         this.goalSelector.addGoal(++priority, new OpenDoorGoal(this, true));
         this.goalSelector.addGoal(priority, new EntityAIInteractToggleAble(this, FENCE_TOGGLE, TRAP_TOGGLE, DOOR_TOGGLE));
-        this.goalSelector.addGoal(++priority, new InteractGoal(this, Player.class, WATCH_CLOSEST2, 1.0F));
-        this.goalSelector.addGoal(++priority, new InteractGoal(this, EntityCitizen.class, WATCH_CLOSEST2_FAR, WATCH_CLOSEST2_FAR_CHANCE));
+        this.goalSelector.addGoal(++priority, new LookAtEntityInteractGoal(this, Player.class, WATCH_CLOSEST2, 0.2F));
+        this.goalSelector.addGoal(++priority, new LookAtEntityInteractGoal(this, EntityCitizen.class, WATCH_CLOSEST2_FAR, WATCH_CLOSEST2_FAR_CHANCE));
         this.goalSelector.addGoal(++priority, new LookAtEntityGoal(this, LivingEntity.class, WATCH_CLOSEST));
         this.visitorType.createStateMachine(this);
     }
@@ -191,7 +184,7 @@ public class VisitorCitizen extends AbstractEntityVisitor
                     final TavernBuildingModule module = home.getModule(BuildingModules.TAVERN_VISITOR);
                     for (final Integer id : module.getExternalCitizens())
                     {
-                        ICitizenData data = citizenColonyHandler.getColony().getVisitorManager().getCivilian(id);
+                        ICitizenData data = citizenColonyHandler.getColonyOrRegister().getVisitorManager().getCivilian(id);
                         if (data != null && data.getEntity().isPresent() && data.getEntity().get().getLastHurtByMob() == null)
                         {
                             data.getEntity().get().setLastHurtByMob(livingEntity);
@@ -204,7 +197,7 @@ public class VisitorCitizen extends AbstractEntityVisitor
                 {
                     if (sourceEntity instanceof ServerPlayer)
                     {
-                        return damage <= 1 || getCitizenColonyHandler().getColony().getPermissions().hasPermission((Player) sourceEntity, Action.HURT_VISITOR);
+                        return damage <= 1 || getCitizenColonyHandler().getColonyOrRegister().getPermissions().hasPermission((Player) sourceEntity, Action.HURT_VISITOR);
                     }
                     else
                     {
@@ -424,12 +417,6 @@ public class VisitorCitizen extends AbstractEntityVisitor
     }
 
     @Override
-    public ICitizenItemHandler getCitizenItemHandler()
-    {
-        return citizenItemHandler;
-    }
-
-    @Override
     public ICitizenInventoryHandler getCitizenInventoryHandler()
     {
         return citizenInventoryHandler;
@@ -466,18 +453,6 @@ public class VisitorCitizen extends AbstractEntityVisitor
     }
 
     @Override
-    public ICitizenDiseaseHandler getCitizenDiseaseHandler()
-    {
-        return citizenDiseaseHandler;
-    }
-
-    @Override
-    public void setCitizenDiseaseHandler(final ICitizenDiseaseHandler citizenDiseaseHandler)
-    {
-        this.citizenDiseaseHandler = citizenDiseaseHandler;
-    }
-
-    @Override
     public float getRotationYaw()
     {
         return getYRot();
@@ -505,12 +480,6 @@ public class VisitorCitizen extends AbstractEntityVisitor
     public void setCitizenJobHandler(final ICitizenJobHandler citizenJobHandler)
     {
         this.citizenJobHandler = citizenJobHandler;
-    }
-
-    @Override
-    public void setCitizenItemHandler(final ICitizenItemHandler citizenItemHandler)
-    {
-        this.citizenItemHandler = citizenItemHandler;
     }
 
     @Override
@@ -668,5 +637,11 @@ public class VisitorCitizen extends AbstractEntityVisitor
     {
         citizenColonyHandler.onCitizenRemoved();
         super.setRemoved(reason);
+    }
+
+    @Override
+    public int getTeamId()
+    {
+        return citizenColonyHandler.getColonyId();
     }
 }

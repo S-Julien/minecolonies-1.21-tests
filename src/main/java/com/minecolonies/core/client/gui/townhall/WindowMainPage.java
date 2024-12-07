@@ -265,6 +265,7 @@ public class WindowMainPage extends AbstractWindowTownHall
 
         if (isFeatureUnlocked.get())
         {
+            findPaneByID(BUTTON_PATREON).hide();
             textPane.enable();
             namePane.enable();
             textPane.show();
@@ -272,6 +273,7 @@ public class WindowMainPage extends AbstractWindowTownHall
         }
         else
         {
+            findPaneByID(BUTTON_PATREON).show();
             textPane.disable();
             namePane.disable();
 

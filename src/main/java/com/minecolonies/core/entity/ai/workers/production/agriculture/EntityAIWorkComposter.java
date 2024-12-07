@@ -17,6 +17,7 @@ import com.minecolonies.core.colony.buildings.modules.ItemListModule;
 import com.minecolonies.core.colony.buildings.workerbuildings.BuildingComposter;
 import com.minecolonies.core.colony.jobs.JobComposter;
 import com.minecolonies.core.entity.ai.workers.AbstractEntityAIInteract;
+import com.minecolonies.core.util.citizenutils.CitizenItemUtils;
 import com.minecolonies.core.tileentities.TileEntityBarrel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -274,7 +275,7 @@ public class EntityAIWorkComposter extends AbstractEntityAIInteract<JobComposter
 
             final TileEntityBarrel barrel = (TileEntityBarrel) world.getBlockEntity(currentTarget);
 
-            worker.getCitizenItemHandler().hitBlockWithToolInHand(currentTarget);
+            CitizenItemUtils.hitBlockWithToolInHand(worker, currentTarget);
             barrel.addItem(worker.getItemInHand(InteractionHand.MAIN_HAND));
             worker.getCitizenExperienceHandler().addExperience(BASE_XP_GAIN);
             this.incrementActionsDoneAndDecSaturation();
@@ -302,7 +303,7 @@ public class EntityAIWorkComposter extends AbstractEntityAIInteract<JobComposter
 
         if (world.getBlockEntity(currentTarget) instanceof TileEntityBarrel)
         {
-            worker.getCitizenItemHandler().hitBlockWithToolInHand(currentTarget);
+            CitizenItemUtils.hitBlockWithToolInHand(worker, currentTarget);
 
             final TileEntityBarrel te = (TileEntityBarrel) world.getBlockEntity(currentTarget);
             final ItemStack compost = te.retrieveCompost(getLootMultiplier(worker.getRandom()));
@@ -315,7 +316,7 @@ public class EntityAIWorkComposter extends AbstractEntityAIInteract<JobComposter
                  * Two researches to increase it to 10% and 15%, respectively.
                  */
                 if (((worker.getRandom().nextInt(100)) + 1) <= (5 * (1 + worker.getCitizenColonyHandler()
-                                                                           .getColony()
+                                                                           .getColonyOrRegister()
                                                                            .getResearchManager()
                                                                            .getResearchEffects()
                                                                            .getEffectStrength(PODZOL_CHANCE))))

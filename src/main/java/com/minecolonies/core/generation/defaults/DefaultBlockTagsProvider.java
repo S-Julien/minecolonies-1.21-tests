@@ -90,6 +90,9 @@ public class DefaultBlockTagsProvider extends BlockTagsProvider
         tag(ModTags.pathingBlocks)
                 .addTag(ModTags.concreteBlocks)
                 .addTag(BlockTags.STONE_BRICKS)
+            .addTag(BlockTags.PLANKS)
+            .addTag(BlockTags.WOODEN_SLABS)
+            .addTag(BlockTags.WOOL_CARPETS)
                 .add(Blocks.STONE_BRICK_STAIRS)
                 .add(Blocks.STONE_BRICK_SLAB)
                 .add(Blocks.MOSSY_STONE_BRICK_SLAB)
@@ -183,12 +186,11 @@ public class DefaultBlockTagsProvider extends BlockTagsProvider
         tag(ModTags.tree)
                 .addTag(BlockTags.LOGS)
                 .addTag(ModTags.mangroveTree)
-                .add(Blocks.MUSHROOM_STEM);
+                .add(Blocks.MUSHROOM_STEM)
+                .addOptionalTag(new ResourceLocation("productivebees", "nests/wood_nests"));
 
         tag(ModTags.colonyProtectionException)
-                .addOptional(new ResourceLocation("waystones:waystone"))
-                .addOptional(new ResourceLocation("waystones:sandy_waystone"))
-                .addOptional(new ResourceLocation("waystones:mossy_waystone"));
+                .addOptionalTag(new ResourceLocation("waystones", "waystones"));
 
         tag(ModTags.indestructible).add(Blocks.BEDROCK);
         tag(ModTags.oreChanceBlocks)

@@ -132,7 +132,7 @@ public class MinimumStockModule extends AbstractBuildingModule implements IMinim
                         itemStack.setCount(Math.min(itemStack.getMaxStackSize(), delta));
                         final MinimumStack stack = new MinimumStack(itemStack, false);
                         stack.setCanBeResolvedByBuilding(false);
-                        building.createRequest(stack, false);
+                        building.createRequest(stack, true);
                     }
                 }
                 else if (request != null && delta <= 0)
@@ -141,20 +141,6 @@ public class MinimumStockModule extends AbstractBuildingModule implements IMinim
                 }
             }
         }
-    }
-
-    @Override
-    public boolean isMinimumStockRequest(final IRequest<? extends IDeliverable> request)
-    {
-        for (final Map.Entry<ItemStorage, Integer> entry : minimumStock.entrySet())
-        {
-            if (request.getRequest() instanceof com.minecolonies.api.colony.requestsystem.requestable.Stack
-                  && ItemStackUtils.compareItemStacksIgnoreStackSize(((Stack) request.getRequest()).getStack(), entry.getKey().getItemStack()))
-            {
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override

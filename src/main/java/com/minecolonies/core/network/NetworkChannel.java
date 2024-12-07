@@ -205,6 +205,7 @@ public class NetworkChannel
         registerMessage(++idx, GetColonyInfoMessage.class, GetColonyInfoMessage::new);
         registerMessage(++idx, PickupBlockMessage.class, PickupBlockMessage::new);
         registerMessage(++idx, MarkStoryReadOnItem.class, MarkStoryReadOnItem::new);
+        registerMessage(++idx, AlterRestaurantMenuItemMessage.class, AlterRestaurantMenuItemMessage::new);
         registerMessage(++idx, OpenExpeditionSheetInventoryMessage.class, OpenExpeditionSheetInventoryMessage::new);
         registerMessage(++idx, AssignGuardMessage.class, AssignGuardMessage::new);
         registerMessage(++idx, TransferItemsMessage.class, TransferItemsMessage::new);
@@ -233,6 +234,7 @@ public class NetworkChannel
         registerMessage(++idx, OpenPlantationFieldBuildWindowMessage.class, OpenPlantationFieldBuildWindowMessage::new);
         registerMessage(++idx, SaveStructureNBTMessage.class, SaveStructureNBTMessage::new);
         registerMessage(++idx, GlobalQuestSyncMessage.class, GlobalQuestSyncMessage::new);
+        registerMessage(++idx, GlobalDiseaseSyncMessage.class, GlobalDiseaseSyncMessage::new);
         registerMessage(++idx, GlobalExpeditionEncounterSyncMessage.class, GlobalExpeditionEncounterSyncMessage::new);
         registerMessage(++idx, GlobalColonyExpeditionTypeSyncMessage.class, GlobalColonyExpeditionTypeSyncMessage::new);
         registerMessage(++idx, OpenColonyFoundingCovenantMessage.class, OpenColonyFoundingCovenantMessage::new);

@@ -26,6 +26,8 @@ import com.minecolonies.core.entity.pathfinding.navigation.AbstractAdvancedPathN
 import com.minecolonies.core.entity.pathfinding.navigation.PathingStuckHandler;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.protocol.game.ClientboundSetEquipmentPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -616,13 +618,6 @@ public abstract class AbstractEntityCitizen extends AbstractCivilianEntity imple
     public abstract ICitizenExperienceHandler getCitizenExperienceHandler();
 
     /**
-     * The Handler for all item related methods.
-     *
-     * @return the instance of the handler.
-     */
-    public abstract ICitizenItemHandler getCitizenItemHandler();
-
-    /**
      * The Handler for all inventory related methods.
      *
      * @return the instance of the handler.
@@ -654,15 +649,6 @@ public abstract class AbstractEntityCitizen extends AbstractCivilianEntity imple
      */
     public abstract ICitizenSleepHandler getCitizenSleepHandler();
 
-    /**
-     * The Handler to check if the citizen is sick.
-     *
-     * @return the instance of the handler.
-     */
-    public abstract ICitizenDiseaseHandler getCitizenDiseaseHandler();
-
-    public abstract void setCitizenDiseaseHandler(ICitizenDiseaseHandler citizenDiseaseHandler);
-
     public abstract float getRotationYaw();
 
     public abstract float getRotationPitch();
@@ -672,8 +658,6 @@ public abstract class AbstractEntityCitizen extends AbstractCivilianEntity imple
     public abstract void setCitizenSleepHandler(ICitizenSleepHandler citizenSleepHandler);
 
     public abstract void setCitizenJobHandler(ICitizenJobHandler citizenJobHandler);
-
-    public abstract void setCitizenItemHandler(ICitizenItemHandler citizenItemHandler);
 
     public abstract void setCitizenExperienceHandler(ICitizenExperienceHandler citizenExperienceHandler);
 
@@ -767,5 +751,30 @@ public abstract class AbstractEntityCitizen extends AbstractCivilianEntity imple
     public boolean isSleeping()
     {
         return getCitizenSleepHandler().isAsleep();
+    }
+
+    @Override
+    public int getTeamColor()
+    {
+        if (getCitizenColonyHandler().getColony() == null)
+        {
+            return super.getTeamColor();
+        }
+        return getCitizenColonyHandler().getColony().getTeamColonyColor().getColor();
+    }
+
+    @Override
+    @NotNull
+    public Component getDisplayName()
+    {
+        if (getCitizenColonyHandler().getColony() == null)
+        {
+            return super.getDisplayName();
+        }
+        if (getName() instanceof MutableComponent mutableComponent)
+        {
+            return mutableComponent.withStyle(getCitizenColonyHandler().getColony().getTeamColonyColor()).withStyle((style) -> style.withHoverEvent(this.createHoverEvent()).withInsertion(this.getStringUUID()));
+        }
+        return super.getDisplayName();
     }
 }
