@@ -1,348 +1,102 @@
 package com.minecolonies.core.entity.ai.minimal;
 
+import com.minecolonies.api.colony.ICitizenData;
 import com.minecolonies.api.colony.IColony;
-import com.minecolonies.api.colony.IColonyManager;
 import com.minecolonies.api.colony.buildings.IBuilding;
-import com.minecolonies.api.colony.interactionhandling.ChatPriority;
+import com.minecolonies.api.colony.buildings.workerbuildings.hospital.modules.IPatientModule;
 import com.minecolonies.api.entity.ai.IStateAI;
-import com.minecolonies.api.entity.ai.statemachine.states.CitizenAIState;
 import com.minecolonies.api.entity.ai.statemachine.states.IState;
 import com.minecolonies.api.entity.ai.statemachine.tickratestatemachine.TickingTransition;
-import com.minecolonies.api.util.BlockPosUtil;
-import com.minecolonies.api.util.Disease;
-import com.minecolonies.api.util.InventoryUtils;
-import com.minecolonies.api.util.SoundUtils;
-import com.minecolonies.core.Network;
 import com.minecolonies.core.colony.buildings.workerbuildings.BuildingHospital;
-import com.minecolonies.core.colony.interactionhandling.StandardInteraction;
 import com.minecolonies.core.entity.citizen.EntityCitizen;
-import com.minecolonies.core.network.messages.client.CircleParticleEffectMessage;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BedBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BedPart;
 
-import java.util.List;
-
-import static com.minecolonies.api.util.constant.GuardConstants.BASIC_VOLUME;
-import static com.minecolonies.api.util.constant.TranslationConstants.NO_HOSPITAL;
-import static com.minecolonies.api.util.constant.TranslationConstants.WAITING_FOR_CURE;
-import static com.minecolonies.core.entity.ai.minimal.EntityAISickTask.DiseaseState.*;
+import static com.minecolonies.api.entity.ai.statemachine.states.CitizenAIState.IDLE;
+import static com.minecolonies.core.entity.ai.minimal.EntityAIBeAtHospitalTask.HospitalAIState.*;
 
 /**
  * The AI task for citizens to go to the hospital for any condition.
  */
-public class EntityAIBeAtHospitalTask implements IStateAI
+public abstract class EntityAIBeAtHospitalTask implements IStateAI
 {
-    /**
-     * Min distance to hut before pathing to hospital.
-     */
-    private static final int MIN_DIST_TO_HUT = 5;
-
     /**
      * Min distance to hospital before trying to find a bed.
      */
     private static final int MIN_DIST_TO_HOSPITAL = 3;
 
     /**
-     * Min distance to the hospital in general.
-     */
-    private static final long MINIMUM_DISTANCE_TO_HOSPITAL = 10;
-
-    /**
-     * Required time to cure.
-     */
-    private static final int REQUIRED_TIME_TO_CURE = 60;
-
-    /**
-     * Chance for a random cure to happen.
-     */
-    private static final int CHANCE_FOR_RANDOM_CURE = 10;
-
-    /**
-     * Attempts to position right in the bed.
-     */
-    private static final int           GOING_TO_BED_ATTEMPTS = 20;
-    /**
      * The citizen assigned to this task.
      */
-    private final        EntityCitizen citizen;
+    protected final EntityCitizen citizen;
+
     /**
-     * The waiting ticks.
+     * Citizen data.
      */
-    private              int           waitingTicks          = 0;
+    protected final ICitizenData citizenData;
+
     /**
-     * The bed the citizen is sleeping in.
+     * Hospital to which the citizen should path.
      */
-    private              BlockPos      usedBed;
-    /**
-     * Restaurant to which the citizen should path.
-     */
-    private              BlockPos      placeToPath;
+    private BlockPos hospitalPos;
 
     /**
      * Instantiates this task.
      *
      * @param citizen the citizen.
      */
-    public EntityAIBeAtHospitalTask(final EntityCitizen citizen)
+    protected EntityAIBeAtHospitalTask(final EntityCitizen citizen)
     {
         this.citizen = citizen;
+        this.citizenData = citizen.getCitizenData();
 
-        citizen.getCitizenAI().addTransition(new TickingTransition<>(CitizenAIState.SICK, this::isSick, () -> CHECK_FOR_CURE, 20));
-        citizen.getCitizenAI().addTransition(new TickingTransition<>(CHECK_FOR_CURE, () -> true, this::checkForCure, 20));
-        citizen.getCitizenAI().addTransition(new TickingTransition<>(WANDER, () -> true, this::wander, 200));
-
-        citizen.getCitizenAI().addTransition(new TickingTransition<>(CHECK_FOR_CURE, () -> true, this::checkForCure, 20));
-        citizen.getCitizenAI().addTransition(new TickingTransition<>(GO_TO_HUT, () -> true, this::goToHut, 20));
         citizen.getCitizenAI().addTransition(new TickingTransition<>(SEARCH_HOSPITAL, () -> true, this::searchHospital, 20));
         citizen.getCitizenAI().addTransition(new TickingTransition<>(GO_TO_HOSPITAL, () -> true, this::goToHospital, 20));
-        citizen.getCitizenAI().addTransition(new TickingTransition<>(WAIT_FOR_CURE, () -> true, this::waitForCure, 20));
-        citizen.getCitizenAI().addTransition(new TickingTransition<>(APPLY_CURE, () -> true, this::applyCure, 20));
-        citizen.getCitizenAI().addTransition(new TickingTransition<>(FIND_EMPTY_BED, () -> true, this::findEmptyBed, 20));
-    }
-
-    private boolean isSick()
-    {
-        if (citizen.getCitizenDiseaseHandler().isSick())
-        {
-            reset();
-            return true;
-        }
-
-        return false;
+        citizen.getCitizenAI().addTransition(new TickingTransition<>(ARRIVE_AT_HOSPITAL, () -> true, this::arriveAtHospital, 20));
+        citizen.getCitizenAI().addTransition(new TickingTransition<>(WAIT_IN_HOSPITAL, () -> true, this::waitInHospital, 20));
     }
 
     /**
-     * Do a bit of wandering.
+     * Return the AI state to start going to the hospital.
      *
-     * @return start over.
+     * @return the next AI state.
      */
-    public IState wander()
+    protected final IState requiresHospital()
     {
-        citizen.getNavigation().moveToRandomPos(10, 0.6D);
-        return CHECK_FOR_CURE;
+        return SEARCH_HOSPITAL;
     }
 
     /**
-     * Find an empty bed to ly in.
+     * Actions to perform when laying inside the hospital bed.
+     */
+    protected abstract void performActionsInHospital(final BuildingHospital hospital);
+
+    /**
+     * Get the next AI state when no hospital could be found.
      *
-     * @return the next state to go to.
+     * @return the next AI state.
      */
-    private IState findEmptyBed()
-    {
-        // Finding bed
-        if (usedBed == null && citizen.getCitizenData() != null)
-        {
-            this.usedBed = citizen.getCitizenData().getBedPos();
-            if (citizen.getCitizenData().getBedPos().equals(BlockPos.ZERO))
-            {
-                this.usedBed = null;
-            }
-        }
-
-        final BlockPos hospitalPos = citizen.getCitizenColonyHandler().getColony().getBuildingManager().getBestBuilding(citizen, BuildingHospital.class);
-        final IColony colony = citizen.getCitizenColonyHandler().getColony();
-        final IBuilding hospital = colony.getBuildingManager().getBuilding(hospitalPos);
-
-        if (hospital instanceof BuildingHospital buildingHospital)
-        {
-            if (usedBed != null && !buildingHospital.getBedList().contains(usedBed))
-            {
-                usedBed = null;
-            }
-
-            if (usedBed == null)
-            {
-                for (final BlockPos pos : buildingHospital.getBedList())
-                {
-                    final Level world = citizen.level;
-                    BlockState state = world.getBlockState(pos);
-                    if (state.is(BlockTags.BEDS) && !state.getValue(BedBlock.OCCUPIED) && state.getValue(BedBlock.PART).equals(BedPart.HEAD) && world.isEmptyBlock(pos.above()))
-                    {
-                        citizen.getCitizenDiseaseHandler().setSleepsAtHospital(buildingHospital);
-                        usedBed = pos;
-                        buildingHospital.registerPatient(usedBed, citizen.getCivilianID());
-                        return FIND_EMPTY_BED;
-                    }
-                }
-
-                if (usedBed == null)
-                {
-                    return WAIT_FOR_CURE;
-                }
-            }
-
-            if (citizen.isWorkerAtSiteWithMove(usedBed, 3))
-            {
-                waitingTicks++;
-                if (!citizen.getCitizenSleepHandler().trySleep(usedBed))
-                {
-                    ((BuildingHospital) hospital).registerPatient(usedBed, 0);
-                    citizen.getCitizenData().setBedPos(BlockPos.ZERO);
-                    usedBed = null;
-                }
-            }
-        }
-
-        if (waitingTicks > GOING_TO_BED_ATTEMPTS)
-        {
-            waitingTicks = 0;
-            return WAIT_FOR_CURE;
-        }
-        return FIND_EMPTY_BED;
-    }
+    protected abstract IState nextAIStateWhenNoHospital();
 
     /**
-     * Actual action for applying the cure.
-     *
-     * @return the next state to go to, if successful idle.
+     * @return
      */
-    private IState applyCure()
-    {
-        if (checkForCure() != APPLY_CURE)
-        {
-            return CHECK_FOR_CURE;
-        }
-
-        final List<ItemStack> list = IColonyManager.getInstance().getCompatibilityManager().getDisease(citizen.getCitizenDiseaseHandler().getDisease()).getCure();
-        if (!list.isEmpty())
-        {
-            citizen.setItemInHand(InteractionHand.MAIN_HAND, list.get(citizen.getRandom().nextInt(list.size())));
-        }
-
-        citizen.swing(InteractionHand.MAIN_HAND);
-        citizen.playSound(SoundEvents.NOTE_BLOCK_HARP.get(), (float) BASIC_VOLUME, (float) SoundUtils.getRandomPentatonic(citizen.getRandom()));
-        Network.getNetwork().sendToTrackingEntity(new CircleParticleEffectMessage(citizen.position().add(0, 2, 0), ParticleTypes.HAPPY_VILLAGER, waitingTicks), citizen);
-
-
-        waitingTicks++;
-        if (waitingTicks < REQUIRED_TIME_TO_CURE)
-        {
-            return APPLY_CURE;
-        }
-
-        cure();
-        return CitizenAIState.IDLE;
-    }
+    protected abstract IPatientModule createPatientModule();
 
     /**
-     * Cure the citizen.
-     */
-    private void cure()
-    {
-        final Disease disease = IColonyManager.getInstance().getCompatibilityManager().getDisease(citizen.getCitizenDiseaseHandler().getDisease());
-        if (disease != null)
-        {
-            for (final ItemStack cure : disease.getCure())
-            {
-                final int slot = InventoryUtils.findFirstSlotInProviderNotEmptyWith(citizen, stack -> ItemStack.isSameItem(cure, stack));
-                if (slot != -1)
-                {
-                    citizen.getCitizenData().getInventory().extractItem(slot, 1, false);
-                }
-            }
-        }
-
-        if (usedBed != null)
-        {
-            final BlockPos hospitalPos = citizen.getCitizenColonyHandler().getColony().getBuildingManager().getBestBuilding(citizen, BuildingHospital.class);
-            final IColony colony = citizen.getCitizenColonyHandler().getColony();
-            final IBuilding hospital = colony.getBuildingManager().getBuilding(hospitalPos);
-            ((BuildingHospital) hospital).registerPatient(usedBed, 0);
-            usedBed = null;
-            citizen.getCitizenData().setBedPos(BlockPos.ZERO);
-        }
-        citizen.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
-        citizen.getCitizenDiseaseHandler().cure();
-        reset();
-    }
-
-    /**
-     * Stay in bed while waiting to be cured.
+     * Search for a placeToPath within the colony of the citizen.
      *
      * @return the next state to go to.
      */
-    private IState waitForCure()
+    private IState searchHospital()
     {
-        final IColony colony = citizen.getCitizenData().getColony();
-        placeToPath = colony.getBuildingManager().getBestBuilding(citizen, BuildingHospital.class);
-
-        if (placeToPath == null)
+        final IColony colony = citizenData.getColony();
+        hospitalPos = colony.getBuildingManager().getBestBuilding(citizen, BuildingHospital.class);
+        if (hospitalPos == null)
         {
-            return SEARCH_HOSPITAL;
+            return nextAIStateWhenNoHospital();
         }
 
-        final IState state = checkForCure();
-        if (state == APPLY_CURE)
-        {
-            return APPLY_CURE;
-        }
-        else if (state == CitizenAIState.IDLE)
-        {
-            reset();
-            return CitizenAIState.IDLE;
-        }
-
-        if (citizen.getRandom().nextInt(10000) < CHANCE_FOR_RANDOM_CURE)
-        {
-            cure();
-            return CitizenAIState.IDLE;
-        }
-
-        if (citizen.getCitizenSleepHandler().isAsleep())
-        {
-            final BlockPos hospital = colony.getBuildingManager().getBestBuilding(citizen, BuildingHospital.class);
-            if (hospital != null)
-            {
-                final IBuilding building = colony.getBuildingManager().getBuilding(hospital);
-                if (building instanceof BuildingHospital && !((BuildingHospital) building).getBedList().contains(citizen.getCitizenSleepHandler().getBedLocation()))
-                {
-                    citizen.getCitizenSleepHandler().onWakeUp();
-                }
-            }
-        }
-
-        if (!citizen.getCitizenSleepHandler().isAsleep() && BlockPosUtil.getDistance2D(placeToPath, citizen.blockPosition()) > MINIMUM_DISTANCE_TO_HOSPITAL)
-        {
-            return GO_TO_HOSPITAL;
-        }
-
-        if (!citizen.getCitizenSleepHandler().isAsleep())
-        {
-            return FIND_EMPTY_BED;
-        }
-
-        return WAIT_FOR_CURE;
-    }
-
-    /**
-     * Go to the hut to move to the hospital from there.
-     *
-     * @return the next state to go to.
-     */
-    private IState goToHut()
-    {
-        final IBuilding buildingWorker = citizen.getCitizenData().getWorkBuilding();
-        citizen.getCitizenDiseaseHandler().setSleepsAtHospital(null);
-
-        if (buildingWorker == null)
-        {
-            return SEARCH_HOSPITAL;
-        }
-
-        if (citizen.getCitizenSleepHandler().isAsleep() || citizen.isWorkerAtSiteWithMove(buildingWorker.getPosition(), MIN_DIST_TO_HUT))
-        {
-            return SEARCH_HOSPITAL;
-        }
-        return GO_TO_HUT;
+        return GO_TO_HOSPITAL;
     }
 
     /**
@@ -352,109 +106,72 @@ public class EntityAIBeAtHospitalTask implements IStateAI
      */
     private IState goToHospital()
     {
-        citizen.getCitizenDiseaseHandler().setSleepsAtHospital(null);
-        if (placeToPath == null)
+        if (hospitalPos == null)
         {
-            return SEARCH_HOSPITAL;
+            return nextAIStateWhenNoHospital();
         }
 
-        if (citizen.getCitizenSleepHandler().isAsleep() || (citizen.getNavigation().isDone() && citizen.isWorkerAtSiteWithMove(placeToPath, MIN_DIST_TO_HOSPITAL)))
+        if (citizen.isWorkerAtSiteWithMove(hospitalPos, MIN_DIST_TO_HOSPITAL))
         {
-            return WAIT_FOR_CURE;
+            return ARRIVE_AT_HOSPITAL;
         }
-        return SEARCH_HOSPITAL;
-    }
-
-    /**
-     * Search for a placeToPath within the colony of the citizen.
-     *
-     * @return the next state to go to.
-     */
-    private IState searchHospital()
-    {
-        final IColony colony = citizen.getCitizenData().getColony();
-        placeToPath = colony.getBuildingManager().getBestBuilding(citizen, BuildingHospital.class);
-
-        if (placeToPath == null)
-        {
-            final String id = citizen.getCitizenDiseaseHandler().getDisease();
-            if (id.isEmpty())
-            {
-                return CitizenAIState.IDLE;
-            }
-            final Disease disease = IColonyManager.getInstance().getCompatibilityManager().getDisease(id);
-            citizen.getCitizenData()
-              .triggerInteraction(new StandardInteraction(Component.translatable(NO_HOSPITAL, disease.getName(), disease.getCureString()),
-                Component.translatable(NO_HOSPITAL),
-                ChatPriority.BLOCKING));
-            return WANDER;
-        }
-        else if (!citizen.getCitizenDiseaseHandler().getDisease().isEmpty())
-        {
-            final Disease disease = IColonyManager.getInstance().getCompatibilityManager().getDisease(citizen.getCitizenDiseaseHandler().getDisease());
-            citizen.getCitizenData()
-              .triggerInteraction(new StandardInteraction(Component.translatable(WAITING_FOR_CURE, disease.getName(), disease.getCureString()),
-                Component.translatable(WAITING_FOR_CURE),
-                ChatPriority.BLOCKING));
-        }
-
         return GO_TO_HOSPITAL;
     }
 
     /**
-     * Checks if the citizen has the cure in the inventory and makes a decision based on that.
+     * Arrive at the hospital
      *
      * @return the next state to go to.
      */
-    private IState checkForCure()
+    private IState arriveAtHospital()
     {
-        final String id = citizen.getCitizenDiseaseHandler().getDisease();
-        if (id.isEmpty())
+        final IColony colony = citizen.getCitizenColonyHandler().getColonyOrRegister();
+        final IBuilding building = colony.getBuildingManager().getBuilding(hospitalPos);
+
+        if (building instanceof BuildingHospital hospital)
         {
-            return GO_TO_HUT;
+            hospital.addPatient(createPatientModule());
+            return WAIT_IN_HOSPITAL;
         }
-        final Disease disease = IColonyManager.getInstance().getCompatibilityManager().getDisease(id);
-        for (final ItemStack cure : disease.getCure())
+
+        return SEARCH_HOSPITAL;
+    }
+
+    private IState waitInHospital()
+    {
+        final IColony colony = citizen.getCitizenColonyHandler().getColonyOrRegister();
+        final IBuilding building = colony.getBuildingManager().getBuilding(hospitalPos);
+
+        if (building instanceof BuildingHospital hospital)
         {
-            final int slot = InventoryUtils.findFirstSlotInProviderNotEmptyWith(citizen, stack -> ItemStack.isSameItem(cure, stack));
-            if (slot == -1)
+            if (hospital.isPatientFinished(citizenData.getId()))
             {
-                if (citizen.getCitizenDiseaseHandler().isSick())
-                {
-                    return GO_TO_HUT;
-                }
-
                 reset();
-                return CitizenAIState.IDLE;
+                return IDLE;
             }
+
+            performActionsInHospital(hospital);
         }
-        return APPLY_CURE;
+
+        return WAIT_IN_HOSPITAL;
     }
 
     /**
-     * Resets the state of the AI.
+     * Internal reset.
      */
-    private void reset()
+    protected void reset()
     {
-        waitingTicks = 0;
-        citizen.releaseUsingItem();
-        citizen.stopUsingItem();
-        citizen.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
-        placeToPath = null;
-        citizen.getCitizenDiseaseHandler().setSleepsAtHospital(null);
+        this.hospitalPos = null;
     }
 
     /**
-     * The different types of AIStates related to being sick.
+     * The different types of AIStates related to being in the hospital.
      */
-    public enum MovementState implements IState
+    public enum HospitalAIState implements IState
     {
-        CHECK_FOR_CURE,
-        GO_TO_HUT,
         SEARCH_HOSPITAL,
         GO_TO_HOSPITAL,
-        WAIT_FOR_HEALING,
-        FIND_EMPTY_BED,
-        WANDER
+        ARRIVE_AT_HOSPITAL,
+        WAIT_IN_HOSPITAL,
     }
 }

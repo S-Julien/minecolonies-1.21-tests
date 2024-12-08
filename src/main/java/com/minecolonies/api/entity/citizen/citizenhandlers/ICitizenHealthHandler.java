@@ -9,18 +9,18 @@ import net.minecraft.nbt.CompoundTag;
 public interface ICitizenHealthHandler
 {
     /**
-     * Check if the citizen is hurt and must be healed.
+     * Check if the citizen is hurt and prefers to be healed.
      *
      * @return true if so.
      */
     boolean isHurt();
 
     /**
-     * Check if the colony has a hospital where the citizen may be healed in.
+     * Check if the citizen is hurt and requires to be healed.
      *
-     * @return true if the colony has a hospital.
+     * @return true if so.
      */
-    boolean canBeHealed();
+    boolean canContinueToWork();
 
     /**
      * Check if the citizen is currently being healed at a hospital.
@@ -31,7 +31,11 @@ public interface ICitizenHealthHandler
 
     void setActiveHospital(final BlockPos hospitalPos);
 
-    void heal();
+    void autoHeal();
+
+    void heal(float amount);
+
+    void healFully();
 
     /**
      * Write the handler to NBT.
@@ -46,4 +50,9 @@ public interface ICitizenHealthHandler
      * @param compound the nbt to read it from.
      */
     void read(final CompoundTag compound);
+
+    /**
+     * Reset internal fields.
+     */
+    void reset();
 }

@@ -1,5 +1,6 @@
 package com.minecolonies.api.entity.citizen.citizenhandlers;
 
+import com.minecolonies.core.colony.buildings.workerbuildings.BuildingHospital;
 import com.minecolonies.core.datalistener.model.Disease;
 import com.minecolonies.api.colony.ICitizenData;
 import net.minecraft.nbt.CompoundTag;
@@ -55,12 +56,6 @@ public interface ICitizenDiseaseHandler
     void onCollission(final ICitizenData citizen);
 
     /**
-     * True when the citizen needs to go to a hospital because its hurt
-     * @return
-     */
-    boolean isHurt();
-
-    /**
      * Whether the citizen sleeps at a hospital
      * @return
      */
@@ -69,7 +64,7 @@ public interface ICitizenDiseaseHandler
     /**
      * Sets a flag that the citizen is now at the hospital.
      */
-    void setSleepsAtHospital(final boolean isAtHospital);
+    void setSleepsAtHospital(final BuildingHospital building);
 
     /**
      * Set a disease on the citizen.

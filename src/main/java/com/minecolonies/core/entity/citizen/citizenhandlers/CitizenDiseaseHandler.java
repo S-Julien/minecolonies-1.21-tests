@@ -1,13 +1,12 @@
 package com.minecolonies.core.entity.citizen.citizenhandlers;
 
-import com.minecolonies.api.IMinecoloniesAPI;
 import com.minecolonies.api.colony.ICitizenData;
 import com.minecolonies.api.colony.IColony;
 import com.minecolonies.api.colony.buildings.IBuilding;
 import com.minecolonies.api.entity.citizen.AbstractEntityCitizen;
 import com.minecolonies.api.entity.citizen.citizenhandlers.ICitizenDiseaseHandler;
-import com.minecolonies.api.util.BlockPosUtil;
 import com.minecolonies.core.MineColonies;
+import com.minecolonies.core.colony.buildings.workerbuildings.BuildingCook;
 import com.minecolonies.core.colony.buildings.workerbuildings.BuildingHospital;
 import com.minecolonies.core.colony.jobs.JobHealer;
 import com.minecolonies.core.datalistener.model.Disease;

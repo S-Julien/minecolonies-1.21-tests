@@ -186,6 +186,11 @@ public class EntityCitizen extends AbstractEntityCitizen implements IThreatTable
     private ICitizenSleepHandler citizenSleepHandler;
 
     /**
+     * The citizen health handler.
+     */
+    private final ICitizenHealthHandler citizenHealthHandler;
+
+    /**
      * Our custom combat tracker.
      */
     private final CitizenCombatTracker combatTracker;
@@ -262,6 +267,7 @@ public class EntityCitizen extends AbstractEntityCitizen implements IThreatTable
         this.citizenColonyHandler = new CitizenColonyHandler(this);
         this.citizenJobHandler = new CitizenJobHandler(this);
         this.citizenSleepHandler = new CitizenSleepHandler(this);
+        this.citizenHealthHandler = new CitizenHealthHandler(this);
 
         this.combatTracker = new CitizenCombatTracker(this);
         this.moveControl = new MovementHandler(this);
@@ -815,7 +821,7 @@ public class EntityCitizen extends AbstractEntityCitizen implements IThreatTable
      */
     private boolean updateSaturation()
     {
-        checkHeal();
+        citizenHealthHandler.autoHeal();
         if (citizenData.getSaturation() <= 0)
         {
             if (this.getEffect(MobEffects.MOVEMENT_SLOWDOWN) == null)
@@ -885,33 +891,6 @@ public class EntityCitizen extends AbstractEntityCitizen implements IThreatTable
         {
             lastDistanceWalked = walkDist;
             decreaseSaturationForContinuousAction();
-        }
-    }
-
-    /**
-     * Checks the citizens health status and heals the citizen if necessary.
-     */
-    private void checkHeal()
-    {
-        if (getCitizenData() != null && getHealth() < (getCitizenData().getCitizenDiseaseHandler().isSick() ? getMaxHealth() / 3 : getMaxHealth()) && getLastHurtByMob() == null)
-        {
-            final double limitDecrease = getCitizenColonyHandler().getColonyOrRegister().getResearchManager().getResearchEffects().getEffectStrength(SATLIMIT);
-            final double citizenSaturation = citizenData.getSaturation();
-            final double healAmount;
-            if (citizenSaturation >= FULL_SATURATION + limitDecrease)
-            {
-                healAmount = 2 * (1.0 + getCitizenColonyHandler().getColonyOrRegister().getResearchManager().getResearchEffects().getEffectStrength(REGENERATION));
-            }
-            else if (citizenSaturation < LOW_SATURATION)
-            {
-                healAmount = 1 * (citizenSaturation / FULL_SATURATION) / 2.0;
-            }
-            else
-            {
-                healAmount = 1 * (1.0 + getCitizenColonyHandler().getColonyOrRegister().getResearchManager().getResearchEffects().getEffectStrength(REGENERATION));
-            }
-
-            heal((float) healAmount);
         }
     }
 
@@ -1221,6 +1200,12 @@ public class EntityCitizen extends AbstractEntityCitizen implements IThreatTable
     public ICitizenSleepHandler getCitizenSleepHandler()
     {
         return citizenSleepHandler;
+    }
+
+    @Override
+    public ICitizenHealthHandler getCitizenHealthHandler()
+    {
+        return citizenHealthHandler;
     }
 
     /**

@@ -68,6 +68,7 @@ public class CitizenAI implements IStateAI
         minimalAI.add(new EntityAIEatTask(citizen));
         minimalAI.add(new EntityAICitizenWander(citizen, DEFAULT_SPEED));
         minimalAI.add(new EntityAISickTask(citizen));
+        minimalAI.add(new EntityAIHurtTask(citizen));
         minimalAI.add(new EntityAISleep(citizen));
         minimalAI.add(new EntityAIMournCitizen(citizen, DEFAULT_SPEED));
     }
@@ -145,7 +146,15 @@ public class CitizenAI implements IStateAI
             return CitizenAIState.WORK;
         }
 
-        // Sick at hospital
+        // Raiding
+        if (citizen.getCitizenColonyHandler().getColonyOrRegister().getRaiderManager().isRaided())
+        {
+            citizen.getCitizenData().triggerInteraction(new StandardInteraction(Component.translatable(COM_MINECOLONIES_COREMOD_ENTITY_CITIZEN_RAID), ChatPriority.IMPORTANT));
+            citizen.setVisibleStatusIfNone(RAIDED);
+            return CitizenAIState.SLEEP;
+        }
+
+        // Sick
         if (citizen.getCitizenData().getCitizenDiseaseHandler().isSick())
         {
             citizen.getCitizenData().setVisibleStatus(VisibleCitizenStatus.SICK);
@@ -153,18 +162,10 @@ public class CitizenAI implements IStateAI
         }
 
         // Hurt
-        if (citizen.getCitizenHealthHandler().isHurt() && citizen.getCitizenHealthHandler().canBeHealed() || citizen.getCitizenHealthHandler().getActiveHospital() != null)
+        if (citizen.getCitizenHealthHandler().isHurt())
         {
             citizen.getCitizenData().setVisibleStatus(VisibleCitizenStatus.HURT);
             return CitizenAIState.HURT;
-        }
-
-        // Raiding
-        if (citizen.getCitizenColonyHandler().getColonyOrRegister().getRaiderManager().isRaided())
-        {
-            citizen.getCitizenData().triggerInteraction(new StandardInteraction(Component.translatable(COM_MINECOLONIES_COREMOD_ENTITY_CITIZEN_RAID), ChatPriority.IMPORTANT));
-            citizen.setVisibleStatusIfNone(RAIDED);
-            return CitizenAIState.SLEEP;
         }
 
         // Sleeping
@@ -200,13 +201,6 @@ public class CitizenAI implements IStateAI
                     citizen.getCitizenSleepHandler().onWakeUp();
                 }
             }
-        }
-
-        // Sick
-        if (citizen.getCitizenData().getCitizenDiseaseHandler().isSick() || citizen.getCitizenData().getCitizenDiseaseHandler().isHurt())
-        {
-            citizen.getCitizenData().setVisibleStatus(VisibleCitizenStatus.SICK);
-            return CitizenAIState.SICK;
         }
 
         // Eating

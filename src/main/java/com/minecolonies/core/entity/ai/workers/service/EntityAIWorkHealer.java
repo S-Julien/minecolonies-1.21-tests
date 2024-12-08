@@ -3,6 +3,7 @@ package com.minecolonies.core.entity.ai.workers.service;
 import com.google.common.collect.ImmutableList;
 import com.google.common.reflect.TypeToken;
 import com.minecolonies.api.colony.ICitizenData;
+import com.minecolonies.api.colony.buildings.workerbuildings.hospital.modules.IPatientModule;
 import com.minecolonies.api.colony.interactionhandling.ChatPriority;
 import com.minecolonies.api.colony.requestsystem.request.IRequest;
 import com.minecolonies.api.colony.requestsystem.requestable.Stack;
@@ -114,12 +115,12 @@ public class EntityAIWorkHealer extends AbstractEntityAIInteract<JobHealer, Buil
             hospital.checkOrCreatePatientFile(citizen.getCivilianID());
         }
 
-        for (final Patient patient : hospital.getPatients())
+        for (final IPatientModule patient : hospital.getPatients())
         {
             final ICitizenData data = hospital.getColony().getCitizenManager().getCivilian(patient.getId());
             if (data == null || !data.getEntity().isPresent() || (data.getEntity().isPresent() && !data.getEntity().get().getCitizenData().getCitizenDiseaseHandler().isSick()))
             {
-                hospital.removePatientFile(patient);
+                hospital.finishPatient(patient);
                 continue;
             }
             final EntityCitizen citizen = (EntityCitizen) data.getEntity().get();
