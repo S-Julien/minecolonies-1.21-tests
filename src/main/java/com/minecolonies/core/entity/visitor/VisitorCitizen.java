@@ -29,6 +29,7 @@ import com.minecolonies.core.entity.pathfinding.navigation.MovementHandler;
 import com.minecolonies.core.entity.pathfinding.proxy.EntityCitizenWalkToProxy;
 import com.minecolonies.core.network.messages.client.ItemParticleEffectMessage;
 import com.minecolonies.core.network.messages.server.colony.OpenInventoryMessage;
+import com.minecolonies.core.util.citizenutils.CitizenItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -66,8 +67,7 @@ import static com.minecolonies.core.entity.ai.minimal.EntityAIInteractToggleAble
 /**
  * Visitor citizen entity
  */
-public class
-VisitorCitizen extends AbstractEntityCitizen
+public class VisitorCitizen extends AbstractEntityCitizen
 {
     /**
      * The citizen experience handler
@@ -88,10 +88,6 @@ VisitorCitizen extends AbstractEntityCitizen
     @Nullable
     private ICitizenData citizenData;
 
-    /**
-     * The citizen item handler.
-     */
-    private ICitizenItemHandler      citizenItemHandler;
     /**
      * The citizen inv handler.
      */
@@ -120,7 +116,6 @@ VisitorCitizen extends AbstractEntityCitizen
      * The location used for requests
      */
     private ILocation              location = null;
-    private ICitizenDiseaseHandler citizenWellBeingHandler;
 
     /**
      * Constructor for a new citizen typed entity.
@@ -131,15 +126,11 @@ VisitorCitizen extends AbstractEntityCitizen
     public VisitorCitizen(final EntityType<? extends PathfinderMob> type, final Level world)
     {
         super(type, world);
-        this.goalSelector = new CustomGoalSelector(this.goalSelector);
-        this.targetSelector = new CustomGoalSelector(this.targetSelector);
-        this.citizenItemHandler = new CitizenItemHandler(this);
         this.citizenInventoryHandler = new CitizenInventoryHandler(this);
         this.citizenColonyHandler = new VisitorColonyHandler(this);
         this.citizenJobHandler = new CitizenJobHandler(this);
         this.citizenSleepHandler = new CitizenSleepHandler(this);
         this.citizenExperienceHandler = new CitizenExperienceHandler(this);
-        this.citizenWellBeingHandler = new CitizenDiseaseHandler(this);
 
         this.moveControl = new MovementHandler(this);
         this.setPersistenceRequired();
@@ -182,7 +173,7 @@ VisitorCitizen extends AbstractEntityCitizen
                     final TavernBuildingModule module = home.getModule(BuildingModules.TAVERN_VISITOR);
                     for (final Integer id : module.getExternalCitizens())
                     {
-                        ICitizenData data = citizenColonyHandler.getColony().getVisitorManager().getCivilian(id);
+                        ICitizenData data = citizenColonyHandler.getColonyOrRegister().getVisitorManager().getCivilian(id);
                         if (data != null && data.getEntity().isPresent() && data.getEntity().get().getLastHurtByMob() == null)
                         {
                             data.getEntity().get().setLastHurtByMob((LivingEntity) damageSource.getEntity());
@@ -195,7 +186,7 @@ VisitorCitizen extends AbstractEntityCitizen
                 {
                     if (sourceEntity instanceof ServerPlayer)
                     {
-                        return damage <= 1 || getCitizenColonyHandler().getColony().getPermissions().hasPermission((Player) sourceEntity, Action.HURT_VISITOR);
+                        return damage <= 1 || getCitizenColonyHandler().getColonyOrRegister().getPermissions().hasPermission((Player) sourceEntity, Action.HURT_VISITOR);
                     }
                     else
                     {
@@ -350,12 +341,6 @@ VisitorCitizen extends AbstractEntityCitizen
     }
 
     @Override
-    public ICitizenItemHandler getCitizenItemHandler()
-    {
-        return citizenItemHandler;
-    }
-
-    @Override
     public ICitizenInventoryHandler getCitizenInventoryHandler()
     {
         return citizenInventoryHandler;
@@ -392,12 +377,6 @@ VisitorCitizen extends AbstractEntityCitizen
     }
 
     @Override
-    public ICitizenDiseaseHandler getCitizenDiseaseHandler()
-    {
-        return citizenWellBeingHandler;
-    }
-
-    @Override
     public float getRotationYaw()
     {
         return getYRot();
@@ -425,12 +404,6 @@ VisitorCitizen extends AbstractEntityCitizen
     public void setCitizenJobHandler(final ICitizenJobHandler citizenJobHandler)
     {
         this.citizenJobHandler = citizenJobHandler;
-    }
-
-    @Override
-    public void setCitizenItemHandler(final ICitizenItemHandler citizenItemHandler)
-    {
-        this.citizenItemHandler = citizenItemHandler;
     }
 
     @Override
@@ -595,8 +568,6 @@ VisitorCitizen extends AbstractEntityCitizen
         {
             compound.putInt(TAG_CITIZEN, citizenData.getId());
         }
-
-        citizenWellBeingHandler.write(compound);
     }
 
     @Override
@@ -612,8 +583,6 @@ VisitorCitizen extends AbstractEntityCitizen
                 citizenId = compound.getInt(TAG_CITIZEN);
             }
         }
-
-        citizenWellBeingHandler.read(compound);
     }
 
     @Override
@@ -622,7 +591,7 @@ VisitorCitizen extends AbstractEntityCitizen
         super.die(cause);
         if (!level.isClientSide())
         {
-            IColony colony = getCitizenColonyHandler().getColony();
+            IColony colony = getCitizenColonyHandler().getColonyOrRegister();
             if (colony != null && getCitizenData() != null)
             {
                 colony.getVisitorManager().removeCivilian(getCitizenData());
@@ -651,7 +620,7 @@ VisitorCitizen extends AbstractEntityCitizen
             final ItemStack itemstack = getCitizenData().getInventory().getStackInSlot(i);
             if (ItemStackUtils.getSize(itemstack) > 0)
             {
-                citizenItemHandler.entityDropItem(itemstack);
+                CitizenItemUtils.entityDropItem(this, itemstack);
             }
         }
     }
@@ -683,5 +652,11 @@ VisitorCitizen extends AbstractEntityCitizen
     {
         citizenColonyHandler.onCitizenRemoved();
         super.setRemoved(reason);
+    }
+
+    @Override
+    public int getTeamId()
+    {
+        return citizenColonyHandler.getColonyId();
     }
 }

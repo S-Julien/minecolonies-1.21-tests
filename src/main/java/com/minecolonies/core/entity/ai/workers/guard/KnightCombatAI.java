@@ -14,6 +14,7 @@ import com.minecolonies.api.util.InventoryUtils;
 import com.minecolonies.api.util.ItemStackUtils;
 import com.minecolonies.api.util.SoundUtils;
 import com.minecolonies.api.util.constant.ColonyConstants;
+import com.minecolonies.core.util.citizenutils.CitizenItemUtils;
 import com.minecolonies.api.util.constant.Constants;
 import com.minecolonies.core.MineColonies;
 import com.minecolonies.core.colony.jobs.AbstractJobGuard;
@@ -109,15 +110,15 @@ public class KnightCombatAI extends AttackMoveAI<EntityCitizen>
     {
         final int shieldSlot = InventoryUtils.findFirstSlotInItemHandlerWith(user.getInventoryCitizen(), Items.SHIELD);
         if (shieldSlot != -1 && target != null && target.isAlive() && nextAttackTime - user.level.getGameTime() >= MIN_TIME_TO_ATTACK &&
-              user.getCitizenColonyHandler().getColony().getResearchManager().getResearchEffects().getEffectStrength(SHIELD_USAGE) > 0)
+              user.getCitizenColonyHandler().getColonyOrRegister().getResearchManager().getResearchEffects().getEffectStrength(SHIELD_USAGE) > 0)
         {
-            user.getCitizenItemHandler().setHeldItem(InteractionHand.OFF_HAND, shieldSlot);
+            CitizenItemUtils.setHeldItem(user, InteractionHand.OFF_HAND, shieldSlot);
             user.startUsingItem(InteractionHand.OFF_HAND);
 
             // Apply the colony Flag to the shield
             ItemStack shieldStack = user.getInventoryCitizen().getHeldItem(InteractionHand.OFF_HAND);
             CompoundTag nbt = shieldStack.getOrCreateTagElement("BlockEntityTag");
-            nbt.put(TAG_BANNER_PATTERNS, user.getCitizenColonyHandler().getColony().getColonyFlag());
+            nbt.put(TAG_BANNER_PATTERNS, user.getCitizenColonyHandler().getColonyOrRegister().getColonyFlag());
 
             user.lookAt(target, (float) TURN_AROUND, (float) TURN_AROUND);
             user.decreaseSaturationForContinuousAction();
@@ -137,7 +138,7 @@ public class KnightCombatAI extends AttackMoveAI<EntityCitizen>
 
         if (weaponSlot != -1)
         {
-            user.getCitizenItemHandler().setHeldItem(InteractionHand.MAIN_HAND, weaponSlot);
+            CitizenItemUtils.setHeldItem(user, InteractionHand.MAIN_HAND, weaponSlot);
             return true;
         }
 
@@ -176,7 +177,7 @@ public class KnightCombatAI extends AttackMoveAI<EntityCitizen>
         target.hurt(source, (float) damageToBeDealt);
         target.setLastHurtByMob(user);
 
-        if (target instanceof Mob && user.getCitizenColonyHandler().getColony().getResearchManager().getResearchEffects().getEffectStrength(KNIGHT_TAUNT) > 0)
+        if (target instanceof Mob && user.getCitizenColonyHandler().getColonyOrRegister().getResearchManager().getResearchEffects().getEffectStrength(KNIGHT_TAUNT) > 0)
         {
             ((Mob) target).setTarget(user);
             if (target instanceof IThreatTableEntity)
@@ -188,7 +189,7 @@ public class KnightCombatAI extends AttackMoveAI<EntityCitizen>
         user.stopUsingItem();
         user.decreaseSaturationForContinuousAction();
         user.getCitizenData().setVisibleStatus(KNIGHT_COMBAT);
-        user.getCitizenItemHandler().damageItemInHand(InteractionHand.MAIN_HAND, 1);
+        CitizenItemUtils.damageItemInHand(user, InteractionHand.MAIN_HAND, 1);
     }
 
     /**
@@ -199,7 +200,7 @@ public class KnightCombatAI extends AttackMoveAI<EntityCitizen>
      */
     private void doAoeAttack(final DamageSource source, final double damageToBeDealt)
     {
-        if (user.getCitizenColonyHandler().getColony().getResearchManager().getResearchEffects().getEffectStrength(KNIGHT_WHIRLWIND) > 0
+        if (user.getCitizenColonyHandler().getColonyOrRegister().getResearchManager().getResearchEffects().getEffectStrength(KNIGHT_WHIRLWIND) > 0
               && user.getRandom().nextInt(KNOCKBACK_CHANCE) == 0)
         {
             List<LivingEntity> entities = user.level.getEntitiesOfClass(LivingEntity.class, user.getBoundingBox().inflate(2.0D, 0.5D, 2.0D));
@@ -267,14 +268,15 @@ public class KnightCombatAI extends AttackMoveAI<EntityCitizen>
             addDmg += EnchantmentHelper.getDamageBonus(heldItem, target.getMobType()) / 2.5;
         }
 
-        addDmg += user.getCitizenColonyHandler().getColony().getResearchManager().getResearchEffects().getEffectStrength(MELEE_DAMAGE);
+        addDmg += user.getCitizenColonyHandler().getColonyOrRegister().getResearchManager().getResearchEffects().getEffectStrength(MELEE_DAMAGE);
 
+        // TODO: Recheck balancing, do we need this
         if (user.getHealth() <= user.getMaxHealth() * 0.2D)
         {
             addDmg *= 2;
         }
 
-        if (ColonyConstants.rand.nextDouble() > 1 / (1 + user.getCitizenColonyHandler().getColony().getResearchManager().getResearchEffects().getEffectStrength(GUARD_CRIT)))
+        if (ColonyConstants.rand.nextDouble() > 1 / (1 + user.getCitizenColonyHandler().getColonyOrRegister().getResearchManager().getResearchEffects().getEffectStrength(GUARD_CRIT)))
         {
             addDmg *= 1.5;
             ((ServerLevel) user.level).getChunkSource().broadcastAndSend(user, new ClientboundAnimatePacket(target, 4));
@@ -292,6 +294,7 @@ public class KnightCombatAI extends AttackMoveAI<EntityCitizen>
     @Override
     protected int getAttackDelay()
     {
+        // TODO: Not sure if we should make knights attack faster, they are intended to not scale in dmg, but health
         final int reload = KNIGHT_ATTACK_DELAY_BASE - user.getCitizenData().getCitizenSkillHandler().getLevel(Skill.Adaptability) / 3;
         return Math.max(reload, KNIGHT_ATTACK_DELAY_MIN);
     }
@@ -363,7 +366,7 @@ public class KnightCombatAI extends AttackMoveAI<EntityCitizen>
     {
         parentAI.incrementActionsDoneAndDecSaturation();
         user.getCitizenExperienceHandler().addExperience(EXP_PER_MOB_DEATH);
-        user.getCitizenColonyHandler().getColony().getStatisticsManager().increment(MOBS_KILLED, user.getCitizenColonyHandler().getColony().getDay());
+        user.getCitizenColonyHandler().getColonyOrRegister().getStatisticsManager().increment(MOBS_KILLED, user.getCitizenColonyHandler().getColonyOrRegister().getDay());
         if (entity.getType().getDescription().getContents() instanceof TranslatableContents translatableContents)
         {
             parentAI.building.getModule(STATS_MODULE).increment(MOB_KILLED + ";" + translatableContents.getKey());

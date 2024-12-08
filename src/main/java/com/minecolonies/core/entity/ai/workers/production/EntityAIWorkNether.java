@@ -9,10 +9,10 @@ import com.minecolonies.api.colony.requestsystem.requestable.StackList;
 import com.minecolonies.api.compatibility.tinkers.TinkersToolHelper;
 import com.minecolonies.api.crafting.IRecipeStorage;
 import com.minecolonies.api.crafting.ItemStorage;
-import com.minecolonies.api.entity.ai.workers.util.GuardGear;
-import com.minecolonies.api.entity.ai.workers.util.GuardGearBuilder;
 import com.minecolonies.api.entity.ai.statemachine.AITarget;
 import com.minecolonies.api.entity.ai.statemachine.states.IAIState;
+import com.minecolonies.api.entity.ai.workers.util.GuardGear;
+import com.minecolonies.api.entity.ai.workers.util.GuardGearBuilder;
 import com.minecolonies.api.entity.citizen.AbstractEntityCitizen;
 import com.minecolonies.api.equipment.ModEquipmentTypes;
 import com.minecolonies.api.equipment.registry.EquipmentTypeEntry;
@@ -22,6 +22,7 @@ import com.minecolonies.core.colony.buildings.modules.expedition.ExpeditionLog;
 import com.minecolonies.core.colony.buildings.workerbuildings.BuildingNetherWorker;
 import com.minecolonies.core.colony.jobs.JobNetherWorker;
 import com.minecolonies.core.entity.ai.workers.crafting.AbstractEntityAICrafting;
+import com.minecolonies.core.util.citizenutils.CitizenItemUtils;
 import com.minecolonies.core.items.ItemAdventureToken;
 import com.minecolonies.core.util.TeleportHelper;
 import net.minecraft.core.BlockPos;
@@ -54,12 +55,13 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static com.minecolonies.api.entity.ai.statemachine.states.AIWorkerState.*;
-import static com.minecolonies.api.research.util.ResearchConstants.*;
+import static com.minecolonies.api.research.util.ResearchConstants.REGENERATION;
+import static com.minecolonies.api.research.util.ResearchConstants.SATLIMIT;
 import static com.minecolonies.api.util.constant.CitizenConstants.*;
+import static com.minecolonies.api.util.constant.EquipmentLevelConstants.*;
 import static com.minecolonies.api.util.constant.GuardConstants.*;
 import static com.minecolonies.api.util.constant.NbtTagConstants.*;
-import static com.minecolonies.api.util.constant.EquipmentLevelConstants.*;
-import static com.minecolonies.core.colony.buildings.modules.BuildingModules.ITEMLIST_FOODEXCLUSION;
+import static com.minecolonies.core.colony.buildings.modules.BuildingModules.NETHERMINER_MENU;
 import static com.minecolonies.core.entity.ai.workers.production.EntityAIStructureMiner.*;
 
 public class EntityAIWorkNether extends AbstractEntityAICrafting<JobNetherWorker, BuildingNetherWorker>
@@ -229,6 +231,12 @@ public class EntityAIWorkNether extends AbstractEntityAICrafting<JobNetherWorker
         // Get Armor if available. 
         // This is async, so we could go to the nether without it. 
         checkAndRequestArmor();
+        // Get food if available.
+        final IAIState tempState = checkAndRequestFood();
+        if (tempState != getState())
+        {
+            return tempState;
+        }
 
         // Check for materials needed to go to the Nether: 
         IRecipeStorage rs = building.getFirstModuleOccurance(BuildingNetherWorker.CraftingModule.class).getFirstRecipe(ItemStack::isEmpty);
@@ -257,9 +265,6 @@ public class EntityAIWorkNether extends AbstractEntityAICrafting<JobNetherWorker
             setDelay(120);
             return IDLE;
         }
-
-        // Make sure we have a stash of some food 
-        checkIfRequestForItemExistOrCreate(new StackList(getEdiblesList(), "Edible Food", 16));
 
         // Get other adventuring supplies. These are required. 
         // Done this way to get all the requests in parallel
@@ -553,7 +558,7 @@ public class EntityAIWorkNether extends AbstractEntityAICrafting<JobNetherWorker
 
                     if (currStack.getTag().contains(TAG_XP_DROPPED))
                     {
-                        worker.getCitizenExperienceHandler().addExperience(worker.getCitizenItemHandler().applyMending(currStack.getTag().getInt(TAG_XP_DROPPED)));
+                        worker.getCitizenExperienceHandler().addExperience(CitizenItemUtils.applyMending(worker, currStack.getTag().getInt(TAG_XP_DROPPED)));
                     }
                 }
             }
@@ -585,7 +590,7 @@ public class EntityAIWorkNether extends AbstractEntityAICrafting<JobNetherWorker
                                 tool = findTool(block.defaultBlockState(), worker.blockPosition());
                                 worker.setItemSlot(EquipmentSlot.MAINHAND, tool);
                             }
-                            worker.getCitizenExperienceHandler().addExperience(worker.getCitizenItemHandler().applyMending(xpOnDrop(block)));
+                            worker.getCitizenExperienceHandler().addExperience(CitizenItemUtils.applyMending(worker, xpOnDrop(block)));
 
                             itemDelay += TICK_DELAY;
                         }
@@ -863,7 +868,7 @@ public class EntityAIWorkNether extends AbstractEntityAICrafting<JobNetherWorker
      */
     private List<ItemStack> getEdiblesList()
     {
-        final List<ItemStorage> allowedItems = building.getModule(ITEMLIST_FOODEXCLUSION).getList();
+        final Set<ItemStorage> allowedItems = building.getModule(NETHERMINER_MENU).getMenu();
         netherEdible.removeIf(item -> allowedItems.contains(new ItemStorage(item)));
         return netherEdible;
     }
@@ -978,6 +983,22 @@ public class EntityAIWorkNether extends AbstractEntityAICrafting<JobNetherWorker
         }
     }
 
+    protected IAIState checkAndRequestFood()
+    {
+        if (InventoryUtils.getItemCountInItemHandler(worker.getInventoryCitizen(), stack -> building.getModule(NETHERMINER_MENU).getMenu().contains(new ItemStorage(stack))) >= 16)
+        {
+            // We have enough food.
+            return getState();
+        }
+
+        if (InventoryUtils.hasBuildingEnoughElseCount(building, stack -> building.getModule(NETHERMINER_MENU).getMenu().contains(new ItemStorage(stack)), 1) >= 1)
+        {
+            needsCurrently = new Tuple<>(stack -> building.getModule(NETHERMINER_MENU).getMenu().contains(new ItemStorage(stack)), 16);
+            return GATHERING_REQUIRED_MATERIALS;
+        }
+        return getState();
+    }
+
     /**
      * Checks the citizens health status and heals the citizen if necessary.
      */
@@ -987,11 +1008,11 @@ public class EntityAIWorkNether extends AbstractEntityAICrafting<JobNetherWorker
         double healAmount = 0D;
         if (citizen.getHealth() < citizen.getMaxHealth())
         {
-            final double limitDecrease = citizen.getCitizenColonyHandler().getColony().getResearchManager().getResearchEffects().getEffectStrength(SATLIMIT);
+            final double limitDecrease = citizen.getCitizenColonyHandler().getColonyOrRegister().getResearchManager().getResearchEffects().getEffectStrength(SATLIMIT);
 
             if (citizenData.getSaturation() >= FULL_SATURATION + limitDecrease)
             {
-                healAmount = 2 * (1.0 + citizen.getCitizenColonyHandler().getColony().getResearchManager().getResearchEffects().getEffectStrength(REGENERATION));
+                healAmount = 2 * (1.0 + citizen.getCitizenColonyHandler().getColonyOrRegister().getResearchManager().getResearchEffects().getEffectStrength(REGENERATION));
             }
             else if (citizenData.getSaturation() < LOW_SATURATION)
             {
@@ -999,7 +1020,7 @@ public class EntityAIWorkNether extends AbstractEntityAICrafting<JobNetherWorker
             }
             else
             {
-                healAmount = 1 * (1.0 + citizen.getCitizenColonyHandler().getColony().getResearchManager().getResearchEffects().getEffectStrength(REGENERATION));
+                healAmount = 1 * (1.0 + citizen.getCitizenColonyHandler().getColonyOrRegister().getResearchManager().getResearchEffects().getEffectStrength(REGENERATION));
             }
 
             citizen.heal((float) healAmount);

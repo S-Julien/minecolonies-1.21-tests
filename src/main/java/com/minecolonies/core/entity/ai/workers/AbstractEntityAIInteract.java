@@ -8,6 +8,7 @@ import com.minecolonies.api.util.MathUtils;
 import com.minecolonies.core.MineColonies;
 import com.minecolonies.core.colony.buildings.AbstractBuilding;
 import com.minecolonies.core.colony.jobs.AbstractJob;
+import com.minecolonies.core.util.citizenutils.CitizenItemUtils;
 import com.minecolonies.core.entity.pathfinding.pathresults.PathResult;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -215,12 +216,12 @@ public abstract class AbstractEntityAIInteract<J extends AbstractJob<?, J>, B ex
             onBlockDropReception(localItems);
         }
 
-        triggerMinedBlock(curBlockState);
+        triggerMinedBlock(blockToMine, curBlockState);
 
         if (blockBreakAction == null)
         {
             //Break the block
-            worker.getCitizenItemHandler().breakBlockWithToolInHand(blockToMine);
+            CitizenItemUtils.breakBlockWithToolInHand(worker, blockToMine);
         }
         else
         {
@@ -271,9 +272,10 @@ public abstract class AbstractEntityAIInteract<J extends AbstractJob<?, J>, B ex
     /**
      * Trigger for miners if they want to do something specific per mined block.
      *
+     * @param position    the position of the block.
      * @param blockToMine the mined block.
      */
-    protected void triggerMinedBlock(@NotNull final BlockState blockToMine)
+    protected void triggerMinedBlock(@NotNull final BlockPos position, @NotNull final BlockState blockToMine)
     {
 
     }
@@ -332,7 +334,7 @@ public abstract class AbstractEntityAIInteract<J extends AbstractJob<?, J>, B ex
      */
     private int calculateWorkerMiningDelay(@NotNull final BlockState state, @NotNull final BlockPos pos)
     {
-        final double reduction = 1 - worker.getCitizenColonyHandler().getColony().getResearchManager().getResearchEffects().getEffectStrength(BLOCK_BREAK_SPEED);
+        final double reduction = 1 - worker.getCitizenColonyHandler().getColonyOrRegister().getResearchManager().getResearchEffects().getEffectStrength(BLOCK_BREAK_SPEED);
 
         return (int) (((BLOCK_MINING_DELAY * Math.pow(LEVEL_MODIFIER, getBreakSpeedLevel() / 2.0))
                          * (double) world.getBlockState(pos).getDestroySpeed(world, pos) / (double) (worker.getMainHandItem()

@@ -45,7 +45,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.*;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerChunkCache;
@@ -60,7 +59,6 @@ import net.minecraft.world.level.block.entity.BannerPattern;
 import net.minecraft.world.level.block.entity.BannerPatterns;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
-import net.minecraft.world.scores.PlayerTeam;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -362,7 +360,6 @@ public class Colony implements IColony
         {
             this.dimensionId = world.dimension();
             onWorldLoad(world);
-            checkOrCreateTeam();
         }
         this.permissions = new Permissions(this);
         researchManager = new ResearchManager(this);
@@ -375,7 +372,10 @@ public class Colony implements IColony
         colonyStateMachine.addTransition(new TickingTransition<>(INACTIVE, () -> true, this::updateState, UPDATE_STATE_INTERVAL));
         colonyStateMachine.addTransition(new TickingTransition<>(UNLOADED, () -> true, this::updateState, UPDATE_STATE_INTERVAL));
         colonyStateMachine.addTransition(new TickingTransition<>(ACTIVE, () -> true, this::updateState, UPDATE_STATE_INTERVAL));
-        colonyStateMachine.addTransition(new TickingTransition<>(ACTIVE, citizenManager::tickCitizenData, () -> ACTIVE, TICKS_SECOND * 3));
+        colonyStateMachine.addTransition(new TickingTransition<>(ACTIVE, () -> {
+            citizenManager.tickCitizenData(TICKS_SECOND * 3);
+            return false;
+        }, () -> ACTIVE, TICKS_SECOND * 3));
 
         colonyStateMachine.addTransition(new TickingTransition<>(ACTIVE, this::updateSubscribers, () -> ACTIVE, UPDATE_SUBSCRIBERS_INTERVAL));
         colonyStateMachine.addTransition(new TickingTransition<>(ACTIVE, this::tickRequests, () -> ACTIVE, UPDATE_RS_INTERVAL));
@@ -626,26 +626,6 @@ public class Colony implements IColony
         }
     }
 
-    @Override
-    public PlayerTeam getTeam()
-    {
-        // This getter will create the team if it doesn't exist. Could do something different though in the future.
-        return checkOrCreateTeam();
-    }
-
-    /**
-     * Check or create the team.
-     */
-    private PlayerTeam checkOrCreateTeam()
-    {
-        if (this.world.getScoreboard().getPlayerTeam(getTeamName()) == null)
-        {
-            this.world.getScoreboard().addPlayerTeam(getTeamName());
-            this.world.getScoreboard().getPlayerTeam(getTeamName()).setAllowFriendlyFire(false);
-        }
-        return this.world.getScoreboard().getPlayerTeam(getTeamName());
-    }
-
     /**
      * Set up the colony color for team handling for pvp.
      *
@@ -655,10 +635,7 @@ public class Colony implements IColony
     {
         if (this.world != null)
         {
-            checkOrCreateTeam();
             this.colonyTeamColor = colonyColor;
-            this.world.getScoreboard().getPlayerTeam(getTeamName()).setColor(colonyColor);
-            this.world.getScoreboard().getPlayerTeam(getTeamName()).setPlayerPrefix(Component.literal(colonyColor.toString()));
         }
         this.markDirty();
     }
@@ -1829,7 +1806,7 @@ public class Colony implements IColony
             {
                 checkChunkAndRegisterTicket(chunkPos, chunk);
             }
-            else
+            else if (buildingManager.keepChunkColonyLoaded(chunk))
             {
                 this.pendingChunks.add(chunkPos);
             }
@@ -1891,8 +1868,8 @@ public class Colony implements IColony
     public String getTextureStyleId()
     {
         if (MineColonies.getConfig().getServer().holidayFeatures.get() &&
-              (LocalDateTime.now().getDayOfMonth() >= 29 && LocalDateTime.now().getMonth() == Month.OCTOBER)
-                 || (LocalDateTime.now().getDayOfMonth() <= 2 && LocalDateTime.now().getMonth() == Month.NOVEMBER))
+              ((LocalDateTime.now().getDayOfMonth() >= 29 && LocalDateTime.now().getMonth() == Month.OCTOBER)
+                 || (LocalDateTime.now().getDayOfMonth() <= 2 && LocalDateTime.now().getMonth() == Month.NOVEMBER)))
         {
             return "nether";
         }

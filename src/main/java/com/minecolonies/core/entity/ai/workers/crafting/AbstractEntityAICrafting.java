@@ -24,6 +24,7 @@ import com.minecolonies.core.colony.buildings.modules.CraftingWorkerBuildingModu
 import com.minecolonies.core.colony.jobs.AbstractJobCrafter;
 import com.minecolonies.core.entity.ai.workers.AbstractEntityAIInteract;
 import com.minecolonies.core.entity.citizen.EntityCitizen;
+import com.minecolonies.core.util.citizenutils.CitizenItemUtils;
 import com.minecolonies.core.network.messages.client.BlockParticleEffectMessage;
 import com.minecolonies.core.network.messages.client.LocalizedParticleEffectMessage;
 import net.minecraft.core.BlockPos;
@@ -450,7 +451,7 @@ public abstract class AbstractEntityAICrafting<J extends AbstractJobCrafter<?, J
                 job.setCraftCounter(job.getCraftCounter() + 1);
                 if (toolSlot != -1)
                 {
-                    worker.getCitizenItemHandler().damageItemInHand(InteractionHand.MAIN_HAND, 1);
+                    CitizenItemUtils.damageItemInHand(worker, InteractionHand.MAIN_HAND, 1);
                 }
 
                 if (job.getCraftCounter() >= job.getMaxCraftingCount())
@@ -538,9 +539,9 @@ public abstract class AbstractEntityAICrafting<J extends AbstractJobCrafter<?, J
             if (currentRequest.getState() == RequestState.IN_PROGRESS)
             {
                 worker.getCitizenColonyHandler()
-                  .getColony()
+                  .getColonyOrRegister()
                   .getStatisticsManager()
-                  .incrementBy(ITEMS_CRAFTED, currentRequest.getRequest().getCount(), worker.getCitizenColonyHandler().getColony().getDay());
+                  .incrementBy(ITEMS_CRAFTED, currentRequest.getRequest().getCount(), worker.getCitizenColonyHandler().getColonyOrRegister().getDay());
                 job.finishRequest(true);
                 worker.getCitizenExperienceHandler().addExperience(currentRequest.getRequest().getCount() / 2.0);
             }

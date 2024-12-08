@@ -7,19 +7,20 @@ import com.minecolonies.api.entity.ai.statemachine.AITarget;
 import com.minecolonies.api.entity.ai.statemachine.states.IAIState;
 import com.minecolonies.api.entity.citizen.AbstractEntityCitizen;
 import com.minecolonies.api.equipment.ModEquipmentTypes;
-import com.minecolonies.core.entity.pathfinding.Pathfinding;
-import com.minecolonies.core.entity.pathfinding.PathfindingUtils;
-import com.minecolonies.core.entity.pathfinding.pathjobs.PathJobFindWater;
-import com.minecolonies.core.entity.pathfinding.pathresults.WaterPathResult;
 import com.minecolonies.api.loot.ModLootTables;
 import com.minecolonies.api.sounds.EventType;
 import com.minecolonies.api.util.*;
 import com.minecolonies.core.colony.buildings.workerbuildings.BuildingFisherman;
 import com.minecolonies.core.colony.interactionhandling.StandardInteraction;
 import com.minecolonies.core.colony.jobs.JobFisherman;
-import com.minecolonies.core.entity.other.NewBobberEntity;
 import com.minecolonies.core.entity.ai.workers.AbstractEntityAISkill;
 import com.minecolonies.core.entity.citizen.EntityCitizen;
+import com.minecolonies.core.util.citizenutils.CitizenItemUtils;
+import com.minecolonies.core.entity.other.NewBobberEntity;
+import com.minecolonies.core.entity.pathfinding.Pathfinding;
+import com.minecolonies.core.entity.pathfinding.PathfindingUtils;
+import com.minecolonies.core.entity.pathfinding.pathjobs.PathJobFindWater;
+import com.minecolonies.core.entity.pathfinding.pathresults.WaterPathResult;
 import com.minecolonies.core.util.WorkerUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -29,7 +30,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
@@ -46,8 +46,8 @@ import java.util.List;
 
 import static com.minecolonies.api.entity.ai.statemachine.states.AIWorkerState.*;
 import static com.minecolonies.api.util.constant.Constants.TICKS_SECOND;
-import static com.minecolonies.api.util.constant.StatisticsConstants.FISH_CAUGHT;
 import static com.minecolonies.api.util.constant.EquipmentLevelConstants.TOOL_LEVEL_WOOD_OR_GOLD;
+import static com.minecolonies.api.util.constant.StatisticsConstants.FISH_CAUGHT;
 import static com.minecolonies.api.util.constant.TranslationConstants.WATER_TOO_FAR;
 import static com.minecolonies.core.colony.buildings.modules.BuildingModules.STATS_MODULE;
 import static com.minecolonies.core.entity.other.NewBobberEntity.XP_PER_CATCH;
@@ -417,10 +417,6 @@ public class EntityAIWorkFisherman extends AbstractEntityAISkill<JobFisherman, B
             pathResult = searchWater(SEARCH_RANGE * 3, 1.0D, job.getPonds());
             return getState();
         }
-        if (pathResult.isDone())
-        {
-            pathResult.getJob().syncDebug();
-        }
         if (pathResult.failedToReachDestination())
         {
             return setRandomWater();
@@ -464,7 +460,7 @@ public class EntityAIWorkFisherman extends AbstractEntityAISkill<JobFisherman, B
         {
             playCaughtFishSound();
             this.incrementActionsDoneAndDecSaturation();
-            worker.getCitizenColonyHandler().getColony().getStatisticsManager().increment(FISH_CAUGHT, worker.getCitizenColonyHandler().getColony().getDay());
+            worker.getCitizenColonyHandler().getColonyOrRegister().getStatisticsManager().increment(FISH_CAUGHT, worker.getCitizenColonyHandler().getColonyOrRegister().getDay());
             building.getModule(STATS_MODULE).increment(FISH_CAUGHT);
 
             if (worker.getRandom().nextDouble() < CHANCE_NEW_POND)
@@ -611,7 +607,7 @@ public class EntityAIWorkFisherman extends AbstractEntityAISkill<JobFisherman, B
      */
     private void equipRod()
     {
-        worker.getCitizenItemHandler().setHeldItem(InteractionHand.MAIN_HAND, getRodSlot());
+        CitizenItemUtils.setHeldItem(worker, InteractionHand.MAIN_HAND, getRodSlot());
     }
 
     /**
@@ -662,8 +658,7 @@ public class EntityAIWorkFisherman extends AbstractEntityAISkill<JobFisherman, B
             worker.swing(worker.getUsedItemHand());
             final int i = entityFishHook.getDamage();
             generateBonusLoot();
-            entityFishHook.remove(Entity.RemovalReason.DISCARDED);
-            worker.getCitizenItemHandler().damageItemInHand(InteractionHand.MAIN_HAND, i);
+            CitizenItemUtils.damageItemInHand(worker, InteractionHand.MAIN_HAND, i);
             entityFishHook = null;
         }
     }
