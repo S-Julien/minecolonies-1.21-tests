@@ -286,7 +286,6 @@ public class EntityAIWorkDeliveryman extends AbstractEntityAIInteract<JobDeliver
         // The worker gets a little bit of exp for every itemstack he grabs.
         worker.getCitizenExperienceHandler().addExperience(0.01D);
         CitizenItemUtils.setHeldItem(worker, InteractionHand.MAIN_HAND, SLOT_HAND);
-        return false;
     }
 
     /**
