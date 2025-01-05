@@ -26,6 +26,8 @@ import com.minecolonies.api.entity.mobs.registry.IMobAIRegistry;
 import com.minecolonies.api.entity.citizen.happiness.HappinessRegistry;
 import com.minecolonies.api.entity.pathfinding.registry.IPathNavigateRegistry;
 import com.minecolonies.api.equipment.registry.EquipmentTypeEntry;
+import com.minecolonies.api.eventbus.DefaultEventBus;
+import com.minecolonies.api.eventbus.EventBus;
 import com.minecolonies.api.quests.registries.QuestRegistries;
 import com.minecolonies.api.research.IGlobalResearchTree;
 import com.minecolonies.api.research.ModResearchCostTypes.ResearchCostType;
@@ -83,6 +85,8 @@ public class CommonMinecoloniesAPIImpl implements IMinecoloniesAPI
     private        IForgeRegistry<HappinessRegistry.HappinessFactorTypeEntry> happinessFactorTypeRegistry;
     private        IForgeRegistry<HappinessRegistry.HappinessFunctionEntry> happinessFunctionRegistry;
     private        IForgeRegistry<PatientTypeRegistries.PatientTypeEntry>  patientTypeEntryRegistry;
+
+    private EventBus eventBus = new DefaultEventBus();
 
     @Override
     @NotNull
@@ -401,6 +405,12 @@ public class CommonMinecoloniesAPIImpl implements IMinecoloniesAPI
     public IForgeRegistry<PatientTypeEntry> getPatientTypeRegistry()
     {
         return patientTypeEntryRegistry;
+    }
+
+    @Override
+    public EventBus getEventBus()
+    {
+        return eventBus;
     }
 }
 

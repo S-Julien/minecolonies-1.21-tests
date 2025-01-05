@@ -15,6 +15,7 @@ import com.minecolonies.core.colony.interactionhandling.StandardInteraction;
 import com.minecolonies.core.datalistener.model.Disease;
 import com.minecolonies.core.entity.ai.workers.util.Patient.PatientType;
 import com.minecolonies.core.entity.citizen.EntityCitizen;
+import com.minecolonies.core.entity.pathfinding.navigation.EntityNavigationUtils;
 import com.minecolonies.core.network.messages.client.CircleParticleEffectMessage;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -85,7 +86,7 @@ public class EntityAISickTask extends EntityAIBeAtHospitalTask implements IState
      */
     public IState wander()
     {
-        citizen.getNavigation().moveToRandomPos(10, 0.6D);
+        EntityNavigationUtils.walkToRandomPos(citizen, 10, 0.6D);
         return CHECK_FOR_CURE;
     }
 
