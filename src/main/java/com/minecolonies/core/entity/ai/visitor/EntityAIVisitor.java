@@ -175,7 +175,7 @@ public class EntityAIVisitor implements IState
             final BlockPos pos = tavern.getModule(BuildingModules.TAVERN_VISITOR).getFreeSitPosition();
             if (pos != null)
             {
-                citizen.getCitizenData().setSittingPosition(pos);
+                citizen.getCitizenData().setExtraDataValue(EXTRA_DATA_SITTING_POSITION, pos);
                 EntityNavigationUtils.walkToPosInBuilding(citizen, pos, tavern, 3);
                 actionTimeoutCounter = citizen.getRandom().nextInt(2500) + 3000;
                 return VisitorState.SITTING;

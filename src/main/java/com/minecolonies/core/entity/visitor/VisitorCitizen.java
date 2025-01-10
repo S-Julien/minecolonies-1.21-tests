@@ -5,13 +5,10 @@ import com.minecolonies.api.colony.buildings.IBuilding;
 import com.minecolonies.api.colony.permissions.Action;
 import com.minecolonies.api.colony.requestsystem.StandardFactoryController;
 import com.minecolonies.api.colony.requestsystem.location.ILocation;
-import com.minecolonies.api.entity.citizen.AbstractEntityCitizen;
 import com.minecolonies.api.entity.citizen.citizenhandlers.*;
-import com.minecolonies.api.entity.pathfinding.proxy.IWalkToProxy;
 import com.minecolonies.api.entity.visitor.AbstractEntityVisitor;
 import com.minecolonies.api.entity.visitor.IVisitorType;
 import com.minecolonies.api.inventory.InventoryCitizen;
-import com.minecolonies.api.inventory.container.ContainerCitizenInventory;
 import com.minecolonies.api.util.CompatibilityUtils;
 import com.minecolonies.api.util.ItemStackUtils;
 import com.minecolonies.api.util.constant.TypeConstants;
@@ -29,13 +26,9 @@ import com.minecolonies.core.entity.citizen.citizenhandlers.CitizenInventoryHand
 import com.minecolonies.core.entity.citizen.citizenhandlers.CitizenJobHandler;
 import com.minecolonies.core.entity.citizen.citizenhandlers.CitizenSleepHandler;
 import com.minecolonies.core.entity.pathfinding.navigation.MovementHandler;
-import com.minecolonies.core.network.messages.client.ItemParticleEffectMessage;
-import com.minecolonies.core.entity.pathfinding.proxy.EntityCitizenWalkToProxy;
 import com.minecolonies.core.network.messages.server.colony.OpenInventoryMessage;
-import com.minecolonies.core.util.citizenutils.CitizenItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
@@ -50,14 +43,12 @@ import net.minecraft.world.entity.ai.goal.OpenDoorGoal;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.NameTagItem;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static com.minecolonies.api.util.constant.CitizenConstants.TICKS_20;
 import static com.minecolonies.api.util.constant.Constants.*;
 import static com.minecolonies.api.util.constant.NbtTagConstants.TAG_CITIZEN;
 import static com.minecolonies.api.util.constant.NbtTagConstants.TAG_COLONY_ID;
@@ -77,6 +68,11 @@ public class VisitorCitizen extends AbstractEntityVisitor
      * The citizen id.
      */
     private int citizenId = 0;
+
+    /**
+     * The location used for requests
+     */
+    private ILocation location = null;
 
     /**
      * Reference to the data representation inside the colony.
@@ -199,17 +195,44 @@ public class VisitorCitizen extends AbstractEntityVisitor
         return false;
     }
 
-    @Nullable
     @Override
-    public ICitizenData getCitizenData()
+    public int getTeamId()
     {
-        return citizenData;
+        return citizenColonyHandler.getColonyId();
     }
 
     @Override
-    public ICivilianData getCivilianData()
+    public ICitizenDataView getCitizenDataView()
     {
-        return citizenData;
+        if (this.citizenDataView == null)
+        {
+            citizenColonyHandler.updateColonyClient();
+            if (citizenColonyHandler.getColonyId() != 0 && citizenId != 0)
+            {
+                final IColonyView colonyView = IColonyManager.getInstance().getColonyView(citizenColonyHandler.getColonyId(), level.dimension());
+                if (colonyView != null)
+                {
+                    this.citizenDataView = colonyView.getVisitor(citizenId);
+                    return this.citizenDataView;
+                }
+            }
+        }
+        else
+        {
+            return this.citizenDataView;
+        }
+
+        return null;
+    }
+
+    @Override
+    public ILocation getLocation()
+    {
+        if (location == null)
+        {
+            location = StandardFactoryController.getInstance().getNewInstance(TypeConstants.ILOCATION, this);
+        }
+        return location;
     }
 
     @Override
@@ -357,18 +380,6 @@ public class VisitorCitizen extends AbstractEntityVisitor
     }
 
     @Override
-    public void queueSound(final @NotNull SoundEvent soundEvent, final BlockPos pos, final int length, final int repetitions)
-    {
-
-    }
-
-    @Override
-    public void queueSound(final @NotNull SoundEvent soundEvent, final BlockPos pos, final int length, final int repetitions, final float volume, final float pitch)
-    {
-
-    }
-
-    @Override
     public void addAdditionalSaveData(final CompoundTag compound)
     {
         super.addAdditionalSaveData(compound);
@@ -394,6 +405,14 @@ public class VisitorCitizen extends AbstractEntityVisitor
                 citizenColonyHandler.registerWithColony(citizenColonyHandler.getColonyId(), citizenId);
             }
         }
+    }
+
+    @Override
+    protected void defineSynchedData()
+    {
+        super.defineSynchedData();
+        entityData.define(DATA_COLONY_ID, citizenColonyHandler == null ? 0 : citizenColonyHandler.getColonyId());
+        entityData.define(DATA_CITIZEN_ID, citizenId);
     }
 
     /**
@@ -438,6 +457,32 @@ public class VisitorCitizen extends AbstractEntityVisitor
             }
         }
         return InteractionResult.SUCCESS;
+    }
+
+    @Override
+    public void setRemoved(final RemovalReason reason)
+    {
+        citizenColonyHandler.onCitizenRemoved();
+        super.setRemoved(reason);
+    }
+
+    @Override
+    @Nullable
+    public AbstractContainerMenu createMenu(final int i, final Inventory inventory, final Player player)
+    {
+        return null;
+    }
+
+    @Override
+    public void queueSound(final @NotNull SoundEvent soundEvent, final BlockPos pos, final int length, final int repetitions)
+    {
+
+    }
+
+    @Override
+    public void queueSound(final @NotNull SoundEvent soundEvent, final BlockPos pos, final int length, final int repetitions, final float volume, final float pitch)
+    {
+
     }
 
     @Override
@@ -488,18 +533,5 @@ public class VisitorCitizen extends AbstractEntityVisitor
     public void setCitizenId(final int id)
     {
         this.citizenId = id;
-    }
-
-    @Override
-    public void setRemoved(final RemovalReason reason)
-    {
-        citizenColonyHandler.onCitizenRemoved();
-        super.setRemoved(reason);
-    }
-
-    @Override
-    public int getTeamId()
-    {
-        return citizenColonyHandler.getColonyId();
     }
 }

@@ -124,7 +124,7 @@ public class ColonyExpeditionEvent implements IColonyEvent
     /**
      * The inventory for the expedition.
      */
-    private final ItemStackHandler inventory = new ItemStackHandler(EXPEDITION_INVENTORY_SIZE);
+    private ItemStackHandler inventory = new ItemStackHandler(EXPEDITION_INVENTORY_SIZE);
 
     /**
      * Contains a set of items that still have yet to be found.
@@ -462,7 +462,7 @@ public class ColonyExpeditionEvent implements IColonyEvent
             endTime = world.getGameTime() + 1; // TODO: expeditionType.getDifficulty().getBaseTime() + randomTime;
 
             // Move the equipment into the temporary event storage for inventory simulation.
-            expedition.getEquipment().forEach(f -> InventoryUtils.addItemStackToItemHandler(inventory, f));
+            inventory = new ItemStackHandler(EXPEDITION_INVENTORY_SIZE - expedition.getEquipment().size());
 
             // Generate the loot table
             remainingItems = new ArrayDeque<>(processLootTable(expeditionType.lootTable(), expeditionType));
@@ -491,7 +491,7 @@ public class ColonyExpeditionEvent implements IColonyEvent
 
         if (!colony.getExpeditionManager().finishExpedition(expeditionId, finishedStatus))
         {
-            Log.getLogger().warn(String.format("Expedition with id %d could not be found after finishing.", expeditionId));
+            Log.getLogger().warn("Expedition with id {} could not be found after finishing.", expeditionId);
         }
 
         if (finishedStatus.getStatusType().equals(ExpeditionFinishedStatusType.SUCCESSFUL))
@@ -527,6 +527,11 @@ public class ColonyExpeditionEvent implements IColonyEvent
         if (leaderData != null)
         {
             InventoryUtils.clearItemHandler(leaderData.getInventory());
+            InventoryUtils.addItemStackToItemHandler(inventory, expedition.getLeader().getPrimaryWeapon());
+            for (final EquipmentSlot slot : EquipmentSlot.values())
+            {
+                InventoryUtils.addItemStackToItemHandler(inventory, expedition.getLeader().getArmor(slot));
+            }
             InventoryUtils.transferAllItemHandler(inventory, leaderData.getInventory());
             leaderData.setExtraDataValue(EXTRA_DATA_DESPAWN_TIME, DespawnTime.fromNow(colony.getWorld(), DEFAULT_DESPAWN_TIME));
         }

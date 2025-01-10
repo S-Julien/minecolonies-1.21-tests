@@ -1446,8 +1446,8 @@ public class CitizenData implements ICitizenData
                 {
                     final ServerCitizenInteraction handler =
                       (ServerCitizenInteraction) MinecoloniesAPIProxy.getInstance()
-                        .getInteractionResponseHandlerDataManager()
-                        .createFrom(this, handlerTagList.getCompound(i).getCompound(TAG_CHAT_OPTION));
+                                                   .getInteractionResponseHandlerDataManager()
+                                                   .createFrom(this, handlerTagList.getCompound(i).getCompound(TAG_CHAT_OPTION));
                     citizenChatOptions.put(handler.getId(), handler);
                 }
                 catch (final Exception ex)
@@ -1834,9 +1834,9 @@ public class CitizenData implements ICitizenData
         else
         {
             int slotBadFood = InventoryUtils.findFirstSlotInItemHandlerNotEmptyWith(inventory,
-                stack -> FoodUtils.canEat(stack, getHomeBuilding(), getWorkBuilding()));
+              stack -> FoodUtils.canEat(stack, getHomeBuilding(), getWorkBuilding()));
             int slotGoodFood = InventoryUtils.findFirstSlotInItemHandlerNotEmptyWith(inventory,
-                stack -> FoodUtils.canEat(stack, getHomeBuilding(), getWorkBuilding()));
+              stack -> FoodUtils.canEat(stack, getHomeBuilding(), getWorkBuilding()));
             return slotBadFood != -1 && slotGoodFood == -1;
         }
     }
