@@ -44,16 +44,18 @@ public final class ColonyExpedition extends AbstractExpedition
      *
      * @param id               the id of the expedition.
      * @param expeditionTypeId the expedition type.
+     * @param leader           the leader of the expedition.
      * @param members          the members for this expedition.
      * @param equipment        the list of equipment for this expedition.
      */
     public ColonyExpedition(
       final int id,
       final @NotNull ResourceLocation expeditionTypeId,
+      final @NotNull IExpeditionMember<?> leader,
       final @NotNull Map<Integer, IExpeditionMember<?>> members,
       final @NotNull List<ItemStack> equipment)
     {
-        super(members, equipment, List.of());
+        super(leader, members, equipment, List.of());
         this.id = id;
         this.expeditionTypeId = expeditionTypeId;
     }
@@ -70,11 +72,12 @@ public final class ColonyExpedition extends AbstractExpedition
     private ColonyExpedition(
       final int id,
       final @NotNull ResourceLocation expeditionTypeId,
+      final @NotNull IExpeditionMember<?> leader,
       final @NotNull List<IExpeditionMember<?>> members,
       final @NotNull List<ItemStack> equipment,
       final @NotNull List<ExpeditionStage> results)
     {
-        super(members.stream().collect(Collectors.toMap(IExpeditionMember::getId, v -> v)), equipment, results);
+        super(leader, members.stream().collect(Collectors.toMap(IExpeditionMember::getId, v -> v)), equipment, results);
         this.id = id;
         this.expeditionTypeId = expeditionTypeId;
     }
@@ -91,7 +94,7 @@ public final class ColonyExpedition extends AbstractExpedition
         final int id = compound.getInt(TAG_ID);
         final ResourceLocation expeditionTypeId = new ResourceLocation(compound.getString(TAG_EXPEDITION_TYPE));
 
-        return AbstractExpedition.loadFromNBT(compound, (members, equipment, results) -> new ColonyExpedition(id, expeditionTypeId, members, equipment, results));
+        return AbstractExpedition.loadFromNBT(compound, (leader, members, equipment, results) -> new ColonyExpedition(id, expeditionTypeId, leader, members, equipment, results));
     }
 
     /**

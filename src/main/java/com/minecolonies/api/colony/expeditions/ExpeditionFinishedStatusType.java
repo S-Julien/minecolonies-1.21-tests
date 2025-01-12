@@ -12,6 +12,10 @@ public enum ExpeditionFinishedStatusType
      */
     SUCCESSFUL(ChatFormatting.DARK_GREEN),
     /**
+     * The expedition has not been successfully completed, though not fully.
+     */
+    PART_SUCCESSFUL(ChatFormatting.GOLD),
+    /**
      * The expedition has not been successfully completed.
      */
     UNSUCCESSFUL(ChatFormatting.DARK_RED);

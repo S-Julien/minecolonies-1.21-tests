@@ -85,14 +85,10 @@ public class ColonyExpeditionEvent implements IColonyEvent
     /**
      * NBT tags.
      */
-    private static final String TAG_EXPEDITION_ID   = "expeditionId";
-    private static final String TAG_REMAINING_ITEMS = "remainingItems";
-    private static final String TAG_END_TIME        = "endTime";
-
-    /**
-     * The size of the expedition inventory.
-     */
-    private static final int EXPEDITION_INVENTORY_SIZE = 27;
+    private static final String TAG_EXPEDITION_ID     = "expeditionId";
+    private static final String TAG_REMAINING_ITEMS   = "remainingItems";
+    private static final String TAG_END_TIME          = "endTime";
+    private static final String TAG_MISSING_FOOD_FLAG = "missingFoodFlag";
 
     /**
      * Usage damage percentages.
@@ -135,6 +131,11 @@ public class ColonyExpeditionEvent implements IColonyEvent
      * The cached expedition instance.
      */
     private ColonyExpedition cachedExpedition;
+
+    /**
+     * Flag indicating whether an expedition returned early due to lack of food.
+     */
+    private boolean returnedEarlyMissingFood = false;
 
     /**
      * Create a new colony expedition event.
@@ -199,6 +200,7 @@ public class ColonyExpeditionEvent implements IColonyEvent
         compound.putInt(TAG_EXPEDITION_ID, expeditionId);
         compound.put(TAG_REMAINING_ITEMS, remainingItems.stream().map(IForgeItemStack::serializeNBT).collect(NBTUtils.toListNBT()));
         compound.putLong(TAG_END_TIME, endTime);
+        compound.putBoolean(TAG_MISSING_FOOD_FLAG, returnedEarlyMissingFood);
         return compound;
     }
 
@@ -207,6 +209,7 @@ public class ColonyExpeditionEvent implements IColonyEvent
     {
         remainingItems = NBTUtils.streamCompound(compoundTag.getList(TAG_REMAINING_ITEMS, Tag.TAG_COMPOUND)).map(ItemStack::of).collect(Collectors.toCollection(ArrayDeque::new));
         endTime = compoundTag.getLong(TAG_END_TIME);
+        returnedEarlyMissingFood = compoundTag.getBoolean(TAG_MISSING_FOOD_FLAG);
     }
 
     /**
@@ -464,7 +467,7 @@ public class ColonyExpeditionEvent implements IColonyEvent
         final ColonyExpedition expedition = getExpedition();
         expedition.cleanStages();
 
-        ExpeditionFinishedStatus finishedStatus = ExpeditionFinishedStatus.RETURNED;
+        ExpeditionFinishedStatus finishedStatus = returnedEarlyMissingFood ? ExpeditionFinishedStatus.RETURNED_LACKING_FOOD : ExpeditionFinishedStatus.RETURNED;
         if (expedition.getActiveMembers().isEmpty())
         {
             finishedStatus = ExpeditionFinishedStatus.KILLED;
@@ -492,36 +495,47 @@ public class ColonyExpeditionEvent implements IColonyEvent
             MessageUtils.format(EXPEDITION_FAILURE_MESSAGE, expedition.getLeader().getName()).withPriority(MessagePriority.DANGER).sendTo(colony).forManagers();
         }
 
-        // Remove all members to the travelling manager and respawn them and update their inventories.
-        for (final IExpeditionMember<?> member : expedition.getMembers())
+        // Update the respawn time for the leader
+        finishMember(expedition.getLeader());
+        final IVisitorData leaderData = expedition.getLeader().resolveCivilianData(colony);
+        if (leaderData != null)
         {
-            colony.getTravelingManager().finishTravellingFor(member.getId());
+            leaderData.setExtraDataValue(EXTRA_DATA_DESPAWN_TIME, DespawnTime.fromNow(colony.getWorld(), DEFAULT_DESPAWN_TIME));
+        }
 
-            if (member.isDead())
-            {
-                member.removeFromColony(colony);
-            }
-            else
-            {
-                // Apply usage damage to all armor of all members.
-                final ArmorList armor = getArmor(member);
-                damageArmor(armor,
-                  armor.getTotalArmor() * Mth.randomBetween(random, MIN_PERCENTAGE_USAGE_DAMAGE, MAX_PERCENTAGE_USAGE_DAMAGE),
-                  slot -> member.getInventory().forceArmorStackToSlot(slot, ItemStack.EMPTY));
-            }
+        // Remove all members to the travelling manager and respawn them and update their inventories.
+        expedition.getMembers().forEach(this::finishMember);
+    }
 
+    /**
+     * Update all relevant information for a given member.
+     *
+     * @param member the expedition member.
+     */
+    private void finishMember(final IExpeditionMember<?> member)
+    {
+        // Remove the member from the travelling manager.
+        colony.getTravelingManager().finishTravellingFor(member.getId());
+
+        if (member.isDead())
+        {
+            // Remove the member from the colony silently in case they died
+            member.removeFromColony(colony);
+        }
+        else
+        {
+            // Apply usage damage to all armor of all members.
+            final ArmorList armor = getArmor(member);
+            damageArmor(armor,
+              armor.getTotalArmor() * Mth.randomBetween(random, MIN_PERCENTAGE_USAGE_DAMAGE, MAX_PERCENTAGE_USAGE_DAMAGE),
+              slot -> member.getInventory().forceArmorStackToSlot(slot, ItemStack.EMPTY));
+
+            // Write over the updated inventory
             final CompoundTag inventoryTag = new CompoundTag();
             member.getInventory().write(inventoryTag);
             final ICivilianData data = member.resolveCivilianData(colony);
             data.getInventory().read(inventoryTag);
             data.getInventory().markDirty();
-        }
-
-        // Update the respawn time for the leader
-        final IVisitorData leaderData = expedition.getLeader().resolveCivilianData(colony);
-        if (leaderData != null)
-        {
-            leaderData.setExtraDataValue(EXTRA_DATA_DESPAWN_TIME, DespawnTime.fromNow(colony.getWorld(), DEFAULT_DESPAWN_TIME));
         }
     }
 
@@ -553,6 +567,7 @@ public class ColonyExpeditionEvent implements IColonyEvent
         // Check if there's food left in an attempt to heal members.
         if (!attemptHealMembers())
         {
+            returnedEarlyMissingFood = true;
             remainingItems.clear();
             return;
         }

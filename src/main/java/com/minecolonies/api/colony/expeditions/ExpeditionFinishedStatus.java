@@ -10,13 +10,17 @@ public enum ExpeditionFinishedStatus
      */
     RETURNED(ExpeditionFinishedStatusType.SUCCESSFUL),
     /**
+     * The expedition has returned, but ended early due to a lack of food.
+     */
+    RETURNED_LACKING_FOOD(ExpeditionFinishedStatusType.SUCCESSFUL),
+    /**
      * The expedition has been killed off.
      */
-    KILLED(ExpeditionFinishedStatusType.UNSUCCESSFUL),
+    KILLED(ExpeditionFinishedStatusType.PART_SUCCESSFUL),
     /**
      * The expedition has gotten lost.
      */
-    LOST(ExpeditionFinishedStatusType.UNSUCCESSFUL);
+    LOST(ExpeditionFinishedStatusType.PART_SUCCESSFUL);
 
     /**
      * The status type for this status.

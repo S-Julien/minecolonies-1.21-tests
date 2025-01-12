@@ -2893,6 +2893,7 @@
 	"com.minecolonies.core.expedition.gui.townhall.expedition_list.status.CREATED": "Ongoing",
 	"com.minecolonies.core.expedition.gui.townhall.expedition_list.status.ONGOING": "Ongoing",
 	"com.minecolonies.core.expedition.gui.townhall.expedition_list.status.RETURNED": "Safely Returned",
+	"com.minecolonies.core.expedition.gui.townhall.expedition_list.status.RETURNED_LACKING_FOOD": "Returned Early - No Food",
 	"com.minecolonies.core.expedition.gui.townhall.expedition_list.status.KILLED": "Not Returned",
 	"com.minecolonies.core.expedition.gui.townhall.expedition_list.status.LOST": "Not Returned",
 	"com.minecolonies.core.expedition.gui.townhall.no_chosen": "Please choose an expedition to view more details.",

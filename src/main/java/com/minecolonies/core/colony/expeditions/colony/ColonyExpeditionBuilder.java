@@ -39,7 +39,6 @@ public class ColonyExpeditionBuilder
     public ColonyExpeditionBuilder(final IExpeditionMember<?> leader)
     {
         this.leader = leader;
-        this.members.put(leader.getId(), leader);
     }
 
     /**
@@ -81,6 +80,6 @@ public class ColonyExpeditionBuilder
      */
     public ColonyExpedition build(int id, ResourceLocation expeditionTypeId)
     {
-        return new ColonyExpedition(id, expeditionTypeId, members, InventoryUtils.processItemStackListAndMerge(equipment));
+        return new ColonyExpedition(id, expeditionTypeId, leader, members, InventoryUtils.processItemStackListAndMerge(equipment));
     }
 }
