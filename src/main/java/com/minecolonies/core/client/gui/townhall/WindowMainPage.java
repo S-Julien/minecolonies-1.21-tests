@@ -50,40 +50,12 @@ public class WindowMainPage extends AbstractWindowTownHall
     /**
      * Is the special feature unlocked.
      */
-    private static AtomicBoolean isFeatureUnlocked = new AtomicBoolean(false);
-
-    /**
-     * Drop down list for style.
-     */
-    private DropDownList colorDropDownList;
-
-    /**
-     * Drop down list for style.
-     */
-    private DropDownList textureDropDownList;
-
-    /**
-     * Drop down list for name style.
-     */
-    private DropDownList nameStyleDropDownList;
-
-    /**
-     * The initial texture index.
-     */
-    private int initialTextureIndex;
-
-    /**
-     * The initial texture index.
-     */
-    private int initialNamePackIndex;
-
-
+    private static final AtomicBoolean isFeatureUnlocked = new AtomicBoolean(false);
 
     /**
      * Label for the colony name.
      */
     private final Text title;
-
 
     /**
      * Constructor for the town hall window.
@@ -93,9 +65,9 @@ public class WindowMainPage extends AbstractWindowTownHall
     public WindowMainPage(final BuildingTownHall.View building)
     {
         super(building, "layoutactions.xml");
-        initDropDowns();
+        this.title = findPaneOfTypeByID(LABEL_BUILDING_NAME, Text.class);
 
-        title = findPaneOfTypeByID(LABEL_BUILDING_NAME, Text.class);
+        initDropDowns();
 
         registerButton(BUTTON_CHANGE_SPEC, this::doNothing);
         registerButton(BUTTON_RENAME, this::renameClicked);
@@ -108,13 +80,6 @@ public class WindowMainPage extends AbstractWindowTownHall
         findPaneOfTypeByID(BUTTON_COLONY_SWITCH_STYLE, ButtonImage.class).setText(Component.literal(building.getColony().getStructurePack()));
         registerButton(BUTTON_BANNER_PICKER, this::openBannerPicker);
         registerButton(BUTTON_RESET_TEXTURE, this::resetTextureStyle);
-
-        this.colorDropDownList.setSelectedIndex(building.getColony().getTeamColonyColor().ordinal());
-        this.textureDropDownList.setSelectedIndex(TEXTURE_PACKS.indexOf(building.getColony().getTextureStyleId()));
-        this.initialTextureIndex = textureDropDownList.getSelectedIndex();
-
-        this.nameStyleDropDownList.setSelectedIndex(building.getColony().getNameFileIds().indexOf(building.getColony().getNameStyle()));
-        this.initialNamePackIndex = nameStyleDropDownList.getSelectedIndex();
 
         checkFeatureUnlock();
     }
@@ -139,11 +104,8 @@ public class WindowMainPage extends AbstractWindowTownHall
     {
         findPaneOfTypeByID(DROPDOWN_COLOR_ID, DropDownList.class).setEnabled(enabled);
 
-        colorDropDownList = findPaneOfTypeByID(DROPDOWN_COLOR_ID, DropDownList.class);
-        colorDropDownList.setHandler(this::onDropDownListChanged);
-
         final List<ChatFormatting> textColors = Arrays.stream(ChatFormatting.values()).filter(ChatFormatting::isColor).toList();
-
+        final DropDownList colorDropDownList = findPaneOfTypeByID(DROPDOWN_COLOR_ID, DropDownList.class);
         colorDropDownList.setDataProvider(new DropDownList.DataProvider()
         {
             @Override
@@ -163,9 +125,10 @@ public class WindowMainPage extends AbstractWindowTownHall
                 return "";
             }
         });
+        colorDropDownList.setSelectedIndex(building.getColony().getTeamColonyColor().ordinal());
+        colorDropDownList.setHandler(this::onDropDownListChanged);
 
-        textureDropDownList = findPaneOfTypeByID(DROPDOWN_TEXT_ID, DropDownList.class);
-        textureDropDownList.setHandler(this::toggleTexture);
+        final DropDownList textureDropDownList = findPaneOfTypeByID(DROPDOWN_TEXT_ID, DropDownList.class);
         textureDropDownList.setDataProvider(new DropDownList.DataProvider()
         {
             @Override
@@ -180,9 +143,10 @@ public class WindowMainPage extends AbstractWindowTownHall
                 return TEXTURE_PACKS.get(index);
             }
         });
+        textureDropDownList.setSelectedIndex(TEXTURE_PACKS.indexOf(building.getColony().getTextureStyleId()));
+        textureDropDownList.setHandler(this::toggleTexture);
 
-        nameStyleDropDownList = findPaneOfTypeByID(DROPDOWN_NAME_ID, DropDownList.class);
-        nameStyleDropDownList.setHandler(this::toggleNameFile);
+        final DropDownList nameStyleDropDownList = findPaneOfTypeByID(DROPDOWN_NAME_ID, DropDownList.class);
         nameStyleDropDownList.setDataProvider(new DropDownList.DataProvider()
         {
             @Override
@@ -197,6 +161,8 @@ public class WindowMainPage extends AbstractWindowTownHall
                 return building.getColony().getNameFileIds().get(index);
             }
         });
+        nameStyleDropDownList.setSelectedIndex(building.getColony().getNameFileIds().indexOf(building.getColony().getNameStyle()));
+        nameStyleDropDownList.setHandler(this::toggleNameFile);
     }
 
     /**
@@ -206,10 +172,7 @@ public class WindowMainPage extends AbstractWindowTownHall
      */
     private void toggleTexture(final DropDownList dropDownList)
     {
-        if (dropDownList.getSelectedIndex() != initialTextureIndex)
-        {
-            Network.getNetwork().sendToServer(new ColonyTextureStyleMessage(building.getColony(), TEXTURE_PACKS.get(dropDownList.getSelectedIndex())));
-        }
+        Network.getNetwork().sendToServer(new ColonyTextureStyleMessage(building.getColony(), TEXTURE_PACKS.get(dropDownList.getSelectedIndex())));
     }
 
     /**
@@ -219,10 +182,7 @@ public class WindowMainPage extends AbstractWindowTownHall
      */
     private void toggleNameFile(final DropDownList dropDownList)
     {
-        if (dropDownList.getSelectedIndex() != initialNamePackIndex)
-        {
-            Network.getNetwork().sendToServer(new ColonyNameStyleMessage(building.getColony(), building.getColony().getNameFileIds().get(dropDownList.getSelectedIndex())));
-        }
+        Network.getNetwork().sendToServer(new ColonyNameStyleMessage(building.getColony(), building.getColony().getNameFileIds().get(dropDownList.getSelectedIndex())));
     }
 
     /**
