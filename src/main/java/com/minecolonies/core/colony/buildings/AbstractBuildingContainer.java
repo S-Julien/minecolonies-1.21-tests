@@ -46,6 +46,11 @@ public abstract class AbstractBuildingContainer extends AbstractSchematicProvide
     protected final Set<BlockPos> containerList = new HashSet<>();
 
     /**
+     * A subset of {@link AbstractBuildingContainer#containerList} of which containers are actively loaded.
+     */
+    protected final Set<BlockPos> loadedContainers = new HashSet<>();
+
+    /**
      * List of items the worker should keep. With the quantity and if he should keep it in the inventory as well.
      */
     protected final Map<Predicate<ItemStack>, Tuple<Integer, Boolean>> keepX = new HashMap<>();
@@ -61,7 +66,7 @@ public abstract class AbstractBuildingContainer extends AbstractSchematicProvide
     private int unscaledPickUpPriority = 5;
 
     /**
-     * Dirty state for the container list.
+     * Dirty state for the loaded container list.
      */
     private boolean containerListDirty = true;
 
@@ -81,17 +86,19 @@ public abstract class AbstractBuildingContainer extends AbstractSchematicProvide
     {
         super.onColonyTick(colony);
 
-        final Iterator<BlockPos> iterator = containerList.iterator();
-        while (iterator.hasNext())
+        // Clean containers that are no longer detected as racks
+        for (final BlockPos pos : new ArrayList<>(containerList))
         {
-            final BlockPos pos = iterator.next();
             if (WorldUtil.isBlockLoaded(colony.getWorld(), pos) && !pos.equals(getPosition()))
             {
                 final BlockEntity te = colony.getWorld().getBlockEntity(pos);
-                if (!(te instanceof AbstractTileEntityRack))
+                if (te instanceof AbstractTileEntityRack rack)
                 {
-                    iterator.remove();
-                    containerListDirty = true;
+                    rack.setBuildingPos(getPosition());
+                }
+                else
+                {
+                    removeContainerPosition(pos);
                 }
             }
         }
@@ -107,7 +114,6 @@ public abstract class AbstractBuildingContainer extends AbstractSchematicProvide
         {
             containerList.add(NBTUtils.readBlockPos(containerTagList.get(i)));
         }
-        containerListDirty = true;
         if (compound.contains(TAG_PRIO))
         {
             this.unscaledPickUpPriority = compound.getInt(TAG_PRIO);
@@ -154,20 +160,39 @@ public abstract class AbstractBuildingContainer extends AbstractSchematicProvide
     public void addContainerPosition(@NotNull final BlockPos pos)
     {
         containerList.add(pos);
-        containerListDirty = true;
     }
 
     @Override
     public void removeContainerPosition(final BlockPos pos)
     {
         containerList.remove(pos);
-        containerListDirty = true;
+        loadedContainers.remove(pos);
+    }
+
+    @Override
+    public void setContainerLoaded(@NotNull final BlockPos pos)
+    {
+        if (containerList.contains(pos))
+        {
+            loadedContainers.add(pos);
+            containerListDirty = true;
+        }
+    }
+
+    @Override
+    public void setContainerUnloaded(@NotNull final BlockPos pos)
+    {
+        if (containerList.contains(pos))
+        {
+            loadedContainers.remove(pos);
+            containerListDirty = true;
+        }
     }
 
     @Override
     public List<BlockPos> getContainers()
     {
-        final List<BlockPos> list = new ArrayList<>(containerList);;
+        final List<BlockPos> list = new ArrayList<>(containerList);
         list.add(this.getPosition());
         return list;
     }
@@ -188,7 +213,7 @@ public abstract class AbstractBuildingContainer extends AbstractSchematicProvide
             if (entity instanceof TileEntityColonyBuilding buildingEntity)
             {
                 buildingEntity.setStructurePack(StructurePacks.getStructurePack(getStructurePack()));
-               
+
                 final IBuilding building = colony.getBuildingManager().getBuilding(pos);
                 if (building != null)
                 {
@@ -209,7 +234,7 @@ public abstract class AbstractBuildingContainer extends AbstractSchematicProvide
     }
 
     /**
-     * Gets the list of tags, and finds the first location registered there. 
+     * Gets the list of tags, and finds the first location registered there.
      * @param tagName the name of the tag to query
      * @return the BlockPos, or null if not found
      */
@@ -246,7 +271,7 @@ public abstract class AbstractBuildingContainer extends AbstractSchematicProvide
     }
 
     /**
-     * Return true if the container list of the building has changed.
+     * Return true if the loaded container list of the building has changed.
      *
      * @return true if so.
      */

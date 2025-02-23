@@ -9,7 +9,9 @@ import com.ldtteam.structurize.blueprints.v1.DataVersion;
 import com.minecolonies.api.blocks.AbstractBlockMinecoloniesRack;
 import com.minecolonies.api.blocks.ModBlocks;
 import com.minecolonies.api.blocks.types.RackType;
+import com.minecolonies.api.colony.IColony;
 import com.minecolonies.api.colony.IColonyManager;
+import com.minecolonies.api.colony.buildings.IBuilding;
 import com.minecolonies.api.crafting.ItemStorage;
 import com.minecolonies.api.inventory.api.CombinedItemHandler;
 import com.minecolonies.api.inventory.container.ContainerRack;
@@ -566,10 +568,34 @@ public class TileEntityRack extends AbstractTileEntityRack implements IMateriall
     }
 
     @Override
+    public void onLoad()
+    {
+        super.onLoad();
+        if (buildingPos != BlockPos.ZERO && level != null)
+        {
+            final IColony colony = IColonyManager.getInstance().getIColony(level, worldPosition);
+            final IBuilding building = colony.getBuildingManager().getBuilding(buildingPos);
+            if (building != null)
+            {
+                building.setContainerLoaded(worldPosition);
+            }
+        }
+    }
+
+    @Override
     public void setRemoved()
     {
         super.setRemoved();
         invalidateCap();
+        if (buildingPos != BlockPos.ZERO && level != null)
+        {
+            final IColony colony = IColonyManager.getInstance().getIColony(level, worldPosition);
+            final IBuilding building = colony.getBuildingManager().getBuilding(buildingPos);
+            if (building != null)
+            {
+                building.setContainerUnloaded(worldPosition);
+            }
+        }
     }
 
     /**
