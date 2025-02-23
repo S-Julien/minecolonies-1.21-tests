@@ -298,4 +298,23 @@ public class CombinedItemHandler implements IItemHandlerModifiable, INBTSerializ
 
         return false;
     }
+
+    @Override
+    public final boolean equals(final Object o)
+    {
+        if (!(o instanceof final CombinedItemHandler that))
+        {
+            return false;
+        }
+
+        return totalSlots == that.totalSlots && handlers.equals(that.handlers);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = handlers.hashCode();
+        result = 31 * result + totalSlots;
+        return result;
+    }
 }
