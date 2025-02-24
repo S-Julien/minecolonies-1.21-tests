@@ -612,8 +612,8 @@ public class Permissions implements IPermissions
     @Override
     public boolean hasPermission(final Rank rank, @NotNull final Action action)
     {
-        if (rank == getRankNeutral() && (action == Action.CAN_KEEP_COLONY_ACTIVE_WHILE_AWAY)
-            || action == Action.RECEIVE_MESSAGES_FAR_AWAY || action == Action.EDIT_PERMISSIONS || action == Action.TELEPORT_TO_COLONY)
+        if (rank == getRankNeutral() && (action == Action.CAN_KEEP_COLONY_ACTIVE_WHILE_AWAY
+            || action == Action.RECEIVE_MESSAGES_FAR_AWAY || action == Action.EDIT_PERMISSIONS || action == Action.TELEPORT_TO_COLONY))
         {
             return false;
         }
