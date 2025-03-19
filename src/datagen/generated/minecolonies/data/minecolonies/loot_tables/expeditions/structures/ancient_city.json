@@ -179,7 +179,7 @@
           "functions": [
             {
               "function": "minecraft:set_nbt",
-              "tag": "{amount:1,encounter:\"minecolonies:warden\",scale:1b,type:\"encounter\"}"
+              "tag": "{amount:1,encounter:\"minecolonies:warden\",scale:0b,type:\"encounter\"}"
             }
           ],
           "name": "minecolonies:adventure_token",

@@ -33,7 +33,7 @@
             }
           ],
           "name": "minecraft:oak_planks",
-          "weight": 500
+          "weight": 750
         },
         {
           "type": "minecraft:item",
@@ -49,17 +49,17 @@
             }
           ],
           "name": "minecraft:spruce_planks",
-          "weight": 500
+          "weight": 750
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:iron_ingot",
-          "weight": 150
+          "weight": 225
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:gold_ingot",
-          "weight": 100
+          "weight": 150
         },
         {
           "type": "minecraft:item",
@@ -74,7 +74,7 @@
             }
           ],
           "name": "minecraft:diamond",
-          "weight": 50
+          "weight": 75
         },
         {
           "type": "minecraft:item",
@@ -85,7 +85,7 @@
             }
           ],
           "name": "minecolonies:adventure_token",
-          "weight": 200
+          "weight": 300
         },
         {
           "type": "minecraft:item",
@@ -96,7 +96,7 @@
             }
           ],
           "name": "minecolonies:adventure_token",
-          "weight": 100
+          "weight": 150
         },
         {
           "type": "minecraft:item",
@@ -256,6 +256,86 @@
             }
           ],
           "name": "minecolonies:rice",
+          "weight": 75
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6.0,
+                "min": 4.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecolonies:corn",
+          "weight": 75
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6.0,
+                "min": 4.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecolonies:nether_pepper",
+          "weight": 75
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6.0,
+                "min": 4.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecolonies:peas",
+          "weight": 75
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6.0,
+                "min": 4.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecolonies:mint",
+          "weight": 75
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6.0,
+                "min": 4.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecolonies:butternut_squash",
           "weight": 75
         }
       ],

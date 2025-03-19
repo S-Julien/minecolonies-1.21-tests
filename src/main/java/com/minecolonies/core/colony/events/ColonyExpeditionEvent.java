@@ -3,7 +3,6 @@ package com.minecolonies.core.colony.events;
 import com.minecolonies.api.colony.ICitizenData;
 import com.minecolonies.api.colony.ICivilianData;
 import com.minecolonies.api.colony.IColony;
-import com.minecolonies.api.colony.IVisitorData;
 import com.minecolonies.api.colony.colonyEvents.EventStatus;
 import com.minecolonies.api.colony.colonyEvents.IColonyEvent;
 import com.minecolonies.api.colony.expeditions.ExpeditionFinishedStatus;
@@ -21,7 +20,6 @@ import com.minecolonies.core.colony.expeditions.colony.types.ColonyExpeditionTyp
 import com.minecolonies.core.colony.expeditions.encounters.ExpeditionEncounter;
 import com.minecolonies.core.datalistener.ColonyExpeditionTypeListener;
 import com.minecolonies.core.datalistener.ExpeditionEncounterListener;
-import com.minecolonies.core.entity.visitor.ExpeditionaryVisitorType.DespawnTimeData.DespawnTime;
 import com.minecolonies.core.items.ItemAdventureToken;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -55,8 +53,6 @@ import java.util.stream.Collectors;
 
 import static com.minecolonies.api.util.constant.ExpeditionConstants.*;
 import static com.minecolonies.api.util.constant.NbtTagConstants.TAG_ID;
-import static com.minecolonies.core.entity.visitor.ExpeditionaryVisitorType.DEFAULT_DESPAWN_TIME;
-import static com.minecolonies.core.entity.visitor.ExpeditionaryVisitorType.EXTRA_DATA_DESPAWN_TIME;
 import static com.minecolonies.core.generation.ExpeditionResourceManager.getStructureId;
 import static com.minecolonies.core.generation.defaults.DefaultExpeditionStructureLootProvider.RUINED_PORTAL_ID;
 import static com.minecolonies.core.generation.defaults.DefaultExpeditionStructureLootProvider.STRONGHOLD_ID;
@@ -277,7 +273,7 @@ public class ColonyExpeditionEvent implements IColonyEvent
 
                 if (encounterHealth > 0)
                 {
-                    final float damageAmount = handleDamageReduction(attacker, encounter.damage());
+                    final float damageAmount = handleDamageReduction(attacker, encounter.damage() * expeditionType.difficulty().getMobDamageMultiplier());
                     attacker.setHealth(Math.max(0, attacker.getHealth() - damageAmount));
                     encounterHealth -= encounter.reflectingDamage();
 
@@ -496,15 +492,8 @@ public class ColonyExpeditionEvent implements IColonyEvent
             MessageUtils.format(EXPEDITION_FAILURE_MESSAGE, expedition.getLeader().getName()).withPriority(MessagePriority.DANGER).sendTo(colony).forManagers();
         }
 
-        // Update the respawn time for the leader
-        finishMember(expedition.getLeader());
-        final ICivilianData leaderData = expedition.getLeader().resolveCivilianData(colony);
-        if (leaderData instanceof IVisitorData visitorData)
-        {
-            visitorData.setExtraDataValue(EXTRA_DATA_DESPAWN_TIME, DespawnTime.fromNow(colony.getWorld(), DEFAULT_DESPAWN_TIME));
-        }
-
         // Remove all members to the travelling manager and respawn them and update their inventories.
+        finishMember(expedition.getLeader());
         expedition.getMembers().forEach(this::finishMember);
     }
 
@@ -518,13 +507,6 @@ public class ColonyExpeditionEvent implements IColonyEvent
         final ICivilianData civilianData = member.resolveCivilianData(colony);
         if (civilianData instanceof ICitizenData citizenData)
         {
-            // Get the traveling target and set the respawn position
-            final Optional<BlockPos> travelingTarget = colony.getTravelingManager().getTravellingTargetFor(citizenData);
-            travelingTarget.ifPresent(citizenData::setNextRespawnPosition);
-
-            // Remove the member from the travelling manager.
-            colony.getTravelingManager().finishTravellingFor(member.getId());
-
             if (member.isDead())
             {
                 // Remove the member from the colony silently in case they died
@@ -532,6 +514,13 @@ public class ColonyExpeditionEvent implements IColonyEvent
             }
             else
             {
+                // Get the traveling target and set the respawn position
+                final Optional<BlockPos> travelingTarget = colony.getTravelingManager().getTravellingTargetFor(citizenData);
+                travelingTarget.ifPresent(citizenData::setNextRespawnPosition);
+
+                // Remove the member from the travelling manager.
+                colony.getTravelingManager().finishTravellingFor(member.getId());
+
                 // Apply usage damage to all armor of all members.
                 final ArmorList armor = getArmor(member);
                 damageArmor(armor,

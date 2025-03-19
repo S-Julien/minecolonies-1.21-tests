@@ -121,7 +121,7 @@ public class DefaultExpeditionStructureLootProvider extends SimpleLootTableProvi
             .add(createSimpleItem(Items.ENCHANTED_GOLDEN_APPLE, 5).diffAfter(DIFF_3).build())
             .add(createEnchantItem(Items.ENCHANTED_BOOK, 5).enchant(Enchantments.MENDING).diffAfter(DIFF_3).build())
             // Mob encounters
-            .add(createEncounterLootItem(WARDEN, 10).diffAfter(DIFF_3).build())
+            .add(createEncounterLootItem(WARDEN, 10, 1, false).diffAfter(DIFF_3).build())
         ));
 
         createStructureLootTable(BASTION_REMNANT_ID, registrar, builder -> builder.withPool(
@@ -246,7 +246,7 @@ public class DefaultExpeditionStructureLootProvider extends SimpleLootTableProvi
             .add(createSimpleItem(Items.SEA_LANTERN, 15).build())
             .add(createSimpleItem(Items.WET_SPONGE, 15).diffAfter(DIFF_2).build())
             .add(createEncounterLootItem(GUARDIAN, 50).build())
-            .add(createEncounterLootItem(ELDER_GUARDIAN, 5).diffAfter(DIFF_3).build())
+            .add(createEncounterLootItem(ELDER_GUARDIAN, 5, 1, false).diffAfter(DIFF_3).build())
         ));
 
         createStructureLootTable(NETHER_FOSSIL_ID, registrar, builder -> builder.withPool(

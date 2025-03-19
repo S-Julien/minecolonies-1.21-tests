@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.minecolonies.api.colony.IColony;
+import com.minecolonies.api.colony.buildings.ISchematicProvider;
 import com.minecolonies.api.colony.managers.interfaces.expeditions.IColonyExpeditionManager;
 import com.minecolonies.api.util.Log;
 import com.minecolonies.core.Network;
@@ -71,23 +72,19 @@ public class ColonyExpeditionTypeListener extends SimpleJsonResourceReloadListen
     @Nullable
     public static ColonyExpeditionType getRandomExpeditionType(final IColony colony)
     {
+        final int townHallLevel = Optional.ofNullable(colony.getBuildingManager().getTownHall()).map(ISchematicProvider::getBuildingLevel).orElse(0);
         final IColonyExpeditionManager expeditionManager = colony.getExpeditionManager();
-        final List<ColonyExpeditionType> expeditionTypes = new ArrayList<>(POSSIBLE_TYPES.values());
+        final List<ColonyExpeditionType> expeditionTypes = new ArrayList<>(POSSIBLE_TYPES.values()).stream()
+                                                             .filter(type -> type.difficulty().getMinimumTownHallLevel() <= townHallLevel)
+                                                             .filter(type -> expeditionManager.canGoToDimension(type.dimension()))
+                                                             .toList();
 
-        ColonyExpeditionType chosenExpeditionType = null;
-        while (!expeditionTypes.isEmpty() && chosenExpeditionType == null)
+        if (expeditionTypes.isEmpty())
         {
-            final ColonyExpeditionType colonyExpeditionType = expeditionTypes.get(colony.getWorld().getRandom().nextInt(expeditionTypes.size()));
-            if (!expeditionManager.canGoToDimension(colonyExpeditionType.dimension()))
-            {
-                expeditionTypes.removeIf(type -> type.dimension().equals(colonyExpeditionType.dimension()));
-                continue;
-            }
-
-            chosenExpeditionType = colonyExpeditionType;
+            return null;
         }
 
-        return chosenExpeditionType;
+        return expeditionTypes.get(colony.getWorld().getRandom().nextInt(expeditionTypes.size()));
     }
 
     /**

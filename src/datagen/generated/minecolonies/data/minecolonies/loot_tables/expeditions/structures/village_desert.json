@@ -33,7 +33,7 @@
             }
           ],
           "name": "minecraft:sandstone",
-          "weight": 250
+          "weight": 350
         },
         {
           "type": "minecraft:item",
@@ -49,7 +49,7 @@
             }
           ],
           "name": "minecraft:smooth_sandstone",
-          "weight": 250
+          "weight": 350
         },
         {
           "type": "minecraft:item",
@@ -65,7 +65,7 @@
             }
           ],
           "name": "minecraft:cactus",
-          "weight": 150
+          "weight": 210
         },
         {
           "type": "minecraft:item",
@@ -81,7 +81,7 @@
             }
           ],
           "name": "minecraft:dead_bush",
-          "weight": 150
+          "weight": 210
         },
         {
           "type": "minecraft:item",
@@ -97,7 +97,7 @@
             }
           ],
           "name": "minecraft:clay_ball",
-          "weight": 100
+          "weight": 140
         },
         {
           "type": "minecraft:item",
@@ -113,7 +113,7 @@
             }
           ],
           "name": "minecolonies:flatbread",
-          "weight": 150
+          "weight": 210
         },
         {
           "type": "minecraft:item",
@@ -129,7 +129,7 @@
             }
           ],
           "name": "minecolonies:pottage",
-          "weight": 100
+          "weight": 140
         },
         {
           "type": "minecraft:item",
@@ -145,12 +145,12 @@
             }
           ],
           "name": "minecolonies:pepper_hummus",
-          "weight": 150
+          "weight": 210
         },
         {
           "type": "minecraft:item",
           "name": "minecolonies:pita_hummus",
-          "weight": 100
+          "weight": 140
         },
         {
           "type": "minecraft:item",
@@ -230,6 +230,38 @@
             }
           ],
           "name": "minecolonies:onion",
+          "weight": 75
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6.0,
+                "min": 4.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecolonies:nether_pepper",
+          "weight": 75
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6.0,
+                "min": 4.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecolonies:mint",
           "weight": 75
         }
       ],

@@ -109,8 +109,11 @@ public class ExpeditionaryVisitorType implements IVisitorType
             }
         }
 
-        if (expeditionStatus == ExpeditionStatus.FINISHED && StreamSupport.stream(entity.get().getInventoryCitizen().getIterableArmorAndHandInv().spliterator(), false)
-                                                               .allMatch(ItemStack::isEmpty))
+        if (expeditionStatus == ExpeditionStatus.FINISHED && entity.get().getInventoryCitizen().isEmpty() && StreamSupport.stream(entity.get()
+                                                                                                                                    .getInventoryCitizen()
+                                                                                                                                    .getIterableArmorAndHandInv()
+                                                                                                                                    .spliterator(), false)
+                                                                                                               .allMatch(ItemStack::isEmpty))
         {
             visitor.getColony().getVisitorManager().removeCivilian(visitor);
             MessageUtils.format(EXPEDITION_FINISHED_LEAVING_MESSAGE, visitor.getName()).sendTo(visitor.getColony()).forManagers();

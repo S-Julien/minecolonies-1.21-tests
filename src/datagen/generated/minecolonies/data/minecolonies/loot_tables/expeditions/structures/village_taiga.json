@@ -33,7 +33,7 @@
             }
           ],
           "name": "minecraft:cobblestone",
-          "weight": 250
+          "weight": 350
         },
         {
           "type": "minecraft:item",
@@ -49,7 +49,7 @@
             }
           ],
           "name": "minecraft:spruce_planks",
-          "weight": 250
+          "weight": 350
         },
         {
           "type": "minecraft:item",
@@ -65,7 +65,7 @@
             }
           ],
           "name": "minecraft:fern",
-          "weight": 150
+          "weight": 210
         },
         {
           "type": "minecraft:item",
@@ -81,7 +81,7 @@
             }
           ],
           "name": "minecraft:large_fern",
-          "weight": 150
+          "weight": 210
         },
         {
           "type": "minecraft:item",
@@ -97,7 +97,7 @@
             }
           ],
           "name": "minecraft:sweet_berries",
-          "weight": 150
+          "weight": 210
         },
         {
           "type": "minecraft:item",
@@ -113,7 +113,7 @@
             }
           ],
           "name": "minecolonies:cooked_rice",
-          "weight": 150
+          "weight": 210
         },
         {
           "type": "minecraft:item",
@@ -129,7 +129,7 @@
             }
           ],
           "name": "minecolonies:muffin",
-          "weight": 100
+          "weight": 140
         },
         {
           "type": "minecraft:item",
@@ -145,12 +145,12 @@
             }
           ],
           "name": "minecolonies:cabochis",
-          "weight": 150
+          "weight": 210
         },
         {
           "type": "minecraft:item",
           "name": "minecolonies:lamb_stew",
-          "weight": 100
+          "weight": 140
         },
         {
           "type": "minecraft:item",
@@ -230,6 +230,38 @@
             }
           ],
           "name": "minecolonies:onion",
+          "weight": 75
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6.0,
+                "min": 4.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecolonies:mint",
+          "weight": 75
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6.0,
+                "min": 4.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecolonies:butternut_squash",
           "weight": 75
         }
       ],

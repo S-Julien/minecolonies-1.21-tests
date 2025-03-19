@@ -102,8 +102,8 @@ public class DefaultExpeditionEncountersProvider implements DataProvider
         types.add(new ExpeditionEncounter(VEX, EntityType.VEX, 9f, 0, 14, 0, EntityType.VEX.getDefaultLootTable(), 5));
         types.add(new ExpeditionEncounter(GUARDIAN, EntityType.GUARDIAN, 6f, 0, 30, 0, EntityType.GUARDIAN.getDefaultLootTable(), 10));
         types.add(new ExpeditionEncounter(ELDER_GUARDIAN, EntityType.ELDER_GUARDIAN, 8f, 0, 80, 0, EntityType.ELDER_GUARDIAN.getDefaultLootTable(), 10));
-        types.add(new ExpeditionEncounter(PILLAGER, EntityType.PILLAGER, 8f, 0, 80, 0, EntityType.PILLAGER.getDefaultLootTable(), 10));
-        types.add(new ExpeditionEncounter(PILLAGER_CAPTAIN, EntityType.PILLAGER, 8f, 0, 80, 0, EntityType.PILLAGER.getDefaultLootTable(), 10));
+        types.add(new ExpeditionEncounter(PILLAGER, EntityType.PILLAGER, 3f, 0, 24, 0, EntityType.PILLAGER.getDefaultLootTable(), 10));
+        types.add(new ExpeditionEncounter(PILLAGER_CAPTAIN, EntityType.PILLAGER, 5f, 0, 24, 0, EntityType.PILLAGER.getDefaultLootTable(), 10));
         types.add(new ExpeditionEncounter(WITCH, EntityType.WITCH, 4f, 0, 26, 0, EntityType.WITCH.getDefaultLootTable(), 10));
 
         // Boss mobs

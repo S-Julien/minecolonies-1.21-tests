@@ -20,7 +20,7 @@ public enum ExpeditionStatus
     /**
      * The expedition is finished.
      */
-    FINISHED(true),
+    FINISHED(false),
     /**
      * The expedition does not exist.
      */

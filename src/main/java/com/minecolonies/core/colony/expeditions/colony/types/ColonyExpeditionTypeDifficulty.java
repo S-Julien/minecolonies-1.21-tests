@@ -11,10 +11,10 @@ import org.jetbrains.annotations.Nullable;
  */
 public enum ColonyExpeditionTypeDifficulty
 {
-    EASY("easy", 1, Items.IRON_SWORD, false, Style.EMPTY, 30, 5, 1, 1f),
-    MEDIUM("medium", 2, Items.IRON_SWORD, false, Style.EMPTY, 45, 10, 2, 1.2f),
-    HARD("hard", 3, Items.IRON_SWORD, false, Style.EMPTY, 60, 15, 3, 1.5f),
-    NIGHTMARE("nightmare", 4, Items.NETHERITE_SWORD, true, Style.EMPTY.withColor(ChatFormatting.DARK_RED).withItalic(true), 120, 30, 4, 2f);
+    EASY("easy", 1, Items.IRON_SWORD, false, Style.EMPTY, 30, 5, 1, 1f, 1),
+    MEDIUM("medium", 2, Items.IRON_SWORD, false, Style.EMPTY, 45, 10, 2, 1.2f, 2),
+    HARD("hard", 3, Items.IRON_SWORD, false, Style.EMPTY, 60, 15, 3, 1.5f, 3),
+    NIGHTMARE("nightmare", 4, Items.NETHERITE_SWORD, true, Style.EMPTY.withColor(ChatFormatting.DARK_RED).withItalic(true), 120, 30, 4, 2f, 4);
 
     /**
      * The key of the difficulty, used in the json files.
@@ -62,6 +62,11 @@ public enum ColonyExpeditionTypeDifficulty
     private final float mobDamageMultiplier;
 
     /**
+     * The minimum level the townhall must have in order for these expedition difficulties to be allowed.
+     */
+    private final int minimumTownHallLevel;
+
+    /**
      * Internal constructor.
      */
     ColonyExpeditionTypeDifficulty(
@@ -73,7 +78,8 @@ public enum ColonyExpeditionTypeDifficulty
       final int baseTime,
       final int randomTime,
       final int mobEncounterMultiplier,
-      final float mobDamageMultiplier)
+      final float mobDamageMultiplier,
+      final int minimumTownHallLevel)
     {
         this.key = key;
         this.level = level;
@@ -84,6 +90,7 @@ public enum ColonyExpeditionTypeDifficulty
         this.randomTime = randomTime;
         this.mobEncounterMultiplier = mobEncounterMultiplier;
         this.mobDamageMultiplier = mobDamageMultiplier;
+        this.minimumTownHallLevel = minimumTownHallLevel;
     }
 
     /**
@@ -193,5 +200,15 @@ public enum ColonyExpeditionTypeDifficulty
     public float getMobDamageMultiplier()
     {
         return mobDamageMultiplier;
+    }
+
+    /**
+     * Get the minimum level the townhall must have in order for these expedition difficulties to be allowed.
+     *
+     * @return the townhall level.
+     */
+    public int getMinimumTownHallLevel()
+    {
+        return minimumTownHallLevel;
     }
 }
