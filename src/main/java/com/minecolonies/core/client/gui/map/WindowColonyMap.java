@@ -20,17 +20,19 @@ import com.minecolonies.api.util.constant.Constants;
 import com.minecolonies.core.client.gui.AbstractWindowSkeleton;
 import com.minecolonies.core.client.render.worldevent.HighlightManager;
 import com.minecolonies.core.client.render.worldevent.highlightmanager.CitizenRenderData;
-import com.minecolonies.core.colony.buildings.modules.HomeBuildingModule;
+import com.minecolonies.core.colony.buildings.views.LivingBuildingView;
 import com.minecolonies.core.colony.buildings.workerbuildings.BuildingTownHall;
 import com.minecolonies.core.entity.citizen.EntityCitizen;
 import com.minecolonies.core.network.messages.client.colony.ColonyListMessage;
 import com.minecolonies.core.network.messages.server.colony.OpenInventoryMessage;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.PlayerFaceRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import org.jetbrains.annotations.NotNull;
@@ -249,6 +251,32 @@ public class WindowColonyMap extends AbstractWindowSkeleton
                 }
             }
 
+            for (final Player player : Minecraft.getInstance().level.players())
+            {
+                if (building.getColony().isCoordInColony(Minecraft.getInstance().level, player.blockPosition()))
+                {
+                    Image playerImage = findPaneOfTypeByID(player.getStringUUID(), Image.class);
+                    if (playerImage == null)
+                    {
+                        final ResourceLocation resourceLocation = Minecraft.getInstance().getSkinManager().getInsecureSkin(player.getGameProfile()).texture();
+                        if (resourceLocation == null)
+                        {
+                            continue;
+                        }
+                        playerImage = new Image();
+                        playerImage.setID(player.getStringUUID());
+                        playerImage.setSize(16,16);
+                        playerImage.setImage(resourceLocation, 8,8,8,8);
+                        playerImage.show();
+                        dragView.addChild(playerImage);
+                        PaneBuilders.tooltipBuilder().hoverPane(playerImage)
+                            .append(Component.literal(player.getDisplayName().getString()))
+                            .build();
+                    }
+                    putPaneCenterAtWorldPos(playerImage, player.blockPosition());
+                }
+            }
+
             if (currentScale != dragView.getScale())
             {
                 currentScale = dragView.getScale();
@@ -347,17 +375,8 @@ public class WindowColonyMap extends AbstractWindowSkeleton
     private void addCenterPos()
     {
         final Image citizenImage = new Image();
-        if (this.atTownHall)
-        {
-            citizenImage.setImage(new ResourceLocation(Constants.MOD_ID, "textures/gui/red_wax_home.png"), false);
-            citizenImage.setSize(16, 16);
-        }
-        else
-        {
-            citizenImage.setImage(new ResourceLocation(Constants.MOD_ID,  "textures/icons/player_position.png"), false);
-            citizenImage.setSize(10, 14);
-        }
-
+        citizenImage.setImage(new ResourceLocation(Constants.MOD_ID, "textures/gui/red_wax_home.png"), false);
+        citizenImage.setSize(16, 16);
         putPaneTopLeftCornerAtWorldPos(citizenImage, playerPos);
 
         dragView.setScaleRaw(4.0 / 5);
@@ -366,6 +385,10 @@ public class WindowColonyMap extends AbstractWindowSkeleton
 
         putPaneCenterAtWorldPos(citizenImage, playerPos);
         dragView.addChild(citizenImage);
+        if (!atTownHall)
+        {
+            citizenImage.hide();
+        }
     }
 
     /**
@@ -392,7 +415,7 @@ public class WindowColonyMap extends AbstractWindowSkeleton
             tooltip.hoverPane(uiBuilding)
               .append(BOScreen.getTooltipFromItem(mc, item).get(0)).append(Component.literal(" : " + buildingView.getBuildingLevel()))
               .appendNL(Component.literal("Coordinates: " + buildingView.getID().getX() + "X, " + buildingView.getID().getZ() + "Z"))
-              .appendNL(Component.literal("Citizens: " + (buildingView instanceof HomeBuildingModule.View home ? home.getResidents().size() : buildingView.getAllAssignedCitizens().size())));
+              .appendNL(Component.literal("Citizens: " + (buildingView instanceof LivingBuildingView home ? home.getResidents().size() : buildingView.getAllAssignedCitizens().size())));
 
             for (int id : buildingView.getAllAssignedCitizens())
             {
@@ -410,6 +433,7 @@ public class WindowColonyMap extends AbstractWindowSkeleton
                 box = new Box();
                 box.setLineWidth(2);
                 box.setColor(255, 0, 0);
+                box.hide();
                 dragView.addChild(box);
             }
             dragView.addChild(uiBuilding);
