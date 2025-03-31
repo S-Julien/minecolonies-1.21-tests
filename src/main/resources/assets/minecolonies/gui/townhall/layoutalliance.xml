@@ -1,21 +1,20 @@
 <window size="524 243">
     <layout source="minecolonies:gui/townhall/windowtownhall.xml"/>
 
-    <text size="148 11" pos="101 60" style="bold" color="green" label="$(com.minecolonies.coremod.gui.townhall.allies)"/>
-    <list id="allies" size="150 75" pos="101 70">
-        <box size="100% 25" linewidth="1">
-            <text id="name" size="100 12" pos="5 0" color="black"/>
-            <text id="dist" size="40 13" pos="112 12" color="black"/>
-            <button id="tp" size="100 12" pos="5 12" label="$(com.minecolonies.coremod.permission.teleport_to_colony)"/>
+    <text color="green" label="$(com.minecolonies.coremod.gui.townhall.allies)" pos="101 60" size="148 11" style="bold"/>
+    <list id="allies" pos="101 70" size="150 75">
+        <box linewidth="1" size="100% 25">
+            <text color="black" id="name" pos="5 0" size="100 12"/>
+            <text color="black" id="dist" pos="112 12" size="40 13"/>
+            <button id="tp" label="$(com.minecolonies.coremod.permission.teleport_to_colony)" pos="5 12" size="100 12"/>
         </box>
     </list>
 
-    <text size="148 11" pos="101 160" style="bold" color="red" label="$(com.minecolonies.coremod.gui.townhall.feuds)"/>
-    <list id="feuds" size="150 50" pos="101 170">
-        <box size="100% 25" linewidth="1">
-            <text id="name" size="100 12" pos="5 0" color="black"/>
-            <text id="dist" size="40 12" pos="105 0" color="black"/>
+    <text color="red" label="$(com.minecolonies.coremod.gui.townhall.feuds)" pos="101 160" size="148 11" style="bold"/>
+    <list id="feuds" pos="101 170" size="150 50">
+        <box linewidth="1" size="100% 25">
+            <text color="black" id="name" pos="5 0" size="100 12"/>
+            <text color="black" id="dist" pos="105 0" size="40 12"/>
         </box>
     </list>
-
 </window>
