@@ -1,8 +1,6 @@
 <window xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/ldtteam/BlockUI/version/1.20.1/src/main/resources/assets/blockui/gui/block_ui.xsd"
-        lightbox="true">
-    <text size="100% 11" pos="0 25" textalign="TOP_MIDDLE" color="white"
-           label="$(com.minecolonies.coremod.gui.scan.select.title)"/>
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/ldtteam/BlockUI/version/1.20.1/src/main/resources/assets/blockui/gui/block_ui.xsd" lightbox="true">
+    <text size="100% 11" pos="0 25" textalign="TOP_MIDDLE" color="white" label="$(com.minecolonies.coremod.gui.scan.select.title)"/>
 
     <input id="name" size="150 18" pos="135 40" maxlength="25"/>
 
@@ -17,7 +15,7 @@
             <itemicon id="resourceIcon" size="17 17" pos="1 1"/>
             <text id="resourceName" size="140 12" pos="30 1" color="white"/>
             <button label="$(com.minecolonies.coremod.gui.scantool.select)" id="select" pos="160 1" size="86 17"
-                         source="minecolonies:textures/gui/builderhut/builder_button_medium.png" color="black"/>
+                    source="minecolonies:textures/gui/builderhut/builder_button_medium.png" color="black"/>
         </box>
     </list>
 

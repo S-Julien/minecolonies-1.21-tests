@@ -1,5 +1,5 @@
-<window xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/ldtteam/BlockUI/version/1.20.1/src/main/resources/assets/blockui/gui/block_ui.xsd"
-    size="190 244" >
+<window xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/ldtteam/BlockUI/version/1.20.1/src/main/resources/assets/blockui/gui/block_ui.xsd" size="190 244">
     <image source="minecolonies:textures/gui/builderhut/builder_paper.png" size="190 244"/>
     <text id="desc" size="130 11" pos="30 14" color="black" textalign="MIDDLE"/>
 
@@ -13,8 +13,7 @@
             <text id="resourceMissing" size="50 12" pos="2 18" textalign="MIDDLE_LEFT" color="black"/>
             <text id="resourceAvailableNeeded" size="100% 12" pos="0 18" textalign="MIDDLE" color="black"/>
 
-            <button id="resourceAdd" size="14 15" label="↥" pos="100 12"
-                         source="minecolonies:textures/gui/builderhut/builder_button_mini.png" color="black"/>
+            <button id="resourceAdd" size="14 15" label="↥" pos="100 12" source="minecolonies:textures/gui/builderhut/builder_button_mini.png" color="black"/>
 
             <text id="resourceId" size="1 1" pos="100 100"/>
             <text id="resourceQuantity" size="1 1" pos="100 100"/>

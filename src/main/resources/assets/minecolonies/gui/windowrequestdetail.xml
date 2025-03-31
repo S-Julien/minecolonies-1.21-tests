@@ -1,6 +1,5 @@
 <window xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" size="190 133"
-        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/ldtteam/BlockUI/version/1.20.1/src/main/resources/assets/blockui/gui/block_ui.xsd"
-        >
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/ldtteam/BlockUI/version/1.20.1/src/main/resources/assets/blockui/gui/block_ui.xsd">
 
     <image source="minecolonies:textures/gui/citizen/colonist_paper.png" size="100% 100%"/>
 
@@ -16,12 +15,11 @@
     <text id="shortDetail" size="170 40" pos="12 60" color="black"/>
     <itemicon id="detailIcon" size="9 9" pos="80 75"/>
 
-    <button id="back" size="37 16" pos="35 105" color="black"
-                 label="$(com.minecolonies.coremod.gui.back)" source="minecolonies:textures/gui/citizen/colonist_button_small.png"/>
+    <button id="back" size="37 16" pos="35 105" color="black" label="$(com.minecolonies.coremod.gui.back)" source="minecolonies:textures/gui/citizen/colonist_button_small.png"/>
 
-    <button id="fulfill" size="37 16" pos="76 105" color="black"
-                 label="$(com.minecolonies.coremod.gui.citizen.requestsfulfill)" source="minecolonies:textures/gui/citizen/colonist_button_small.png"/>
+    <button id="fulfill" size="37 16" pos="76 105" color="black" label="$(com.minecolonies.coremod.gui.citizen.requestsfulfill)"
+            source="minecolonies:textures/gui/citizen/colonist_button_small.png"/>
 
-    <button id="cancel" size="37 16" pos="117 105" color="black"
-                 label="$(com.minecolonies.coremod.gui.citizen.requestscancel)" source="minecolonies:textures/gui/citizen/colonist_button_small.png"/>
+    <button id="cancel" size="37 16" pos="117 105" color="black" label="$(com.minecolonies.coremod.gui.citizen.requestscancel)"
+            source="minecolonies:textures/gui/citizen/colonist_button_small.png"/>
 </window>

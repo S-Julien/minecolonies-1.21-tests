@@ -1,4 +1,5 @@
-<window size="210 244"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/ldtteam/BlockUI/version/1.20.1/src/main/resources/assets/blockui/gui/block_ui.xsd">
+<window xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" size="210 244"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/ldtteam/BlockUI/version/1.20.1/src/main/resources/assets/blockui/gui/block_ui.xsd">
     <layout source="minecolonies:gui/citizen/nav.xml"/>
 
     <text id="name" size="164 11" color="black" pos="33 14" textalign="MIDDLE"/>
@@ -11,8 +12,7 @@
     <view id="happinessBar" size="120 11" pos="55 75"/>
     <text id="happinessLabel" size="30 11" color="black" pos="170 84"/>
 
-    <text id="title" pos="33 104" size="69 11" color="black" textalign="MIDDLE_RIGHT"
-           label="§l$(com.minecolonies.coremod.gui.citizen.skills)"/>
+    <text id="title" pos="33 104" size="69 11" color="black" textalign="MIDDLE_RIGHT" label="§l$(com.minecolonies.coremod.gui.citizen.skills)"/>
 
     <scrollgroup pos="33 117" size="105 100">
         <view size="100% 13">
@@ -117,8 +117,6 @@
     </scrollgroup>
 
     <image id="statusicon" size="30 30" pos="158 110"/>
-    <image id="deco4" size="15 49" pos="157 194"
-           source="minecolonies:textures/gui/citizen/colonist_decor_up_ribbon_smaller.png"/>
-    <image id="gender" size="30 30" pos="150 189"
-           source="minecolonies:textures/gui/citizen/colonist_wax_male_smaller.png"/>
+    <image id="deco4" size="15 49" pos="157 194" source="minecolonies:textures/gui/citizen/colonist_decor_up_ribbon_smaller.png"/>
+    <image id="gender" size="30 30" pos="150 189" source="minecolonies:textures/gui/citizen/colonist_wax_male_smaller.png"/>
 </window>

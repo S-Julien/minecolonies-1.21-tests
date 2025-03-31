@@ -1,4 +1,4 @@
-<window size="524 290" >
+<window size="524 290">
 
     <layout source="minecolonies:gui/townhall/windowtownhall.xml"/>
     <switch id="pages" size="374 290" pos="75 0">
@@ -11,16 +11,9 @@
                 <box size="100% 35" linewidth="1">
                     <text id="name" size="100 11" pos="5 2" color="black"/>
                     <button id="removePlayer" size="14 15" pos="2 1" align="TOP_RIGHT" source="minecolonies:textures/gui/button_x.png"/>
-                    <text id="rank" size="129 11" pos="5 17" color="black" />
-                    <dropdown id="rankPicker"
-                              size="129 17"
-                              pos="2 17"
-                              maxContentHeight="45"
-                              dropDownSize="129 45"
-                              source="minecolonies:textures/gui/builderhut/builder_button_medium_large.png"
-                              color="black"
-                              scrollbarOffset="9 0"
-                              dropfixx="276">
+                    <text id="rank" size="129 11" pos="5 17" color="black"/>
+                    <dropdown id="rankPicker" size="129 17" pos="2 17" maxContentHeight="45" dropDownSize="129 45"
+                              source="minecolonies:textures/gui/builderhut/builder_button_medium_large.png" color="black" scrollbarOffset="9 0" dropfixx="276">
                         <view size="100% 15">
                             <text id="id" size="100% 100%" label="" pos="0 0" textalign="MIDDLE"/>
                             <button id="button" size="129 17" pos="0 0" source="minecolonies:textures/gui/builderhut/builder_button_medium_large.png" color="black"/>
@@ -29,8 +22,7 @@
                 </box>
             </list>
 
-            <text size="148 11" pos="196 39" color="black" textalign="MIDDLE"
-                   label="$(com.minecolonies.coremod.gui.townhall.permevents):"/>
+            <text size="148 11" pos="196 39" color="black" textalign="MIDDLE" label="$(com.minecolonies.coremod.gui.townhall.permevents):"/>
 
             <list id="eventsList" size="148 152" pos="196 50">
                 <box size="100% 36" linewidth="1">
@@ -48,21 +40,14 @@
 
             <list id="rankButtonList" size="100 110" pos="46 105">
                 <box size="100% 15" linewidth="0">
-                    <text id="rankId" />
+                    <text id="rankId"/>
                     <button id="rankButton" size="86 15" pos="2 2" source="minecolonies:textures/gui/builderhut/builder_button_medium.png" color="black"/>
                 </box>
             </list>
 
             <text id="rankType" size="50 11" pos="201 41" label="Type:" color="black"/>
-            <dropdown id="rankTypePicker"
-                      size="86 17"
-                      pos="244 38"
-                      maxContentHeight="100"
-                      dropDownSize="129 100"
-                      source="minecolonies:textures/gui/builderhut/builder_button_medium.png"
-                      color="black"
-                      scrollbarOffset="9 0"
-                      dropfixx="276">
+            <dropdown id="rankTypePicker" size="86 17" pos="244 38" maxContentHeight="100" dropDownSize="129 100"
+                      source="minecolonies:textures/gui/builderhut/builder_button_medium.png" color="black" scrollbarOffset="9 0" dropfixx="276">
                 <view size="100% 15">
                     <text id="id" size="100% 100%" label="" pos="0 0" textalign="MIDDLE"/>
                     <button id="button" size="86 17" pos="0 0" source="minecolonies:textures/gui/builderhut/builder_button_medium.png" color="black"/>
@@ -70,24 +55,20 @@
             </dropdown>
 
             <text id="isSubscriber" size="98 11" pos="201 60" label="Is Subscriber:" color="black"/>
-            <button id="setSubscriber"
-                         size="29 15"
-                         pos="301 57"
-                         color="black"
-                         label="$(com.minecolonies.coremod.gui.workerhuts.retrieveOff)"
-                         source="minecolonies:textures/gui/builderhut/builder_button_very_small.png"/>
+            <button id="setSubscriber" size="29 15" pos="301 57" color="black" label="$(com.minecolonies.coremod.gui.workerhuts.retrieveOff)"
+                    source="minecolonies:textures/gui/builderhut/builder_button_very_small.png"/>
 
             <list id="rankList" size="138 120" pos="201 77">
                 <box size="100% 21" linewidth="1">
                     <text id="name" size="110 18" pos="2 2" color="black"/>
-                    <button id="trigger" size="29 15" pos="2 3" align="TOP_RIGHT" color="black"
-                                 label="$(com.minecolonies.coremod.gui.workerhuts.retrieveoff)"
-                                 source="minecolonies:textures/gui/builderhut/builder_button_very_small.png"/>
+                    <button id="trigger" size="29 15" pos="2 3" align="TOP_RIGHT" color="black" label="$(com.minecolonies.coremod.gui.workerhuts.retrieveoff)"
+                            source="minecolonies:textures/gui/builderhut/builder_button_very_small.png"/>
                     <text id="index" pos="100 100"/>
                 </box>
             </list>
 
-            <button id="removeRank" size="129 17" pos="201 200" label="$(com.minecolonies.coremod.gui.townhall.removerank)" source="minecolonies:textures/gui/builderhut/builder_button_medium_large.png" color="red"/>
+            <button id="removeRank" size="129 17" pos="201 200" label="$(com.minecolonies.coremod.gui.townhall.removerank)"
+                    source="minecolonies:textures/gui/builderhut/builder_button_medium_large.png" color="red"/>
         </view>
         <!-- todo adjust this, separate blocks and pos, and make pos list a pos-start to pos-end -->
         <view id="freeBlockList">

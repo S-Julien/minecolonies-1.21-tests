@@ -6,8 +6,6 @@
 
     <text id="text1" size="160 90" color="black" pos="15 15" textscale="1"/>
 
-    <button id="pickup" size="129 17" pos="30 100" color="black"
-                 source="minecolonies:textures/gui/builderhut/builder_button_medium_large.png"
-                 disabled="minecolonies:textures/gui/builderhut/builder_button_medium_large_disabled.png"
-                 label="$(com.minecolonies.core.founding.pickup)"/>
+    <button id="pickup" size="129 17" pos="30 100" color="black" source="minecolonies:textures/gui/builderhut/builder_button_medium_large.png"
+            disabled="minecolonies:textures/gui/builderhut/builder_button_medium_large_disabled.png" label="$(com.minecolonies.core.founding.pickup)"/>
 </window>

@@ -1,8 +1,7 @@
-<window size="524 243" >
+<window size="524 243">
     <layout source="minecolonies:gui/townhall/windowtownhall.xml"/>
 
-    <text size="148 11" pos="101 60" style="bold" color="green"
-           label="$(com.minecolonies.coremod.gui.townhall.allies)"/>
+    <text size="148 11" pos="101 60" style="bold" color="green" label="$(com.minecolonies.coremod.gui.townhall.allies)"/>
     <list id="allies" size="150 75" pos="101 70">
         <box size="100% 25" linewidth="1">
             <text id="name" size="100 12" pos="5 0" color="black"/>
@@ -11,8 +10,7 @@
         </box>
     </list>
 
-    <text size="148 11" pos="101 160" style="bold" color="red"
-           label="$(com.minecolonies.coremod.gui.townhall.feuds)"/>
+    <text size="148 11" pos="101 160" style="bold" color="red" label="$(com.minecolonies.coremod.gui.townhall.feuds)"/>
     <list id="feuds" size="150 50" pos="101 170">
         <box size="100% 25" linewidth="1">
             <text id="name" size="100 12" pos="5 0" color="black"/>
