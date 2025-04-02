@@ -85,7 +85,7 @@ public class CitizenColonyHandler implements ICitizenColonyHandler
             return;
         }
 
-        if (!citizen.isAddedToWorld())
+        if (citizen.level.getEntity(citizen.getId()) != citizen)
         {
             Log.getLogger().warn("Registering too early, entity not added to world!", new Exception());
             citizen.discard();
@@ -134,6 +134,13 @@ public class CitizenColonyHandler implements ICitizenColonyHandler
                 colonyId = citizen.getEntityData().get(DATA_COLONY_ID);
             }
 
+            if (colonyId == 0)
+            {
+                citizen.discard();
+                return;
+            }
+            colony = IColonyManager.getInstance().getColonyView(colonyId, citizen.level.dimension());
+
             if (citizen.getCivilianID() == 0)
             {
                 citizen.setCitizenId(citizen.getEntityData().get(DATA_CITIZEN_ID));
@@ -161,6 +168,12 @@ public class CitizenColonyHandler implements ICitizenColonyHandler
         }
     }
 
+    @Override
+    public boolean registered()
+    {
+        return registered;
+    }
+
     /**
      * Get the amount the worker should decrease its saturation by each action done or x blocks traveled.
      *
@@ -180,13 +193,19 @@ public class CitizenColonyHandler implements ICitizenColonyHandler
      */
     @Override
     @Nullable
-    public IColony getColony()
+    public IColony getColonyOrRegister()
     {
         if (colony == null && !citizen.level.isClientSide)
         {
             registerWithColony(getColonyId(), citizen.getCivilianID());
         }
 
+        return colony;
+    }
+
+    @Override
+    public @Nullable IColony getColony()
+    {
         return colony;
     }
 

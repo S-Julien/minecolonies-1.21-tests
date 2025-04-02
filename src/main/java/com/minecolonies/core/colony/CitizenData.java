@@ -1,10 +1,12 @@
 package com.minecolonies.core.colony;
 
+import com.minecolonies.api.IMinecoloniesAPI;
 import com.minecolonies.api.MinecoloniesAPIProxy;
 import com.minecolonies.api.colony.CitizenNameFile;
 import com.minecolonies.api.colony.ICitizenData;
 import com.minecolonies.api.colony.IColony;
 import com.minecolonies.api.colony.buildings.IBuilding;
+import com.minecolonies.api.colony.buildings.ModBuildings;
 import com.minecolonies.api.colony.buildings.modules.IAssignsJob;
 import com.minecolonies.api.colony.interactionhandling.ChatPriority;
 import com.minecolonies.api.colony.interactionhandling.IInteractionResponseHandler;
@@ -16,6 +18,8 @@ import com.minecolonies.api.entity.citizen.AbstractCivilianEntity;
 import com.minecolonies.api.entity.citizen.AbstractEntityCitizen;
 import com.minecolonies.api.entity.citizen.Skill;
 import com.minecolonies.api.entity.citizen.VisibleCitizenStatus;
+import com.minecolonies.api.entity.citizen.citizenhandlers.ICitizenDiseaseHandler;
+import com.minecolonies.api.entity.citizen.citizenhandlers.ICitizenFoodHandler;
 import com.minecolonies.api.entity.citizen.citizenhandlers.ICitizenSkillHandler;
 import com.minecolonies.api.inventory.InventoryCitizen;
 import com.minecolonies.api.quests.IQuestDeliveryObjective;
@@ -31,9 +35,7 @@ import com.minecolonies.core.colony.interactionhandling.QuestDialogueInteraction
 import com.minecolonies.core.colony.interactionhandling.ServerCitizenInteraction;
 import com.minecolonies.core.colony.interactionhandling.StandardInteraction;
 import com.minecolonies.core.entity.citizen.EntityCitizen;
-import com.minecolonies.core.entity.citizen.citizenhandlers.CitizenHappinessHandler;
-import com.minecolonies.core.entity.citizen.citizenhandlers.CitizenMournHandler;
-import com.minecolonies.core.entity.citizen.citizenhandlers.CitizenSkillHandler;
+import com.minecolonies.core.entity.citizen.citizenhandlers.*;
 import com.minecolonies.core.network.messages.client.colony.ColonyViewCitizenViewMessage;
 import com.minecolonies.core.util.AttributeModifierUtils;
 import net.minecraft.core.BlockPos;
@@ -57,15 +59,14 @@ import java.util.*;
 
 import static com.minecolonies.api.entity.citizen.AbstractEntityCitizen.*;
 import static com.minecolonies.api.research.util.ResearchConstants.*;
-import static com.minecolonies.api.util.ItemStackUtils.CAN_EAT;
 import static com.minecolonies.api.util.constant.BuildingConstants.TAG_ACTIVE;
 import static com.minecolonies.api.util.constant.CitizenConstants.*;
 import static com.minecolonies.api.util.constant.ColonyConstants.UPDATE_SUBSCRIBERS_INTERVAL;
 import static com.minecolonies.api.util.constant.Constants.TAG_STRING;
 import static com.minecolonies.api.util.constant.Constants.TICKS_SECOND;
-import static com.minecolonies.api.util.constant.NbtTagConstants.*;
 import static com.minecolonies.api.util.constant.NbtTagConstants.TAG_ID;
 import static com.minecolonies.api.util.constant.NbtTagConstants.TAG_NAME;
+import static com.minecolonies.api.util.constant.NbtTagConstants.*;
 import static com.minecolonies.api.util.constant.TranslationConstants.*;
 
 /**
@@ -217,6 +218,16 @@ public class CitizenData implements ICitizenData
     private final CitizenSkillHandler citizenSkillHandler;
 
     /**
+     * The citizen skill handler.
+     */
+    private final ICitizenFoodHandler citizenFoodHandler;
+
+    /**
+     * Disease handler
+     */
+    private final CitizenDiseaseHandler citizenDiseaseHandler;
+
+    /**
      * The citizen chat options on the server side.
      */
     protected final Map<Component, IInteractionResponseHandler> citizenChatOptions = new HashMap<>();
@@ -340,6 +351,8 @@ public class CitizenData implements ICitizenData
         this.citizenHappinessHandler = new CitizenHappinessHandler(this);
         this.citizenMournHandler = new CitizenMournHandler(this);
         this.citizenSkillHandler = new CitizenSkillHandler();
+        this.citizenFoodHandler = new CitizenFoodHandler(this);
+        citizenDiseaseHandler = new CitizenDiseaseHandler(this);
     }
 
     @Override
@@ -497,8 +510,12 @@ public class CitizenData implements ICitizenData
         textureId = random.nextInt(255);
 
         saturation = MAX_SATURATION;
-        final int levelCap = (int) colony.getOverallHappiness();
 
+        int levelCap = (int) colony.getOverallHappiness() * 2;
+        if (colony.getCitizenManager().getCitizens().size() < IMinecoloniesAPI.getInstance().getConfig().getServer().initialCitizenAmount.get())
+        {
+            levelCap = Math.max(5, levelCap);
+        }
         citizenSkillHandler.init(levelCap);
 
         markDirty(0);
@@ -512,6 +529,7 @@ public class CitizenData implements ICitizenData
     {
         if (!getEntity().isPresent())
         {
+            Log.getLogger().warn("Missing entity upon adding data to that entity!" + this.toString(), new Exception());
             return;
         }
 
@@ -997,7 +1015,7 @@ public class CitizenData implements ICitizenData
         }
 
         final CompoundTag happinessCompound = new CompoundTag();
-        citizenHappinessHandler.write(happinessCompound);
+        citizenHappinessHandler.write(happinessCompound, false);
         buf.writeNbt(happinessCompound);
 
         buf.writeInt(status != null ? status.getId() : -1);
@@ -1057,6 +1075,7 @@ public class CitizenData implements ICitizenData
             buf.writeBoolean(true);
             buf.writeUUID(textureUUID);
         }
+        buf.writeBoolean(citizenDiseaseHandler.isSick());
     }
 
     @Override
@@ -1155,6 +1174,18 @@ public class CitizenData implements ICitizenData
     }
 
     @Override
+    public ICitizenFoodHandler getCitizenFoodHandler()
+    {
+        return citizenFoodHandler;
+    }
+
+    @Override
+    public ICitizenDiseaseHandler getCitizenDiseaseHandler()
+    {
+        return citizenDiseaseHandler;
+    }
+
+    @Override
     public void scheduleRestart(final ServerPlayer player)
     {
         originPlayerRestart = player;
@@ -1234,8 +1265,10 @@ public class CitizenData implements ICitizenData
             nbtTagCompound.put("job", jobCompound);
         }
 
-        citizenHappinessHandler.write(nbtTagCompound);
+        citizenHappinessHandler.write(nbtTagCompound, true);
         citizenMournHandler.write(nbtTagCompound);
+        citizenFoodHandler.write(nbtTagCompound);
+        citizenDiseaseHandler.write(nbtTagCompound);
 
         inventory.write(nbtTagCompound);
         nbtTagCompound.putInt(TAG_HELD_ITEM_SLOT, inventory.getHeldItemSlot(InteractionHand.MAIN_HAND));
@@ -1308,7 +1341,6 @@ public class CitizenData implements ICitizenData
         {
             nbtTagCompound.putUUID(TAG_TEXTURE_UUID, textureUUID);
         }
-
         return nbtTagCompound;
     }
 
@@ -1399,8 +1431,10 @@ public class CitizenData implements ICitizenData
             }
         }
 
-        this.citizenHappinessHandler.read(nbtTagCompound);
+        this.citizenHappinessHandler.read(nbtTagCompound, true);
         this.citizenMournHandler.read(nbtTagCompound);
+        this.citizenFoodHandler.read(nbtTagCompound);
+        citizenDiseaseHandler.read(nbtTagCompound);
 
         if (nbtTagCompound.contains(TAG_LEVEL_MAP) && !nbtTagCompound.contains(TAG_NEW_SKILLS))
         {
@@ -1520,7 +1554,7 @@ public class CitizenData implements ICitizenData
     }
 
     @Override
-    public void update()
+    public void update(final int tickRate)
     {
         if (!getEntity().isPresent() || !getEntity().get().isAlive())
         {
@@ -1576,6 +1610,8 @@ public class CitizenData implements ICitizenData
                 }
             }
         }
+
+        citizenDiseaseHandler.update(tickRate);
     }
 
     @Override
@@ -1751,9 +1787,6 @@ public class CitizenData implements ICitizenData
               Component.translatable(CITIZEN_NOT_GUARD_NEAR_HOME),
               ChatPriority.CHITCHAT));
         }
-
-        decreaseSaturation(
-          job == null || job.getWorkBuilding().getBuildingLevel() == 0 ? 1 : (SATURATION_DECREASE_FACTOR * Math.pow(2, job.getWorkBuilding().getBuildingLevel())) * 2);
     }
 
     @Override
@@ -1765,16 +1798,16 @@ public class CitizenData implements ICitizenData
     @Override
     public boolean needsBetterFood()
     {
-        if (this.getWorkBuilding() == null)
+        if (this.getHomeBuilding() == null)
         {
             return false;
         }
         else
         {
             int slotBadFood = InventoryUtils.findFirstSlotInItemHandlerNotEmptyWith(inventory,
-              stack -> CAN_EAT.test(stack) && !this.getWorkBuilding().canEat(stack));
+                stack -> FoodUtils.canEat(stack, getHomeBuilding(), getWorkBuilding()));
             int slotGoodFood = InventoryUtils.findFirstSlotInItemHandlerNotEmptyWith(inventory,
-              stack -> CAN_EAT.test(stack) && this.getWorkBuilding().canEat(stack));
+                stack -> FoodUtils.canEat(stack, getHomeBuilding(), getWorkBuilding()));
             return slotBadFood != -1 && slotGoodFood == -1;
         }
     }
@@ -1974,5 +2007,36 @@ public class CitizenData implements ICitizenData
     public UUID getCustomTexture()
     {
         return textureUUID;
+    }
+    @Nullable
+    public BlockPos getHomePosition()
+    {
+        @Nullable final IBuilding homeBuilding = getHomeBuilding();
+        if (homeBuilding != null)
+        {
+            return homeBuilding.getPosition();
+        }
+
+        if (colony != null)
+        {
+            final IBuilding tavern = colony.getBuildingManager().getFirstBuildingMatching(b -> b.getBuildingType() == ModBuildings.tavern.get());
+            if (tavern != null && tavern.getBuildingLevel() > 0)
+            {
+                return tavern.getPosition();
+            }
+            else if (colony.getBuildingManager().getTownHall() != null)
+            {
+                return colony.getBuildingManager().getTownHall().getPosition();
+            }
+            return colony.getCenter();
+        }
+
+        return null;
+    }
+
+    @Override
+    public double getDiseaseModifier()
+    {
+        return citizenFoodHandler.getDiseaseModifier(getJob() == null ? 1 : getJob().getDiseaseModifier());
     }
 }

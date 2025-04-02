@@ -9,20 +9,17 @@
   "parentResearch": "minecolonies:civilian/keen",
   "requirements": [
     {
+      "type": "minecolonies:building",
       "building": "residence",
       "level": 3
     },
     {
-      "type": "minecolonies:item_list",
-      "item": {
-        "items": [
-          "minecraft:vine"
-        ]
-      },
+      "type": "minecolonies:item_simple",
+      "item": "minecraft:vine",
       "quantity": 64
     }
   ],
   "researchLevel": 2,
-  "sortOrder": 4,
+  "sortOrder": 5,
   "subtitle": "com.minecolonies.research.civilian.vines.subtitle"
 }

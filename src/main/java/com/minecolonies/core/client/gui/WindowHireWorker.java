@@ -1,5 +1,6 @@
 package com.minecolonies.core.client.gui;
 
+import com.ldtteam.blockui.Alignment;
 import com.ldtteam.blockui.Pane;
 import com.ldtteam.blockui.PaneBuilders;
 import com.ldtteam.blockui.controls.AbstractTextBuilder.TextBuilder;
@@ -20,6 +21,7 @@ import com.minecolonies.core.colony.CitizenDataView;
 import com.minecolonies.core.colony.buildings.moduleviews.PupilBuildingModuleView;
 import com.minecolonies.core.colony.buildings.moduleviews.WorkerBuildingModuleView;
 import com.minecolonies.core.colony.buildings.views.AbstractBuildingView;
+import com.minecolonies.core.entity.citizen.citizenhandlers.CitizenSkillHandler;
 import com.minecolonies.core.network.messages.server.colony.citizen.PauseCitizenMessage;
 import com.minecolonies.core.network.messages.server.colony.citizen.RestartCitizenMessage;
 import com.minecolonies.core.util.BuildingUtils;
@@ -29,7 +31,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Tuple;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -445,13 +446,13 @@ public class WindowHireWorker extends AbstractWindowSkeleton
                 final Skill primary = selectedModule instanceof WorkerBuildingModuleView ? ((WorkerBuildingModuleView) selectedModule).getPrimarySkill() : null;
                 final Skill secondary = selectedModule instanceof WorkerBuildingModuleView ? ((WorkerBuildingModuleView) selectedModule).getSecondarySkill() : null;
 
-                final List<Map.Entry<Skill, Tuple<Integer, Double>>> skills = new ArrayList<>(citizen.getCitizenSkillHandler().getSkills().entrySet());
+                final List<Map.Entry<Skill, CitizenSkillHandler.SkillData>> skills = new ArrayList<>(citizen.getCitizenSkillHandler().getSkills().entrySet());
                 skills.sort(Comparator.comparingInt(s -> (s.getKey() == primary ? 1 : (s.getKey() == secondary ? 2 : 3))));
 
-                for (final Map.Entry<Skill, Tuple<Integer, Double>> entry : skills)
+                for (final Map.Entry<Skill, CitizenSkillHandler.SkillData> entry : skills)
                 {
                     final String skillName = entry.getKey().name().toLowerCase(Locale.US);
-                    final int skillLevel = entry.getValue().getA();
+                    final int skillLevel = entry.getValue().getLevel();
                     final Style skillStyle = createColor(primary, secondary, entry.getKey());
 
                     textBuilder.append(Component.translatable("com.minecolonies.coremod.gui.citizen.skills." + skillName).setStyle(skillStyle));
@@ -508,7 +509,7 @@ public class WindowHireWorker extends AbstractWindowSkeleton
             final ButtonImage jobButton = new ButtonImage();
             jobButton.setImage(new ResourceLocation("minecolonies:textures/gui/builderhut/builder_button_medium.png"), false);
             jobButton.setPosition(xOffset, 30);
-            if (hireModule.getAssignedCitizens().size() > 0)
+            if (!hireModule.getAssignedCitizens().isEmpty())
             {
                 jobButton.setText(Component.translatable(entry.getTranslationKey()).append(Component.literal(" " + hireModule.getAssignedCitizens().size())));
             }
@@ -531,7 +532,8 @@ public class WindowHireWorker extends AbstractWindowSkeleton
             {
                 jobButton.enable();
             }
-            jobButton.setTextColor(BLACK);
+            jobButton.setColors(BLACK);
+            jobButton.setTextAlignment(Alignment.MIDDLE);
 
             xOffset += 90;
         }

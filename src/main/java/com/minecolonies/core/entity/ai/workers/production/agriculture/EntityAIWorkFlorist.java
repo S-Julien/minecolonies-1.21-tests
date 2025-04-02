@@ -15,14 +15,14 @@ import com.minecolonies.core.colony.interactionhandling.StandardInteraction;
 import com.minecolonies.core.colony.jobs.JobFlorist;
 import com.minecolonies.core.entity.ai.workers.AbstractEntityAIInteract;
 import com.minecolonies.core.tileentities.TileEntityCompostedDirt;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -153,7 +153,7 @@ public class EntityAIWorkFlorist extends AbstractEntityAIInteract<JobFlorist, Bu
 
         worker.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
         final long distance = BlockPosUtil.getDistance2D(worker.blockPosition(), building.getPosition());
-        if (distance > MAX_DISTANCE && walkToBuilding())
+        if (distance > MAX_DISTANCE && !walkToBuilding())
         {
             return DECIDE;
         }
@@ -209,7 +209,7 @@ public class EntityAIWorkFlorist extends AbstractEntityAIInteract<JobFlorist, Bu
 
         worker.getCitizenData().setVisibleStatus(GARDENING);
 
-        if (walkToBlock(compostPosition))
+        if (!walkToWorkPos(compostPosition))
         {
             return getState();
         }
@@ -251,7 +251,7 @@ public class EntityAIWorkFlorist extends AbstractEntityAIInteract<JobFlorist, Bu
 
         worker.getCitizenData().setVisibleStatus(GARDENING);
 
-        if (walkToBlock(harvestPosition))
+        if (!walkToWorkPos(harvestPosition))
         {
             return getState();
         }
@@ -284,7 +284,7 @@ public class EntityAIWorkFlorist extends AbstractEntityAIInteract<JobFlorist, Bu
      * @return the delay in ticks
      */
     @Override
-    public int getBlockMiningDelay(@NotNull final BlockState state, @NotNull final BlockPos pos)
+    public int getBlockMiningTime(@NotNull final BlockState state, @NotNull final BlockPos pos)
     {
         return BASE_BLOCK_MINING_DELAY * (int) (1 + Math.max(0, MAX_BONUS - PER_LEVEL_BONUS * (getSecondarySkillLevel() / 2.0)));
     }

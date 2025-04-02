@@ -9,20 +9,17 @@
   "parentResearch": "minecolonies:technology/memoryaid",
   "requirements": [
     {
+      "type": "minecolonies:building",
       "building": "builder",
       "level": 3
     },
     {
-      "type": "minecolonies:item_list",
-      "item": {
-        "items": [
-          "minecraft:diamond_axe"
-        ]
-      },
+      "type": "minecolonies:item_simple",
+      "item": "minecraft:diamond_axe",
       "quantity": 1
     }
   ],
   "researchLevel": 3,
-  "sortOrder": 3,
+  "sortOrder": 4,
   "subtitle": "com.minecolonies.research.technology.buildermodes.subtitle"
 }

@@ -1,7 +1,8 @@
 package com.minecolonies.api.colony.managers.interfaces;
 
 import com.minecolonies.api.colony.ICitizenData;
-import com.minecolonies.api.entity.mobs.AbstractEntityRaiderMob;
+import com.minecolonies.api.colony.colonyEvents.IColonyRaidEvent;
+import com.minecolonies.api.entity.mobs.AbstractEntityMinecoloniesRaider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 
@@ -104,10 +105,10 @@ public interface IRaiderManager
     /**
      * Trigger a specific type of raid on a colony.
      * @param raidType the type of raid (or empty).
-     * @param overrideConfig if it should override the config to allow raiders.
+     * @param forced if it is forced to spawn.
      * @param allowShips if ship spawns are allowed.
      */
-    RaidSpawnResult raiderEvent(String raidType, final boolean overrideConfig, final boolean allowShips);
+    RaidSpawnResult raiderEvent(String raidType, final boolean forced, final boolean allowShips);
 
     /**
      * Calculates the spawn position for raids
@@ -165,14 +166,6 @@ public interface IRaiderManager
     boolean canRaid();
 
     /**
-     * Whether the colony can be raided.
-     *
-     * @param overrideConfig if the config should be overriden.
-     * @return true if possible.
-     */
-    boolean canRaid(final boolean overrideConfig);
-
-    /**
      * calculates the colonies raid level
      *
      * @return the raid level.
@@ -214,7 +207,7 @@ public interface IRaiderManager
     /**
      * Gets the amount of citizens lost in a raid.
      *
-     * @return weighted amount of list citizen
+     * @return amount
      */
     int getLostCitizen();
 
@@ -223,7 +216,9 @@ public interface IRaiderManager
      *
      * @param entity
      */
-    void onRaiderDeath(AbstractEntityRaiderMob entity);
+    void onRaiderDeath(AbstractEntityMinecoloniesRaider entity);
+
+    void onRaidEventFinished(IColonyRaidEvent event);
 
     /**
      * Notify raid manager of a passing through raid.

@@ -227,8 +227,8 @@ public abstract class AbstractEntityAIStructure<J extends AbstractJobStructure<?
 
         if (neededItemsList.size() <= pickUpCount || InventoryUtils.openSlotCount(worker.getInventoryCitizen()) <= MIN_OPEN_SLOTS)
         {
-            building.checkOrRequestBucket(building.getRequiredResources(), worker.getCitizenData(), true);
-            building.checkOrRequestBucket(building.getNextBucket(), worker.getCitizenData(), false);
+            building.checkOrRequestBucket(building.getRequiredResources(), worker.getCitizenData());
+            building.checkOrRequestBucket(building.getNextBucket(), worker.getCitizenData());
             pickUpCount = 0;
             return START_WORKING;
         }
@@ -323,16 +323,7 @@ public abstract class AbstractEntityAIStructure<J extends AbstractJobStructure<?
      * @param currentBlock the current block it is working on.
      * @return true while walking to the site.
      */
-    public boolean walkToConstructionSite(final BlockPos currentBlock)
-    {
-        if (workFrom == null)
-        {
-            workFrom = getWorkingPosition(currentBlock);
-        }
-
-        //The miner shouldn't search for a save position. Just let him build from where he currently is.
-        return worker.isWorkerAtSiteWithMove(workFrom, STANDARD_WORKING_RANGE) || MathUtils.twoDimDistance(worker.blockPosition(), workFrom) < MIN_WORKING_RANGE;
-    }
+    public abstract boolean walkToConstructionSite(final BlockPos currentBlock);
 
     /**
      * Checks for blocks that need to be treated as deco
@@ -354,7 +345,7 @@ public abstract class AbstractEntityAIStructure<J extends AbstractJobStructure<?
             return PICK_UP_RESIDUALS;
         }
 
-        if (InventoryUtils.isItemHandlerFull(worker.getInventoryCitizen()))
+        if (!worker.getInventoryCitizen().hasSpace())
         {
             return INVENTORY_FULL;
         }
@@ -448,7 +439,7 @@ public abstract class AbstractEntityAIStructure<J extends AbstractJobStructure<?
                   placer.executeStructureStep(world, null, progress, StructurePlacer.Operation.BLOCK_REMOVAL, () -> placer.getIterator().decrement(this::skipClearing), false);
                 if (result.getBlockResult().getResult() == BlockPlacementResult.Result.FINISHED)
                 {
-                    building.checkOrRequestBucket(building.getRequiredResources(), worker.getCitizenData(), true);
+                    building.checkOrRequestBucket(building.getRequiredResources(), worker.getCitizenData());
                 }
                 break;
         }
@@ -460,7 +451,6 @@ public abstract class AbstractEntityAIStructure<J extends AbstractJobStructure<?
 
         if (result.getBlockResult().getResult() == BlockPlacementResult.Result.FINISHED)
         {
-
             building.nextStage();
             if (!goToNextStage(result))
             {
@@ -477,7 +467,7 @@ public abstract class AbstractEntityAIStructure<J extends AbstractJobStructure<?
         }
         else
         {
-            if (structurePlacer.getB().getStage() != CLEAR_WATER)
+            if (structurePlacer.getB().getStage() != CLEAR_WATER && !result.getIteratorPos().equals(NULL_POS))
             {
                 gotoPos = result.getIteratorPos();
             }
@@ -514,7 +504,7 @@ public abstract class AbstractEntityAIStructure<J extends AbstractJobStructure<?
             blockToMine = null;
         }
 
-        final double decrease = 1 - worker.getCitizenColonyHandler().getColony().getResearchManager().getResearchEffects().getEffectStrength(BLOCK_PLACE_SPEED);
+        final double decrease = 1 - worker.getCitizenColonyHandler().getColonyOrRegister().getResearchManager().getResearchEffects().getEffectStrength(BLOCK_PLACE_SPEED);
         setDelay((int) ((BUILD_BLOCK_DELAY * PROGRESS_MULTIPLIER / (getPlaceSpeedLevel() / 2 + PROGRESS_MULTIPLIER)) * decrease));
 
         return getState();
@@ -585,7 +575,7 @@ public abstract class AbstractEntityAIStructure<J extends AbstractJobStructure<?
      * @param handler
      * @return
      */
-    private boolean skipClearing(final BlueprintPositionInfo info, final BlockPos pos, final IStructureHandler handler)
+    protected boolean skipClearing(final BlueprintPositionInfo info, final BlockPos pos, final IStructureHandler handler)
     {
         if (info.getBlockInfo().getState().getBlock() == com.ldtteam.structurize.blocks.ModBlocks.blockFluidSubstitution.get())
         {
@@ -666,7 +656,12 @@ public abstract class AbstractEntityAIStructure<J extends AbstractJobStructure<?
             return BUILDING_STEP;
         }
 
-        if (!mineBlock(blockToMine, getCurrentWorkingPosition()))
+        if (!walkToConstructionSite(blockToMine))
+        {
+            return getState();
+        }
+
+        if (!mineBlock(blockToMine, null))
         {
             worker.swing(InteractionHand.MAIN_HAND);
             return getState();
@@ -700,7 +695,7 @@ public abstract class AbstractEntityAIStructure<J extends AbstractJobStructure<?
             }
 
             final BuildingStructureHandler<J, B> structure;
-            IBuilding colonyBuilding = worker.getCitizenColonyHandler().getColony().getBuildingManager().getBuilding(position);
+            IBuilding colonyBuilding = worker.getCitizenColonyHandler().getColonyOrRegister().getBuildingManager().getBuilding(position);
             final BlockEntity entity = world.getBlockEntity(position);
 
             if (removal)
@@ -792,7 +787,7 @@ public abstract class AbstractEntityAIStructure<J extends AbstractJobStructure<?
                 return RECALC;
             }
         }
-
+        // TODO: Why predicate based search when we got our ItemStorages we look for already?
         final List<ItemStack> foundStacks = InventoryUtils.filterItemHandler(placer.getWorker().getInventoryCitizen(),
           itemStack -> requestedMap.keySet().stream().anyMatch(storage -> ItemStackUtils.compareItemStacksIgnoreStackSize(storage.getItemStack(), itemStack)));
 

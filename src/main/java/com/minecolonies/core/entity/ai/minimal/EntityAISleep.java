@@ -14,8 +14,10 @@ import com.minecolonies.api.util.CompatibilityUtils;
 import com.minecolonies.api.util.SoundUtils;
 import com.minecolonies.api.util.WorldUtil;
 import com.minecolonies.core.Network;
+import com.minecolonies.core.colony.buildings.AbstractBuilding;
 import com.minecolonies.core.colony.buildings.modules.BuildingModules;
 import com.minecolonies.core.entity.citizen.EntityCitizen;
+import com.minecolonies.core.entity.pathfinding.navigation.EntityNavigationUtils;
 import com.minecolonies.core.network.messages.client.SleepingParticleMessage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
@@ -113,7 +115,7 @@ public class EntityAISleep implements IStateAI
         final IBuilding homeBuilding = citizen.getCitizenData().getHomeBuilding();
         if (homeBuilding == null)
         {
-            @Nullable final BlockPos homePosition = citizen.getRestrictCenter();
+            @Nullable final BlockPos homePosition = citizen.getCitizenData().getHomePosition();
             if (homePosition.distSqr(BlockPos.containing(Math.floor(citizen.getX()), citizen.getY(), Math.floor(citizen.getZ()))) <= RANGE_TO_BE_HOME)
             {
                 return FIND_BED;
@@ -136,7 +138,7 @@ public class EntityAISleep implements IStateAI
      */
     private boolean findBed()
     {
-        if (!citizen.getCitizenSleepHandler().isAsleep() || bedTicks < MAX_BED_TICKS)
+        if (!citizen.getCitizenSleepHandler().isAsleep() && bedTicks < MAX_BED_TICKS)
         {
             findBedAndTryToSleep();
             return false;
@@ -164,14 +166,13 @@ public class EntityAISleep implements IStateAI
             }
         }
 
-        final IColony colony = citizen.getCitizenColonyHandler().getColony();
-        if (colony != null && colony.getBuildingManager().getBuilding(citizen.getRestrictCenter()) != null)
+        final IColony colony = citizen.getCitizenColonyHandler().getColonyOrRegister();
+        if (colony != null && citizen.getCitizenData().getHomeBuilding() instanceof AbstractBuilding hut)
         {
+            final BlockPos homePos = citizen.getCitizenData().getHomePosition();
             if (usedBed == null)
             {
-                final IBuilding hut = colony.getBuildingManager().getBuilding(citizen.getRestrictCenter());
                 List<BlockPos> bedList = new ArrayList<>();
-
                 if (hut.hasModule(BuildingModules.BED))
                 {
                     bedList.addAll(hut.getModule(BuildingModules.BED).getRegisteredBlocks());
@@ -197,10 +198,10 @@ public class EntityAISleep implements IStateAI
                     }
                 }
 
-                usedBed = citizen.getRestrictCenter();
+                usedBed = homePos;
             }
 
-            if (citizen.isWorkerAtSiteWithMove(usedBed, 3))
+            if (EntityNavigationUtils.walkToPosInBuilding(citizen, usedBed, citizen.getCitizenData().getHomeBuilding(), 12))
             {
                 bedTicks++;
                 if (!citizen.getCitizenSleepHandler().trySleep(usedBed))
@@ -209,6 +210,10 @@ public class EntityAISleep implements IStateAI
                     usedBed = null;
                 }
                 citizen.getCitizenData().getCitizenHappinessHandler().resetModifier(SLEPTTONIGHT);
+            }
+            else
+            {
+                bedTicks = 0;
             }
         }
     }
@@ -237,10 +242,14 @@ public class EntityAISleep implements IStateAI
      */
     private void goHome()
     {
-        final BlockPos pos = citizen.getCitizenSleepHandler().findHomePos();
-        if (!citizen.isWorkerAtSiteWithMove(pos, 2) && citizen.getPose() == Pose.SLEEPING)
+        final IBuilding home = citizen.getCitizenData().getHomeBuilding();
+        if (home != null)
         {
-            citizen.setPose(Pose.STANDING);
+            EntityNavigationUtils.walkToBuilding(citizen, home);
+        }
+        else
+        {
+            EntityNavigationUtils.walkToPos(citizen, citizen.getCitizenData().getHomePosition(), 4, true);
         }
 
         final int chance = citizen.getRandom().nextInt(CHANCE);

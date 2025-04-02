@@ -6,19 +6,17 @@
     }
   ],
   "icon": "minecraft:red_shulker_box",
+  "no-reset": true,
   "parentResearch": "minecolonies:technology/deeppockets",
   "requirements": [
     {
+      "type": "minecolonies:building",
       "building": "library",
       "level": 5
     },
     {
-      "type": "minecolonies:item_list",
-      "item": {
-        "items": [
-          "minecraft:emerald"
-        ]
-      },
+      "type": "minecolonies:item_simple",
+      "item": "minecraft:emerald",
       "quantity": 128
     }
   ],

@@ -3,10 +3,7 @@ package com.minecolonies.core.client.render;
 import com.minecolonies.api.colony.ICitizenDataView;
 import com.minecolonies.api.colony.IColonyManager;
 import com.minecolonies.api.colony.IColonyView;
-import com.minecolonies.api.colony.requestsystem.manager.IRequestManager;
-import com.minecolonies.api.colony.requestsystem.resolver.player.IPlayerRequestResolver;
-import com.minecolonies.api.colony.requestsystem.resolver.retrying.IRetryingRequestResolver;
-import com.minecolonies.api.colony.requestsystem.token.IToken;
+import com.minecolonies.api.util.Log;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -16,10 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.IItemDecorator;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import static com.minecolonies.core.items.ItemClipboard.TAG_COLONY;
+import static com.minecolonies.core.items.ItemColonyMap.TAG_COLONY;
 
 public class ClipBoardDecorator implements IItemDecorator
 {
@@ -48,29 +42,12 @@ public class ClipBoardDecorator implements IItemDecorator
 
                 if (colonyView != null)
                 {
-                    final Set<IToken<?>> asyncRequest = new HashSet<>();
-                    for (final ICitizenDataView view : colonyView.getCitizens().values())
+                    try
                     {
-                        if (view.getJobView() != null)
-                        {
-                            asyncRequest.addAll(view.getJobView().getAsyncRequests());
-                        }
-                    }
-
-                    final IRequestManager requestManager = colonyView.getRequestManager();
-                    if (requestManager != null)
-                    {
-                        final IPlayerRequestResolver resolver = requestManager.getPlayerResolver();
-                        final IRetryingRequestResolver retryingRequestResolver = requestManager.getRetryingRequestResolver();
-
-                        final Set<IToken<?>> requestTokens = new HashSet<>();
-                        requestTokens.addAll(resolver.getAllAssignedRequests());
-                        requestTokens.addAll(retryingRequestResolver.getAllAssignedRequests());
-
                         int count = 0;
-                        for (final IToken<?> reqId : requestTokens)
+                        for (final ICitizenDataView view : colonyView.getCitizens().values())
                         {
-                            if (!asyncRequest.contains(reqId))
+                            if (view.hasBlockingInteractions())
                             {
                                 count++;
                             }
@@ -89,6 +66,10 @@ public class ClipBoardDecorator implements IItemDecorator
                             ps.popPose();
                             return true;
                         }
+                    }
+                    catch (Exception e)
+                    {
+                        Log.getLogger().error("Something went wrong with the colonymap item decorator", e);
                     }
                 }
             }

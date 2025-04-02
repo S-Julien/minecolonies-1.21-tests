@@ -13,18 +13,19 @@ import com.minecolonies.api.entity.ai.statemachine.AITarget;
 import com.minecolonies.api.entity.ai.statemachine.states.AIBlockingEventType;
 import com.minecolonies.api.entity.ai.statemachine.states.IAIState;
 import com.minecolonies.api.entity.citizen.VisibleCitizenStatus;
-import com.minecolonies.core.entity.pathfinding.navigation.AbstractAdvancedPathNavigate;
+import com.minecolonies.api.equipment.ModEquipmentTypes;
 import com.minecolonies.api.items.ModItems;
 import com.minecolonies.api.util.InventoryUtils;
 import com.minecolonies.api.util.ItemStackUtils;
 import com.minecolonies.api.util.Tuple;
 import com.minecolonies.api.util.WorldUtil;
-import com.minecolonies.api.util.constant.ToolType;
 import com.minecolonies.core.Network;
 import com.minecolonies.core.colony.buildings.workerbuildings.BuildingAlchemist;
 import com.minecolonies.core.colony.interactionhandling.StandardInteraction;
 import com.minecolonies.core.colony.jobs.JobAlchemist;
+import com.minecolonies.core.entity.pathfinding.navigation.EntityNavigationUtils;
 import com.minecolonies.core.network.messages.client.BlockParticleEffectMessage;
+import com.minecolonies.core.util.citizenutils.CitizenItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
@@ -46,7 +47,7 @@ import static com.minecolonies.api.entity.ai.statemachine.states.AIWorkerState.*
 import static com.minecolonies.api.util.ItemStackUtils.*;
 import static com.minecolonies.api.util.constant.CitizenConstants.TICKS_20;
 import static com.minecolonies.api.util.constant.Constants.*;
-import static com.minecolonies.api.util.constant.ToolLevelConstants.TOOL_LEVEL_WOOD_OR_GOLD;
+import static com.minecolonies.api.util.constant.EquipmentLevelConstants.TOOL_LEVEL_WOOD_OR_GOLD;
 import static com.minecolonies.api.util.constant.TranslationConstants.BAKER_HAS_NO_FURNACES_MESSAGE;
 
 /**
@@ -153,7 +154,7 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
 
         if (WorldUtil.isBlockLoaded(world, walkTo) && world.getBlockState(walkTo).getBlock() == Blocks.SOUL_SAND)
         {
-            if (walkToBlock(walkTo))
+            if (!walkToWorkPos(walkTo))
             {
                 return HARVEST_NETHERWART;
             }
@@ -212,7 +213,7 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
      */
     private IAIState harvestMistleToe()
     {
-        if (checkForToolOrWeapon(ToolType.SHEARS))
+        if (checkForToolOrWeapon(ModEquipmentTypes.shears.get()))
         {
             return IDLE;
         }
@@ -243,7 +244,7 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
 
         if (WorldUtil.isBlockLoaded(world, walkTo) && world.getBlockState(walkTo).getBlock() instanceof LeavesBlock)
         {
-            if (walkToBlock(walkTo))
+            if (!walkToWorkPos(walkTo))
             {
                 return HARVEST_MISTLETOE;
             }
@@ -251,8 +252,8 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
             final BlockState state = world.getBlockState(walkTo);
 
             final int slot =
-              InventoryUtils.getFirstSlotOfItemHandlerContainingTool(worker.getInventoryCitizen(), ToolType.SHEARS, TOOL_LEVEL_WOOD_OR_GOLD, building.getMaxToolLevel());
-            worker.getCitizenItemHandler().setHeldItem(InteractionHand.MAIN_HAND, slot);
+              InventoryUtils.getFirstSlotOfItemHandlerContainingEquipment(worker.getInventoryCitizen(), ModEquipmentTypes.shears.get(), TOOL_LEVEL_WOOD_OR_GOLD, building.getMaxEquipmentLevel());
+            CitizenItemUtils.setHeldItem(worker, InteractionHand.MAIN_HAND, slot);
 
             worker.swing(InteractionHand.MAIN_HAND);
             world.playSound(null,
@@ -262,13 +263,12 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
               state.getSoundType(world, walkTo, worker).getVolume(),
               state.getSoundType(world, walkTo, worker).getPitch());
             Network.getNetwork().sendToTrackingEntity(new BlockParticleEffectMessage(walkTo, state, worker.getRandom().nextInt(7) - 1), worker);
-
-            if (worker.getRandom().nextInt(120) < 1)
+            if (worker.getRandom().nextInt(40) <= 0)
             {
                 worker.decreaseSaturationForContinuousAction();
                 InventoryUtils.addItemStackToItemHandler(worker.getInventoryCitizen(), new ItemStack(ModItems.mistletoe, 1));
                 walkTo = null;
-                worker.getCitizenItemHandler().damageItemInHand(InteractionHand.MAIN_HAND, 1);
+                CitizenItemUtils.damageItemInHand(worker, InteractionHand.MAIN_HAND, 1);
                 return INVENTORY_FULL;
             }
         }
@@ -289,12 +289,12 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
         {
             if (worker.getNavigation().isDone())
             {
-                if (worker.getRandom().nextInt(DELAY_TO_HARVEST_NETHERWART) < 1)
+                if (worker.getRandom().nextInt(DELAY_TO_HARVEST_NETHERWART) <= 1)
                 {
                     return HARVEST_NETHERWART;
                 }
 
-                if (worker.getRandom().nextInt(DELAY_TO_HARVEST_MISTLETOE) < 1)
+                if (worker.getRandom().nextInt(DELAY_TO_HARVEST_MISTLETOE) <= 1)
                 {
                     return HARVEST_MISTLETOE;
                 }
@@ -302,7 +302,7 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
                 if (building.isInBuilding(worker.blockPosition()))
                 {
                     setDelay(TICKS_20 * 20);
-                    worker.getNavigation().moveToRandomPos(10, DEFAULT_SPEED, building.getCorners());
+                    EntityNavigationUtils.walkToRandomPosWithin(worker, 10, DEFAULT_SPEED, building.getCorners());
                 }
                 else
                 {
@@ -312,7 +312,7 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
             return IDLE;
         }
 
-        if (walkToBuilding())
+        if (!walkToBuilding())
         {
             return START_WORKING;
         }
@@ -581,7 +581,7 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
             return START_WORKING;
         }
 
-        if (fuelPos == null || walkToBlock(fuelPos))
+        if (fuelPos == null || !walkToWorkPos(fuelPos))
         {
             return getState();
         }
@@ -722,7 +722,7 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
             return START_WORKING;
         }
 
-        if (walkToBlock(walkTo))
+        if (!walkToWorkPos(walkTo))
         {
             return getState();
         }
@@ -784,7 +784,7 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
             return START_WORKING;
         }
 
-        if (walkToBlock(walkTo))
+        if (!walkToWorkPos(walkTo))
         {
             return getState();
         }
@@ -931,11 +931,11 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
                             }
                             if (toTransfer > 0)
                             {
-                                if (walkToBlock(walkTo))
+                                if (!walkToWorkPos(walkTo))
                                 {
                                     return getState();
                                 }
-                                worker.getCitizenItemHandler().hitBlockWithToolInHand(walkTo);
+                                CitizenItemUtils.hitBlockWithToolInHand(worker, walkTo);
                                 InventoryUtils.transferXInItemHandlerIntoSlotInItemHandler(
                                   worker.getInventoryCitizen(),
                                   potion,
@@ -990,11 +990,11 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
                         }
                         if (toTransfer > 0)
                         {
-                            if (walkToBlock(walkTo))
+                            if (!walkToWorkPos(walkTo))
                             {
                                 return getState();
                             }
-                            worker.getCitizenItemHandler().hitBlockWithToolInHand(walkTo);
+                            CitizenItemUtils.hitBlockWithToolInHand(worker, walkTo);
                             InventoryUtils.transferXInItemHandlerIntoSlotInItemHandler(
                               worker.getInventoryCitizen(),
                               ingredient,
@@ -1031,7 +1031,7 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
     @Override
     protected IAIState craft()
     {
-        if (walkToBuilding())
+        if (!walkToBuilding())
         {
             setDelay(STANDARD_DELAY);
             return getState();

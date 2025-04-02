@@ -6,7 +6,7 @@ import com.ldtteam.blockui.views.ScrollingList;
 import com.minecolonies.api.colony.buildings.views.IBuildingView;
 import com.minecolonies.api.crafting.IRecipeStorage;
 import com.minecolonies.api.crafting.ItemStorage;
-import com.minecolonies.api.util.constant.ToolType;
+import com.minecolonies.api.equipment.ModEquipmentTypes;
 import com.minecolonies.api.util.constant.TranslationConstants;
 import com.minecolonies.core.Network;
 import com.minecolonies.core.client.gui.AbstractModuleWindow;
@@ -144,8 +144,6 @@ public class WindowListRecipes extends AbstractModuleWindow
     {
         final int row = recipeList.getListElementIndexByPane(button);
         final IRecipeStorage data = module.getRecipes().get(row);
-        module.removeRecipe(row);
-        recipeList.refreshElementPanes();
         Network.getNetwork().sendToServer(new AddRemoveRecipeMessage(buildingView, true, data, module.getProducer().getRuntimeID()));
     }
 
@@ -197,7 +195,7 @@ public class WindowListRecipes extends AbstractModuleWindow
 
                 final Text intermediate = rowPane.findPaneOfTypeByID("intermediate", Text.class);
                 intermediate.setVisible(false);
-                if(recipe.getRequiredTool() != ToolType.NONE)
+                if (recipe.getRequiredTool() != ModEquipmentTypes.none.get())
                 {
                     intermediate.setText(recipe.getRequiredTool().getDisplayName());
                     intermediate.setVisible(true);
@@ -248,7 +246,7 @@ public class WindowListRecipes extends AbstractModuleWindow
                 }
                 else
                 {
-                    for (int i = 0; i < recipe.getInput().size(); i++)
+                    for (int i = 0; i < Math.min(9, recipe.getInput().size()); i++)
                     {
                         rowPane.findPaneOfTypeByID(String.format(RESOURCE, i + 1), ItemIcon.class).setItem(getStackWithCount(recipe.getInput().get(i)));
                     }

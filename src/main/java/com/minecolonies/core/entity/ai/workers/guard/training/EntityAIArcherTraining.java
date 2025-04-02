@@ -4,13 +4,14 @@ import com.minecolonies.api.entity.ModEntities;
 import com.minecolonies.api.entity.ai.statemachine.AITarget;
 import com.minecolonies.api.entity.ai.statemachine.states.IAIState;
 import com.minecolonies.api.entity.citizen.VisibleCitizenStatus;
+import com.minecolonies.api.equipment.ModEquipmentTypes;
 import com.minecolonies.api.util.InventoryUtils;
 import com.minecolonies.api.util.SoundUtils;
 import com.minecolonies.api.util.WorldUtil;
 import com.minecolonies.api.util.constant.Constants;
-import com.minecolonies.api.util.constant.ToolType;
 import com.minecolonies.core.colony.buildings.workerbuildings.BuildingArchery;
 import com.minecolonies.core.colony.jobs.JobArcherTraining;
+import com.minecolonies.core.util.citizenutils.CitizenItemUtils;
 import com.minecolonies.core.util.WorkerUtil;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.projectile.Arrow;
@@ -187,7 +188,7 @@ public class EntityAIArcherTraining extends AbstractEntityAITraining<JobArcherTr
 
             if (worker.getRandom().nextBoolean())
             {
-                worker.getCitizenItemHandler().damageItemInHand(InteractionHand.MAIN_HAND, 1);
+                CitizenItemUtils.damageItemInHand(worker, InteractionHand.MAIN_HAND, 1);
             }
             worker.stopUsingItem();
             this.incrementActionsDoneAndDecSaturation();
@@ -225,14 +226,14 @@ public class EntityAIArcherTraining extends AbstractEntityAITraining<JobArcherTr
     @Override
     protected boolean isSetup()
     {
-        if (checkForToolOrWeapon(ToolType.BOW))
+        if (checkForToolOrWeapon(ModEquipmentTypes.bow.get()))
         {
             setDelay(REQUEST_DELAY);
             return false;
         }
 
-        final int bowSlot = InventoryUtils.getFirstSlotOfItemHandlerContainingTool(getInventory(), ToolType.BOW, 0, building.getMaxToolLevel());
-        worker.getCitizenItemHandler().setHeldItem(InteractionHand.MAIN_HAND, bowSlot);
+        final int bowSlot = InventoryUtils.getFirstSlotOfItemHandlerContainingEquipment(getInventory(), ModEquipmentTypes.bow.get(), 0, building.getMaxEquipmentLevel());
+        CitizenItemUtils.setHeldItem(worker, InteractionHand.MAIN_HAND, bowSlot);
         return true;
     }
 

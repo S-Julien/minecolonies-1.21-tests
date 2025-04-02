@@ -2,7 +2,7 @@ package com.minecolonies.api.colony;
 
 import com.minecolonies.api.colony.buildings.views.IBuildingView;
 import com.minecolonies.api.colony.buildings.workerbuildings.ITownHallView;
-import com.minecolonies.api.colony.fields.IField;
+import com.minecolonies.api.colony.buildingextensions.IBuildingExtension;
 import com.minecolonies.api.colony.permissions.ColonyPlayer;
 import com.minecolonies.api.colony.permissions.IPermissions;
 import com.minecolonies.api.colony.requestsystem.manager.IRequestManager;
@@ -16,7 +16,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.scores.PlayerTeam;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -263,27 +262,27 @@ public interface IColonyView extends IColony
     void handleColonyViewResearchManagerUpdate(CompoundTag compoundTag);
 
     /**
-     * Update all field instances in the colony view.
+     * Update all building extension instances in the colony view.
      *
-     * @param fields the list of fields.
+     * @param extensions the list of building extensions.
      */
-    void handleColonyFieldViewUpdateMessage(Set<IField> fields);
+    void handleColonyBuildingExtensionViewUpdateMessage(Set<IBuildingExtension> extensions);
 
     /**
-     * Get all fields.
+     * Get all building extensions.
      *
-     * @param matcher the field matcher predicate.
-     * @return a collection of fields.
+     * @param matcher the building extension matcher predicate.
+     * @return a collection of building extensions.
      */
-    @NotNull List<IField> getFields(Predicate<IField> matcher);
+    @NotNull List<IBuildingExtension> getBuildingExtensions(Predicate<IBuildingExtension> matcher);
 
     /**
-     * Get a specific field.
+     * Get a specific building extension.
      *
-     * @param matcher the field matcher predicate.
-     * @return a field instance, or null.
+     * @param matcher the building extension matcher predicate.
+     * @return a building extension instance, or null.
      */
-    @Nullable IField getField(Predicate<IField> matcher);
+    @Nullable IBuildingExtension getBuildingExtension(Predicate<IBuildingExtension> matcher);
 
     /**
      * Update a players permissions.
@@ -342,9 +341,6 @@ public interface IColonyView extends IColony
 
     @Override
     boolean hasWarehouse();
-
-    @Override
-    PlayerTeam getTeam();
 
     @Override
     int getLastContactInHours();

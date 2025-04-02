@@ -8,9 +8,9 @@ import com.minecolonies.api.colony.requestsystem.StandardFactoryController;
 import com.minecolonies.api.colony.requestsystem.token.IToken;
 import com.minecolonies.api.crafting.registry.RecipeTypeEntry;
 import com.minecolonies.api.entity.citizen.AbstractEntityCitizen;
+import com.minecolonies.api.equipment.registry.EquipmentTypeEntry;
 import com.minecolonies.api.util.InventoryUtils;
 import com.minecolonies.api.util.ItemStackUtils;
-import com.minecolonies.api.util.constant.IToolType;
 import com.minecolonies.api.util.constant.TypeConstants;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
@@ -25,6 +25,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.registries.IForgeRegistry;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -54,7 +55,7 @@ public class RecipeStorage implements IRecipeStorage
     private final List<ItemStorage> input;
 
     @NotNull
-    private final List<ItemStorage> cleanedInput;
+    private final List<ItemStorage> cleanedInput = new ArrayList<>();;
 
     /**
      * Primary output generated for the recipe.
@@ -72,13 +73,13 @@ public class RecipeStorage implements IRecipeStorage
      * Secondary outputs generated for the recipe.
      */
     @NotNull
-    private final List<ItemStack> secondaryOutputs;
+    private final List<ItemStack> secondaryOutputs = new ArrayList<>();;
 
     /**
      * Tools not consumed but damanged for the recipe.
      */
     @NotNull
-    private final List<ItemStack> tools;
+    private final List<ItemStack> tools = new ArrayList<>();;
 
     /**
      * The intermediate required for the recipe (e.g furnace).
@@ -103,7 +104,7 @@ public class RecipeStorage implements IRecipeStorage
     /**
      * The tool required to craft this recipe (in addition to any in the recipe itself)
      */
-    private final IToolType requiredTool;
+    private final EquipmentTypeEntry requiredTool;
 
     /**
      * The hash cache
@@ -142,14 +143,11 @@ public class RecipeStorage implements IRecipeStorage
      * @param lootTable     Loot table to use for possible alternate outputs
      * @param requiredTool  the tool needed to craft (in addition to anything in the recipe itself)
      */
-    public RecipeStorage(final IToken<?> token, final List<ItemStorage> input, final int gridSize, @NotNull final ItemStack primaryOutput, final Block intermediate, final ResourceLocation source, final ResourceLocation type, final List<ItemStack> altOutputs, final List<ItemStack> secOutputs, final ResourceLocation lootTable, final IToolType requiredTool)
+    public RecipeStorage(final IToken<?> token, final List<ItemStorage> input, final int gridSize, @NotNull final ItemStack primaryOutput, final Block intermediate, final ResourceLocation source, final ResourceLocation type, final List<ItemStack> altOutputs, final List<ItemStack> secOutputs, final ResourceLocation lootTable, final EquipmentTypeEntry requiredTool)
     {
         this.input = Collections.unmodifiableList(input);
-        this.cleanedInput = new ArrayList<>();
-        this.cleanedInput.addAll(this.calculateCleanedInput());
         this.primaryOutput = primaryOutput;
         this.alternateOutputs = altOutputs != null && !altOutputs.isEmpty() ? altOutputs : ImmutableList.of();
-        this.secondaryOutputs = secOutputs != null && !secOutputs.isEmpty() ? secOutputs.stream().filter(i -> i.getItem() != ModItems.buildTool.get()).collect(Collectors.toList()): this.calculateSecondaryOutputs();
         this.gridSize = gridSize;
         this.intermediate = intermediate == null ? Blocks.AIR : intermediate;
         this.token = token;
@@ -166,36 +164,56 @@ public class RecipeStorage implements IRecipeStorage
 
         this.lootTable = lootTable;
         this.requiredTool = requiredTool;
-        this.tools = new ArrayList<>();
-        this.calculateTools();
-    }
 
-    @Override
-    public List<ItemStorage> getInput()
-    {
-        return new ArrayList<>(input);
-    }
-
-    @NotNull
-    @Override
-    public List<ItemStorage> getCleanedInput()
-    {
-        return this.cleanedInput;
+        this.processInputsAndTools(secOutputs);
     }
 
     /**
-     * Calculate a compressed input list from the ingredients.
-     * @return a compressed and immutable list.
+     * Process the input and tools and alter things accordingly.
+     * @param secOutputs the secondary outputs coming from the constructor.
      */
-    private List<ImmutableItemStorage> calculateCleanedInput()
+    private void processInputsAndTools(@Nullable final List<ItemStack> secOutputs)
     {
-        final List<ItemStorage> items = new ArrayList<>();
+        this.cleanedInput.clear();
+        this.tools.clear();
+        this.secondaryOutputs.clear();
 
-        for (final ItemStorage inputItem : input)
+        if (secOutputs != null)
         {
+            for (final ItemStack secOutput : secOutputs)
+            {
+                if (!secOutput.isEmpty() && secOutput.getItem() != ModItems.buildTool.get())
+                {
+                    this.secondaryOutputs.add(secOutput);
+                }
+            }
+        }
+
+        final List<ItemStorage> items = new ArrayList<>();
+        for (final ItemStorage input : input)
+        {
+            ItemStorage inputItem = input;
             if (inputItem.isEmpty() || inputItem.getItem() == ModItems.buildTool.get())
             {
                 continue;
+            }
+
+            final ItemStack container = inputItem.getItemStack().getCraftingRemainingItem();
+            if (secOutputs == null && !ItemStackUtils.isEmpty(container))
+            {
+                container.setCount(inputItem.getAmount());
+                this.secondaryOutputs.add(container);
+            }
+
+            for (ItemStack result : this.secondaryOutputs)
+            {
+                if (ItemStackUtils.compareItemStacksIgnoreStackSize(inputItem.getItemStack(), result, false, true))
+                {
+                    inputItem = new ItemStorage(inputItem.getItemStack(), inputItem.getAmount(), true, inputItem.shouldIgnoreNBTValue);
+                    this.tools.add(result);
+                    this.secondaryOutputs.remove(result);
+                    break;
+                }
             }
 
             ItemStorage storage = inputItem.copy();
@@ -215,55 +233,23 @@ public class RecipeStorage implements IRecipeStorage
             items.add(storage);
         }
 
-        final List<ImmutableItemStorage> immutableItems = new ArrayList<>();
         for (final ItemStorage storage : items)
         {
-            immutableItems.add(new ImmutableItemStorage(storage));
+            this.cleanedInput.add(new ImmutableItemStorage(storage));
         }
-        return immutableItems;
     }
 
-    /**
-     * Calculate secondary stacks if they aren't provided. 
-     * @return the list of secondary outputs
-     */
-    private List<ItemStack> calculateSecondaryOutputs()
+    @Override
+    public List<ItemStorage> getInput()
     {
-        final List<ItemStack> secondaryStacks = new ArrayList<>();
-        for (final ItemStorage inputItem : input)
-        {
-            if (inputItem.getItem() == ModItems.buildTool.get())
-            {
-                continue;
-            }
-
-            final ItemStack container = inputItem.getItemStack().getCraftingRemainingItem();
-            if (!ItemStackUtils.isEmpty(container))
-            {
-                container.setCount(inputItem.getAmount());
-                secondaryStacks.add(container);
-            }
-        }
-        return secondaryStacks;
+        return new ArrayList<>(input);
     }
 
-    /**
-     * Calculate tools from comparing inputs and outputs. 
-     */
-    private void calculateTools()
+    @NotNull
+    @Override
+    public List<ItemStorage> getCleanedInput()
     {
-        for(ItemStorage item : getCleanedInput())
-        {
-            for(ItemStack result: getSecondaryOutputs())
-            {
-                if(ItemStackUtils.compareItemStacksIgnoreStackSize(item.getItemStack(), result, false, true) && result.isDamageableItem())
-                {
-                    tools.add(result);
-                    secondaryOutputs.remove(result);
-                    break;
-                }
-            }
-        }
+        return this.cleanedInput;
     }
 
     @NotNull
@@ -539,25 +525,31 @@ public class RecipeStorage implements IRecipeStorage
 
             for (final IItemHandler handler : handlers)
             {
+                boolean isTool = ItemStackUtils.compareItemStackListIgnoreStackSize(tools, stack, false, !storage.ignoreNBT());
                 int slotOfStack =
-                  InventoryUtils.findFirstSlotInItemHandlerNotEmptyWith(handler, itemStack -> !ItemStackUtils.isEmpty(itemStack) && ItemStackUtils.compareItemStacksIgnoreStackSize(itemStack, stack, false, !storage.ignoreNBT()));
+                  InventoryUtils.findFirstSlotInItemHandlerNotEmptyWith(handler, itemStack ->
+                          ItemStackUtils.compareItemStacksIgnoreStackSize(itemStack, stack, false, !storage.ignoreNBT()) &&
+                                  (!isTool || !stack.isDamageableItem() || ItemStackUtils.getDurability(itemStack) > 0));
 
                 while (slotOfStack != -1 && amountNeeded > 0)
                 {
-                    if(citizen != null && ItemStackUtils.compareItemStackListIgnoreStackSize(tools, stack, false, !storage.ignoreNBT()) && ItemStackUtils.getDurability(handler.getStackInSlot(slotOfStack)) > 0 )
+                    if(citizen != null && isTool)
                     {
-                        ItemStack toDamage = handler.extractItem(slotOfStack,1, false);
-                        if (!ItemStackUtils.isEmpty(toDamage))
+                        if (stack.isDamageableItem())
                         {
-                            // The 4 parameter inner call from forge is for adding a callback to alter the damage caused,
-                            // but unlike its description does not actually damage the item(despite the same function name). So used to just calculate the damage.
-                            toDamage.hurtAndBreak(toDamage.getItem().damageItem(stack, 1, citizen, item -> item.broadcastBreakEvent(InteractionHand.MAIN_HAND)), citizen, item -> item.broadcastBreakEvent(InteractionHand.MAIN_HAND));
+                            ItemStack toDamage = handler.extractItem(slotOfStack, 1, false);
+                            if (!ItemStackUtils.isEmpty(toDamage))
+                            {
+                                // The 4 parameter inner call from forge is for adding a callback to alter the damage caused,
+                                // but unlike its description does not actually damage the item(despite the same function name). So used to just calculate the damage.
+                                toDamage.hurtAndBreak(toDamage.getItem().damageItem(stack, 1, citizen, item -> item.broadcastBreakEvent(InteractionHand.MAIN_HAND)), citizen, item -> item.broadcastBreakEvent(InteractionHand.MAIN_HAND));
+                            }
+                            if (!ItemStackUtils.isEmpty(toDamage))
+                            {
+                                handler.insertItem(slotOfStack, toDamage, false);
+                            }
                         }
-                        if (!ItemStackUtils.isEmpty(toDamage))
-                        {
-                            handler.insertItem(slotOfStack, toDamage, false);
-                        }
-                        amountNeeded -= stack.getCount();
+                        --amountNeeded;
                     }
                     else
                     {
@@ -732,7 +724,7 @@ public class RecipeStorage implements IRecipeStorage
 
     @NotNull
     @Override
-    public IToolType getRequiredTool()
+    public EquipmentTypeEntry getRequiredTool()
     {
         return this.requiredTool;
     }

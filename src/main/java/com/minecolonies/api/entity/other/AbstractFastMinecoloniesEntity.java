@@ -6,13 +6,16 @@ import com.minecolonies.api.util.LookHandler;
 import com.minecolonies.api.util.constant.ColonyConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.entity.EntityTypeTest;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.util.ITeleporter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -48,7 +51,17 @@ public abstract class AbstractFastMinecoloniesEntity extends PathfinderMob imple
     /**
      * Entity push cache.
      */
-    private List<Entity> entityPushCache = new ArrayList<>();
+    private List<LivingEntity> entityPushCache = new ArrayList<>();
+
+    /**
+     * The timepoint at which the entity last collided
+     */
+    private long lastHorizontalCollision = 0;
+
+    /**
+     * Last knockback time
+     */
+    protected long lastKnockBack = 0;
 
     /**
      * Create a new instance.
@@ -82,6 +95,23 @@ public abstract class AbstractFastMinecoloniesEntity extends PathfinderMob imple
     public void setCanBeStuck(final boolean canBeStuck)
     {
         this.canBeStuck = canBeStuck;
+    }
+
+    @Override
+    protected boolean isHorizontalCollisionMinor(Vec3 vec3)
+    {
+        lastHorizontalCollision = level.getGameTime();
+        return super.isHorizontalCollisionMinor(vec3);
+    }
+
+    /**
+     * Whether the citizen collided in the last 10 ticks
+     *
+     * @return
+     */
+    public boolean hadHorizontalCollission()
+    {
+        return level.getGameTime() - lastHorizontalCollision < 10;
     }
 
     @Override
@@ -140,7 +170,7 @@ public abstract class AbstractFastMinecoloniesEntity extends PathfinderMob imple
         {
             if (this.tickCount % 10 == randomVariance % 10)
             {
-                entityPushCache = this.level.getEntities(this, this.getBoundingBox(), EntityUtils.pushableBy());
+                entityPushCache = level.getEntitiesOfClass(LivingEntity.class, getBoundingBox());
             }
 
             if (!entityPushCache.isEmpty())
@@ -286,5 +316,68 @@ public abstract class AbstractFastMinecoloniesEntity extends PathfinderMob imple
     public void updateSwimAmount()
     {
 
+    }
+
+    /**
+     * Static Byte values to avoid frequent autoboxing
+     */
+    final Byte ENABLE  = 2;
+    final Byte DISABLE = 0;
+
+    @Override
+    public void setShiftKeyDown(boolean enable)
+    {
+        if (enable)
+        {
+            this.entityData.set(DATA_SHARED_FLAGS_ID, ENABLE);
+        }
+        else
+        {
+            this.entityData.set(DATA_SHARED_FLAGS_ID, DISABLE);
+        }
+    }
+
+    @Override
+    public boolean isShiftKeyDown()
+    {
+        return (this.entityData.get(DATA_SHARED_FLAGS_ID)).byteValue() == ENABLE.byteValue();
+    }
+
+    @Override
+    public void knockback(double power, double xRatio, double zRatio)
+    {
+        if (level.getGameTime() - lastKnockBack > 20 * 3)
+        {
+            lastKnockBack = level.getGameTime();
+            super.knockback(power, xRatio, zRatio);
+        }
+    }
+
+    @Override
+    public boolean hurt(final DamageSource dmgSource, final float dmg)
+    {
+        if (dmgSource.getEntity() instanceof AbstractFastMinecoloniesEntity otherFastMinecolEntity && otherFastMinecolEntity.getTeamId() == getTeamId())
+        {
+            return false;
+        }
+        return super.hurt(dmgSource, dmg);
+    }
+
+    /**
+     * Get the team name of this entity.
+     * todo sam make colony ids unique across dimensions.
+     * @return the team name.
+     */
+    public abstract int getTeamId();
+
+    /**
+     * Preven dimension changes
+     *
+     * @return
+     */
+    @Override
+    public boolean canChangeDimensions()
+    {
+        return false;
     }
 }

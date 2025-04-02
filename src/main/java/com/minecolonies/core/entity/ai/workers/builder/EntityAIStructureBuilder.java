@@ -145,7 +145,7 @@ public class EntityAIStructureBuilder extends AbstractEntityAIStructureWithWorkO
 
     private IAIState startWorkingAtOwnBuilding()
     {
-        if (walkToBuilding())
+        if (!walkToBuilding())
         {
             return getState();
         }
@@ -157,10 +157,10 @@ public class EntityAIStructureBuilder extends AbstractEntityAIStructureWithWorkO
      */
     private void killMobs()
     {
-        if (building.getBuildingLevel() >= LEVEL_TO_PURGE_MOBS && job.getWorkOrder().getWorkOrderType() == WorkOrderType.BUILD)
+        if (building.getBuildingLevel() >= LEVEL_TO_PURGE_MOBS && job.getWorkOrder() != null && job.getWorkOrder().getWorkOrderType() == WorkOrderType.BUILD)
         {
             final BlockPos buildingPos = job.getWorkOrder().getLocation();
-            final IBuilding building = worker.getCitizenColonyHandler().getColony().getBuildingManager().getBuilding(buildingPos);
+            final IBuilding building = worker.getCitizenColonyHandler().getColonyOrRegister().getBuildingManager().getBuilding(buildingPos);
             if (building != null)
             {
                 WorldUtil.getEntitiesWithinBuilding(world, Monster.class, building, null).forEach(e -> e.remove(Entity.RemovalReason.DISCARDED));
@@ -212,10 +212,11 @@ public class EntityAIStructureBuilder extends AbstractEntityAIStructureWithWorkO
                 final PathJobMoveCloseToXNearY pathJob = new PathJobMoveCloseToXNearY(world,
                   currentBlock,
                   job.getWorkOrder().getLocation(),
-                  5,
+                  4,
                   worker);
                 gotoPath = ((MinecoloniesAdvancedPathNavigate) worker.getNavigation()).setPathJob(pathJob, currentBlock, 1.0, false);
-                pathJob.getPathingOptions().canDrop = false;
+                pathJob.getPathingOptions().dropCost = 200;
+                pathJob.extraNodes = 0;
             }
             else if (gotoPath.isDone())
             {
@@ -229,7 +230,7 @@ public class EntityAIStructureBuilder extends AbstractEntityAIStructureWithWorkO
             return false;
         }
 
-        if (walkToBlock(workFrom))
+        if (!walkToSafePos(workFrom))
         {
             return false;
         }
@@ -251,9 +252,9 @@ public class EntityAIStructureBuilder extends AbstractEntityAIStructureWithWorkO
     }
 
     @Override
-    public int getBlockMiningDelay(@NotNull final BlockState state, @NotNull final BlockPos pos)
+    public int getBlockMiningTime(@NotNull final BlockState state, @NotNull final BlockPos pos)
     {
-        return (int) (super.getBlockMiningDelay(state, pos) * SPEED_BUFF_0);
+        return (int) (super.getBlockMiningTime(state, pos) * SPEED_BUFF_0);
     }
 
     /**
@@ -320,6 +321,6 @@ public class EntityAIStructureBuilder extends AbstractEntityAIStructureWithWorkO
             message.append(Component.translatable(COM_MINECOLONIES_COREMOD_ENTITY_BUILDER_MANUAL_SUFFIX));
         }
 
-        MessageUtils.forCitizen(worker, message).sendTo(worker.getCitizenColonyHandler().getColony().getImportantMessageEntityPlayers());
+        MessageUtils.forCitizen(worker, message).sendTo(worker.getCitizenColonyHandler().getColonyOrRegister().getImportantMessageEntityPlayers());
     }
 }

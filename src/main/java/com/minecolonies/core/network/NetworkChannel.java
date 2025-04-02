@@ -112,7 +112,7 @@ public class NetworkChannel
         registerMessage(++idx, ColonyViewRemoveCitizenMessage.class, ColonyViewRemoveCitizenMessage::new);
         registerMessage(++idx, ColonyViewBuildingViewMessage.class, ColonyViewBuildingViewMessage::new);
         registerMessage(++idx, ColonyViewRemoveBuildingMessage.class, ColonyViewRemoveBuildingMessage::new);
-        registerMessage(++idx, ColonyViewFieldsUpdateMessage.class, ColonyViewFieldsUpdateMessage::new);
+        registerMessage(++idx, ColonyViewBuildingExtensionsUpdateMessage.class, ColonyViewBuildingExtensionsUpdateMessage::new);
         registerMessage(++idx, PermissionsMessage.View.class, PermissionsMessage.View::new);
         registerMessage(++idx, ColonyViewWorkOrderMessage.class, ColonyViewWorkOrderMessage::new);
         registerMessage(++idx, ColonyViewRemoveWorkOrderMessage.class, ColonyViewRemoveWorkOrderMessage::new);
@@ -203,6 +203,7 @@ public class NetworkChannel
         registerMessage(++idx, GetColonyInfoMessage.class, GetColonyInfoMessage::new);
         registerMessage(++idx, PickupBlockMessage.class, PickupBlockMessage::new);
         registerMessage(++idx, MarkStoryReadOnItem.class, MarkStoryReadOnItem::new);
+        registerMessage(++idx, AlterRestaurantMenuItemMessage.class, AlterRestaurantMenuItemMessage::new);
 
         //Client side only
         registerMessage(++idx, BlockParticleEffectMessage.class, BlockParticleEffectMessage::new);
@@ -228,6 +229,7 @@ public class NetworkChannel
         registerMessage(++idx, OpenPlantationFieldBuildWindowMessage.class, OpenPlantationFieldBuildWindowMessage::new);
         registerMessage(++idx, SaveStructureNBTMessage.class, SaveStructureNBTMessage::new);
         registerMessage(++idx, GlobalQuestSyncMessage.class, GlobalQuestSyncMessage::new);
+        registerMessage(++idx, GlobalDiseaseSyncMessage.class, GlobalDiseaseSyncMessage::new);
         registerMessage(++idx, OpenColonyFoundingCovenantMessage.class, OpenColonyFoundingCovenantMessage::new);
         registerMessage(++idx, OpenBuildingUIMessage.class, OpenBuildingUIMessage::new);
         registerMessage(++idx, OpenCantFoundColonyWarningMessage.class, OpenCantFoundColonyWarningMessage::new);

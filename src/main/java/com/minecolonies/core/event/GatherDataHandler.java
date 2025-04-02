@@ -41,6 +41,8 @@ public class GatherDataHandler
         generator.addProvider(event.includeServer(), new DefaultDamageTagsProvider(generator.getPackOutput(), event.getLookupProvider(), event.getExistingFileHelper()));
         generator.addProvider(event.includeServer(), new DefaultResearchProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new DefaultRecipeProvider(generator.getPackOutput()));
+        generator.addProvider(event.includeServer(), new DefaultBiomeTagsProvider(generator.getPackOutput(), event.getLookupProvider(), event.getExistingFileHelper()));
+        generator.addProvider(event.includeServer(), new DefaultLuckyOreLootProvider(generator.getPackOutput()));
 
         // workers
         generator.addProvider(event.includeServer(), new DefaultRecipeLootProvider(generator.getPackOutput()));
@@ -48,7 +50,7 @@ public class GatherDataHandler
         generator.addProvider(event.includeServer(), new DefaultBakerCraftingProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new DefaultBlacksmithCraftingProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new DefaultConcreteMixerCraftingProvider(generator.getPackOutput()));
-        generator.addProvider(event.includeServer(), new DefaultCookAssistantCraftingProvider(generator.getPackOutput()));
+        generator.addProvider(event.includeServer(), new DefaultChefCraftingProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new DefaultCrusherCraftingProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new DefaultDyerCraftingProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new DefaultEnchanterCraftingProvider(generator.getPackOutput()));

@@ -6,11 +6,12 @@ import com.ldtteam.blockui.controls.ItemIcon;
 import com.ldtteam.blockui.controls.Text;
 import com.ldtteam.blockui.views.BOWindow;
 import com.ldtteam.blockui.views.Box;
+import com.minecolonies.api.IMinecoloniesAPI;
 import com.minecolonies.api.colony.*;
-import com.minecolonies.api.colony.citizens.event.CitizenAddedEvent;
 import com.minecolonies.api.colony.interactionhandling.IChatPriority;
 import com.minecolonies.api.colony.interactionhandling.IInteractionResponseHandler;
 import com.minecolonies.api.colony.interactionhandling.ModInteractionResponseHandlers;
+import com.minecolonies.api.eventbus.events.colony.citizens.CitizenAddedModEvent;
 import com.minecolonies.api.util.InventoryUtils;
 import com.minecolonies.api.util.MessageUtils;
 import com.minecolonies.api.util.Tuple;
@@ -22,7 +23,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
 import java.util.Collections;
@@ -96,20 +96,20 @@ public class RecruitmentInteraction extends ServerCitizenInteraction
         final Box group = window.findPaneOfTypeByID(RESPONSE_BOX_ID, Box.class);
 
 
-        if (recruitButton != null && dataView instanceof IVisitorViewData)
+        if (recruitButton != null && dataView instanceof IVisitorViewData visitorViewData)
         {
-            final ItemStack recruitCost = ((IVisitorViewData) dataView).getRecruitCost();
+            final ItemStack recruitCost = visitorViewData.getRecruitCost();
             final IColonyView colony = (IColonyView) dataView.getColony();
 
             window.findPaneOfTypeByID(CHAT_LABEL_ID, Text.class).setText(PaneBuilders.textBuilder()
                 .append(Component.literal(dataView.getName() + ": "))
                 .append(this.getInquiry())
                 .emptyLines(1)
-                .append(Component.translatable(
+                .appendNL(Component.translatable(
                     colony.getCitizens().size() < colony.getCitizenCountLimit() ? "com.minecolonies.coremod.gui.chat.recruitcost"
                         : "com.minecolonies.coremod.gui.chat.nospacerecruit",
-                    dataView.getName().split(" ")[0],
                     recruitCost.getCount() + " " + recruitCost.getHoverName().getString()))
+                .appendNL(Component.literal(""))
                 .getText());
 
             int iconPosX = recruitButton.getX() + recruitButton.getWidth() - 28;
@@ -118,7 +118,7 @@ public class RecruitmentInteraction extends ServerCitizenInteraction
             icon.setID(RECRUITMENT_ICON);
             icon.setSize(15, 15);
             group.addChild(icon);
-            icon.setItem(((IVisitorViewData) dataView).getRecruitCost());
+            icon.setItem(recruitCost);
             icon.setPosition(iconPosX, iconPosY);
             icon.setVisible(true);
         }
@@ -188,7 +188,9 @@ public class RecruitmentInteraction extends ServerCitizenInteraction
                         MessageUtils.format(MESSAGE_RECRUITMENT_SUCCESS, data.getName()).sendTo(colony).forAllPlayers();
                     }
 
-                    MinecraftForge.EVENT_BUS.post(new CitizenAddedEvent(newCitizen, CitizenAddedEvent.Source.HIRED));
+                    IMinecoloniesAPI.getInstance()
+                      .getEventBus()
+                      .post(new CitizenAddedModEvent(newCitizen, CitizenAddedModEvent.CitizenAddedSource.HIRED));
                 }
             }
             else

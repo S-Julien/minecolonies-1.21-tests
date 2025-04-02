@@ -1,8 +1,13 @@
 package com.minecolonies.core.event;
 
 import com.minecolonies.api.blocks.AbstractBlockHut;
+import com.minecolonies.api.blocks.ModBlocks;
 import com.minecolonies.api.blocks.interfaces.IRSComponentBlock;
-import com.minecolonies.api.colony.*;
+import com.minecolonies.api.client.render.modeltype.CitizenModel;
+import com.minecolonies.api.colony.ICitizenData;
+import com.minecolonies.api.colony.IColony;
+import com.minecolonies.api.colony.IColonyManager;
+import com.minecolonies.api.colony.IVisitorData;
 import com.minecolonies.api.colony.buildings.IBuilding;
 import com.minecolonies.api.colony.buildings.IGuardBuilding;
 import com.minecolonies.api.colony.interactionhandling.ChatPriority;
@@ -12,16 +17,19 @@ import com.minecolonies.api.entity.ai.statemachine.tickratestatemachine.TickRate
 import com.minecolonies.api.entity.citizen.AbstractEntityCitizen;
 import com.minecolonies.api.entity.other.AbstractFastMinecoloniesEntity;
 import com.minecolonies.api.items.ModTags;
+import com.minecolonies.api.loot.EntityInBiomeTag;
+import com.minecolonies.api.loot.ModLootConditions;
 import com.minecolonies.api.util.*;
 import com.minecolonies.api.util.constant.Constants;
 import com.minecolonies.core.MineColonies;
 import com.minecolonies.core.Network;
 import com.minecolonies.core.blocks.BlockScarecrow;
+import com.minecolonies.core.blocks.MinecoloniesCropBlock;
 import com.minecolonies.core.blocks.huts.BlockHutTownHall;
 import com.minecolonies.core.client.render.RenderBipedCitizen;
 import com.minecolonies.core.colony.ColonyManager;
+import com.minecolonies.core.colony.buildings.modules.BuildingModules;
 import com.minecolonies.core.colony.buildings.modules.TavernBuildingModule;
-import com.minecolonies.core.colony.eventhooks.citizenEvents.VisitorSpawnedEvent;
 import com.minecolonies.core.colony.interactionhandling.RecruitmentInteraction;
 import com.minecolonies.core.colony.jobs.AbstractJobGuard;
 import com.minecolonies.core.colony.jobs.JobFarmer;
@@ -36,7 +44,6 @@ import com.minecolonies.core.items.ItemBannerRallyGuards;
 import com.minecolonies.core.network.messages.client.OpenSuggestionWindowMessage;
 import com.minecolonies.core.network.messages.client.UpdateChunkCapabilityMessage;
 import com.minecolonies.core.network.messages.client.UpdateChunkRangeCapabilityMessage;
-import com.minecolonies.api.util.ChunkCapData;
 import com.minecolonies.core.util.ChunkClientDataHelper;
 import com.minecolonies.core.util.ChunkDataHelper;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -52,22 +59,24 @@ import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.ZombieVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SpawnerBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.chunk.LevelChunk;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.event.TickEvent;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
+import net.minecraftforge.event.*;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.EntityTravelToDimensionEvent;
 import net.minecraftforge.event.entity.living.LivingConversionEvent;
@@ -102,7 +111,12 @@ public class EventHandler
     /**
      * Player position map for watching chunk entries
      */
-    private static Map<UUID, ChunkPos> playerPositions = new HashMap<>();
+    private static final Map<UUID, ChunkPos> playerPositions = new HashMap<>();
+
+    /**
+     * Cache of loot table -> crops.
+     */
+    private static Map<ResourceLocation, List<MinecoloniesCropBlock>> cropDrops;
 
     @SubscribeEvent
     public static void onCommandsRegister(final RegisterCommandsEvent event)
@@ -122,7 +136,8 @@ public class EventHandler
         {
             if (MineColonies.getConfig().getServer().mobAttackCitizens.get() && event.getEntity() instanceof Mob && event.getEntity() instanceof Enemy && !(event.getEntity()
               .getType()
-              .is(ModTags.mobAttackBlacklist)))
+                .is(ModTags.mobAttackBlacklist))
+                && !(event.getEntity() instanceof AbstractFastMinecoloniesEntity))
             {
                 ((Mob) event.getEntity()).targetSelector.addGoal(6,
                   new NearestAttackableTargetGoal<>((Mob) event.getEntity(), EntityCitizen.class, true, citizen -> !citizen.isInvisible()));
@@ -133,6 +148,88 @@ public class EventHandler
             {
                 event.setCanceled(true);
             }
+
+            if (event.getEntity() instanceof EntityCitizen citizen && citizen.getCitizenColonyHandler().getColonyId() == 0)
+            {
+                Log.getLogger().info("Prevented citizen with colony id 0 from joining world");
+                event.setCanceled(true);
+            }
+        }
+    }
+
+    private static void buildCropDrops()
+    {
+        cropDrops = new HashMap<>();
+
+        for (final MinecoloniesCropBlock crop : ModBlocks.getCrops())
+        {
+            for (final Block source : crop.getDroppedFrom())
+            {
+                cropDrops.computeIfAbsent(source.getLootTable(), t -> new ArrayList<>()).add(crop);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLootTableLoad(@NotNull final LootTableLoadEvent event)
+    {
+        if (cropDrops == null)
+        {
+            buildCropDrops();
+        }
+
+        final List<MinecoloniesCropBlock> crops = cropDrops.get(event.getName());
+        if (crops != null)
+        {
+            // grass blocks have a lot of crops (both MineColonies and vanilla) so the base drop chance is reduced
+            final float chance = event.getName().equals(Blocks.GRASS.getLootTable()) ? 0.001f : 0.01f;
+
+            for (final MinecoloniesCropBlock crop : crops)
+            {
+                final LootPool.Builder pool = LootPool.lootPool();
+                if (crop.getPreferredBiome() != null)
+                {
+                    pool.when(EntityInBiomeTag.of(crop.getPreferredBiome()));
+                }
+                pool.when(ModLootConditions.HAS_NO_SHEARS_OR_SILK_TOUCH);
+
+                pool.add(AlternativesEntry.alternatives()
+                    .otherwise(LootItem.lootTableItem(crop)
+                        .when(ModLootConditions.HAS_NETHERITE_HOE)
+                        .when(LootItemRandomChanceCondition.randomChance(chance * 10f)))
+                    .otherwise(LootItem.lootTableItem(crop)
+                        .when(ModLootConditions.HAS_DIAMOND_HOE)
+                        .when(LootItemRandomChanceCondition.randomChance(chance * 8f)))
+                    .otherwise(LootItem.lootTableItem(crop)
+                        .when(ModLootConditions.HAS_IRON_HOE)
+                        .when(LootItemRandomChanceCondition.randomChance(chance * 6f)))
+                    .otherwise(LootItem.lootTableItem(crop)
+                        .when(ModLootConditions.HAS_GOLDEN_HOE)
+                        .when(LootItemRandomChanceCondition.randomChance(chance * 5f)))
+                    .otherwise(LootItem.lootTableItem(crop)
+                        .when(ModLootConditions.HAS_HOE
+                            .and(ModLootConditions.HAS_NETHERITE_HOE.invert())
+                            .and(ModLootConditions.HAS_DIAMOND_HOE.invert())
+                            .and(ModLootConditions.HAS_IRON_HOE.invert())
+                            .and(ModLootConditions.HAS_GOLDEN_HOE.invert()))
+                        .when(LootItemRandomChanceCondition.randomChance(chance * 4f)))
+                    .otherwise(LootItem.lootTableItem(crop)
+                        .when(ModLootConditions.HAS_HOE.invert())
+                        .when(LootItemRandomChanceCondition.randomChance(chance))));
+
+                event.getTable().addPool(pool.build());
+            }
+        }
+
+        if (event.getName().equals(BuiltInLootTables.SIMPLE_DUNGEON))
+        {
+            final LootPool.Builder pool = LootPool.lootPool();
+            for (final MinecoloniesCropBlock crop : ModBlocks.getCrops())
+            {
+                pool.add(LootItem.lootTableItem(crop)
+                        .when(LootItemRandomChanceCondition.randomChance(0.005f)));
+            }
+            event.getTable().addPool(pool.build());
         }
     }
 
@@ -463,14 +560,14 @@ public class EventHandler
         if (event.getState().getBlock() instanceof SpawnerBlock)
         {
             final BlockEntity spawner = event.getLevel().getBlockEntity(event.getPos());
-            if (spawner instanceof SpawnerBlockEntity)
+            if (spawner instanceof SpawnerBlockEntity spawnerBE && spawnerBE.getSpawner().nextSpawnData != null)
             {
                 final IColony colony = IColonyManager.getInstance()
-                  .getColonyByDimension(((SpawnerBlockEntity) spawner).getSpawner().nextSpawnData.getEntityToSpawn().getInt(TAG_COLONY_ID),
+                                         .getColonyByDimension(spawnerBE.getSpawner().nextSpawnData.getEntityToSpawn().getInt(TAG_COLONY_ID),
                     world.dimension());
                 if (colony != null)
                 {
-                    colony.getEventManager().onTileEntityBreak(((SpawnerBlockEntity) spawner).getSpawner().nextSpawnData.getEntityToSpawn().getInt(TAG_EVENT_ID), spawner);
+                    colony.getEventManager().onTileEntityBreak(spawnerBE.getSpawner().nextSpawnData.getEntityToSpawn().getInt(TAG_EVENT_ID), spawner);
                 }
             }
         }
@@ -663,13 +760,19 @@ public class EventHandler
 
         // Global events
         // Halloween ghost mode
-        if (event.getLevel().isClientSide() && MineColonies.getConfig().getServer().holidayFeatures.get() &&
+        if (event.getLevel().isClientSide() && MineColonies.getConfig().getClient().holidayFeatures.get() &&
               (LocalDateTime.now().getDayOfMonth() == 31 && LocalDateTime.now().getMonth() == Month.OCTOBER
                  || LocalDateTime.now().getDayOfMonth() == 1 && LocalDateTime.now().getMonth() == Month.NOVEMBER
                  || LocalDateTime.now().getDayOfMonth() == 2 && LocalDateTime.now().getMonth() == Month.NOVEMBER))
         {
             // Re-enable for ghostly halloween
             RenderBipedCitizen.isItGhostTime = false;
+        }
+        // April 1st mode
+        if (event.getLevel().isClientSide() && MineColonies.getConfig().getClient().holidayFeatures.get() &&
+            LocalDateTime.now().getDayOfMonth() == 1 && LocalDateTime.now().getMonth() == Month.APRIL)
+        {
+            CitizenModel.isItApril1st = true;
         }
     }
 
@@ -703,7 +806,7 @@ public class EventHandler
         if (!event.getLevel().isClientSide()
               && event.getEntity() instanceof AbstractEntityCitizen
               && ((AbstractEntityCitizen) event.getEntity()).getCitizenJobHandler().getColonyJob() instanceof JobFarmer
-              && ((AbstractEntityCitizen) event.getEntity()).getCitizenColonyHandler().getColony().getResearchManager().getResearchEffects().getEffectStrength(SOFT_SHOES) > 0
+              && ((AbstractEntityCitizen) event.getEntity()).getCitizenColonyHandler().getColonyOrRegister().getResearchManager().getResearchEffects().getEffectStrength(SOFT_SHOES) > 0
         )
         {
             event.setCanceled(true);
@@ -728,44 +831,24 @@ public class EventHandler
                 event.setCanceled(true);
                 if (ForgeEventFactory.canLivingConvert(entity, ModEntities.VISITOR, null))
                 {
-                    IVisitorData visitorData = (IVisitorData) colony.getVisitorManager().createAndRegisterCivilianData();
-                    BlockPos tavernPos = colony.getBuildingManager().getRandomBuilding(b -> !b.getModulesByType(TavernBuildingModule.class).isEmpty());
-                    IBuilding tavern = colony.getBuildingManager().getBuilding(tavernPos);
-
-                    visitorData.setHomeBuilding(tavern);
-                    visitorData.setBedPos(tavernPos);
-                    tavern.getModulesByType(TavernBuildingModule.class).forEach(mod -> mod.getExternalCitizens().add(visitorData.getId()));
-
-                    int recruitLevel = world.random.nextInt(10 * tavern.getBuildingLevel()) + 15;
-                    List<com.minecolonies.api.util.Tuple<Item, Integer>> recruitCosts = IColonyManager.getInstance().getCompatibilityManager().getRecruitmentCostsWeights();
-
-                    visitorData.getCitizenSkillHandler().init(recruitLevel);
-                    colony.getVisitorManager().spawnOrCreateCivilian(visitorData, world, entity.blockPosition(), false);
-                    colony.getEventDescriptionManager().addEventDescription(new VisitorSpawnedEvent(entity.blockPosition(), visitorData.getName()));
-
-                    if (visitorData.getEntity().isPresent())
+                    final BlockPos tavernPos = colony.getBuildingManager().getRandomBuilding(b -> !b.getModulesByType(TavernBuildingModule.class).isEmpty());
+                    if (tavernPos == null)
                     {
-                        AbstractEntityCitizen visitorEntity = visitorData.getEntity().get();
-                        for (EquipmentSlot slotType : EquipmentSlot.values())
-                        {
-                            ItemStack itemstack = entity.getItemBySlot(slotType);
-                            if (slotType.getType() == EquipmentSlot.Type.ARMOR && !itemstack.isEmpty())
-                            {
-                                visitorEntity.setItemSlot(slotType, itemstack);
-                            }
-                        }
+                        return;
                     }
+
+                    final IBuilding tavern = colony.getBuildingManager().getBuilding(tavernPos);
+                    final TavernBuildingModule module = tavern.getModule(BuildingModules.TAVERN_VISITOR);
+                    final IVisitorData visitorData = module.spawnVisitor();
+                    visitorData.triggerInteraction(new RecruitmentInteraction(Component.translatable(
+                      "com.minecolonies.coremod.gui.chat.recruitstorycured", visitorData.getName().split(" ")[0]), ChatPriority.IMPORTANT));
 
                     if (!entity.isSilent())
                     {
-                        world.levelEvent((Player) null, 1027, entity.blockPosition(), 0);
+                        world.levelEvent(null, 1027, entity.blockPosition(), 0);
                     }
 
                     entity.remove(Entity.RemovalReason.DISCARDED);
-                    Tuple<Item, Integer> cost = recruitCosts.get(world.random.nextInt(recruitCosts.size()));
-                    visitorData.setRecruitCosts(new ItemStack(cost.getA(), (int)(recruitLevel * 3.0 / cost.getB())));
-                    visitorData.triggerInteraction(new RecruitmentInteraction(Component.translatable(
-                            "com.minecolonies.coremod.gui.chat.recruitstorycured", visitorData.getName().split(" ")[0]), ChatPriority.IMPORTANT));
                 }
             }
         }

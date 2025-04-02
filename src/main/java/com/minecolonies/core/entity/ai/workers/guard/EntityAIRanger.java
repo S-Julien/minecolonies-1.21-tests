@@ -1,7 +1,8 @@
 package com.minecolonies.core.entity.ai.workers.guard;
 
+import com.minecolonies.api.equipment.ModEquipmentTypes;
+import com.minecolonies.api.util.BlockPosUtil;
 import com.minecolonies.api.util.InventoryUtils;
-import com.minecolonies.api.util.constant.ToolType;
 import com.minecolonies.core.colony.buildings.AbstractBuildingGuards;
 import com.minecolonies.core.colony.jobs.JobRanger;
 import com.minecolonies.core.entity.citizen.EntityCitizen;
@@ -26,7 +27,7 @@ public class EntityAIRanger extends AbstractEntityAIGuard<JobRanger, AbstractBui
     public EntityAIRanger(@NotNull final JobRanger job)
     {
         super(job);
-        toolsNeeded.add(ToolType.BOW);
+        toolsNeeded.add(ModEquipmentTypes.bow.get());
         new RangerCombatAI((EntityCitizen) worker, getStateAI(), this);
     }
 
@@ -46,7 +47,7 @@ public class EntityAIRanger extends AbstractEntityAIGuard<JobRanger, AbstractBui
     {
         super.atBuildingActions();
 
-        if (worker.getCitizenColonyHandler().getColony().getResearchManager().getResearchEffects().getEffectStrength(ARCHER_USE_ARROWS) > 0)
+        if (worker.getCitizenColonyHandler().getColonyOrRegister().getResearchManager().getResearchEffects().getEffectStrength(ARCHER_USE_ARROWS) > 0)
         {
             // Pickup arrows and request arrows
             InventoryUtils.transferXOfFirstSlotInProviderWithIntoNextFreeSlotInItemHandler(building,
@@ -66,11 +67,12 @@ public class EntityAIRanger extends AbstractEntityAIGuard<JobRanger, AbstractBui
     {
         if (worker.getRandom().nextInt(3) < 1)
         {
-            worker.isWorkerAtSiteWithMove(buildingGuards.getGuardPos(), 3);
+            walkToSafePos(buildingGuards.getGuardPos());
             return;
         }
 
-        if (worker.isWorkerAtSiteWithMove(buildingGuards.getGuardPos(), 10) || Math.abs(buildingGuards.getGuardPos().getY() - worker.blockPosition().getY()) > 3)
+        if ((BlockPosUtil.dist(buildingGuards.getGuardPos(), worker.blockPosition()) <= 10 || walkToSafePos(buildingGuards.getGuardPos()))
+            || Math.abs(buildingGuards.getGuardPos().getY() - worker.blockPosition().getY()) > 3)
         {
             // Moves the ranger randomly to close edges, for better vision to mobs
             ((MinecoloniesAdvancedPathNavigate) worker.getNavigation()).setPathJob(new PathJobWalkRandomEdge(world, buildingGuards.getGuardPos(), 20, worker),

@@ -206,13 +206,14 @@ public final class TranslationConstants
     @NonNls
     public static final String RAID_NORSEMEN                                                        = "com.minecolonies.coremod.raid.norsemen.name";
     @NonNls
-    public static final String ONLY_X_BARBARIANS_LEFT_MESSAGE                                       = "com.minecolonies.coremod.barbarians.left";
+    public static final String ONLY_X_BARBARIANS_LEFT_MESSAGE       = "com.minecolonies.coremod.barbarians.left";
     @NonNls
-    public static final String ALL_BARBARIANS_KILLED_MESSAGE                                        = "com.minecolonies.coremod.barbarians.killed";
+    public static final String INDIVIDUAL_RAID_FINISH               = "com.minecolonies.coremod.raid.end";
     @NonNls
-    public static final String ALL_BARBARIANS_MERCY_MESSAGE                                         = "com.minecolonies.core.barbarians.mercy";
+    public static final String RAID_END_MERCY                       = "com.minecolonies.core.barbarians.mercy";
+    public static final String RAID_END                             = "com.minecolonies.coremod.barbarians.killed";
     @NonNls
-    public static final String CANT_PLACE_COLONY_TOO_CLOSE_TO_SPAWN                                 = "com.minecolonies.core.founding.tooclosetospawn";
+    public static final String CANT_PLACE_COLONY_TOO_CLOSE_TO_SPAWN = "com.minecolonies.core.founding.tooclosetospawn";
     @NonNls
     public static final String CANT_PLACE_COLONY_TOO_FAR_FROM_SPAWN                                 = "com.minecolonies.core.founding.toofarfromspawn";
     @NonNls
@@ -262,9 +263,7 @@ public final class TranslationConstants
     @NonNls
     public static final String CMC_GUI_TOWNHALL_BUILDING_LEVEL                                      = "com.minecolonies.coremod.gui.townhall.buildinglevel";
     @NonNls
-    public static final String PIRATES_SAILING_OFF_MESSAGE                                          = "com.minecolonies.coremod.pirates.sailing.away";
-    @NonNls
-    public static final String DROWNED_PIRATES_SAILING_OFF_MESSAGE                                  = "com.minecolonies.core.drowned_pirates.sailing.away";
+    public static final String PIRATES_SAILING_OFF_MESSAGE          = "com.minecolonies.coremod.raid.sailing.away";
     @NonNls
     public static final String STRUCTURE_SPAWNER_BREAKS                                             = "com.minecolonies.core.raidevent.spawnerbreaks";
     @NonNls
@@ -289,6 +288,12 @@ public final class TranslationConstants
     public static final String FURNACE_USER_NO_ORE                                                  = "com.minecolonies.coremod.furnaceuser.noore";
     @NonNls
     public static final String FURNACE_USER_NO_FOOD                                                 = "com.minecolonies.coremod.furnaceuser.nofood";
+    @NonNls
+    public static final String POOR_MENU_INTERACTION                                                = "com.minecolonies.coremod.restaurant.poormenu";
+    @NonNls
+    public static final String POOR_RESTAURANT_INTERACTION                                          = "com.minecolonies.coremod.restaurant.poorrestaurant";
+    @NonNls
+    public static final String NETHERMINER_NO_FOOD                                                  = "com.minecolonies.coremod.netherminer.nofood";
     @NonNls
     public static final String SIFTER_NO_MESH                                                       = "com.minecolonies.coremod.sifter.nomesh";
     @NonNls
@@ -405,7 +410,14 @@ public final class TranslationConstants
     public static final String WRONG_COLONY                                                         = "com.minecolonies.coremod.gui.buildtool.wrongcolony";
     @NonNls
     public static final String BP_OUTSIDE_COLONY                                                    = "com.minecolonies.coremod.placement.outofcolony";
-
+    @NonNls
+    public static final String CROP_TOOLTIP                                                         = "com.minecolonies.core.item.crop.tooltip";
+    @NonNls
+    public static final String CROP_TOOLTIP_HOE = "com.minecolonies.core.item.crop.tooltip.hoe";
+    @NonNls
+    public static final String TIER_TOOLTIP                                                         = "com.minecolonies.core.item.food.tooltip.tier.";
+    @NonNls
+    public static final String BIOME_TOOLTIP                                                        = "com.minecolonies.core.item.crop.tooltip.biome";
     @NonNls
     public static final String BP_NO_PERM                                         = "com.minecolonies.coremod.placement.noperm";
     @NonNls
@@ -427,11 +439,11 @@ public final class TranslationConstants
     @NonNls
     public static final String BUILDER_BUILDING_TOO_HIGH                          = "entity.builder.messagebuildtoohigh";
     @NonNls
-    public static final String BUILDER_BUILDING_TOO_LOW                           = "entity.builder.messagebuildtoolow";
+    public static final String BUILDER_BUILDING_TOO_LOW = "entity.builder.messagebuildtoolow";
     @NonNls
-    public static final String COLONIST_DESC                                      = "block.blockhuttownhall.messagecolonistdesc";
+    public static final String CITIZEN_DEATH_DESC       = "block.blockhuttownhall.messagecitizendeathdesc";
     @NonNls
-    public static final String WORKER_DESC                                        = "block.blockhuttownhall.messageworkerdesc";
+    public static final String WORKER_DESC              = "block.blockhuttownhall.messageworkerdesc";
     @NonNls
     public static final String COLONIST_GRAVE_LOCATION                            = "block.blockhuttownhall.messagecolonistgravelocation";
     @NonNls
@@ -516,6 +528,8 @@ public final class TranslationConstants
     public static final String MINER_NODES                                        = "com.minecolonies.coremod.gui.workerhuts.minernode";
     @NonNls
     public static final String MINER_MINE_NODE                                    = "com.minecolonies.coremod.gui.workerhuts.minerminenode";
+    @NonNls
+    public static final String MINER_LEVEL_DEPTH                                  = "com.minecolonies.coremod.gui.workerhuts.minerleveldepth";
     @NonNls
     public static final String WARNING_POPULATION_NEEDS_HOUSING                   = "com.minecolonies.coremod.gui.townhall.population.totalcitizens.houselimited";
     @NonNls
@@ -625,6 +639,8 @@ public final class TranslationConstants
     @NonNls
     public static final String MESSAGE_INTERACTION_COOKIE                         = "com.minecolonies.coremod.interaction.nocookie";
     @NonNls
+    public static final String MESSAGE_INTERACTION_POISON                         = "com.minecolonies.coremod.interaction.poison";
+    @NonNls
     public static final String MESSAGE_INTERACTION_VISITOR_FOOD                   = "com.minecolonies.coremod.interaction.visitor.food";
     @NonNls
     public static final String WARNING_UPGRADE_BARRACKS                           = "com.minecolonies.coremod.worker.needbarracks";
@@ -644,6 +660,22 @@ public final class TranslationConstants
     public static final String MESSAGE_RESEARCH_STARTED                           = "com.minecolonies.coremod.research.started";
     @NonNls
     public static final String PACK_DESC                                          = "com.minecolonies.coremod.gui.colony.packdesc";
+    @NonNls
+    public static final String FOOD_QUALITY_TOOLTIP                               = "com.minecolonies.core.gui.restaurant.foodquality";
+    @NonNls
+    public static final String COM_MINECOLONIES_MAP_NEED_COLONY                   = "com.minecolonies.core.item.colonymap.needcolony";
+    @NonNls
+    public static final String COM_MINECOLONIES_MAP_COLONY_SET                    = "com.minecolonies.core.item.colonymap.registered";
+    @NonNls
+    public static final String VANILLA_FOOD_QUALITY_TOOLTIP                       = "com.minecolonies.core.gui.restaurant.vanillafoodquality";
+
+    @NonNls
+    public static final String FOOD_QUALITY                                       = "foodquality";
+    @NonNls
+    public static final String FOOD_DIVERSITY                                     = "fooddiversity";
+    @NonNls
+    public static final String URGENT                                             = ".urgent";
+
     //<editor-fold desc="Partial keys">
 
     @NonNls

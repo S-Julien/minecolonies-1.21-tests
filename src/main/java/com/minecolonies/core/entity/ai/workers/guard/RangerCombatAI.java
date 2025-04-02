@@ -3,25 +3,30 @@ package com.minecolonies.core.entity.ai.workers.guard;
 import com.minecolonies.api.entity.ai.statemachine.tickratestatemachine.ITickRateStateMachine;
 import com.minecolonies.api.entity.citizen.Skill;
 import com.minecolonies.api.entity.citizen.VisibleCitizenStatus;
-import com.minecolonies.core.entity.pathfinding.PathfindingUtils;
-import com.minecolonies.core.entity.pathfinding.pathresults.PathResult;
-import com.minecolonies.core.entity.pathfinding.PathingOptions;
+import com.minecolonies.api.equipment.ModEquipmentTypes;
 import com.minecolonies.api.util.BlockPosUtil;
 import com.minecolonies.api.util.InventoryUtils;
 import com.minecolonies.api.util.ItemStackUtils;
 import com.minecolonies.api.util.SoundUtils;
+import com.minecolonies.api.util.constant.ColonyConstants;
 import com.minecolonies.api.util.constant.Constants;
-import com.minecolonies.api.util.constant.ToolType;
 import com.minecolonies.core.MineColonies;
 import com.minecolonies.core.colony.buildings.AbstractBuildingGuards;
 import com.minecolonies.core.colony.buildings.modules.settings.GuardTaskSetting;
 import com.minecolonies.core.colony.jobs.AbstractJobGuard;
-import com.minecolonies.core.entity.other.CustomArrowEntity;
 import com.minecolonies.core.entity.ai.combat.AttackMoveAI;
 import com.minecolonies.core.entity.ai.combat.CombatUtils;
 import com.minecolonies.core.entity.citizen.EntityCitizen;
+import com.minecolonies.core.entity.other.CustomArrowEntity;
+import com.minecolonies.core.entity.pathfinding.PathfindingUtils;
+import com.minecolonies.core.entity.pathfinding.PathingOptions;
+import com.minecolonies.core.entity.pathfinding.navigation.EntityNavigationUtils;
 import com.minecolonies.core.entity.pathfinding.navigation.MinecoloniesAdvancedPathNavigate;
-import com.minecolonies.core.entity.pathfinding.pathjobs.*;
+import com.minecolonies.core.entity.pathfinding.pathjobs.PathJobCanSee;
+import com.minecolonies.core.entity.pathfinding.pathjobs.PathJobMoveAwayFromLocation;
+import com.minecolonies.core.entity.pathfinding.pathjobs.PathJobMoveToLocation;
+import com.minecolonies.core.entity.pathfinding.pathresults.PathResult;
+import com.minecolonies.core.util.citizenutils.CitizenItemUtils;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
@@ -68,7 +73,7 @@ public class RangerCombatAI extends AttackMoveAI<EntityCitizen>
     /**
      * How many ticks we activate the bow before shooting
      */
-    private static final int BOW_HOLDING_DELAY = 10;
+    private static final int BOW_HOLDING_DELAY = 40;
 
     /**
      * Bonus range for shooting while guarding
@@ -103,12 +108,12 @@ public class RangerCombatAI extends AttackMoveAI<EntityCitizen>
     public boolean canAttack()
     {
         final int weaponSlot =
-          InventoryUtils.getFirstSlotOfItemHandlerContainingTool(user.getInventoryCitizen(), ToolType.BOW, 0, user.getCitizenData().getWorkBuilding().getMaxToolLevel());
+          InventoryUtils.getFirstSlotOfItemHandlerContainingEquipment(user.getInventoryCitizen(), ModEquipmentTypes.bow.get(), 0, user.getCitizenData().getWorkBuilding().getMaxEquipmentLevel());
 
         if (weaponSlot != -1)
         {
-            user.getCitizenItemHandler().setHeldItem(InteractionHand.MAIN_HAND, weaponSlot);
-            if (nextAttackTime - BOW_HOLDING_DELAY >= user.level.getGameTime())
+            CitizenItemUtils.setHeldItem(user, InteractionHand.MAIN_HAND, weaponSlot);
+            if (nextAttackTime - BOW_HOLDING_DELAY >= user.level.getGameTime() && !user.isUsingItem())
             {
                 user.startUsingItem(InteractionHand.MAIN_HAND);
             }
@@ -119,6 +124,19 @@ public class RangerCombatAI extends AttackMoveAI<EntityCitizen>
     }
 
     @Override
+    protected boolean checkForTarget()
+    {
+        final boolean validTarget = super.checkForTarget();
+
+        if (!validTarget && user.isUsingItem())
+        {
+            user.stopUsingItem();
+        }
+
+        return validTarget;
+    }
+
+    @Override
     protected void doAttack(final LivingEntity target)
     {
         if (user.distanceToSqr(target) < RANGED_FLEE_SQDIST)
@@ -126,7 +144,7 @@ public class RangerCombatAI extends AttackMoveAI<EntityCitizen>
             if (user.getRandom().nextInt(FLEE_CHANCE) == 0 &&
                   !((AbstractBuildingGuards) user.getCitizenData().getWorkBuilding()).getTask().equals(GuardTaskSetting.GUARD))
             {
-                user.getNavigation().moveAwayFromLivingEntity(target, getAttackDistance() / 2.0, getCombatMovementSpeed());
+                EntityNavigationUtils.walkAwayFrom(user, target.blockPosition(), (int) (getAttackDistance() / 2.0), getCombatMovementSpeed());
             }
         }
         else
@@ -136,11 +154,12 @@ public class RangerCombatAI extends AttackMoveAI<EntityCitizen>
 
         user.getCitizenData().setVisibleStatus(ARCHER_COMBAT);
         user.swing(InteractionHand.MAIN_HAND);
+        user.stopUsingItem();
 
         int amountOfArrows = 1;
-        if (user.getCitizenColonyHandler().getColony().getResearchManager().getResearchEffects().getEffectStrength(DOUBLE_ARROWS) > 0)
+        if (user.getCitizenColonyHandler().getColonyOrRegister().getResearchManager().getResearchEffects().getEffectStrength(DOUBLE_ARROWS) > 0)
         {
-            if (user.getRandom().nextDouble() < user.getCitizenColonyHandler().getColony().getResearchManager().getResearchEffects().getEffectStrength(DOUBLE_ARROWS))
+            if (user.getRandom().nextDouble() < user.getCitizenColonyHandler().getColonyOrRegister().getResearchManager().getResearchEffects().getEffectStrength(DOUBLE_ARROWS))
             {
                 amountOfArrows++;
             }
@@ -150,7 +169,7 @@ public class RangerCombatAI extends AttackMoveAI<EntityCitizen>
         {
             final AbstractArrow arrow = CombatUtils.createArrowForShooter(user);
 
-            if (user.getCitizenColonyHandler().getColony().getResearchManager().getResearchEffects().getEffectStrength(ARROW_PIERCE) > 0)
+            if (user.getCitizenColonyHandler().getColonyOrRegister().getResearchManager().getResearchEffects().getEffectStrength(ARROW_PIERCE) > 0)
             {
                 arrow.setPierceLevel((byte) 2);
             }
@@ -179,7 +198,7 @@ public class RangerCombatAI extends AttackMoveAI<EntityCitizen>
         }
 
         target.setLastHurtByMob(user);
-        user.getCitizenItemHandler().damageItemInHand(InteractionHand.MAIN_HAND, 1);
+        CitizenItemUtils.damageItemInHand(user, InteractionHand.MAIN_HAND, 1);
         user.stopUsingItem();
         user.decreaseSaturationForContinuousAction();
     }
@@ -217,8 +236,7 @@ public class RangerCombatAI extends AttackMoveAI<EntityCitizen>
     @Override
     protected int getAttackDelay()
     {
-        final int attackDelay = RANGED_ATTACK_DELAY_BASE - (user.getCitizenData().getCitizenSkillHandler().getLevel(Skill.Adaptability));
-        return Math.max(attackDelay, PHYSICAL_ATTACK_DELAY_MIN * 2);
+        return RANGED_ATTACK_DELAY_BASE;
     }
 
     /**
@@ -229,14 +247,14 @@ public class RangerCombatAI extends AttackMoveAI<EntityCitizen>
      */
     private double calculateDamage(final AbstractArrow arrow)
     {
-        int damage = user.getCitizenData().getCitizenSkillHandler().getLevel(Skill.Agility) / 5;
+        double damage = user.getCitizenData().getCitizenSkillHandler().getLevel(Skill.Agility) / 5d;
 
         final ItemStack heldItem = user.getItemInHand(InteractionHand.MAIN_HAND);
         damage += EnchantmentHelper.getDamageBonus(heldItem, target.getMobType()) / 2.5;
         damage += EnchantmentHelper.getItemEnchantmentLevel(Enchantments.POWER_ARROWS, heldItem);
-        damage += user.getCitizenColonyHandler().getColony().getResearchManager().getResearchEffects().getEffectStrength(ARCHER_DAMAGE);
+        damage += user.getCitizenColonyHandler().getColonyOrRegister().getResearchManager().getResearchEffects().getEffectStrength(ARCHER_DAMAGE);
 
-        if (user.getCitizenColonyHandler().getColony().getResearchManager().getResearchEffects().getEffectStrength(ARCHER_USE_ARROWS) > 0)
+        if (user.getCitizenColonyHandler().getColonyOrRegister().getResearchManager().getResearchEffects().getEffectStrength(ARCHER_USE_ARROWS) > 0)
         {
             int slot = InventoryUtils.findFirstSlotInItemHandlerWith(user.getInventoryCitizen(), item -> item.getItem() instanceof ArrowItem);
             if (slot != -1)
@@ -264,6 +282,11 @@ public class RangerCombatAI extends AttackMoveAI<EntityCitizen>
         if (user.getHealth() <= user.getMaxHealth() * 0.2D)
         {
             damage *= 2;
+        }
+
+        if (ColonyConstants.rand.nextDouble() > 1 / (1 + user.getCitizenColonyHandler().getColonyOrRegister().getResearchManager().getResearchEffects().getEffectStrength(GUARD_CRIT)))
+        {
+            damage *= 1.5;
         }
 
         return (RANGER_BASE_DMG + damage) * MineColonies.getConfig().getServer().guardDamageMultiplier.get();
@@ -363,7 +386,7 @@ public class RangerCombatAI extends AttackMoveAI<EntityCitizen>
     {
         parentAI.incrementActionsDoneAndDecSaturation();
         user.getCitizenExperienceHandler().addExperience(EXP_PER_MOB_DEATH);
-        user.getCitizenColonyHandler().getColony().getStatisticsManager().increment(MOBS_KILLED, user.getCitizenColonyHandler().getColony().getDay());
+        user.getCitizenColonyHandler().getColonyOrRegister().getStatisticsManager().increment(MOBS_KILLED, user.getCitizenColonyHandler().getColonyOrRegister().getDay());
         if (entity.getType().getDescription().getContents() instanceof TranslatableContents translatableContents)
         {
             parentAI.building.getModule(STATS_MODULE).increment(MOB_KILLED + ";" + translatableContents.getKey());

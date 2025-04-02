@@ -53,6 +53,7 @@ public class HappinessRegistry
 
         /**
          * Get the modifier.
+         *
          * @return the modifier.
          */
         public IHappinessModifier create()
@@ -65,9 +66,10 @@ public class HappinessRegistry
      * Static getter to load a happiness modifier from a compound.
      *
      * @param compound the compound to load it from.
+     * @param persist  whether we're reading from persisted data or from networking.
      * @return the modifier instance.
      */
-    public static IHappinessModifier loadFrom(@NotNull final CompoundTag compound)
+    public static IHappinessModifier loadFrom(@NotNull final CompoundTag compound, final boolean persist)
     {
         final ResourceLocation modifierType = compound.contains(NbtTagConstants.TAG_MODIFIER_TYPE)
                                                 ? new ResourceLocation(compound.getString(NbtTagConstants.TAG_MODIFIER_TYPE))
@@ -78,7 +80,7 @@ public class HappinessRegistry
         {
             try
             {
-                modifier.read(compound);
+                modifier.read(compound, persist);
             }
             catch (final RuntimeException ex)
             {
@@ -105,6 +107,7 @@ public class HappinessRegistry
 
         /**
          * Create a new entry type.
+         *
          * @param doubleSupplier th
          */
         public HappinessFunctionEntry(final Function<ICitizenData, Double> doubleSupplier)
@@ -114,6 +117,7 @@ public class HappinessRegistry
 
         /**
          * Get the double supplier.
+         *
          * @return the function.
          */
         public Function<ICitizenData, Double> getDoubleSupplier()
@@ -130,22 +134,21 @@ public class HappinessRegistry
     public static RegistryObject<HappinessFactorTypeEntry> expirationBasedHappinessModifier;
     public static RegistryObject<HappinessFactorTypeEntry> timeBasedHappinessModifier;
 
-    public static ResourceLocation SCHOOL_FUNCTION      = new ResourceLocation(Constants.MOD_ID, "school");
+    public static ResourceLocation SCHOOL_FUNCTION        = new ResourceLocation(Constants.MOD_ID, "school");
     public static ResourceLocation SECURITY_FUNCTION      = new ResourceLocation(Constants.MOD_ID, "security");
-    public static ResourceLocation SOCIAL_FUNCTION      = new ResourceLocation(Constants.MOD_ID, "social");
-    public static ResourceLocation SATURATION_FUNCTION      = new ResourceLocation(Constants.MOD_ID, "saturation");
-    public static ResourceLocation MYSTICAL_SITE_FUNCTION      = new ResourceLocation(Constants.MOD_ID, "mystical");
+    public static ResourceLocation SOCIAL_FUNCTION        = new ResourceLocation(Constants.MOD_ID, "social");
+    public static ResourceLocation MYSTICAL_SITE_FUNCTION = new ResourceLocation(Constants.MOD_ID, "mystical");
 
     public static ResourceLocation HOUSING_FUNCTION      = new ResourceLocation(Constants.MOD_ID, "housing");
-    public static ResourceLocation UNEMPLOYMENT_FUNCTION      = new ResourceLocation(Constants.MOD_ID, "unemployment");
-    public static ResourceLocation HEALTH_FUNCTION      = new ResourceLocation(Constants.MOD_ID, "health");
-    public static ResourceLocation IDLEATJOB_FUNCTION      = new ResourceLocation(Constants.MOD_ID, "idleatjob");
-    public static ResourceLocation SLEPTTONIGHT_FUNCTION      = new ResourceLocation(Constants.MOD_ID, "slepttonight");
+    public static ResourceLocation UNEMPLOYMENT_FUNCTION = new ResourceLocation(Constants.MOD_ID, "unemployment");
+    public static ResourceLocation HEALTH_FUNCTION       = new ResourceLocation(Constants.MOD_ID, "health");
+    public static ResourceLocation IDLEATJOB_FUNCTION    = new ResourceLocation(Constants.MOD_ID, "idleatjob");
+    public static ResourceLocation SLEPTTONIGHT_FUNCTION = new ResourceLocation(Constants.MOD_ID, "slepttonight");
+    public static ResourceLocation FOOD_FUNCTION         = new ResourceLocation(Constants.MOD_ID, "food");
 
     public static RegistryObject<HappinessFunctionEntry> schoolFunction;
     public static RegistryObject<HappinessFunctionEntry> securityFunction;
     public static RegistryObject<HappinessFunctionEntry> socialFunction;
-    public static RegistryObject<HappinessFunctionEntry> saturationFunction;
     public static RegistryObject<HappinessFunctionEntry> mysticalSiteFunction;
 
     public static RegistryObject<HappinessFunctionEntry> housingFunction;
@@ -153,5 +156,7 @@ public class HappinessRegistry
     public static RegistryObject<HappinessFunctionEntry> healthFunction;
     public static RegistryObject<HappinessFunctionEntry> idleatjobFunction;
     public static RegistryObject<HappinessFunctionEntry> sleptTonightFunction;
+    public static RegistryObject<HappinessFunctionEntry> foodFunction;
+    public static RegistryObject<HappinessFunctionEntry> greatFoodFunction;
 
 }

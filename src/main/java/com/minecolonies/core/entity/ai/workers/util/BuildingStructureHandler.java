@@ -8,13 +8,14 @@ import com.minecolonies.api.blocks.ModBlocks;
 import com.minecolonies.api.colony.IColony;
 import com.minecolonies.api.colony.IColonyManager;
 import com.minecolonies.api.colony.buildings.IBuilding;
+import com.minecolonies.api.equipment.ModEquipmentTypes;
 import com.minecolonies.api.util.InventoryUtils;
 import com.minecolonies.api.util.ItemStackUtils;
 import com.minecolonies.api.util.constant.Constants;
-import com.minecolonies.api.util.constant.ToolType;
 import com.minecolonies.core.colony.buildings.AbstractBuildingStructureBuilder;
 import com.minecolonies.core.colony.jobs.AbstractJobStructure;
 import com.minecolonies.core.entity.ai.workers.AbstractEntityAIStructure;
+import com.minecolonies.core.entity.pathfinding.navigation.EntityNavigationUtils;
 import com.minecolonies.core.util.WorkerUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.ItemTags;
@@ -35,7 +36,6 @@ import java.util.List;
 import java.util.concurrent.Future;
 import java.util.function.Function;
 
-import static com.minecolonies.api.util.constant.CitizenConstants.RUN_AWAY_SPEED;
 import static com.minecolonies.api.util.constant.StatisticsConstants.BLOCKS_PLACED;
 
 /**
@@ -182,7 +182,7 @@ public class BuildingStructureHandler<J extends AbstractJobStructure<?, J>, B ex
               && Mth.floor(structureAI.getWorker().getZ()) == worldPos.getZ()
               && structureAI.getWorker().getNavigation().isDone())
         {
-            structureAI.getWorker().getNavigation().moveAwayFromXYZ(worldPos, RUN_AWAY_SPEED, 1, true);
+            EntityNavigationUtils.walkAwayFrom(structureAI.getWorker(), worldPos, 1, 1.0);
         }
 
         structureAI.getWorker().swing(InteractionHand.MAIN_HAND);
@@ -214,17 +214,29 @@ public class BuildingStructureHandler<J extends AbstractJobStructure<?, J>, B ex
                 structureAI.reduceNeededResources(stack);
                 structureAI.getWorker()
                   .getCitizenColonyHandler()
-                  .getColony()
+                  .getColonyOrRegister()
                   .getStatisticsManager()
-                  .increment(BLOCKS_PLACED, structureAI.getWorker().getCitizenColonyHandler().getColony().getDay());
+                  .increment(BLOCKS_PLACED, structureAI.getWorker().getCitizenColonyHandler().getColonyOrRegister().getDay());
             }
-
-            structureAI.getWorker().queueSound(state.getSoundType().getPlaceSound(), worldPos, 10, 0);
+            
+            BlockState blockStateForSound;
+            if (state.getBlock() == com.ldtteam.structurize.blocks.ModBlocks.blockSolidSubstitution.get()) 
+            {
+                // If the builder is placing a substitution block, use the sound of the substituted block
+                // fancyPlacement() could be checked here, but is always true for this Handler.
+                blockStateForSound = structureAI.getSolidSubstitution(pos);
+            }
+            else 
+            {
+                // If the block is not a substitution block, use the sound of the block itself
+                blockStateForSound = state;
+            }
+            structureAI.getWorker().queueSound(blockStateForSound.getSoundType().getPlaceSound(), worldPos, 10, 0, (blockStateForSound.getSoundType().getVolume() + 1.0F) * 0.5F, blockStateForSound.getSoundType().getPitch() * 0.8F);
         }
 
         if (state.getBlock() == ModBlocks.blockWayPoint)
         {
-            structureAI.getWorker().getCitizenColonyHandler().getColony().addWayPoint(worldPos, state);
+            structureAI.getWorker().getCitizenColonyHandler().getColonyOrRegister().addWayPoint(worldPos, state);
         }
     }
 
@@ -248,9 +260,9 @@ public class BuildingStructureHandler<J extends AbstractJobStructure<?, J>, B ex
         final List<ItemStack> itemList = new ArrayList<>();
         for (final ItemStack stack : requiredItems)
         {
-            if (ItemStackUtils.isTool(stack, ToolType.FLINT_N_STEEL))
+            if (ModEquipmentTypes.flint_and_steel.get().checkIsEquipment(stack))
             {
-                if (structureAI.checkForToolOrWeapon(ToolType.FLINT_N_STEEL))
+                if (structureAI.checkForToolOrWeapon(ModEquipmentTypes.flint_and_steel.get()))
                 {
                     return false;
                 }

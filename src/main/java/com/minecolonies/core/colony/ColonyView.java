@@ -6,7 +6,7 @@ import com.minecolonies.api.colony.*;
 import com.minecolonies.api.colony.buildings.registry.IBuildingDataManager;
 import com.minecolonies.api.colony.buildings.views.IBuildingView;
 import com.minecolonies.api.colony.buildings.workerbuildings.ITownHallView;
-import com.minecolonies.api.colony.fields.IField;
+import com.minecolonies.api.colony.buildingextensions.IBuildingExtension;
 import com.minecolonies.api.colony.managers.interfaces.*;
 import com.minecolonies.api.colony.permissions.ColonyPlayer;
 import com.minecolonies.api.colony.permissions.IPermissions;
@@ -56,7 +56,6 @@ import net.minecraft.world.level.block.entity.BannerPattern;
 import net.minecraft.world.level.block.entity.BannerPatterns;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
-import net.minecraft.world.scores.PlayerTeam;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
@@ -87,12 +86,12 @@ public final class ColonyView implements IColonyView
     @NotNull
     private final PermissionsView                permissions = new PermissionsView();
     @NotNull
-    private final Map<BlockPos, IBuildingView>   buildings   = new HashMap<>();
+    private final Map<BlockPos, IBuildingView>   buildings = new HashMap<>();
     @NotNull
-    private final Set<IField>                    fields      = new HashSet<>();
+    private final Set<IBuildingExtension>        fields    = new HashSet<>();
     //  Citizenry
     @NotNull
-    private final Map<Integer, ICitizenDataView> citizens    = new HashMap<>();
+    private final Map<Integer, ICitizenDataView> citizens  = new HashMap<>();
     private       Map<Integer, IVisitorViewData> visitors    = new HashMap<>();
     private       String                         name        = "Unknown";
     private       ResourceKey<Level>                            dimensionId;
@@ -325,13 +324,23 @@ public final class ColonyView implements IColonyView
 
         if (colony.getRequestManager() != null && (colony.getRequestManager().isDirty() || hasNewSubscribers))
         {
-            final int preSize = buf.writerIndex();
-            buf.writeBoolean(true);
-            colony.getRequestManager().serialize(StandardFactoryController.getInstance(), buf);
-            final int postSize = buf.writerIndex();
-            if ((postSize - preSize) >= ColonyView.REQUEST_MANAGER_MAX_SIZE)
+            final int preIndex = buf.writerIndex();
+            try
             {
-                Log.getLogger().warn("Colony " + colony.getID() + " has a very big memory imprint, this could be a memory leak, please contact the mod author!");
+                buf.writeBoolean(true);
+                colony.getRequestManager().serialize(StandardFactoryController.getInstance(), buf);
+                final int postSize = buf.writerIndex();
+                if ((postSize - preIndex) >= ColonyView.REQUEST_MANAGER_MAX_SIZE)
+                {
+                    Log.getLogger().warn("Colony " + colony.getID() + " has a very big memory imprint, this could be a memory leak, please contact the mod author!");
+                }
+            }
+            catch (Exception e)
+            {
+                buf.writerIndex(preIndex);
+                Log.getLogger().warn("Error during request manager serialization for:" + colony.getID(), e);
+                colony.getRequestManager().reset();
+                buf.writeBoolean(false);
             }
         }
         else
@@ -818,7 +827,10 @@ public final class ColonyView implements IColonyView
 
         if (buf.readBoolean())
         {
-            this.requestManager = new StandardRequestManager(this);
+            if (this.requestManager == null)
+            {
+                this.requestManager = new StandardRequestManager(this);
+            }
             this.requestManager.deserialize(StandardFactoryController.getInstance(), buf);
         }
 
@@ -1071,14 +1083,14 @@ public final class ColonyView implements IColonyView
     }
 
     @Override
-    public void handleColonyFieldViewUpdateMessage(final Set<IField> fields)
+    public void handleColonyBuildingExtensionViewUpdateMessage(final Set<IBuildingExtension> extensions)
     {
         this.fields.clear();
-        this.fields.addAll(fields);
+        this.fields.addAll(extensions);
     }
 
     @Override
-    public @NotNull List<IField> getFields(final Predicate<IField> matcher)
+    public @NotNull List<IBuildingExtension> getBuildingExtensions(final Predicate<IBuildingExtension> matcher)
     {
         return fields.stream()
                  .filter(matcher)
@@ -1086,9 +1098,9 @@ public final class ColonyView implements IColonyView
     }
 
     @Override
-    public @Nullable IField getField(final Predicate<IField> matcher)
+    public @Nullable IBuildingExtension getBuildingExtension(final Predicate<IBuildingExtension> matcher)
     {
-        return getFields(matcher).stream()
+        return getBuildingExtensions(matcher).stream()
                  .findFirst()
                  .orElse(null);
     }
@@ -1245,12 +1257,6 @@ public final class ColonyView implements IColonyView
     public boolean isDay()
     {
         return false;
-    }
-
-    @Override
-    public PlayerTeam getTeam()
-    {
-        return world.getScoreboard().getPlayerTeam(getTeamName());
     }
 
     @Override

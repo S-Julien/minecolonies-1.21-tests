@@ -27,7 +27,6 @@ import static com.minecolonies.api.util.constant.BuildingConstants.BUILDING_FLOW
 import static com.minecolonies.api.util.constant.BuildingConstants.FUEL_LIST;
 import static com.minecolonies.api.util.constant.TranslationConstants.COM_MINECOLONIES_HOSTILES;
 import static com.minecolonies.core.colony.buildings.AbstractBuildingGuards.HOSTILE_LIST;
-import static com.minecolonies.core.colony.buildings.workerbuildings.BuildingCook.FOOD_EXCLUSION_LIST;
 import static com.minecolonies.core.entity.ai.workers.crafting.EntityAIWorkSmelter.ORE_LIST;
 import static com.minecolonies.core.entity.ai.workers.production.EntityAIWorkLumberjack.SAPLINGS_LIST;
 import static com.minecolonies.core.entity.ai.workers.production.agriculture.EntityAIWorkComposter.COMPOSTABLE_LIST;
@@ -59,11 +58,7 @@ public class BuildingModules
      * Item Lists
      */
     public static final BuildingEntry.ModuleProducer<ItemListModule,ItemListModuleView> ITEMLIST_FUEL = new BuildingEntry.ModuleProducer<>(
-      "itemlist_fuel", () -> new ItemListModule(FUEL_LIST).onResetToDefaults(m -> {
-        m.clearItems();
-        m.addItem(new ItemStorage(Items.COAL.getDefaultInstance()));
-        m.addItem(new ItemStorage(Items.CHARCOAL.getDefaultInstance()));
-    }),
+      "itemlist_fuel", () -> new ItemListModule(FUEL_LIST, new ItemStorage(Items.COAL), new ItemStorage(Items.CHARCOAL)),
       () -> () -> new ItemListModuleView(FUEL_LIST,
         RequestSystemTranslationConstants.REQUESTS_TYPE_BURNABLE,
         false,
@@ -74,10 +69,11 @@ public class BuildingModules
         () -> () -> new ItemListModuleView(COMPOSTABLE_LIST, RequestSystemTranslationConstants.REQUESTS_TYPE_COMPOSTABLE_UI, false,
           (buildingView) -> IColonyManager.getInstance().getCompatibilityManager().getCompostInputs()));
 
-    public static final BuildingEntry.ModuleProducer<ItemListModule,ItemListModuleView> ITEMLIST_FOODEXCLUSION =
-      new BuildingEntry.ModuleProducer<>("itemlist_foodexclusion", () -> new ItemListModule(FOOD_EXCLUSION_LIST).onResetToDefaults(BuildingCook::onResetFoodExclusionList),
-        () -> () -> new ItemListModuleView(FOOD_EXCLUSION_LIST, RequestSystemTranslationConstants.REQUESTS_TYPE_FOOD, true,
-          (buildingView) -> IColonyManager.getInstance().getCompatibilityManager().getEdibles(buildingView.getBuildingLevel() - 1)));
+    public static final BuildingEntry.ModuleProducer<RestaurantMenuModule, RestaurantMenuModuleView> RESTAURANT_MENU =
+      new BuildingEntry.ModuleProducer<>("restaurant_menu", () -> new RestaurantMenuModule(true, ISchematicProvider::getBuildingLevel), () -> RestaurantMenuModuleView::new);
+
+    public static final BuildingEntry.ModuleProducer<RestaurantMenuModule, RestaurantMenuModuleView> NETHERMINER_MENU =
+      new BuildingEntry.ModuleProducer<>("netherminer_menu", () -> new RestaurantMenuModule(false, building -> 1), () -> RestaurantMenuModuleView::new);
 
     public static final BuildingEntry.ModuleProducer<ItemListModule,ItemListModuleView> ITEMLIST_SAPLING =
       new BuildingEntry.ModuleProducer<>("itemlist_sapling", () -> new ItemListModule(SAPLINGS_LIST),
@@ -175,7 +171,9 @@ public class BuildingModules
       new BuildingEntry.ModuleProducer<>("cowherder_settings", () -> new SettingsModule().with(AbstractBuilding.BREEDING, new BoolSetting(true))
         .with(BuildingCowboy.MILKING_AMOUNT, new IntSetting(1))
         .with(BuildingCowboy.STEWING_AMOUNT, new IntSetting(1))
-        .with(BuildingCowboy.MILKING_DAYS, new IntSetting(1)), () -> SettingsModuleView::new);
+        .with(BuildingCowboy.MILKING_DAYS, new IntSetting(1))
+       .with(BuildingCowboy.MILK_ITEM, new StringSetting("item.minecolonies.large_milk_bottle", "item.minecraft.milk_bucket")), () -> SettingsModuleView::new);
+
     public static final BuildingEntry.ModuleProducer<BuildingCowboy.HerdingModule,IBuildingModuleView> COWHERDER_HERDING   =
       new BuildingEntry.ModuleProducer<>("cowherder_herding", BuildingCowboy.HerdingModule::new, null);
 
@@ -413,21 +411,22 @@ public class BuildingModules
     public static final BuildingEntry.ModuleProducer<BuildingResourcesModule,BuildingResourcesModuleView> BUILDING_RESOURCES              =
       new BuildingEntry.ModuleProducer<>("buildingresources", BuildingResourcesModule::new, () -> BuildingResourcesModuleView::new);
 
-    public static final BuildingEntry.ModuleProducer<NoPrivateCrafterWorkerModule,WorkerBuildingModuleView> COOK_WORK          =
+    public static final BuildingEntry.ModuleProducer<NoPrivateCrafterWorkerModule,WorkerBuildingModuleView> COOK_WORK           =
       new BuildingEntry.ModuleProducer<>("cook_craft", () -> new NoPrivateCrafterWorkerModule(ModJobs.cook.get(), Skill.Adaptability, Skill.Knowledge, true, (b) -> 1),
         () -> WorkerBuildingModuleView::new);
-    public static final BuildingEntry.ModuleProducer<CraftingWorkerBuildingModule,WorkerBuildingModuleView> COOKASSISTENT_WORK =
-      new BuildingEntry.ModuleProducer<>("cookassistent_work", () -> new CraftingWorkerBuildingModule(ModJobs.cookassistant.get(),
+    public static final BuildingEntry.ModuleProducer<CraftingWorkerBuildingModule,WorkerBuildingModuleView> CHEF_WORK           =
+      new BuildingEntry.ModuleProducer<>("chef_work", () -> new CraftingWorkerBuildingModule(ModJobs.chef.get(),
         Skill.Creativity,
         Skill.Knowledge,
         false,
-        (b) -> b.getBuildingLevel() >= 3 ? 1 : 0,
+        (b) -> 1,
         Skill.Knowledge,
         Skill.Creativity), () -> WorkerBuildingModuleView::new);
-    public static final BuildingEntry.ModuleProducer<BuildingCook.CraftingModule,CraftingModuleView> COOKASSISTENT_CRAFT =
-      new BuildingEntry.ModuleProducer<>("cookassistent_craft", () -> new BuildingCook.CraftingModule(ModJobs.cookassistant.get()), () -> CraftingModuleView::new);
-    public static final BuildingEntry.ModuleProducer<BuildingCook.SmeltingModule,CraftingModuleView> COOKASSISTENT_SMELT =
-      new BuildingEntry.ModuleProducer<>("cookassistent_smelt", () -> new BuildingCook.SmeltingModule(ModJobs.cookassistant.get()), () -> CraftingModuleView::new);
+
+    public static final BuildingEntry.ModuleProducer<BuildingKitchen.CraftingModule,CraftingModuleView> CHEF_CRAFT =
+      new BuildingEntry.ModuleProducer<>("chef_craft", () -> new BuildingKitchen.CraftingModule(ModJobs.chef.get()), () -> CraftingModuleView::new);
+    public static final BuildingEntry.ModuleProducer<BuildingKitchen.SmeltingModule,CraftingModuleView> CHEF_SMELT =
+      new BuildingEntry.ModuleProducer<>("chef_smelt", () -> new BuildingKitchen.SmeltingModule(ModJobs.chef.get()), () -> CraftingModuleView::new);
 
     public static final BuildingEntry.ModuleProducer<BuildingLumberjack.CraftingModule,CraftingModuleView> FORESTER_CRAFT        =
       new BuildingEntry.ModuleProducer<>("forester_craft", () -> new BuildingLumberjack.CraftingModule(ModJobs.lumberjack.get()), () -> CraftingModuleView::new);

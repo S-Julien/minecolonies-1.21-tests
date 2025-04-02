@@ -25,7 +25,7 @@ public class PathingOptions
     /**
      * Cost improvement of paths - base 1.
      */
-    public double onPathCost = 1 / 4d;
+    public double onPathCost = 1 / 6d;
 
     /**
      * Cost improvement of paths - base 1.
@@ -55,7 +55,7 @@ public class PathingOptions
     /**
      * Cost to traverse trap doors
      */
-    public double traverseToggleAbleCost = 5D;
+    public double traverseToggleAbleCost = 3D;
 
     /**
      * Cost to climb a non ladder.
@@ -66,6 +66,11 @@ public class PathingOptions
      * Cost for walking within shapes(e.g. panels)
      */
     public double walkInShapesCost = 2D;
+
+    /**
+     * Cost to dive (head underwater).
+     */
+    public double divingCost = 4D;
 
     /**
      * Factor multiplied to the small random base cost of values, increases this increases the paths randomness/volatilty. Set to 0 to disable rng.
@@ -234,6 +239,12 @@ public class PathingOptions
         return this;
     }
 
+    public PathingOptions withDivingCost(final double divingCost)
+    {
+        this.divingCost = divingCost;
+        return this;
+    }
+
     /**
      * Sets swimming ability
      *
@@ -284,6 +295,8 @@ public class PathingOptions
         swimCostEnter = pathingOptions.swimCostEnter;
         traverseToggleAbleCost = pathingOptions.traverseToggleAbleCost;
         nonLadderClimbableCost = pathingOptions.nonLadderClimbableCost;
+        divingCost = pathingOptions.divingCost;
+
         canUseRails = pathingOptions.canUseRails;
         canSwim = pathingOptions.canSwim;
         enterDoors = pathingOptions.enterDoors;
@@ -294,5 +307,4 @@ public class PathingOptions
         walkUnderWater = pathingOptions.walkUnderWater;
         canDrop = pathingOptions.canDrop;
     }
-
 }
