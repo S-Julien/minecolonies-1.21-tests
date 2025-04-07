@@ -1338,7 +1338,7 @@ public class DefaultResearchProvider extends AbstractResearchProvider
             .setSortOrder(3)
             .setIcon(ModItems.compost)
             .addBuildingRequirement(ModBuildings.FARMER_ID, 4)
-            .addItemCost(ModItems.compost, 32)
+            .addItemCost(ModItems.compost, 32, provider)
             .addEffect(GREEN_REVOLUTION, 1)
             .addToList(r);
 
