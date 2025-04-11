@@ -1,11 +1,10 @@
-package com.minecolonies.api.configuration.builders;
+package com.minecolonies.api.configuration.builders.builder;
+
+import com.minecolonies.api.configuration.builders.values.IConfigValue;
 
 import java.util.List;
 import java.util.function.Predicate;
 
-/**
- * Interface for managing configuration builders for a specific category.
- */
 public interface IConfigCategoryBuilder
 {
     /**
@@ -16,7 +15,7 @@ public interface IConfigCategoryBuilder
      * @param defaultValue the default value the config option will utilize.
      * @return the supplier for the value.
      */
-    default ValueHolder<Integer> defineInteger(final String key, final int defaultValue)
+    default IConfigValue<Integer> defineInteger(final String key, final int defaultValue)
     {
         return defineInteger(key, defaultValue, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
@@ -31,7 +30,7 @@ public interface IConfigCategoryBuilder
      * @param maxValue     the maximum value the config can have.
      * @return the supplier for the value.
      */
-    ValueHolder<Integer> defineInteger(final String key, final int defaultValue, final int minValue, final int maxValue);
+    IConfigValue<Integer> defineInteger(final String key, final int defaultValue, final int minValue, final int maxValue);
 
     /**
      * Define a double value. With a given key and a default value.
@@ -41,7 +40,7 @@ public interface IConfigCategoryBuilder
      * @param defaultValue the default value the config option will utilize.
      * @return the supplier for the value.
      */
-    default ValueHolder<Double> defineDouble(final String key, final double defaultValue)
+    default IConfigValue<Double> defineDouble(final String key, final double defaultValue)
     {
         return defineDouble(key, defaultValue, Double.MIN_VALUE, Double.MAX_VALUE);
     }
@@ -56,7 +55,7 @@ public interface IConfigCategoryBuilder
      * @param maxValue     the maximum value the config can have.
      * @return the supplier for the value.
      */
-    ValueHolder<Double> defineDouble(final String key, final double defaultValue, final double minValue, final double maxValue);
+    IConfigValue<Double> defineDouble(final String key, final double defaultValue, final double minValue, final double maxValue);
 
     /**
      * Define a long value. With a given key and a default value.
@@ -66,7 +65,7 @@ public interface IConfigCategoryBuilder
      * @param defaultValue the default value the config option will utilize.
      * @return the supplier for the value.
      */
-    default ValueHolder<Long> defineLong(final String key, final long defaultValue)
+    default IConfigValue<Long> defineLong(final String key, final long defaultValue)
     {
         return defineLong(key, defaultValue, Long.MIN_VALUE, Long.MAX_VALUE);
     }
@@ -81,7 +80,7 @@ public interface IConfigCategoryBuilder
      * @param maxValue     the maximum value the config can have.
      * @return the supplier for the value.
      */
-    ValueHolder<Long> defineLong(final String key, final long defaultValue, final long minValue, final long maxValue);
+    IConfigValue<Long> defineLong(final String key, final long defaultValue, final long minValue, final long maxValue);
 
     /**
      * Define a boolean value. With a given key and a default value.
@@ -90,7 +89,7 @@ public interface IConfigCategoryBuilder
      * @param defaultValue the default value the config option will utilize.
      * @return the supplier for the value.
      */
-    ValueHolder<Boolean> defineBoolean(final String key, final boolean defaultValue);
+    IConfigValue<Boolean> defineBoolean(final String key, final boolean defaultValue);
 
     /**
      * Define an enum value. With a given key and a default value.
@@ -100,7 +99,7 @@ public interface IConfigCategoryBuilder
      * @param defaultValue the default value the config option will utilize.
      * @return the supplier for the value.
      */
-    <V extends Enum<V>> ValueHolder<V> defineEnum(final String key, final V defaultValue);
+    <T extends Enum<T>> IConfigValue<T> defineEnum(final String key, final T defaultValue);
 
     /**
      * Define a list value. With a given key and a default value.
@@ -111,5 +110,5 @@ public interface IConfigCategoryBuilder
      * @param elementValidator a validator predicate that will check if each parsed item is a proper value.
      * @return the supplier for the value.
      */
-    <T> ValueHolder<List<? extends T>> defineList(final String key, final List<? extends T> defaultValue, final Predicate<Object> elementValidator);
+    <T> IConfigValue<List<? extends T>> defineList(final String key, final List<? extends T> defaultValue, final Predicate<Object> elementValidator);
 }
