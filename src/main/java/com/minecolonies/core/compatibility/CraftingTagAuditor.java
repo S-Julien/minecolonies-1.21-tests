@@ -18,13 +18,16 @@ import com.minecolonies.core.colony.buildings.modules.AnimalHerdingModule;
 import com.minecolonies.core.colony.buildings.modules.SimpleCraftingModule;
 import com.minecolonies.core.colony.crafting.*;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.LevelResource;
 import org.jetbrains.annotations.NotNull;
@@ -36,7 +39,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
-import static com.minecolonies.api.util.constant.Constants.MAX_BUILDING_LEVEL;
+import static com.minecolonies.api.util.constant.CitizenConstants.FULL_SATURATION;
 import static com.minecolonies.api.util.constant.Constants.MOD_ID;
 
 /**
@@ -60,7 +63,8 @@ public class CraftingTagAuditor
     {
         createFile("item tag audit", server, "tag_item_audit.csv", writer -> doItemTagAudit(writer, server));
         createFile("block tag audit", server, "tag_block_audit.csv", writer -> doBlockTagAudit(writer, server));
-        createFile("path block audit", server, "path_block_audit.csv", writer -> doPathBlockTagAudit(writer, server));
+        createFile("path block audit", server, "tag_path_audit.csv", writer -> doPathBlockTagAudit(writer, server));
+        createFile("biome tag audit", server, "tag_biome_audit.csv", writer -> doBiomeTagAudit(writer, server));
         createFile("recipe audit", server, "recipe_audit.csv", writer -> doRecipeAudit(writer, server, customRecipeManager));
         createFile("domum audit", server, "domum_audit.csv", writer -> doDomumAudit(writer, server));
         createFile("tools audit", server, "tools_audit.csv", writer -> doToolsAudit(writer, server));
@@ -143,7 +147,8 @@ public class CraftingTagAuditor
         writer.write("block,name,tags...");
         writer.newLine();
 
-        for (final Map.Entry<ResourceKey<Block>, Block> entry : BuiltInRegistries.BLOCK.entrySet())
+        for (final Map.Entry<ResourceKey<Block>, Block> entry : BuiltInRegistries.BLOCK.entrySet()
+                .stream().sorted(Comparator.comparing(e -> e.getKey().location().toString())).toList())
         {
             writer.write(entry.getKey().location().toString());
             writer.write(',');
@@ -171,7 +176,8 @@ public class CraftingTagAuditor
         writer.write("block,name,path,climbable,dangerous");
         writer.newLine();
 
-        for (final Map.Entry<ResourceKey<Block>, Block> entry : server.registryAccess().registryOrThrow(Registries.BLOCK).entrySet())
+        for (final Map.Entry<ResourceKey<Block>, Block> entry : server.registryAccess().registryOrThrow(Registries.BLOCK).entrySet()
+                .stream().sorted(Comparator.comparing(e -> e.getKey().location().toString())).toList())
         {
             writer.write(entry.getKey().location().toString());
             writer.write(',');
@@ -193,6 +199,42 @@ public class CraftingTagAuditor
             {
                 writer.write("danger");
             }
+            writer.newLine();
+        }
+    }
+
+    private static void doBiomeTagAudit(@NotNull final BufferedWriter writer,
+                                        @NotNull final MinecraftServer server) throws IOException
+    {
+        writer.write("biome,name,tags...");
+        writer.newLine();
+
+        final Registry<Biome> biomes = server.registryAccess().registry(Registries.BIOME).orElse(null);
+        if (biomes == null) { return; }
+
+        for (final ResourceLocation id : biomes.keySet().stream().sorted().toList())
+        {
+            writer.write(id.toString());
+            writer.write(',');
+            writer.write('"');
+            writer.write(Component.translatable(id.toLanguageKey("biome")).getString().replace("\"", "\"\""));
+            writer.write('"');
+            biomes.getHolder(ResourceKey.create(biomes.key(), id)).ifPresent(holder ->
+                    holder.tags()
+                        .map(t -> t.location().toString())
+                        .sorted()
+                        .forEach(t ->
+                        {
+                            try
+                            {
+                                writer.write(',');
+                                writer.write(t);
+                            }
+                            catch (IOException e)
+                            {
+                                e.printStackTrace();
+                            }
+                        }));
             writer.newLine();
         }
     }
@@ -358,11 +400,7 @@ public class CraftingTagAuditor
                                     @NotNull final MinecraftServer server) throws IOException
     {
         writeItemHeaders(writer);
-        writer.write(",nutrition,maxlevel,tier");
-        for (int level = 0; level <= MAX_BUILDING_LEVEL; ++level)
-        {
-            writer.write(",actual" + level);
-        }
+        writer.write(",nutrition,maxlevel,tier,foodvalue,fullhealth");
         writer.newLine();
 
         for (final ItemStack item : getAllItems())
@@ -383,12 +421,10 @@ public class CraftingTagAuditor
             {
                 writer.write(Integer.toString(mcolFood.getTier()));
             }
-            for (int level = 0; level <= MAX_BUILDING_LEVEL; ++level)
-            {
-                writer.write(',');
-                writer.write(Double.toString(FoodUtils.getFoodValue(item, properties, level, 0)));
-            }
-
+            writer.write(',');
+            writer.write(Double.toString(FoodUtils.getFoodValue(item, properties, 0)));
+            writer.write(',');
+            writer.write(Double.toString(FULL_SATURATION / FoodUtils.getFoodValue(item, properties, 0)));
             writer.newLine();
         }
     }

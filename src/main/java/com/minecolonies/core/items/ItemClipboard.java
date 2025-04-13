@@ -18,7 +18,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
-import static com.minecolonies.api.util.constant.Constants.STACKSIZE;
 import static com.minecolonies.api.util.constant.TranslationConstants.COM_MINECOLONIES_CLIPBOARD_COLONY_SET;
 
 /**
@@ -26,11 +25,6 @@ import static com.minecolonies.api.util.constant.TranslationConstants.COM_MINECO
  */
 public class ItemClipboard extends AbstractItemMinecolonies
 {
-    /**
-     * Tag of the colony.
-     */
-    public static final String TAG_COLONY = "colony";
-
     /**
      * Sets the name, creative tab, and registers the Clipboard item.
      *
