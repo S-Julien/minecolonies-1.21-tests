@@ -69,7 +69,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import static com.minecolonies.api.util.constant.Constants.TICKS_SECOND;
@@ -115,13 +114,17 @@ public class PermissionEventHandler
             return;
         }
 
-        validatePrecondition(level, event.getPos(), (colony) -> {
-            final Action action = event.getPlacedBlock().getBlock() instanceof AbstractBlockHut ? Action.PLACE_HUTS : Action.PLACE_BLOCKS;
-            if (!colony.getPermissions().hasPermission(player, action))
-            {
-                cancelEvent(event, event.getEntity(), colony, action, event.getPos());
-            }
-        });
+        final IColony colony = validatePreconditionAndFetchColony(level, event.getPos());
+        if (colony == null)
+        {
+            return;
+        }
+
+        final Action action = event.getPlacedBlock().getBlock() instanceof AbstractBlockHut ? Action.PLACE_HUTS : Action.PLACE_BLOCKS;
+        if (!colony.getPermissions().hasPermission(player, action))
+        {
+            cancelEvent(event, event.getEntity(), colony, action, event.getPos());
+        }
     }
 
     /**
@@ -188,56 +191,60 @@ public class PermissionEventHandler
             return;
         }
 
-        validatePrecondition(level, event.getPos(), (colony) -> {
-            if (event.getState().getBlock() instanceof AbstractBlockHut)
+        final IColony colony = validatePreconditionAndFetchColony(level, event.getPos());
+        if (colony == null)
+        {
+            return;
+        }
+
+        if (event.getState().getBlock() instanceof AbstractBlockHut)
+        {
+            final IBuilding building = IColonyManager.getInstance().getBuilding(event.getPlayer().level, event.getPos());
+            if (building == null)
             {
-                final IBuilding building = IColonyManager.getInstance().getBuilding(event.getPlayer().level, event.getPos());
-                if (building == null)
-                {
-                    return;
-                }
-
-                if (!MineColonies.getConfig().getServer().enableColonyProtection.get())
-                {
-                    building.destroy();
-                    return;
-                }
-
-                if (event.getState().getBlock() == ModBlocks.blockHutTownHall && !((BlockHutTownHall) event.getState().getBlock()).getValidBreak() && !event.getPlayer()
-                                                                                                                                                         .isCreative())
-                {
-                    cancelEvent(event, event.getPlayer(), colony, Action.BREAK_HUTS, event.getPos());
-                    return;
-                }
-
-                if (!building.getColony().getPermissions().hasPermission(event.getPlayer(), Action.BREAK_HUTS))
-                {
-                    if (checkEventCancellation(Action.BREAK_HUTS, colony, event.getPlayer(), event.getPlayer().getCommandSenderWorld(), event, event.getPos()))
-                    {
-                        return;
-                    }
-                }
-
-                building.destroy();
-
-                if (MineColonies.getConfig().getServer().pvp_mode.get() && event.getState().getBlock() == ModBlocks.blockHutTownHall)
-                {
-                    IColonyManager.getInstance().deleteColonyByWorld(building.getColony().getID(), false, event.getPlayer().level);
-                }
+                return;
             }
-            else if (event.getState().getBlock() instanceof BlockDecorationController)
+
+            if (!MineColonies.getConfig().getServer().enableColonyProtection.get())
+            {
+                building.destroy();
+                return;
+            }
+
+            if (event.getState().getBlock() == ModBlocks.blockHutTownHall && !((BlockHutTownHall) event.getState().getBlock()).getValidBreak() && !event.getPlayer()
+                .isCreative())
+            {
+                cancelEvent(event, event.getPlayer(), colony, Action.BREAK_HUTS, event.getPos());
+                return;
+            }
+
+            if (!building.getColony().getPermissions().hasPermission(event.getPlayer(), Action.BREAK_HUTS))
             {
                 if (checkEventCancellation(Action.BREAK_HUTS, colony, event.getPlayer(), event.getPlayer().getCommandSenderWorld(), event, event.getPos()))
                 {
                     return;
                 }
-                colony.getBuildingManager().removeLeisureSite(event.getPos());
             }
-            else
+
+            building.destroy();
+
+            if (MineColonies.getConfig().getServer().pvp_mode.get() && event.getState().getBlock() == ModBlocks.blockHutTownHall)
             {
-                checkEventCancellation(Action.BREAK_BLOCKS, colony, event.getPlayer(), event.getPlayer().getCommandSenderWorld(), event, event.getPos());
+                IColonyManager.getInstance().deleteColonyByWorld(building.getColony().getID(), false, event.getPlayer().level);
             }
-        });
+        }
+        else if (event.getState().getBlock() instanceof BlockDecorationController)
+        {
+            if (checkEventCancellation(Action.BREAK_HUTS, colony, event.getPlayer(), event.getPlayer().getCommandSenderWorld(), event, event.getPos()))
+            {
+                return;
+            }
+            colony.getBuildingManager().removeLeisureSite(event.getPos());
+        }
+        else
+        {
+            checkEventCancellation(Action.BREAK_BLOCKS, colony, event.getPlayer(), event.getPlayer().getCommandSenderWorld(), event, event.getPos());
+        }
     }
 
     /**
@@ -290,9 +297,14 @@ public class PermissionEventHandler
             return;
         }
 
-        validatePrecondition(event.getLevel(),
-          BlockPos.containing(event.getExplosion().getPosition()),
-          (colony) -> cancelEvent(event, null, colony, Action.EXPLODE, BlockPos.containing(event.getExplosion().getPosition())));
+        final IColony colony = validatePreconditionAndFetchColony(event.getLevel(),
+            BlockPos.containing(event.getExplosion().getPosition()));
+        if (colony == null)
+        {
+            return;
+        }
+
+        cancelEvent(event, null, colony, Action.EXPLODE, BlockPos.containing(event.getExplosion().getPosition()));
     }
 
     /**
@@ -318,53 +330,57 @@ public class PermissionEventHandler
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void on(final RightClickBlock event)
     {
-        validatePrecondition(event.getLevel(), event.getPos(), (colony) -> {
-            final IPermissions perms = colony.getPermissions();
-            final BlockState state = event.getLevel().getBlockState(event.getPos());
-            final BlockEntity entity = event.getLevel().getBlockEntity(event.getPos());
-            final Block block = state.getBlock();
+        final IColony colony = validatePreconditionAndFetchColony(event.getLevel(), event.getPos());
+        if (colony == null)
+        {
+            return;
+        }
 
-            // Interaction with hut blocks
-            if (block instanceof AbstractBlockHut)
+        final IPermissions perms = colony.getPermissions();
+        final BlockState state = event.getLevel().getBlockState(event.getPos());
+        final BlockEntity entity = event.getLevel().getBlockEntity(event.getPos());
+        final Block block = state.getBlock();
+
+        // Interaction with hut blocks
+        if (block instanceof AbstractBlockHut)
+        {
+            if (!perms.hasPermission(event.getEntity(), Action.ACCESS_HUTS))
             {
-                if (!perms.hasPermission(event.getEntity(), Action.ACCESS_HUTS))
-                {
-                    cancelEvent(event, event.getEntity(), colony, Action.ACCESS_HUTS, event.getPos());
-                }
+                cancelEvent(event, event.getEntity(), colony, Action.ACCESS_HUTS, event.getPos());
             }
-            // Interact with toggleables
-            else if (state.is(BlockTags.DOORS) || state.is(BlockTags.TRAPDOORS) || state.is(BlockTags.FENCE_GATES))
+        }
+        // Interact with toggleables
+        else if (state.is(BlockTags.DOORS) || state.is(BlockTags.TRAPDOORS) || state.is(BlockTags.FENCE_GATES))
+        {
+            if (!perms.hasPermission(event.getEntity(), Action.ACCESS_TOGGLEABLES))
             {
-                if (!perms.hasPermission(event.getEntity(), Action.ACCESS_TOGGLEABLES))
-                {
-                    cancelEvent(event, event.getEntity(), colony, Action.ACCESS_TOGGLEABLES, event.getPos());
-                }
+                cancelEvent(event, event.getEntity(), colony, Action.ACCESS_TOGGLEABLES, event.getPos());
             }
-            // Interact with any container
-            else if (entity instanceof Container)
+        }
+        // Interact with any container
+        else if (entity instanceof Container)
+        {
+            if (!perms.hasPermission(event.getEntity(), Action.OPEN_CONTAINER))
             {
-                if (!perms.hasPermission(event.getEntity(), Action.OPEN_CONTAINER))
-                {
-                    cancelEvent(event, event.getEntity(), colony, Action.OPEN_CONTAINER, event.getPos());
-                }
+                cancelEvent(event, event.getEntity(), colony, Action.OPEN_CONTAINER, event.getPos());
             }
-            // Free interaction blocks
-            else if (isFreeToInteractWith(colony, block, event.getPos()))
+        }
+        // Free interaction blocks
+        else if (isFreeToInteractWith(colony, block, event.getPos()))
+        {
+            if (!perms.hasPermission(event.getEntity(), Action.ACCESS_FREE_BLOCKS))
             {
-                if (!perms.hasPermission(event.getEntity(), Action.ACCESS_FREE_BLOCKS))
-                {
-                    cancelEvent(event, event.getEntity(), colony, Action.ACCESS_FREE_BLOCKS, event.getPos());
-                }
+                cancelEvent(event, event.getEntity(), colony, Action.ACCESS_FREE_BLOCKS, event.getPos());
             }
-            // Interact with anything else
-            else
+        }
+        // Interact with anything else
+        else
+        {
+            if (!perms.hasPermission(event.getEntity(), Action.RIGHTCLICK_BLOCK) && !state.isAir())
             {
-                if (!perms.hasPermission(event.getEntity(), Action.RIGHTCLICK_BLOCK) && !state.isAir())
-                {
-                    cancelEvent(event, event.getEntity(), colony, Action.RIGHTCLICK_BLOCK, event.getPos());
-                }
+                cancelEvent(event, event.getEntity(), colony, Action.RIGHTCLICK_BLOCK, event.getPos());
             }
-        });
+        }
     }
 
     /**
@@ -387,20 +403,24 @@ public class PermissionEventHandler
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void on(final RightClickItem event)
     {
-        validatePrecondition(event.getLevel(), event.getPos(), (colony) -> {
-            final ItemStack stack = event.getItemStack();
+        final IColony colony = validatePreconditionAndFetchColony(event.getLevel(), event.getPos());
+        if (colony == null)
+        {
+            return;
+        }
 
-            // Potion throwing
-            if (stack.getItem() instanceof ThrowablePotionItem)
-            {
-                checkEventCancellation(Action.THROW_POTION, colony, event.getEntity(), event.getLevel(), event, event.getPos());
-            }
-            // Using scan tool
-            else if (stack.getItem() instanceof ItemScanTool)
-            {
-                checkEventCancellation(Action.USE_SCAN_TOOL, colony, event.getEntity(), event.getLevel(), event, event.getPos());
-            }
-        });
+        final ItemStack stack = event.getItemStack();
+
+        // Potion throwing
+        if (stack.getItem() instanceof ThrowablePotionItem)
+        {
+            checkEventCancellation(Action.THROW_POTION, colony, event.getEntity(), event.getLevel(), event, event.getPos());
+        }
+        // Using scan tool
+        else if (stack.getItem() instanceof ItemScanTool)
+        {
+            checkEventCancellation(Action.USE_SCAN_TOOL, colony, event.getEntity(), event.getLevel(), event, event.getPos());
+        }
     }
 
     /**
@@ -488,19 +508,23 @@ public class PermissionEventHandler
      */
     private static void onInteractEntity(final PlayerInteractEvent event, final Entity target)
     {
-        validatePrecondition(event.getLevel(), event.getPos(), (colony) -> {
-            if (isFreeToInteractWith(colony, null, event.getPos()) && colony.getPermissions().hasPermission(event.getEntity(), Action.ACCESS_FREE_BLOCKS))
-            {
-                return;
-            }
+        final IColony colony = validatePreconditionAndFetchColony(event.getLevel(), event.getPos());
+        if (colony == null)
+        {
+            return;
+        }
 
-            if (target.getType().is(ModTags.freeToInteractWith))
-            {
-                return;
-            }
+        if (isFreeToInteractWith(colony, null, event.getPos()) && colony.getPermissions().hasPermission(event.getEntity(), Action.ACCESS_FREE_BLOCKS))
+        {
+            return;
+        }
 
-            checkEventCancellation(Action.RIGHTCLICK_ENTITY, colony, event.getEntity(), event.getLevel(), event, event.getPos());
-        });
+        if (target.getType().is(ModTags.freeToInteractWith))
+        {
+            return;
+        }
+
+        checkEventCancellation(Action.RIGHTCLICK_ENTITY, colony, event.getEntity(), event.getLevel(), event, event.getPos());
     }
 
     /**
@@ -513,12 +537,16 @@ public class PermissionEventHandler
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void on(final ItemTossEvent event)
     {
-        validatePrecondition(event.getPlayer().level, event.getPlayer().blockPosition(), (colony) -> {
-            if (checkEventCancellation(Action.TOSS_ITEM, colony, event.getPlayer(), event.getPlayer().level, event, event.getPlayer().blockPosition()))
-            {
-                event.getPlayer().getInventory().add(event.getEntity().getItem());
-            }
-        });
+        final IColony colony = validatePreconditionAndFetchColony(event.getPlayer().level, event.getPlayer().blockPosition());
+        if (colony == null)
+        {
+            return;
+        }
+
+        if (checkEventCancellation(Action.TOSS_ITEM, colony, event.getPlayer(), event.getPlayer().level, event, event.getPlayer().blockPosition()))
+        {
+            event.getPlayer().getInventory().add(event.getEntity().getItem());
+        }
     }
 
     /**
@@ -531,9 +559,14 @@ public class PermissionEventHandler
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void on(final EntityItemPickupEvent event)
     {
-        validatePrecondition(event.getEntity().level,
-          event.getEntity().blockPosition(),
-          (colony) -> checkEventCancellation(Action.PICKUP_ITEM, colony, event.getEntity(), event.getEntity().getCommandSenderWorld(), event, event.getEntity().blockPosition()));
+        final IColony colony = validatePreconditionAndFetchColony(event.getEntity().level,
+            event.getEntity().blockPosition());
+        if (colony == null)
+        {
+            return;
+        }
+
+        checkEventCancellation(Action.PICKUP_ITEM, colony, event.getEntity(), event.getEntity().getCommandSenderWorld(), event, event.getEntity().blockPosition());
     }
 
     /**
@@ -546,18 +579,22 @@ public class PermissionEventHandler
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void on(final FillBucketEvent event)
     {
-        validatePrecondition(event.getEntity().level, event.getEntity().blockPosition(), (colony) -> {
-            BlockPos targetBlockPos = null;
-            if (event.getTarget() instanceof BlockHitResult result)
-            {
-                targetBlockPos = result.getBlockPos();
-            }
-            else if (event.getTarget() instanceof EntityHitResult result)
-            {
-                targetBlockPos = result.getEntity().blockPosition();
-            }
-            checkEventCancellation(Action.FILL_BUCKET, colony, event.getEntity(), event.getEntity().getCommandSenderWorld(), event, targetBlockPos);
-        });
+        final IColony colony = validatePreconditionAndFetchColony(event.getEntity().level, event.getEntity().blockPosition());
+        if (colony == null)
+        {
+            return;
+        }
+
+        BlockPos targetBlockPos = null;
+        if (event.getTarget() instanceof BlockHitResult result)
+        {
+            targetBlockPos = result.getBlockPos();
+        }
+        else if (event.getTarget() instanceof EntityHitResult result)
+        {
+            targetBlockPos = result.getEntity().blockPosition();
+        }
+        checkEventCancellation(Action.FILL_BUCKET, colony, event.getEntity(), event.getEntity().getCommandSenderWorld(), event, targetBlockPos);
     }
 
     /**
@@ -570,9 +607,13 @@ public class PermissionEventHandler
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void on(final ArrowLooseEvent event)
     {
-        validatePrecondition(event.getLevel(),
-          event.getEntity().blockPosition(),
-          (colony) -> checkEventCancellation(Action.SHOOT_ARROW, colony, event.getEntity(), event.getEntity().getCommandSenderWorld(), event, event.getEntity().blockPosition()));
+        final IColony colony = validatePreconditionAndFetchColony(event.getLevel(), event.getEntity().blockPosition());
+        if (colony == null)
+        {
+            return;
+        }
+
+        checkEventCancellation(Action.SHOOT_ARROW, colony, event.getEntity(), event.getEntity().getCommandSenderWorld(), event, event.getEntity().blockPosition());
     }
 
     /**
@@ -587,14 +628,18 @@ public class PermissionEventHandler
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void on(final LivingHurtEvent event)
     {
-        validatePrecondition(event.getEntity().level, event.getEntity().blockPosition(), (colony) -> {
-            if (event.getEntity() instanceof ServerPlayer player && event.getSource().getEntity() instanceof EntityCitizen
-                  && ((EntityCitizen) event.getSource().getEntity()).getCitizenColonyHandler().getColonyId() == colony.getID() && colony.getRaiderManager().isRaided()
-                  && !colony.getPermissions().hasPermission(player, Action.GUARDS_ATTACK))
-            {
-                event.setCanceled(true);
-            }
-        });
+        final IColony colony = validatePreconditionAndFetchColony(event.getEntity().level, event.getEntity().blockPosition());
+        if (colony == null)
+        {
+            return;
+        }
+
+        if (event.getEntity() instanceof ServerPlayer player && event.getSource().getEntity() instanceof EntityCitizen
+            && ((EntityCitizen) event.getSource().getEntity()).getCitizenColonyHandler().getColonyId() == colony.getID() && colony.getRaiderManager().isRaided()
+            && !colony.getPermissions().hasPermission(player, Action.GUARDS_ATTACK))
+        {
+            event.setCanceled(true);
+        }
     }
 
     /**
@@ -607,39 +652,42 @@ public class PermissionEventHandler
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void on(final AttackEntityEvent event)
     {
-        validatePrecondition(event.getEntity().level, event.getEntity().blockPosition(), (colony) -> {
-            if (event.getTarget() instanceof Monster)
-            {
-                return;
-            }
+        final IColony colony = validatePreconditionAndFetchColony(event.getEntity().level, event.getEntity().blockPosition());
+        if (colony == null)
+        {
+            return;
+        }
 
-            final Player player = EntityUtils.getPlayerOfFakePlayer(event.getEntity(), event.getEntity().getCommandSenderWorld());
+        if (event.getTarget() instanceof Monster)
+        {
+            return;
+        }
 
-            if (MineColonies.getConfig().getServer().enableColonyProtection.get() && colony.isCoordInColony(player.getCommandSenderWorld(), player.blockPosition()))
+        final Player player = EntityUtils.getPlayerOfFakePlayer(event.getEntity(), event.getEntity().getCommandSenderWorld());
+        if (MineColonies.getConfig().getServer().enableColonyProtection.get() && colony.isCoordInColony(player.getCommandSenderWorld(), player.blockPosition()))
+        {
+            final IPermissions perms = colony.getPermissions();
+            if (event.getTarget() instanceof final EntityCitizen citizen)
             {
-                final IPermissions perms = colony.getPermissions();
-                if (event.getTarget() instanceof final EntityCitizen citizen)
+                if (citizen.getCitizenJobHandler().getColonyJob() instanceof AbstractJobGuard && perms.hasPermission(event.getEntity(), Action.GUARDS_ATTACK))
                 {
-                    if (citizen.getCitizenJobHandler().getColonyJob() instanceof AbstractJobGuard && perms.hasPermission(event.getEntity(), Action.GUARDS_ATTACK))
-                    {
-                        return;
-                    }
-
-                    if (perms.hasPermission(event.getEntity(), Action.ATTACK_CITIZEN))
-                    {
-                        return;
-                    }
-
-                    cancelEvent(event, event.getEntity(), colony, Action.ATTACK_CITIZEN, event.getTarget().blockPosition());
                     return;
                 }
 
-                if (!(event.getTarget() instanceof Enemy) && !perms.hasPermission(event.getEntity(), Action.ATTACK_ENTITY))
+                if (perms.hasPermission(event.getEntity(), Action.ATTACK_CITIZEN))
                 {
-                    cancelEvent(event, event.getEntity(), colony, Action.ATTACK_ENTITY, event.getTarget().blockPosition());
+                    return;
                 }
+
+                cancelEvent(event, event.getEntity(), colony, Action.ATTACK_CITIZEN, event.getTarget().blockPosition());
+                return;
             }
-        });
+
+            if (!(event.getTarget() instanceof Enemy) && !perms.hasPermission(event.getEntity(), Action.ATTACK_ENTITY))
+            {
+                cancelEvent(event, event.getEntity(), colony, Action.ATTACK_ENTITY, event.getTarget().blockPosition());
+            }
+        }
     }
 
     /**
@@ -647,21 +695,16 @@ public class PermissionEventHandler
      *
      * @param level    the level where the event was called.
      * @param position the relevant position for the event.
-     * @param handler  the callback function, giving back the colony the event occurred in.
+     * @return the colony, if found.
      */
-    private static void validatePrecondition(final Level level, final BlockPos position, final Consumer<IColony> handler)
+    @Nullable
+    private static IColony validatePreconditionAndFetchColony(final Level level, final BlockPos position)
     {
         if (!IMinecoloniesAPI.getInstance().getConfig().getServer().enableColonyProtection.get())
         {
-            return;
+            return null;
         }
 
-        final IColony colony = IColonyManager.getInstance().getIColony(level, position);
-        if (colony == null)
-        {
-            return;
-        }
-
-        handler.accept(colony);
+        return IColonyManager.getInstance().getIColony(level, position);
     }
 }
