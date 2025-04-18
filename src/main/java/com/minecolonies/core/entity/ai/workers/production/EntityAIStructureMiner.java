@@ -877,7 +877,7 @@ public class EntityAIStructureMiner extends AbstractEntityAIStructureWithWorkOrd
                     }
                 }
 
-                @Nullable final BlockPos levelSignPos = WorkerUtil.findFirstLevelSign(job.getWorkOrder().getBlueprint(), job.getWorkOrder().getLocation());
+                @Nullable final BlockPos levelSignPos = WorkerUtil.findFirstLevelSign(job.getWorkOrder().getBlueprint(), job.getWorkOrder().getLocation(), worker.level());
                 @NotNull final MinerLevel currentLevel = new MinerLevel(minerBuilding, job.getWorkOrder().getLocation().getY(), levelSignPos);
                 if (!exists)
                 {

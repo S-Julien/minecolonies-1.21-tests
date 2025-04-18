@@ -233,7 +233,7 @@ public class EntityAIQuarrier extends AbstractEntityAIStructureWithWorkOrder<Job
             structure = new BuildingStructureHandler<>(world,
               position,
               blueprint,
-              rotMir,
+                workOrder.getRotationMirror(),
               this, new BuildingStructureHandler.Stage[] {BUILD_SOLID, DECORATE, CLEAR});
             building.setTotalStages(3);
 
