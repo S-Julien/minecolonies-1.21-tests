@@ -506,7 +506,12 @@ public abstract class AbstractBlockGate extends DoorBlock implements LiquidBlock
     }
 
     @Override
-    public boolean canPlaceLiquid(@NotNull final BlockGetter blockGetter, @NotNull final BlockPos pos, @NotNull final BlockState state, @NotNull final Fluid fluid)
+    public boolean canPlaceLiquid(
+        @Nullable Player player,
+        @NotNull final BlockGetter blockGetter,
+        @NotNull final BlockPos pos,
+        @NotNull final BlockState state,
+        @NotNull final Fluid fluid)
     {
         return false;
     }
