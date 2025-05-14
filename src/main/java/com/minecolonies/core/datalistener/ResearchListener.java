@@ -316,7 +316,14 @@ public class ResearchListener extends SimpleJsonResourceReloadListener
         {
             final JsonObject jsonRequirement = jsonRequirements.get(index).getAsJsonObject();
 
-            final ResourceLocation type = GsonHelper.getAsResourceLocation(jsonRequirement, RESEARCH_REQUIREMENT_TYPE_PROP, null);
+            ResourceLocation type = GsonHelper.getAsResourceLocation(jsonRequirement, RESEARCH_REQUIREMENT_TYPE_PROP, null);
+
+            // TODO: 1.22 remove the ability for requirements not to provide an explicit `type` property
+            if (type == null)
+            {
+                type = attemptInferTypeFromValues(jsonRequirement);
+            }
+
             if (type == null)
             {
                 Log.getLogger().warn("Research '{}' requirement #{} is missing the required '{}' property.", researchId, index, RESEARCH_REQUIREMENT_TYPE_PROP);
@@ -343,6 +350,34 @@ public class ResearchListener extends SimpleJsonResourceReloadListener
     }
 
     /**
+     * Parse the requirement type from json data directly in case of no explicit type.
+     *
+     * @param jsonRequirement the input json object.
+     * @return the type string or null if undeterminable
+     */
+    private ResourceLocation attemptInferTypeFromValues(final JsonObject jsonRequirement)
+    {
+        // TODO: 1.22 remove the ability for requirements not to provide an explicit `type` property
+        if (jsonRequirement.has("building"))
+        {
+            return ModResearchRequirements.BUILDING_RESEARCH_REQ_ID;
+        }
+        else if (jsonRequirement.has("alternate-building"))
+        {
+            return ModResearchRequirements.BUILDING_ALTERNATES_RESEARCH_REQ_ID;
+        }
+        else if (jsonRequirement.has("mandatory-building"))
+        {
+            return ModResearchRequirements.BUILDING_MANDATORY_RESEARCH_REQ_ID;
+        }
+        else if (jsonRequirement.has("research"))
+        {
+            return ModResearchRequirements.RESEARCH_RESEARCH_REQ_ID;
+        }
+        return null;
+    }
+
+    /**
      * Parses a JSON object for research costs.
      *
      * @param researchId       a json object to retrieve the ID from.
@@ -365,7 +400,7 @@ public class ResearchListener extends SimpleJsonResourceReloadListener
             if (jsonRequirement.has("items"))
             {
                 Log.getLogger().warn("Research '{}' requirement #{} is deprecated. Cost requirements should be put in the 'costs' array.", researchId, index);
-                costs.add(Utils.deserializeCodecMessFromJson(SizedIngredient.FLAT_CODEC, getRegistryLookup(), jsonRequirement));
+                costs.add(Utils.deserializeCodecMessFromJson(SizedIngredient.FLAT_CODEC, getRegistryLookup(), jsonRequirement.get("items")));
             }
         }
 
@@ -456,6 +491,7 @@ public class ResearchListener extends SimpleJsonResourceReloadListener
      * @param object        A Map containing the resource location of each json file, and the element within that json file.
      * @return              A Tuple containing resource locations of Researches (A) and Branches (B) to remove from the global research tree.
      */
+    // TODO: 1.22 remove "remove" property from researches, as datapacks can be removed natively already by providing an empty file instead
     private Tuple<Collection<ResourceLocation>, Collection<ResourceLocation>> parseRemoveResearches(final Map<ResourceLocation, JsonElement> object)
     {
         final Collection<ResourceLocation> removeResearches = new HashSet<>();
