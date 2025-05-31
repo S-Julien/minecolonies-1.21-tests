@@ -29,6 +29,7 @@ public class UnlockQuestRewardTemplate implements IQuestRewardTemplate
 
     /**
      * Create the reward.
+     *
      * @param jsonObject the json to read from.
      * @return the reward object.
      */
@@ -39,6 +40,7 @@ public class UnlockQuestRewardTemplate implements IQuestRewardTemplate
 
         return new UnlockQuestRewardTemplate(new ResourceLocation(id));
     }
+
     @Override
     public void applyReward(final IColony colony, final Player player, final IQuestInstance colonyQuest)
     {

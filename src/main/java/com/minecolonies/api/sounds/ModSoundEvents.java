@@ -66,9 +66,9 @@ public final class ModSoundEvents
                 for (int i = 1; i <= 4; i++)
                 {
                     final SoundEvent maleSoundEvent =
-                      ModSoundEvents.getSoundID(CITIZEN_SOUND_EVENT_PREFIX + job.getPath() + ".male" + i + "." + event.getId());
+                        ModSoundEvents.getSoundID(CITIZEN_SOUND_EVENT_PREFIX + job.getPath() + ".male" + i + "." + event.getId());
                     final SoundEvent femaleSoundEvent =
-                      ModSoundEvents.getSoundID(CITIZEN_SOUND_EVENT_PREFIX + job.getPath() + ".female" + i + "." + event.getId());
+                        ModSoundEvents.getSoundID(CITIZEN_SOUND_EVENT_PREFIX + job.getPath() + ".female" + i + "." + event.getId());
 
                     SOUND_EVENTS.register(maleSoundEvent.getLocation().getPath(), () -> maleSoundEvent);
                     SOUND_EVENTS.register(femaleSoundEvent.getLocation().getPath(), () -> femaleSoundEvent);
@@ -86,9 +86,9 @@ public final class ModSoundEvents
             for (int i = 1; i <= 2; i++)
             {
                 final SoundEvent maleSoundEvent =
-                        ModSoundEvents.getSoundID(CITIZEN_SOUND_EVENT_PREFIX + "child.male" + i + "." + event.getId());
+                    ModSoundEvents.getSoundID(CITIZEN_SOUND_EVENT_PREFIX + "child.male" + i + "." + event.getId());
                 final SoundEvent femaleSoundEvent =
-                        ModSoundEvents.getSoundID(CITIZEN_SOUND_EVENT_PREFIX + "child.female" + i + "." + event.getId());
+                    ModSoundEvents.getSoundID(CITIZEN_SOUND_EVENT_PREFIX + "child.female" + i + "." + event.getId());
 
                 individualSounds.add(new Tuple<>(maleSoundEvent, femaleSoundEvent));
                 individualSounds.add(new Tuple<>(maleSoundEvent, femaleSoundEvent));
@@ -105,9 +105,9 @@ public final class ModSoundEvents
             final SoundEvent raiderDeath = ModSoundEvents.getSoundID("mob." + raiderType.name().toLowerCase(Locale.US) + ".death");
             final SoundEvent raiderSay = ModSoundEvents.getSoundID("mob." + raiderType.name().toLowerCase(Locale.US) + ".say");
 
-            SOUND_EVENTS.register(raiderHurt.getLocation().getPath(), () ->  raiderHurt);
-            SOUND_EVENTS.register(raiderDeath.getLocation().getPath(), () ->  raiderDeath);
-            SOUND_EVENTS.register(raiderSay.getLocation().getPath(), () ->  raiderSay);
+            SOUND_EVENTS.register(raiderHurt.getLocation().getPath(), () -> raiderHurt);
+            SOUND_EVENTS.register(raiderDeath.getLocation().getPath(), () -> raiderDeath);
+            SOUND_EVENTS.register(raiderSay.getLocation().getPath(), () -> raiderSay);
 
             final Map<RaiderSounds.RaiderSoundTypes, SoundEvent> sounds = new HashMap<>();
             sounds.put(RaiderSounds.RaiderSoundTypes.HURT, raiderHurt);
@@ -137,7 +137,6 @@ public final class ModSoundEvents
         SOUND_EVENTS.register(MercenarySounds.mercenarySay.getLocation().getPath(), () -> MercenarySounds.mercenarySay);
         SOUND_EVENTS.register(MercenarySounds.mercenaryStep.getLocation().getPath(), () -> MercenarySounds.mercenaryStep);
     }
-
     /**
      * Register a {@link SoundEvent}.
      *

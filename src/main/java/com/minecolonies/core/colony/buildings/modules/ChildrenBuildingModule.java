@@ -21,14 +21,14 @@ import java.util.function.Function;
  */
 public class ChildrenBuildingModule extends WorkerBuildingModule implements IBuildingEventsModule, ITickingModule, IPersistentModule, IBuildingWorkerModule, ICreatesResolversModule
 {
-    public ChildrenBuildingModule(final JobEntry entry,
-      final Skill primary,
-      final Skill secondary,
-      final boolean canWorkingDuringRain,
-      final Function<IBuilding, Integer> sizeLimit)
+    public ChildrenBuildingModule(
+        final JobEntry entry,
+        final Skill primary,
+        final Skill secondary,
+        final boolean canWorkingDuringRain,
+        final Function<IBuilding, Integer> sizeLimit)
     {
         super(entry, primary, secondary, canWorkingDuringRain, sizeLimit);
-
     }
 
     @Override

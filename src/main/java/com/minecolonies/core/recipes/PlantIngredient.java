@@ -21,10 +21,10 @@ import java.util.stream.Stream;
 
 /**
  * An ingredient that can be used in a vanilla recipe to match plantable items.
- *
+ * <p>
  * // any plant item
  * {
- *     "type": "minecolonies:plant"
+ * "type": "minecolonies:plant"
  * }
  */
 public class PlantIngredient extends Ingredient
@@ -32,11 +32,11 @@ public class PlantIngredient extends Ingredient
     public static final ResourceLocation ID = new ResourceLocation(Constants.MOD_ID, "plant");
 
     private static final Lazy<PlantIngredient> INSTANCE
-            = Lazy.of(() -> new PlantIngredient(ForgeRegistries.ITEMS.getValues().stream()
-                    .filter(item -> item instanceof BlockItem &&
-                        (((BlockItem) item).getBlock() instanceof CropBlock ||
-                         ((BlockItem) item).getBlock() instanceof StemBlock))
-                    .map(item -> new ItemValue(new ItemStack(item)))));
+        = Lazy.of(() -> new PlantIngredient(ForgeRegistries.ITEMS.getValues().stream()
+        .filter(item -> item instanceof BlockItem &&
+            (((BlockItem) item).getBlock() instanceof CropBlock ||
+                ((BlockItem) item).getBlock() instanceof StemBlock))
+        .map(item -> new ItemValue(new ItemStack(item)))));
 
     protected PlantIngredient(final Stream<? extends Value> itemLists)
     {
@@ -69,9 +69,9 @@ public class PlantIngredient extends Ingredient
     {
         private static final Serializer INSTANCE = new Serializer();
 
-        public static Serializer getInstance() { return INSTANCE; }
+        public static Serializer getInstance() {return INSTANCE;}
 
-        private Serializer() { }
+        private Serializer() {}
 
         @NotNull
         @Override

@@ -24,6 +24,7 @@ public class PlaceStructureCriterionInstance extends AbstractCriterionTriggerIns
 
     /**
      * Construct the check with a single condition
+     *
      * @param hutName the hut that has to be placed to succeed
      */
     public PlaceStructureCriterionInstance(final String hutName)
@@ -33,9 +34,9 @@ public class PlaceStructureCriterionInstance extends AbstractCriterionTriggerIns
         this.structureName = hutName;
     }
 
-
     /**
      * Performs the check for the conditions
+     *
      * @param hutName the id of the structure that was just placed
      * @return whether the check succeeded
      */
@@ -50,8 +51,9 @@ public class PlaceStructureCriterionInstance extends AbstractCriterionTriggerIns
     }
 
     @NotNull
-    public static PlaceStructureCriterionInstance deserializeFromJson(@NotNull final JsonObject jsonObject,
-                                                                      @NotNull final DeserializationContext context)
+    public static PlaceStructureCriterionInstance deserializeFromJson(
+        @NotNull final JsonObject jsonObject,
+        @NotNull final DeserializationContext context)
     {
         if (jsonObject.has("hut_name"))
         {

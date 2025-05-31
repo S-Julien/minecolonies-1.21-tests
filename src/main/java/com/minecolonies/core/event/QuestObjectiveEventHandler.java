@@ -91,8 +91,8 @@ public class QuestObjectiveEventHandler
     public static void on(final LivingDeathEvent event)
     {
         if (event.getSource().getEntity() instanceof Player
-              && entityKillObjectives.containsKey(event.getEntity().getType())
-              && entityKillObjectives.get(event.getEntity().getType()).containsKey(event.getSource().getEntity().getUUID()))
+            && entityKillObjectives.containsKey(event.getEntity().getType())
+            && entityKillObjectives.get(event.getEntity().getType()).containsKey(event.getSource().getEntity().getUUID()))
         {
             final List<IQuestInstance> objectives = entityKillObjectives.get(event.getEntity().getType()).get(event.getSource().getEntity().getUUID());
             for (IQuestInstance colonyQuest : new ArrayList<>(objectives))
@@ -125,7 +125,7 @@ public class QuestObjectiveEventHandler
             return;
         }
 
-        final Block block =  event.getPlacedBlock().getBlock();
+        final Block block = event.getPlacedBlock().getBlock();
         if (placeBlockObjectives.containsKey(block) && placeBlockObjectives.get(block).containsKey(event.getEntity().getUUID()))
         {
             final List<IQuestInstance> objectives = placeBlockObjectives.get(block).get(event.getEntity().getUUID());
@@ -176,7 +176,7 @@ public class QuestObjectiveEventHandler
     /**
      * Add an objective listener for block placement to this event handler.
      *
-     * @param blockToPlace    the block that we listen for.
+     * @param blockToPlace   the block that we listen for.
      * @param assignedPlayer the player we check for.
      * @param colonyQuest    the colony quest it is related to.
      */
@@ -192,7 +192,7 @@ public class QuestObjectiveEventHandler
     /**
      * Remove an objective listener for block placement to this event handler.
      *
-     * @param blockToPlace    the block that we listen for.
+     * @param blockToPlace   the block that we listen for.
      * @param assignedPlayer the player we check for.
      * @param colonyQuest    the colony quest it is related to.
      */
@@ -231,8 +231,9 @@ public class QuestObjectiveEventHandler
 
     /**
      * Research complete event.
+     *
      * @param colony the colony the research happened in.
-     * @param id the research id.
+     * @param id     the research id.
      */
     public static void onResearchComplete(final IColony colony, final ResourceLocation id)
     {
@@ -251,8 +252,9 @@ public class QuestObjectiveEventHandler
 
     /**
      * Building upgrade handling.
+     *
      * @param building the building being upgraded.
-     * @param level its level.
+     * @param level    its level.
      */
     public static void onBuildingUpgradeComplete(final IBuilding building, final int level)
     {
@@ -271,8 +273,9 @@ public class QuestObjectiveEventHandler
 
     /**
      * Track building leveling.
+     *
      * @param buildingEntry the building to track.
-     * @param colonyQuest the quest tracking it.
+     * @param colonyQuest   the quest tracking it.
      */
     public static void trackBuildingLevelUp(final @NotNull BuildingEntry buildingEntry, final @NotNull IQuestInstance colonyQuest)
     {
@@ -285,8 +288,9 @@ public class QuestObjectiveEventHandler
 
     /**
      * Stop tracking building leveling.
+     *
      * @param buildingEntry the building to stop tracking.
-     * @param colonyQuest the quest tracking it.
+     * @param colonyQuest   the quest tracking it.
      */
     public static void stopTrackingBuildingLevelUp(final @NotNull BuildingEntry buildingEntry, final @NotNull IQuestInstance colonyQuest)
     {
@@ -295,7 +299,8 @@ public class QuestObjectiveEventHandler
 
     /**
      * Track research.
-     * @param researchId the research to track.
+     *
+     * @param researchId  the research to track.
      * @param colonyQuest the quest tracking it.
      */
     public static void trackResearch(final ResourceLocation researchId, final IQuestInstance colonyQuest)
@@ -309,7 +314,8 @@ public class QuestObjectiveEventHandler
 
     /**
      * Stop tracking research.
-     * @param researchId the research to stop tracking.
+     *
+     * @param researchId  the research to stop tracking.
      * @param colonyQuest the quest tracking it.
      */
     public static void stopTrackingResearch(final @NotNull ResourceLocation researchId, final @NotNull IQuestInstance colonyQuest)

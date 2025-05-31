@@ -23,7 +23,7 @@ public class BuilderSelectWorkOrderMessage extends AbstractBuildingServerMessage
     /**
      * Creates a new BuilderSetManualModeMessage.
      *
-     * @param building View of the building to read data from.
+     * @param building  View of the building to read data from.
      * @param workOrder workorder id.
      */
     public BuilderSelectWorkOrderMessage(@NotNull final IBuildingView building, final int workOrder)

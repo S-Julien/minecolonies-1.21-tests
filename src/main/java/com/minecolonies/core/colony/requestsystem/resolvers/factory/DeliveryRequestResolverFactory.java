@@ -14,10 +14,11 @@ import org.jetbrains.annotations.NotNull;
 
 public class DeliveryRequestResolverFactory implements IRequestResolverFactory<DeliveryRequestResolver>
 {
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
     private static final String NBT_TOKEN    = "Token";
     private static final String NBT_LOCATION = "Location";
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
+
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
 
     @NotNull
     @Override
@@ -36,10 +37,10 @@ public class DeliveryRequestResolverFactory implements IRequestResolverFactory<D
     @NotNull
     @Override
     public DeliveryRequestResolver getNewInstance(
-      @NotNull final IFactoryController factoryController,
-      @NotNull final ILocation iLocation,
-      @NotNull final Object... context)
-      throws IllegalArgumentException
+        @NotNull final IFactoryController factoryController,
+        @NotNull final ILocation iLocation,
+        @NotNull final Object... context)
+        throws IllegalArgumentException
     {
         return new DeliveryRequestResolver(iLocation, factoryController.getNewInstance(TypeConstants.ITOKEN));
     }
@@ -47,7 +48,7 @@ public class DeliveryRequestResolverFactory implements IRequestResolverFactory<D
     @NotNull
     @Override
     public CompoundTag serialize(
-      @NotNull final IFactoryController controller, @NotNull final DeliveryRequestResolver deliveryRequestResolver)
+        @NotNull final IFactoryController controller, @NotNull final DeliveryRequestResolver deliveryRequestResolver)
     {
         final CompoundTag compound = new CompoundTag();
         compound.put(NBT_TOKEN, controller.serialize(deliveryRequestResolver.getId()));

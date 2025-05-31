@@ -21,7 +21,7 @@ public abstract class AbstractWindowTownHall extends AbstractWindowModuleBuildin
     public static final int RED       = Color.getByName("red", 0);
     public static final int DARKGREEN = Color.getByName("darkgreen", 0);
     public static final int ORANGE    = Color.getByName("orange", 0);
-    public static final int YELLOW = Color.getByName("yellow", 0);
+    public static final int YELLOW    = Color.getByName("yellow", 0);
 
     /**
      * Constructor for the town hall window.
@@ -48,6 +48,7 @@ public abstract class AbstractWindowTownHall extends AbstractWindowModuleBuildin
 
     /**
      * Get the id that identifies the window.
+     *
      * @return the string id.
      */
     protected abstract String getWindowId();

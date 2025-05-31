@@ -25,18 +25,21 @@ public interface ICitizenMournHandler
 
     /**
      * Add a deceased citizen to the handler.
+     *
      * @param name the name of the citizen.
      */
     void addDeceasedCitizen(final String name);
 
     /**
      * Gets a set with all the recently deceased citizens.
+     *
      * @return a set with all the recently deceased citizens.
      */
     Set<String> getDeceasedCitizens();
 
     /**
      * Remove a deceased citizen from the handler.
+     *
      * @param name the name of the citizen.
      */
     void removeDeceasedCitizen(final String name);
@@ -48,18 +51,21 @@ public interface ICitizenMournHandler
 
     /**
      * Check if the citizen should mourn.
+     *
      * @return true if so.
      */
     boolean shouldMourn();
 
     /**
      * Check if the citizen is already mourning.
+     *
      * @return true if so.
      */
     boolean isMourning();
 
     /**
      * Set if the citizen is mourning atm.
+     *
      * @param mourn true if so.
      */
     void setMourning(boolean mourn);

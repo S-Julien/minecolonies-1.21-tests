@@ -64,7 +64,6 @@ import static com.minecolonies.api.util.constant.RaiderConstants.FOLLOW_RANGE;
 import static com.minecolonies.api.util.constant.TranslationConstants.MESSAGE_INFO_COLONY_MERCENARY_STEAL_CITIZEN;
 import static com.minecolonies.core.entity.ai.minimal.EntityAIInteractToggleAble.*;
 
-
 /**
  * Class for Mercenary entities, which can be spawned to protect the colony
  */
@@ -366,13 +365,14 @@ public class EntityMercenary extends AbstractFastMinecoloniesEntity implements N
 
     /**
      * Get the default attributes with their values.
+     *
      * @return the attribute modifier map.
      */
     public static AttributeSupplier.Builder getDefaultAttributes()
     {
         return LivingEntity.createLivingAttributes()
-                 .add(Attributes.ATTACK_DAMAGE, Attributes.ATTACK_DAMAGE.getDefaultValue())
-                 .add(Attributes.FOLLOW_RANGE, BASE_PATHFINDING_RANGE);
+            .add(Attributes.ATTACK_DAMAGE, Attributes.ATTACK_DAMAGE.getDefaultValue())
+            .add(Attributes.FOLLOW_RANGE, BASE_PATHFINDING_RANGE);
     }
 
     @Override

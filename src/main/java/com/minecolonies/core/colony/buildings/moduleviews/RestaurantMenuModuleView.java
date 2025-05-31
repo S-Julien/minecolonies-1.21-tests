@@ -58,6 +58,7 @@ public class RestaurantMenuModuleView extends AbstractBuildingModuleView
 
     /**
      * Get the menu for the restaurant.
+     *
      * @return the menu.
      */
     public List<ItemStorage> getMenu()

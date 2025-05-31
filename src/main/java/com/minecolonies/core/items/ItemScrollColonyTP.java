@@ -53,16 +53,17 @@ public class ItemScrollColonyTP extends AbstractItemScroll
         {
             // Fail
             player.displayClientMessage(Component.translatable("minecolonies.scroll.failed" + (world.random.nextInt(FAIL_RESPONSES_TOTAL) + 1)).setStyle(Style.EMPTY.withColor(
-              ChatFormatting.GOLD)), true);
+                ChatFormatting.GOLD)), true);
 
             BlockPos pos = null;
             for (final Direction dir : Direction.Plane.HORIZONTAL)
             {
                 pos = BlockPosUtil.findAround(world,
-                  player.blockPosition().relative(dir, 10),
-                  5,
-                  5,
-                  (predWorld, predPos) -> BlockUtils.isAnySolid(predWorld.getBlockState(predPos.below())) && predWorld.getBlockState(predPos).isAir() && predWorld.getBlockState(predPos.above()).isAir());
+                    player.blockPosition().relative(dir, 10),
+                    5,
+                    5,
+                    (predWorld, predPos) -> BlockUtils.isAnySolid(predWorld.getBlockState(predPos.below())) && predWorld.getBlockState(predPos).isAir() && predWorld.getBlockState(
+                        predPos.above()).isAir());
                 if (pos != null)
                 {
                     break;
@@ -111,17 +112,17 @@ public class ItemScrollColonyTP extends AbstractItemScroll
         if (!worldIn.isClientSide && worldIn.getGameTime() % 5 == 0)
         {
             Network.getNetwork()
-              .sendToTrackingEntity(new VanillaParticleMessage(entity.getX(), entity.getY(), entity.getZ(), ParticleTypes.INSTANT_EFFECT),
-                entity);
+                .sendToTrackingEntity(new VanillaParticleMessage(entity.getX(), entity.getY(), entity.getZ(), ParticleTypes.INSTANT_EFFECT),
+                    entity);
             Network.getNetwork()
-              .sendToPlayer(new VanillaParticleMessage(entity.getX(), entity.getY(), entity.getZ(), ParticleTypes.INSTANT_EFFECT),
-                (ServerPlayer) entity);
+                .sendToPlayer(new VanillaParticleMessage(entity.getX(), entity.getY(), entity.getZ(), ParticleTypes.INSTANT_EFFECT),
+                    (ServerPlayer) entity);
         }
     }
 
     @Override
     public void appendHoverText(
-      @NotNull final ItemStack stack, @Nullable final Level worldIn, @NotNull final List<Component> tooltip, @NotNull final TooltipFlag flagIn)
+        @NotNull final ItemStack stack, @Nullable final Level worldIn, @NotNull final List<Component> tooltip, @NotNull final TooltipFlag flagIn)
     {
         final MutableComponent guiHint = Component.translatable(TOOL_COLONY_TELEPORT_SCROLL_DESCRIPTION);
         guiHint.setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GREEN));

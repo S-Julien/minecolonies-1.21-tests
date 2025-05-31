@@ -84,20 +84,20 @@ public class BlockStash extends AbstractBlockHut<BlockStash> implements IRSCompo
     @NotNull
     @Override
     public InteractionResult use(
-      final BlockState state,
-      final Level worldIn,
-      final BlockPos pos,
-      final Player player,
-      final InteractionHand hand,
-      final BlockHitResult ray)
+        final BlockState state,
+        final Level worldIn,
+        final BlockPos pos,
+        final Player player,
+        final InteractionHand hand,
+        final BlockHitResult ray)
     {
         if (worldIn.isClientSide)
         {
             @Nullable final IBuildingView building = IColonyManager.getInstance().getBuildingView(worldIn.dimension(), pos);
 
             if (building != null
-                  && building.getColony() != null
-                  && building.getColony().getPermissions().hasPermission(player, Action.ACCESS_HUTS))
+                && building.getColony() != null
+                && building.getColony().getPermissions().hasPermission(player, Action.ACCESS_HUTS))
             {
                 Network.getNetwork().sendToServer(new OpenInventoryMessage(building));
             }

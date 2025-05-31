@@ -69,9 +69,9 @@ public class Permissions implements IPermissions
         for (Action a : Action.values())
         {
             if (a != Action.GUARDS_ATTACK
-                  && a != Action.EDIT_PERMISSIONS && a != Action.MANAGE_HUTS
-                  && a != Action.TELEPORT_TO_COLONY && a != Action.EXPLODE
-                  && a != Action.CAN_KEEP_COLONY_ACTIVE_WHILE_AWAY && a != Action.RALLY_GUARDS)
+                && a != Action.EDIT_PERMISSIONS && a != Action.MANAGE_HUTS
+                && a != Action.TELEPORT_TO_COLONY && a != Action.EXPLODE
+                && a != Action.CAN_KEEP_COLONY_ACTIVE_WHILE_AWAY && a != Action.RALLY_GUARDS)
             {
                 fullyAbandonedPermissionsFlag |= a.getFlag();
             }
@@ -292,7 +292,8 @@ public class Permissions implements IPermissions
             return false;
         }
 
-        return hasPermission(actor, Action.EDIT_PERMISSIONS) && (actor != rank || action != Action.EDIT_PERMISSIONS && action != Action.MANAGE_HUTS && action != Action.ACCESS_HUTS);
+        return hasPermission(actor, Action.EDIT_PERMISSIONS) && (actor != rank
+            || action != Action.EDIT_PERMISSIONS && action != Action.MANAGE_HUTS && action != Action.ACCESS_HUTS);
     }
 
     /**
@@ -620,7 +621,7 @@ public class Permissions implements IPermissions
         }
 
         return Utils.testFlag(rank.getPermissions(), action.getFlag())
-                 || (fullyAbandoned && Utils.testFlag(fullyAbandonedPermissionsFlag, action.getFlag()));
+            || (fullyAbandoned && Utils.testFlag(fullyAbandonedPermissionsFlag, action.getFlag()));
     }
 
     /**
@@ -633,8 +634,8 @@ public class Permissions implements IPermissions
     public Set<ColonyPlayer> getPlayersByRank(final Rank rank)
     {
         return this.players.values().stream()
-          .filter(player -> player.getRank() != null && player.getRank().equals(rank))
-          .collect(Collectors.toSet());
+            .filter(player -> player.getRank() != null && player.getRank().equals(rank))
+            .collect(Collectors.toSet());
     }
 
     /**
@@ -647,16 +648,16 @@ public class Permissions implements IPermissions
     public Set<ColonyPlayer> getPlayersByRank(@NotNull final Set<Rank> ranks)
     {
         return this.players.values().stream()
-          .filter(player -> ranks.contains(player.getRank()))
-          .collect(Collectors.toSet());
+            .filter(player -> ranks.contains(player.getRank()))
+            .collect(Collectors.toSet());
     }
 
     @Override
     public Set<ColonyPlayer> getFilteredPlayers(@NotNull final Predicate<Rank> predicate)
     {
         return this.players.values().stream()
-          .filter(player -> predicate.test(player.getRank()))
-          .collect(Collectors.toSet());
+            .filter(player -> predicate.test(player.getRank()))
+            .collect(Collectors.toSet());
     }
 
     /**

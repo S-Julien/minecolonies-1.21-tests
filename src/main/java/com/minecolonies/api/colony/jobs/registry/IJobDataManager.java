@@ -31,9 +31,10 @@ public interface IJobDataManager
 
     /**
      * Create a job view from the saved network buffer.
-     * @param colony the colony.
+     *
+     * @param colony          the colony.
      * @param citizenDataView the the citizen data view..
-     * @param networkBuffer the buffer/
+     * @param networkBuffer   the buffer/
      * @return the new job view.
      */
     IJobView createViewFrom(final IColonyView colony, final ICitizenDataView citizenDataView, final FriendlyByteBuf networkBuffer);

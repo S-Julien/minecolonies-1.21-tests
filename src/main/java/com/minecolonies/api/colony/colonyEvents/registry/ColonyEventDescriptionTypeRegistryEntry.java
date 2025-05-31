@@ -37,7 +37,10 @@ public class ColonyEventDescriptionTypeRegistryEntry
      * @param packetBufferEventCreator the event creator using a {@link FriendlyByteBuf}.
      * @param registryID               the registry id.
      */
-    public ColonyEventDescriptionTypeRegistryEntry(@NotNull final Function<CompoundTag, IColonyEventDescription> nbtEventCreator, @NotNull final Function<FriendlyByteBuf, IColonyEventDescription> packetBufferEventCreator, @NotNull final ResourceLocation registryID)
+    public ColonyEventDescriptionTypeRegistryEntry(
+        @NotNull final Function<CompoundTag, IColonyEventDescription> nbtEventCreator,
+        @NotNull final Function<FriendlyByteBuf, IColonyEventDescription> packetBufferEventCreator,
+        @NotNull final ResourceLocation registryID)
     {
         if (registryID.getPath().isEmpty())
         {
@@ -51,7 +54,7 @@ public class ColonyEventDescriptionTypeRegistryEntry
 
     /**
      * Deserializes the event description from nbt.
-     * 
+     *
      * @param compound the nbt to deserialize the event description from.
      * @return the deserialized event description.
      */
@@ -62,7 +65,7 @@ public class ColonyEventDescriptionTypeRegistryEntry
 
     /**
      * Deserializes the event description from the given {@link FriendlyByteBuf}.
-     * 
+     *
      * @param buffer the {@link FriendlyByteBuf} to deserialize the event description from.
      * @return the deserialized event description.
      */
@@ -73,6 +76,7 @@ public class ColonyEventDescriptionTypeRegistryEntry
 
     /**
      * Get the set registry name.
+     *
      * @return the name.
      */
     public ResourceLocation getRegistryName()

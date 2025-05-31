@@ -39,10 +39,10 @@ public abstract class TreeSidePlantModule extends AbstractPlantationModule
      * @param item     the item which is harvested.
      */
     protected TreeSidePlantModule(
-      final IBuildingExtension field,
-      final String fieldTag,
-      final String workTag,
-      final Item item)
+        final IBuildingExtension field,
+        final String fieldTag,
+        final String workTag,
+        final Item item)
     {
         super(field, fieldTag, workTag, item);
     }
@@ -54,14 +54,14 @@ public abstract class TreeSidePlantModule extends AbstractPlantationModule
         return switch (action)
         {
             case HARVEST -> new PlantationModuleResult.Builder()
-                              .harvest(workingPosition)
-                              .pickNewPosition();
+                .harvest(workingPosition)
+                .pickNewPosition();
             case PLANT -> new PlantationModuleResult.Builder()
-                            .plant(workingPosition)
-                            .pickNewPosition();
+                .plant(workingPosition)
+                .pickNewPosition();
             case CLEAR -> new PlantationModuleResult.Builder()
-                            .clear(workingPosition)
-                            .pickNewPosition();
+                .clear(workingPosition)
+                .pickNewPosition();
             default -> PlantationModuleResult.NONE;
         };
     }
@@ -173,8 +173,8 @@ public abstract class TreeSidePlantModule extends AbstractPlantationModule
     public BlockPos getPositionToWalkTo(final Level world, final BlockPos workingPosition)
     {
         return Stream.of(workingPosition.north(), workingPosition.south(), workingPosition.west(), workingPosition.east())
-                 .filter(pos -> world.getBlockState(pos).isAir())
-                 .findFirst()
-                 .orElse(workingPosition);
+            .filter(pos -> world.getBlockState(pos).isAir())
+            .findFirst()
+            .orElse(workingPosition);
     }
 }

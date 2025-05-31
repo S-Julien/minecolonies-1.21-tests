@@ -12,7 +12,7 @@ import java.util.function.Predicate;
 
 public interface IMobAIRegistry
 {
-    static IMobAIRegistry getInstance() { return IMinecoloniesAPI.getInstance().getMobAIRegistry(); }
+    static IMobAIRegistry getInstance() {return IMinecoloniesAPI.getInstance().getMobAIRegistry();}
 
     /**
      * Method to get the AI tasks registered for a given mob. Used by minecolonies to get the AIs that are required for a given mob.
@@ -46,9 +46,9 @@ public interface IMobAIRegistry
      */
     @NotNull
     IMobAIRegistry registerNewAiTaskForMobs(
-      final int priority,
-      final Function<AbstractEntityMinecoloniesMonster, Goal> aiTaskProducer,
-      Predicate<AbstractEntityMinecoloniesMonster> applyPredicate);
+        final int priority,
+        final Function<AbstractEntityMinecoloniesMonster, Goal> aiTaskProducer,
+        Predicate<AbstractEntityMinecoloniesMonster> applyPredicate);
 
     /**
      * Method used to register a entity AI task for a mob that matches the predicate.
@@ -59,8 +59,8 @@ public interface IMobAIRegistry
      */
     @NotNull
     IMobAIRegistry registerNewStateAI(
-      final Function<AbstractEntityMinecoloniesMonster, IStateAI> aiTaskProducer,
-      Predicate<AbstractEntityMinecoloniesMonster> applyPredicate);
+        final Function<AbstractEntityMinecoloniesMonster, IStateAI> aiTaskProducer,
+        Predicate<AbstractEntityMinecoloniesMonster> applyPredicate);
 
     /**
      * Applies the registered AI's to the given mob
@@ -100,7 +100,7 @@ public interface IMobAIRegistry
      */
     @NotNull
     IMobAIRegistry registerNewAiTargetTaskForMobs(
-      final int priority,
-      final Function<AbstractEntityMinecoloniesMonster, Goal> aiTaskProducer,
-      Predicate<AbstractEntityMinecoloniesMonster> applyPredicate);
+        final int priority,
+        final Function<AbstractEntityMinecoloniesMonster, Goal> aiTaskProducer,
+        Predicate<AbstractEntityMinecoloniesMonster> applyPredicate);
 }

@@ -18,13 +18,15 @@ import static com.minecolonies.core.colony.buildings.modules.BuildingModules.LIV
 /**
  * Assignment module for jobs that have to live at the work place mandatorily.
  */
-public class WorkAtHomeBuildingModule extends WorkerBuildingModule implements IAssignsCitizen, IBuildingEventsModule, ITickingModule, IPersistentModule, IBuildingWorkerModule, ICreatesResolversModule
+public class WorkAtHomeBuildingModule extends WorkerBuildingModule
+    implements IAssignsCitizen, IBuildingEventsModule, ITickingModule, IPersistentModule, IBuildingWorkerModule, ICreatesResolversModule
 {
-    public WorkAtHomeBuildingModule(final JobEntry entry,
-      final Skill primary,
-      final Skill secondary,
-      final boolean canWorkingDuringRain,
-      final Function<IBuilding, Integer> sizeLimit)
+    public WorkAtHomeBuildingModule(
+        final JobEntry entry,
+        final Skill primary,
+        final Skill secondary,
+        final boolean canWorkingDuringRain,
+        final Function<IBuilding, Integer> sizeLimit)
     {
         super(entry, primary, secondary, canWorkingDuringRain, sizeLimit);
     }
@@ -41,16 +43,17 @@ public class WorkAtHomeBuildingModule extends WorkerBuildingModule implements IA
                 if (oldHome.hasModule(LIVING) && !oldHome.hasModule(WorkAtHomeBuildingModule.class))
                 {
                     final LivingBuildingModule livingBuildingModule = oldHome.getModule(LIVING);
-                    if (livingBuildingModule.getHiringMode() == HiringMode.MANUAL || (livingBuildingModule.getHiringMode() == HiringMode.DEFAULT && building.getColony().isManualHiring()))
+                    if (livingBuildingModule.getHiringMode() == HiringMode.MANUAL || (livingBuildingModule.getHiringMode() == HiringMode.DEFAULT && building.getColony()
+                        .isManualHiring()))
                     {
                         final MutableComponent jobComponent = MessageUtils.format(citizen.getJob().getJobRegistryEntry().getTranslationKey()).create();
                         final MutableComponent buildingComponent = MessageUtils.format(oldHome.getBuildingDisplayName()).create();
                         MessageUtils.format("com.minecolonies.coremod.gui.workerhuts.assignedbed",
-                            citizen.getName(),
-                            jobComponent,
-                            buildingComponent,
-                            BlockPosUtil.getString(oldHome.getID()))
-                          .sendTo(oldHome.getColony()).forAllPlayers();
+                                citizen.getName(),
+                                jobComponent,
+                                buildingComponent,
+                                BlockPosUtil.getString(oldHome.getID()))
+                            .sendTo(oldHome.getColony()).forAllPlayers();
                     }
                 }
                 oldHome.getFirstModuleOccurance(LivingBuildingModule.class).removeCitizen(citizen);

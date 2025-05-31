@@ -16,11 +16,11 @@ import java.util.function.Function;
 public class MinerBuildingModule extends WorkerBuildingModule implements ITickingModule, IPersistentModule, IBuildingWorkerModule, ICreatesResolversModule
 {
     public MinerBuildingModule(
-      final JobEntry entry,
-      final Skill primary,
-      final Skill secondary,
-      final boolean canWorkingDuringRain,
-      final Function<IBuilding, Integer> sizeLimit)
+        final JobEntry entry,
+        final Skill primary,
+        final Skill secondary,
+        final boolean canWorkingDuringRain,
+        final Function<IBuilding, Integer> sizeLimit)
     {
         super(entry, primary, secondary, canWorkingDuringRain, sizeLimit);
     }

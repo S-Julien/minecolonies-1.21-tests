@@ -145,9 +145,9 @@ public class FarmFieldsModuleWindow extends AbstractModuleWindow
     private void updateUI()
     {
         findPaneOfTypeByID(TAG_BUTTON_ASSIGNMENT_MODE, Button.class)
-          .setText(Component.translatable(moduleView.assignFieldManually() ? COM_MINECOLONIES_COREMOD_GUI_HIRING_ON : COM_MINECOLONIES_COREMOD_GUI_HIRING_OFF));
+            .setText(Component.translatable(moduleView.assignFieldManually() ? COM_MINECOLONIES_COREMOD_GUI_HIRING_ON : COM_MINECOLONIES_COREMOD_GUI_HIRING_OFF));
         findPaneOfTypeByID(TAG_FIELD_COUNT, Text.class)
-          .setText(Component.translatable(FIELD_LIST_LABEL_FIELD_COUNT, moduleView.getOwnedFields().size(), moduleView.getMaxFieldCount()));
+            .setText(Component.translatable(FIELD_LIST_LABEL_FIELD_COUNT, moduleView.getOwnedFields().size(), moduleView.getMaxFieldCount()));
     }
 
     @Override
@@ -176,7 +176,8 @@ public class FarmFieldsModuleWindow extends AbstractModuleWindow
                 final String distance = Integer.toString(field.getSqDistance(buildingView));
                 final DirectionResult direction = BlockPosUtil.calcDirection(buildingView.getPosition(), field.getPosition());
 
-                final Component directionText = switch (direction) {
+                final Component directionText = switch (direction)
+                {
                     case UP, DOWN -> direction.getLongText();
                     default -> Component.translatable(FIELD_LIST_LABEL_DISTANCE, Component.literal(distance + "m"), direction.getShortText());
                 };
@@ -205,9 +206,9 @@ public class FarmFieldsModuleWindow extends AbstractModuleWindow
                         if (warningTooltip != null && moduleView.assignFieldManually())
                         {
                             PaneBuilders.tooltipBuilder()
-                              .append(warningTooltip.withStyle(ChatFormatting.RED))
-                              .hoverPane(assignButton)
-                              .build();
+                                .append(warningTooltip.withStyle(ChatFormatting.RED))
+                                .hoverPane(assignButton)
+                                .build();
                         }
                     }
                 }

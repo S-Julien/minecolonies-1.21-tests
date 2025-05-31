@@ -22,7 +22,7 @@ public class CommandColonyInfo implements IMCColonyOfficerCommand
 {
     public static final  String ID_TEXT           = "ID: ";
     public static final  String NAME_TEXT         = "Name: ";
-    public static final String MAYOR_TEXT = "Mayor: ";
+    public static final  String MAYOR_TEXT        = "Mayor: ";
     private static final String COORDINATES_TEXT  = "Coordinates: ";
     private static final String COORDINATES_XYZ   = "x=%s y=%s z=%s";
     private static final String CITIZENS          = "Citizens: ";
@@ -58,10 +58,11 @@ public class CommandColonyInfo implements IMCColonyOfficerCommand
         final String mayor = colony.getPermissions().getOwnerName();
         context.getSource().sendSuccess(() -> Component.literal(MAYOR_TEXT + mayor), true);
         context.getSource()
-          .sendSuccess(() -> Component.literal(CITIZENS + colony.getCitizenManager().getCurrentCitizenCount() + "/" + colony.getCitizenManager().getMaxCitizens()), true);
+            .sendSuccess(() -> Component.literal(CITIZENS + colony.getCitizenManager().getCurrentCitizenCount() + "/" + colony.getCitizenManager().getMaxCitizens()), true);
         context.getSource()
-          .sendSuccess(() -> Component.literal(COORDINATES_TEXT + String.format(COORDINATES_XYZ, position.getX(), position.getY(), position.getZ())).setStyle(Style.EMPTY.withColor(
-            ChatFormatting.GREEN)), true);
+            .sendSuccess(() -> Component.literal(COORDINATES_TEXT + String.format(COORDINATES_XYZ, position.getX(), position.getY(), position.getZ()))
+                .setStyle(Style.EMPTY.withColor(
+                    ChatFormatting.GREEN)), true);
         context.getSource().sendSuccess(() -> Component.literal(String.format(LAST_CONTACT_TEXT, colony.getLastContactInHours())), true);
 
         if (!colony.getRaiderManager().canHaveRaiderEvents())
@@ -85,6 +86,6 @@ public class CommandColonyInfo implements IMCColonyOfficerCommand
     public LiteralArgumentBuilder<CommandSourceStack> build()
     {
         return IMCCommand.newLiteral(getName())
-                 .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1)).executes(this::checkPreConditionAndExecute));
+            .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1)).executes(this::checkPreConditionAndExecute));
     }
 }

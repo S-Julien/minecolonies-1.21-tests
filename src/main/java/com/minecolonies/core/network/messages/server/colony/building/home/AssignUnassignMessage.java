@@ -48,7 +48,7 @@ public class AssignUnassignMessage extends AbstractBuildingServerMessage<Default
      * @param building  view of the building to read data from
      * @param assign    assign or unassigning the citizens
      * @param citizenID the id of the citizen to fill the job.
-     * @param entry the job entry.
+     * @param entry     the job entry.
      */
     public AssignUnassignMessage(@NotNull final IBuildingView building, final boolean assign, final int citizenID, final JobEntry entry)
     {
@@ -103,7 +103,7 @@ public class AssignUnassignMessage extends AbstractBuildingServerMessage<Default
 
     @Override
     public void onExecute(
-      final NetworkEvent.Context ctxIn, final boolean isLogicalServer, final IColony colony, final DefaultBuildingInstance building)
+        final NetworkEvent.Context ctxIn, final boolean isLogicalServer, final IColony colony, final DefaultBuildingInstance building)
     {
         final ICitizenData citizen = colony.getCitizenManager().getCivilian(citizenID);
         final AbstractAssignedCitizenModule module;

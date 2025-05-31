@@ -28,13 +28,13 @@ public class InfestedBlocksPlacementHandler implements IPlacementHandler
 
     @Override
     public ActionProcessingResult handle(
-      final Level world,
-      final BlockPos pos,
-      final BlockState blockState,
-      @Nullable final CompoundTag tileEntityData,
-      final boolean complete,
-      final BlockPos centerPos,
-      final PlacementSettings settings)
+        final Level world,
+        final BlockPos pos,
+        final BlockState blockState,
+        @Nullable final CompoundTag tileEntityData,
+        final boolean complete,
+        final BlockPos centerPos,
+        final PlacementSettings settings)
     {
         final BlockState expectedBlockState = getExpectedBlockState(blockState, complete);
         if (expectedBlockState == null)

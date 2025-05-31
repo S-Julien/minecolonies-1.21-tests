@@ -9,18 +9,21 @@ public interface IQuestParticipant
 {
     /**
      * Notify quest participant about their participation.
+     *
      * @param quest the quest to assign to the entity.
      */
     void addQuestParticipation(final IQuestInstance quest);
 
     /**
      * Method for cleanup purposes on quest deletion.
+     *
      * @param questId the id of the quest.
      */
     void onQuestDeletion(final ResourceLocation questId);
 
     /**
      * Check if the citizen has a quest open.
+     *
      * @param questId the id of the quest.
      * @return true if so.
      */
@@ -28,6 +31,7 @@ public interface IQuestParticipant
 
     /**
      * Initiates a dialogue at the citizen.
+     *
      * @param quest the quest to open it for.
      * @param index the current objective index
      */
@@ -35,6 +39,7 @@ public interface IQuestParticipant
 
     /**
      * Get a display name for the quest participant.
+     *
      * @return the display name.
      */
     String getName();

@@ -151,9 +151,9 @@ public class DiseasesListener extends SimpleJsonResourceReloadListener
 
     @Override
     protected void apply(
-      final @NotNull Map<ResourceLocation, JsonElement> jsonElementMap,
-      final @NotNull ResourceManager resourceManager,
-      final @NotNull ProfilerFiller profiler)
+        final @NotNull Map<ResourceLocation, JsonElement> jsonElementMap,
+        final @NotNull ResourceManager resourceManager,
+        final @NotNull ProfilerFiller profiler)
     {
         final List<Disease> diseases = new ArrayList<>();
         for (final Map.Entry<ResourceLocation, JsonElement> entry : jsonElementMap.entrySet())

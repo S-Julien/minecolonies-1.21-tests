@@ -129,14 +129,16 @@ public class DirectPlaceMessage implements IMessage
             {
                 ((TileEntityColonyBuilding) tileEntity).setStructurePack(StructurePacks.selectedPack);
 
-                ServerFutureProcessor.queueBlueprint(new ServerFutureProcessor.BlueprintProcessingData(StructurePacks.findBlueprintFuture(StructurePacks.selectedPack.getName(), blueprint -> blueprint.getBlockState(blueprint.getPrimaryBlockOffset()).getBlock() == state.getBlock()), world, (blueprint -> {
+                ServerFutureProcessor.queueBlueprint(new ServerFutureProcessor.BlueprintProcessingData(StructurePacks.findBlueprintFuture(StructurePacks.selectedPack.getName(),
+                    blueprint -> blueprint.getBlockState(blueprint.getPrimaryBlockOffset()).getBlock() == state.getBlock()), world, (blueprint -> {
                     if (blueprint == null)
                     {
                         return;
                     }
                     String fullPath = blueprint.getFilePath().toString();
                     fullPath = fullPath.replace(StructurePacks.selectedPack.getPath().toString() + "/", "");
-                    ((TileEntityColonyBuilding) tileEntity).setBlueprintPath(fullPath + "/" + blueprint.getFileName().substring(0, blueprint.getFileName().length() - 1) + "1.blueprint");
+                    ((TileEntityColonyBuilding) tileEntity).setBlueprintPath(
+                        fullPath + "/" + blueprint.getFileName().substring(0, blueprint.getFileName().length() - 1) + "1.blueprint");
                     state.getBlock().setPlacedBy(world, pos, state, player, stack);
 
                     if (compound != null && compound.contains(TAG_OTHER_LEVEL))

@@ -53,13 +53,13 @@ public class CocoaPlantModule extends TreeSidePlantModule
     public BlockState getPlantingBlockState(final Level world, final BlockPos workPosition, final BlockState blockState)
     {
         return Stream.of(workPosition.north(), workPosition.south(), workPosition.west(), workPosition.east())
-                 .filter(position -> world.getBlockState(position).getBlock() == Blocks.JUNGLE_LOG)
-                 .map(position -> BlockPosUtil.directionFromDelta(position.subtract(workPosition).getX(),
-                   position.subtract(workPosition).getY(),
-                   position.subtract(workPosition).getZ()))
-                 .map(direction -> blockState.setValue(HorizontalDirectionalBlock.FACING, direction))
-                 .findFirst()
-                 .orElse(blockState);
+            .filter(position -> world.getBlockState(position).getBlock() == Blocks.JUNGLE_LOG)
+            .map(position -> BlockPosUtil.directionFromDelta(position.subtract(workPosition).getX(),
+                position.subtract(workPosition).getY(),
+                position.subtract(workPosition).getZ()))
+            .map(direction -> blockState.setValue(HorizontalDirectionalBlock.FACING, direction))
+            .findFirst()
+            .orElse(blockState);
     }
 
     @Override

@@ -47,12 +47,12 @@ public class TileEntityEnchanterRenderer implements BlockEntityRenderer<TileEnti
 
     @Override
     public void render(
-      @NotNull final TileEntityColonyBuilding ent,
-      float partialTicks,
-      @NotNull final PoseStack matrixStack,
-      @NotNull final MultiBufferSource renderTypeBuffer,
-      final int lightA,
-      final int lightB)
+        @NotNull final TileEntityColonyBuilding ent,
+        float partialTicks,
+        @NotNull final PoseStack matrixStack,
+        @NotNull final MultiBufferSource renderTypeBuffer,
+        final int lightA,
+        final int lightB)
     {
         if (ent instanceof TileEntityEnchanter)
         {

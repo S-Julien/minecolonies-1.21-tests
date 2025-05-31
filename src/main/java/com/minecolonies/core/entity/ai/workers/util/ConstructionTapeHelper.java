@@ -61,9 +61,9 @@ public final class ConstructionTapeHelper
     public static void placeConstructionTape(@NotNull final IBuilding building)
     {
         ServerFutureProcessor.queueBlueprint(new ServerFutureProcessor.BlueprintProcessingData(StructurePacks.getBlueprintFuture(building.getStructurePack(),
-          building.getBlueprintPath()), building.getColony().getWorld(), (blueprint -> {
+            building.getBlueprintPath()), building.getColony().getWorld(), (blueprint -> {
             final Tuple<BlockPos, BlockPos> corners =
-              ColonyUtils.calculateCorners(building.getPosition(), building.getColony().getWorld(), blueprint, building.getRotation(), building.isMirrored());
+                ColonyUtils.calculateCorners(building.getPosition(), building.getColony().getWorld(), blueprint, building.getRotation(), building.isMirrored());
             building.setCorners(corners.getA(), corners.getB());
             placeConstructionTape(corners, building.getColony());
         })));
@@ -103,14 +103,14 @@ public final class ConstructionTapeHelper
                 if (working != null)
                 {
                     world.setBlockAndUpdate(working,
-                      BlockConstructionTape.getPlacementState(constructionTape.setValue(CORNER, place.getX() == x), world, working, Direction.SOUTH));
+                        BlockConstructionTape.getPlacementState(constructionTape.setValue(CORNER, place.getX() == x), world, working, Direction.SOUTH));
                 }
 
                 working = firstValidPosition(new BlockPos(place.getX(), y, z + sizeZ), world, sizeY);
                 if (working != null)
                 {
                     world.setBlockAndUpdate(working,
-                      BlockConstructionTape.getPlacementState(constructionTape.setValue(CORNER, place.getX() == x), world, working, Direction.NORTH));
+                        BlockConstructionTape.getPlacementState(constructionTape.setValue(CORNER, place.getX() == x), world, working, Direction.NORTH));
                 }
             }
 
@@ -126,10 +126,10 @@ public final class ConstructionTapeHelper
                 if (working != null)
                 {
                     world.setBlockAndUpdate(working,
-                      BlockConstructionTape.getPlacementState(constructionTape.setValue(CORNER, place.getZ() == z),
-                        world,
-                        working,
-                        place.getZ() == z ? Direction.SOUTH : Direction.WEST));
+                        BlockConstructionTape.getPlacementState(constructionTape.setValue(CORNER, place.getZ() == z),
+                            world,
+                            working,
+                            place.getZ() == z ? Direction.SOUTH : Direction.WEST));
                 }
             }
 
@@ -258,11 +258,11 @@ public final class ConstructionTapeHelper
      * @param tapeOrTapeCorner Is the checked block supposed to be ConstructionTape or ConstructionTapeCorner.
      */
     public static void removeTapeIfNecessary(
-      @NotNull final Level world,
-      @NotNull final BlockPos block,
-      @NotNull final Block tapeOrTapeCorner,
-      final int minHeight,
-      final int maxHeight)
+        @NotNull final Level world,
+        @NotNull final BlockPos block,
+        @NotNull final Block tapeOrTapeCorner,
+        final int minHeight,
+        final int maxHeight)
     {
         for (int y = minHeight; y <= maxHeight; y++)
         {

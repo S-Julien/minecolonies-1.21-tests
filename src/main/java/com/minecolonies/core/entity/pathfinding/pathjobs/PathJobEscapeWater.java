@@ -43,10 +43,10 @@ public class PathJobEscapeWater extends AbstractPathJob implements IDestinationP
      * @param entity the entity.
      */
     public PathJobEscapeWater(
-      final Level world,
-      @NotNull final BlockPos start,
-      final int range,
-      final Mob entity)
+        final Level world,
+        @NotNull final BlockPos start,
+        final int range,
+        final Mob entity)
     {
         super(world, start, 500, new PathResult<PathJobEscapeWater>(), entity);
 
@@ -74,7 +74,7 @@ public class PathJobEscapeWater extends AbstractPathJob implements IDestinationP
         if (MineColonies.getConfig().getServer().pathfindingDebugVerbosity.get() > DEBUG_VERBOSITY_NONE)
         {
             Log.getLogger().info(String.format("Pathfinding from [%d,%d,%d] away from [%d,%d,%d]",
-              start.getX(), start.getY(), start.getZ(), avoid.getX(), avoid.getY(), avoid.getZ()));
+                start.getX(), start.getY(), start.getZ(), avoid.getX(), avoid.getY(), avoid.getZ()));
         }
 
         return super.search();
@@ -101,8 +101,8 @@ public class PathJobEscapeWater extends AbstractPathJob implements IDestinationP
     protected boolean isAtDestination(@NotNull final MNode n)
     {
         return cachedBlockLookup.getBlockState(n.x, n.y, n.z).isAir() && cachedBlockLookup.getBlockState(n.x, n.y + 1, n.z).isAir()
-                 && SurfaceType.getSurfaceType(world, cachedBlockLookup.getBlockState(n.x, n.y - 1, n.z), tempWorldPos.set(n.x, n.y - 1, n.z), getPathingOptions())
-                      == SurfaceType.WALKABLE;
+            && SurfaceType.getSurfaceType(world, cachedBlockLookup.getBlockState(n.x, n.y - 1, n.z), tempWorldPos.set(n.x, n.y - 1, n.z), getPathingOptions())
+            == SurfaceType.WALKABLE;
     }
 
     @Override

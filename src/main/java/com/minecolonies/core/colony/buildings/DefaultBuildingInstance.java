@@ -21,8 +21,9 @@ public class DefaultBuildingInstance extends AbstractBuilding
 
     /**
      * Create a default building instance that's based on modules and not inheritance.
-     * @param colony the colony.
-     * @param pos the position.
+     *
+     * @param colony        the colony.
+     * @param pos           the position.
      * @param schematicName the schematic name.
      */
     public DefaultBuildingInstance(final IColony colony, final BlockPos pos, final String schematicName, final int maxLevel)

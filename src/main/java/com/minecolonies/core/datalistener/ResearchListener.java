@@ -138,7 +138,8 @@ public class ResearchListener extends SimpleJsonResourceReloadListener
     /**
      * The property name for the list of requirement objects.
      */
-    private static final String RESEARCH_REQUIREMENTS_PROP = "requirements";;
+    private static final String RESEARCH_REQUIREMENTS_PROP = "requirements";
+    ;
 
     /**
      * The property name for the list of cost objects.
@@ -228,7 +229,11 @@ public class ResearchListener extends SimpleJsonResourceReloadListener
      * @param removeBranches   a collection of research branches to remove, including all component researches, if present.
      * @return a map containing the ResearchIds and the GlobalResearches each ID corresponds to.
      */
-    private Map<ResourceLocation, GlobalResearch> parseResearches(final Map<ResourceLocation, JsonElement> object, final Map<ResourceLocation, ResearchEffectCategory> effectCategories, final Collection<ResourceLocation> removeResearches, final Collection<ResourceLocation> removeBranches)
+    private Map<ResourceLocation, GlobalResearch> parseResearches(
+        final Map<ResourceLocation, JsonElement> object,
+        final Map<ResourceLocation, ResearchEffectCategory> effectCategories,
+        final Collection<ResourceLocation> removeResearches,
+        final Collection<ResourceLocation> removeBranches)
     {
         final Map<ResourceLocation, GlobalResearch> researchMap = new HashMap<>();
         for (final Map.Entry<ResourceLocation, JsonElement> entry : object.entrySet())
@@ -476,8 +481,8 @@ public class ResearchListener extends SimpleJsonResourceReloadListener
     /**
      * Parses out a researches map for elements containing Remove properties, and applies those removals to the researchMap
      *
-     * @param object        A Map containing the resource location of each json file, and the element within that json file.
-     * @return              A Tuple containing resource locations of Researches (A) and Branches (B) to remove from the global research tree.
+     * @param object A Map containing the resource location of each json file, and the element within that json file.
+     * @return A Tuple containing resource locations of Researches (A) and Branches (B) to remove from the global research tree.
      */
     private Tuple<Collection<ResourceLocation>, Collection<ResourceLocation>> parseRemoveResearches(final Map<ResourceLocation, JsonElement> object)
     {
@@ -558,12 +563,12 @@ public class ResearchListener extends SimpleJsonResourceReloadListener
     /**
      * Parses out a GlobalResearch map to apply parent/child relationships between researches, and to graft and warn about inconsistent relationships.
      *
-     * @param researchMap   A Map of ResearchIDs to GlobalResearches to turn into a GlobalResearchTree.
-     * @return              An IGlobalResearchTree containing the validated researches.
+     * @param researchMap A Map of ResearchIDs to GlobalResearches to turn into a GlobalResearchTree.
+     * @return An IGlobalResearchTree containing the validated researches.
      */
     private IGlobalResearchTree calcResearchTree(final Map<ResourceLocation, GlobalResearch> researchMap)
     {
-        final IGlobalResearchTree researchTree =  MinecoloniesAPIProxy.getInstance().getGlobalResearchTree();
+        final IGlobalResearchTree researchTree = MinecoloniesAPIProxy.getInstance().getGlobalResearchTree();
         // The research tree should be reset on world unload, but certain events and disconnects break that.  Do it here, too.
         researchTree.reset();
 
@@ -625,15 +630,16 @@ public class ResearchListener extends SimpleJsonResourceReloadListener
 
     /**
      * Parses out any research branch-specific settings from a Json object, and applies them to a Global Research Tree.
-     * @param object         The source json object.
-     * @param researchTree   The research tree to apply parsed branch-specific settings onto, if any.
+     *
+     * @param object       The source json object.
+     * @param researchTree The research tree to apply parsed branch-specific settings onto, if any.
      */
     private void parseResearchBranches(final Map<ResourceLocation, JsonElement> object, IGlobalResearchTree researchTree)
     {
         // We don't need check branches that don't have loaded researches, but we do want to create these properties for all branches.
         for (final ResourceLocation branchId : researchTree.getBranches())
         {
-            if(object.containsKey(branchId))
+            if (object.containsKey(branchId))
             {
                 researchTree.addBranchData(branchId, new GlobalResearchBranch(branchId, object.get(branchId).getAsJsonObject()));
             }

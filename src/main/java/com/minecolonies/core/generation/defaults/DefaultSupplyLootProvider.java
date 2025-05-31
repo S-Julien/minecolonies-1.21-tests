@@ -43,27 +43,27 @@ public class DefaultSupplyLootProvider extends SimpleLootTableProvider
         instantTag.putString(PLACEMENT_NBT, INSTANT_PLACEMENT);
 
         registrar.register(new ResourceLocation(MOD_ID, "chests/supplycamp"), LootContextParamSets.CHEST,
-                LootTable.lootTable()
-                        .withPool(LootPool.lootPool()
-                                .add(LootItem.lootTableItem(ModItems.supplyCamp)
-                                        .when(LootItemRandomChanceCondition.randomChance(0.1f))
-                                        .apply(SetNbtFunction.setTag(instantTag))
-                                        .apply(SetNameFunction.setName(Component.translatable("item.minecolonies.supply.free", ModItems.supplyCamp.getDescription()))))
-                                .add(LootItem.lootTableItem(ModItems.scrollBuff)
-                                        .when(LootItemRandomChanceCondition.randomChance(0.2f))
-                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(8))))
-                        ));
+            LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                    .add(LootItem.lootTableItem(ModItems.supplyCamp)
+                        .when(LootItemRandomChanceCondition.randomChance(0.1f))
+                        .apply(SetNbtFunction.setTag(instantTag))
+                        .apply(SetNameFunction.setName(Component.translatable("item.minecolonies.supply.free", ModItems.supplyCamp.getDescription()))))
+                    .add(LootItem.lootTableItem(ModItems.scrollBuff)
+                        .when(LootItemRandomChanceCondition.randomChance(0.2f))
+                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(8))))
+                ));
 
         registrar.register(new ResourceLocation(MOD_ID, "chests/supplyship"), LootContextParamSets.CHEST,
-                LootTable.lootTable()
-                        .withPool(LootPool.lootPool()
-                                .add(LootItem.lootTableItem(ModItems.supplyChest)
-                                        .when(LootItemRandomChanceCondition.randomChance(0.1f))
-                                        .apply(SetNbtFunction.setTag(instantTag))
-                                        .apply(SetNameFunction.setName(Component.translatable("item.minecolonies.supply.free", ModItems.supplyChest.getDescription()))))
-                                .add(LootItem.lootTableItem(ModItems.scrollBuff)
-                                        .when(LootItemRandomChanceCondition.randomChance(0.2f))
-                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(8))))
-                        ));
+            LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                    .add(LootItem.lootTableItem(ModItems.supplyChest)
+                        .when(LootItemRandomChanceCondition.randomChance(0.1f))
+                        .apply(SetNbtFunction.setTag(instantTag))
+                        .apply(SetNameFunction.setName(Component.translatable("item.minecolonies.supply.free", ModItems.supplyChest.getDescription()))))
+                    .add(LootItem.lootTableItem(ModItems.scrollBuff)
+                        .when(LootItemRandomChanceCondition.randomChance(0.2f))
+                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(8))))
+                ));
     }
 }

@@ -21,6 +21,7 @@ public class UnlockQuestTriggerTemplate implements IQuestTriggerTemplate
 
     /**
      * Create a new trigger directly from json.
+     *
      * @param ignoreJson the json associated to this trigger.
      */
     public static UnlockQuestTriggerTemplate createUnlockTrigger(final JsonObject ignoreJson)

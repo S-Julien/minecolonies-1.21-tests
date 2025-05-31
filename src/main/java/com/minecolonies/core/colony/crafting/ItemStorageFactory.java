@@ -58,7 +58,6 @@ public class ItemStorageFactory implements IItemStorageFactory
         ItemStorage newItem = new ItemStorage(stack, ignoreDamage, ignoreNBT);
         newItem.setAmount(size);
         return newItem;
-
     }
 
     @NotNull
@@ -71,7 +70,7 @@ public class ItemStorageFactory implements IItemStorageFactory
         compound.put(TAG_STACK, stackTag);
         compound.putInt(TAG_SIZE, storage.getAmount());
         compound.putBoolean(TAG_SHOULDIGNOREDAMAGE, storage.ignoreDamageValue());
-        compound.putBoolean(TAG_SHOULDIGNORENBT , storage.ignoreNBT());
+        compound.putBoolean(TAG_SHOULDIGNORENBT, storage.ignoreNBT());
         return compound;
     }
 

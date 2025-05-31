@@ -16,9 +16,10 @@ import static com.minecolonies.api.util.constant.Constants.MAX_BUILDING_LEVEL;
  * @param toolLevels          basic items accepted at each building level.
  * @param enchantedToolLevels (some) enchanted items accepted at each building level.
  */
-public record ToolUsage(@NotNull EquipmentTypeEntry tool,
-                        @NotNull List<List<ItemStack>> toolLevels,
-                        @NotNull List<List<ItemStack>> enchantedToolLevels)
+public record ToolUsage(
+    @NotNull EquipmentTypeEntry tool,
+    @NotNull List<List<ItemStack>> toolLevels,
+    @NotNull List<List<ItemStack>> enchantedToolLevels)
 {
     @NotNull
     public static ToolUsage create(@NotNull final EquipmentTypeEntry tool)

@@ -76,7 +76,7 @@ public class ContainerCraftingBrewingstand extends AbstractContainerMenu
         this.brewingStandInventory = new IItemHandlerModifiable()
         {
             ItemStack ingredient = ItemStack.EMPTY;
-            ItemStack potion = ItemStack.EMPTY;
+            ItemStack potion     = ItemStack.EMPTY;
 
             @Override
             public void setStackInSlot(final int slot, @Nonnull final ItemStack stack)
@@ -187,10 +187,10 @@ public class ContainerCraftingBrewingstand extends AbstractContainerMenu
             for (int j = 0; j < INVENTORY_COLUMNS; j++)
             {
                 addSlot(new Slot(
-                  playerInventory,
-                  j + i * INVENTORY_COLUMNS + INVENTORY_COLUMNS,
-                  PLAYER_INVENTORY_INITIAL_X_OFFSET + j * PLAYER_INVENTORY_OFFSET_EACH,
-                  PLAYER_INVENTORY_INITIAL_Y_OFFSET_CRAFTING + i * PLAYER_INVENTORY_OFFSET_EACH
+                    playerInventory,
+                    j + i * INVENTORY_COLUMNS + INVENTORY_COLUMNS,
+                    PLAYER_INVENTORY_INITIAL_X_OFFSET + j * PLAYER_INVENTORY_OFFSET_EACH,
+                    PLAYER_INVENTORY_INITIAL_Y_OFFSET_CRAFTING + i * PLAYER_INVENTORY_OFFSET_EACH
                 ));
             }
         }
@@ -198,9 +198,9 @@ public class ContainerCraftingBrewingstand extends AbstractContainerMenu
         for (i = 0; i < INVENTORY_COLUMNS; i++)
         {
             addSlot(new Slot(
-              playerInventory, i,
-              PLAYER_INVENTORY_INITIAL_X_OFFSET + i * PLAYER_INVENTORY_OFFSET_EACH,
-              PLAYER_INVENTORY_HOTBAR_OFFSET_CRAFTING
+                playerInventory, i,
+                PLAYER_INVENTORY_INITIAL_X_OFFSET + i * PLAYER_INVENTORY_OFFSET_EACH,
+                PLAYER_INVENTORY_HOTBAR_OFFSET_CRAFTING
             ));
         }
     }
@@ -212,10 +212,11 @@ public class ContainerCraftingBrewingstand extends AbstractContainerMenu
     {
         /**
          * Default constructor.
+         *
          * @param itemHandler the inventory.
-         * @param index the index.
-         * @param xPosition x positon.
-         * @param yPosition y position.
+         * @param index       the index.
+         * @param xPosition   x positon.
+         * @param yPosition   y position.
          */
         public InputItemHandler(final IItemHandler itemHandler, final int index, final int xPosition, final int yPosition)
         {
@@ -254,9 +255,9 @@ public class ContainerCraftingBrewingstand extends AbstractContainerMenu
         if (slotId >= 0 && slotId < brewingStandInventory.getSlots())
         {
             if (mode == ClickType.PICKUP
-                  || mode == ClickType.PICKUP_ALL
-                  || mode == ClickType.SWAP
-                  || mode == ClickType.QUICK_MOVE)
+                || mode == ClickType.PICKUP_ALL
+                || mode == ClickType.SWAP
+                || mode == ClickType.QUICK_MOVE)
             {
                 final Slot slot = this.slots.get(slotId);
                 handleSlotClick(slot, this.getCarried());
@@ -385,6 +386,7 @@ public class ContainerCraftingBrewingstand extends AbstractContainerMenu
 
     /**
      * Get the module if of the container.
+     *
      * @return the module id.
      */
     public int getModuleId()

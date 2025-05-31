@@ -67,10 +67,10 @@ public class CommandCitizenInfo implements IMCColonyOfficerCommand
 
             final BlockPos citizenPosition = entityCitizen.blockPosition();
             context.getSource()
-              .sendSuccess(() -> Component.translatable(CommandTranslationConstants.COMMAND_CITIZEN_INFO_POSITION,
-                citizenPosition.getX(),
-                citizenPosition.getY(),
-                  citizenPosition.getZ()).withStyle(styleWithTeleport(citizenPosition)), false);
+                .sendSuccess(() -> Component.translatable(CommandTranslationConstants.COMMAND_CITIZEN_INFO_POSITION,
+                    citizenPosition.getX(),
+                    citizenPosition.getY(),
+                    citizenPosition.getZ()).withStyle(styleWithTeleport(citizenPosition)), false);
 
             context.getSource()
                 .sendSuccess(() -> Component.translatable(CommandTranslationConstants.COMMAND_CITIZEN_INFO_HEALTH, entityCitizen.getHealth(), entityCitizen.getMaxHealth()), false);
@@ -78,8 +78,8 @@ public class CommandCitizenInfo implements IMCColonyOfficerCommand
         else
         {
             context.getSource().sendSuccess(() -> Component.translatable(CommandTranslationConstants.COMMAND_CITIZEN_INFO_POSITION,
-              citizenData.getLastPosition().getX(),
-              citizenData.getLastPosition().getY(),
+                citizenData.getLastPosition().getX(),
+                citizenData.getLastPosition().getY(),
                 citizenData.getLastPosition().getZ()).withStyle(styleWithTeleport(citizenData.getLastPosition())), false);
 
             context.getSource().sendSuccess(() -> Component.translatable(CommandTranslationConstants.COMMAND_CITIZEN_NOT_LOADED), false);
@@ -100,10 +100,10 @@ public class CommandCitizenInfo implements IMCColonyOfficerCommand
         {
             final BlockPos workingPosition = citizenData.getWorkBuilding().getPosition();
             context.getSource()
-              .sendSuccess(() -> Component.translatable(CommandTranslationConstants.COMMAND_CITIZEN_INFO_WORKING_POSITION,
-                workingPosition.getX(),
-                workingPosition.getY(),
-                  workingPosition.getZ()).withStyle(styleWithTeleport(workingPosition)), false);
+                .sendSuccess(() -> Component.translatable(CommandTranslationConstants.COMMAND_CITIZEN_INFO_WORKING_POSITION,
+                    workingPosition.getX(),
+                    workingPosition.getY(),
+                    workingPosition.getZ()).withStyle(styleWithTeleport(workingPosition)), false);
         }
 
         if (citizenData.getJob() == null)
@@ -114,8 +114,8 @@ public class CommandCitizenInfo implements IMCColonyOfficerCommand
         else if (citizenData.getWorkBuilding() != null && citizenData.getWorkBuilding().hasModule(WorkerBuildingModule.class))
         {
             context.getSource()
-              .sendSuccess(() -> Component.translatable(CommandTranslationConstants.COMMAND_CITIZEN_INFO_JOB,
-                  citizenData.getWorkBuilding().getFirstModuleOccurance(WorkerBuildingModule.class).getJobEntry().getTranslationKey()), false);
+                .sendSuccess(() -> Component.translatable(CommandTranslationConstants.COMMAND_CITIZEN_INFO_JOB,
+                    citizenData.getWorkBuilding().getFirstModuleOccurance(WorkerBuildingModule.class).getJobEntry().getTranslationKey()), false);
 
             if (optionalEntityCitizen.isPresent())
             {
@@ -162,7 +162,7 @@ public class CommandCitizenInfo implements IMCColonyOfficerCommand
     public LiteralArgumentBuilder<CommandSourceStack> build()
     {
         return IMCCommand.newLiteral(getName())
-                 .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1))
-                         .then(IMCCommand.newArgument(CITIZENID_ARG, IntegerArgumentType.integer(1)).executes(this::checkPreConditionAndExecute)));
+            .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1))
+                .then(IMCCommand.newArgument(CITIZENID_ARG, IntegerArgumentType.integer(1)).executes(this::checkPreConditionAndExecute)));
     }
 }

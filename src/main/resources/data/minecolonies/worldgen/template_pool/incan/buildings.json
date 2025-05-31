@@ -7,7 +7,7 @@
       "element": {
         "location": "minecolonies:incan/builder1",
         "processors": "minecolonies:incan/placeholder_replacement",
-		    "projection": "rigid",
+        "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
     },
@@ -116,5 +116,5 @@
         "element_type": "minecraft:empty_pool_element"
       }
     }
- ]
+  ]
 }

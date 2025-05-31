@@ -22,6 +22,7 @@ public class CitizenEatFoodCriterionInstance extends AbstractCriterionTriggerIns
 
     /**
      * Construct the check with a single item condition
+     *
      * @param itemPredicates the food item that has to be eaten to succeed
      */
     public CitizenEatFoodCriterionInstance(final ItemPredicate[] itemPredicates)
@@ -33,6 +34,7 @@ public class CitizenEatFoodCriterionInstance extends AbstractCriterionTriggerIns
 
     /**
      * Performs the check for the conditions
+     *
      * @param foodItemStack the stack of food that was just consumed
      * @return whether the check succeeded
      */
@@ -54,8 +56,9 @@ public class CitizenEatFoodCriterionInstance extends AbstractCriterionTriggerIns
     }
 
     @NotNull
-    public static CitizenEatFoodCriterionInstance deserializeFromJson(@NotNull final JsonObject jsonObject,
-                                                                      @NotNull final DeserializationContext context)
+    public static CitizenEatFoodCriterionInstance deserializeFromJson(
+        @NotNull final JsonObject jsonObject,
+        @NotNull final DeserializationContext context)
     {
         if (jsonObject.has("items"))
         {

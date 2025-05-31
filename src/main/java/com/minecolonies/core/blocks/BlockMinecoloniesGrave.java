@@ -111,8 +111,8 @@ public class BlockMinecoloniesGrave extends AbstractBlockMinecoloniesGrave<Block
     /**
      * Get the statement ready.
      *
-     * @param state  the state to place.
-     * @param pos    the position.
+     * @param state the state to place.
+     * @param pos   the position.
      * @return the next state.
      */
     public static BlockState getPlacementState(final BlockState state, final BlockPos pos)
@@ -158,25 +158,25 @@ public class BlockMinecoloniesGrave extends AbstractBlockMinecoloniesGrave<Block
 
     @Override
     public InteractionResult use(
-      final BlockState state,
-      final Level worldIn,
-      final BlockPos pos,
-      final Player player,
-      final InteractionHand hand,
-      final BlockHitResult ray)
+        final BlockState state,
+        final Level worldIn,
+        final BlockPos pos,
+        final Player player,
+        final InteractionHand hand,
+        final BlockHitResult ray)
     {
         final IColony colony = IColonyManager.getInstance().getColonyByPosFromWorld(worldIn, pos);
         final BlockEntity tileEntity = worldIn.getBlockEntity(pos);
 
         if ((colony == null || colony.getPermissions().hasPermission(player, Action.ACCESS_HUTS))
-              && tileEntity instanceof TileEntityGrave)
+            && tileEntity instanceof TileEntityGrave)
         {
             final TileEntityGrave grave = (TileEntityGrave) tileEntity;
             if (!worldIn.isClientSide)
             {
                 NetworkHooks.openScreen((ServerPlayer) player,
-                  grave,
-                  buf -> buf.writeBlockPos(grave.getBlockPos()));
+                    grave,
+                    buf -> buf.writeBlockPos(grave.getBlockPos()));
             }
             return InteractionResult.SUCCESS;
         }
@@ -225,10 +225,10 @@ public class BlockMinecoloniesGrave extends AbstractBlockMinecoloniesGrave<Block
             {
                 TileEntityGrave tileEntityGrave = (TileEntityGrave) tileEntity;
                 InventoryUtils.dropItemHandler(tileEntityGrave.getInventory(),
-                  worldIn,
-                  tileEntityGrave.getBlockPos().getX(),
-                  tileEntityGrave.getBlockPos().getY(),
-                  tileEntityGrave.getBlockPos().getZ());
+                    worldIn,
+                    tileEntityGrave.getBlockPos().getX(),
+                    tileEntityGrave.getBlockPos().getY(),
+                    tileEntityGrave.getBlockPos().getZ());
                 worldIn.updateNeighbourForOutputSignal(pos, this);
             }
 

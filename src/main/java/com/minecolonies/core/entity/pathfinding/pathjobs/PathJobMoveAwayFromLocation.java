@@ -44,12 +44,12 @@ public class PathJobMoveAwayFromLocation extends AbstractPathJob implements IDes
      * @param entity        the entity.
      */
     public PathJobMoveAwayFromLocation(
-      final Level world,
-      @NotNull final BlockPos start,
-      @NotNull final BlockPos avoid,
-      final int avoidDistance,
-      final int range,
-      final Mob entity)
+        final Level world,
+        @NotNull final BlockPos start,
+        @NotNull final BlockPos avoid,
+        final int avoidDistance,
+        final int range,
+        final Mob entity)
     {
         super(world, start, range, new PathResult<PathJobMoveAwayFromLocation>(), entity);
 
@@ -80,14 +80,14 @@ public class PathJobMoveAwayFromLocation extends AbstractPathJob implements IDes
 
     @Override
     protected double modifyCost(
-      final double cost,
-      final MNode parent,
-      final boolean swimstart,
-      final boolean swimming,
-      final int x,
-      final int y,
-      final int z,
-      final BlockState state, final BlockState below)
+        final double cost,
+        final MNode parent,
+        final boolean swimstart,
+        final boolean swimming,
+        final int x,
+        final int y,
+        final int z,
+        final BlockState state, final BlockState below)
     {
         if (BlockPosUtil.dist(avoid, x, y, z) < 3)
         {
@@ -107,8 +107,8 @@ public class PathJobMoveAwayFromLocation extends AbstractPathJob implements IDes
     protected boolean isAtDestination(@NotNull final MNode n)
     {
         return BlockPosUtil.dist(avoid, n.x, n.y, n.z) > avoidDistance
-                 && SurfaceType.getSurfaceType(world, cachedBlockLookup.getBlockState(n.x, n.y - 1, n.z), tempWorldPos.set(n.x, n.y - 1, n.z), getPathingOptions())
-                      == SurfaceType.WALKABLE;
+            && SurfaceType.getSurfaceType(world, cachedBlockLookup.getBlockState(n.x, n.y - 1, n.z), tempWorldPos.set(n.x, n.y - 1, n.z), getPathingOptions())
+            == SurfaceType.WALKABLE;
     }
 
     /**

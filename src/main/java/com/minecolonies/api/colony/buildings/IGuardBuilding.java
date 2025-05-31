@@ -70,6 +70,7 @@ public interface IGuardBuilding extends IBuilding
      * @return if so.
      */
     boolean shallRetrieveOnLowHealth();
+
     /**
      * Get whether the guard should patrol manually.
      *

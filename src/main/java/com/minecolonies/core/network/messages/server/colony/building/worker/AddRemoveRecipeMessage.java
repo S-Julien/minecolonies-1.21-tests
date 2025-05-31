@@ -63,7 +63,7 @@ public class AddRemoveRecipeMessage extends AbstractBuildingServerMessage<IBuild
      * @param building the building we're executing on.
      * @param remove   true if remove.
      * @param storage  the recipe storage.
-     * @param id the unique id of the module.
+     * @param id       the unique id of the module.
      */
     public AddRemoveRecipeMessage(final IBuildingView building, final boolean remove, final IRecipeStorage storage, final int id)
     {
@@ -76,25 +76,32 @@ public class AddRemoveRecipeMessage extends AbstractBuildingServerMessage<IBuild
     /**
      * Create a message to add or remove recipes. This constructor creates the recipeStorage on its own.
      *
-     * @param input         the input.
-     * @param gridSize      the gridSize.
-     * @param primaryOutput the primary output.
-     * @param remove        true if remove.
-     * @param building      the building we're executing on.
-     * @param id module id.
+     * @param input             the input.
+     * @param gridSize          the gridSize.
+     * @param primaryOutput     the primary output.
+     * @param remove            true if remove.
+     * @param building          the building we're executing on.
+     * @param id                module id.
      * @param additionalOutputs the additional outputs.
      */
-    public AddRemoveRecipeMessage(final IBuildingView building, final List<ItemStorage> input, final int gridSize, final ItemStack primaryOutput, final List<ItemStack> additionalOutputs, final boolean remove, final int id)
+    public AddRemoveRecipeMessage(
+        final IBuildingView building,
+        final List<ItemStorage> input,
+        final int gridSize,
+        final ItemStack primaryOutput,
+        final List<ItemStack> additionalOutputs,
+        final boolean remove,
+        final int id)
     {
         super(building);
         this.remove = remove;
         this.storage = RecipeStorage.builder()
-                .withInputs(input)
-                .withPrimaryOutput(primaryOutput)
-                .withSecondaryOutputs(additionalOutputs)
-                .withGridSize(gridSize)
-                .withIntermediate(gridSize == 1 ? Blocks.FURNACE : Blocks.AIR)
-                .build();
+            .withInputs(input)
+            .withPrimaryOutput(primaryOutput)
+            .withSecondaryOutputs(additionalOutputs)
+            .withGridSize(gridSize)
+            .withIntermediate(gridSize == 1 ? Blocks.FURNACE : Blocks.AIR)
+            .build();
         this.id = id;
     }
 
@@ -106,21 +113,28 @@ public class AddRemoveRecipeMessage extends AbstractBuildingServerMessage<IBuild
      * @param primaryOutput the primary output.
      * @param remove        true if remove.
      * @param building      the building we're executing on.
-     * @param intermediary intermediate block.
-     * @param id the module id.
+     * @param intermediary  intermediate block.
+     * @param id            the module id.
      */
-    public AddRemoveRecipeMessage(final IBuildingView building, final List<ItemStorage> input, final int gridSize, final ItemStack primaryOutput, final boolean remove, final Block intermediary, final int id)
+    public AddRemoveRecipeMessage(
+        final IBuildingView building,
+        final List<ItemStorage> input,
+        final int gridSize,
+        final ItemStack primaryOutput,
+        final boolean remove,
+        final Block intermediary,
+        final int id)
     {
         super(building);
         this.remove = remove;
         if (gridSize == 1)
         {
             this.storage = RecipeStorage.builder()
-                    .withInputs(input)
-                    .withPrimaryOutput(primaryOutput)
-                    .withGridSize(gridSize)
-                    .withIntermediate(intermediary)
-                    .build();
+                .withInputs(input)
+                .withPrimaryOutput(primaryOutput)
+                .withGridSize(gridSize)
+                .withIntermediate(intermediary)
+                .build();
         }
         this.id = id;
     }

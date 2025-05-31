@@ -29,14 +29,14 @@ public class WorldEventContext
     }
 
     public RenderLevelStageEvent stageEvent;
-    public BufferSource bufferSource;
-    public PoseStack poseStack;
-    public float partialTicks;
-    public ClientLevel clientLevel;
-    public LocalPlayer clientPlayer;
-    public ItemStack mainHandItem;
+    public BufferSource          bufferSource;
+    public PoseStack             poseStack;
+    public float                 partialTicks;
+    public ClientLevel           clientLevel;
+    public LocalPlayer           clientPlayer;
+    public ItemStack             mainHandItem;
     @Nullable
-    public IColonyView nearestColony;
+    public IColonyView           nearestColony;
 
     /**
      * In chunks

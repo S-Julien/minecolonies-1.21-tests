@@ -261,7 +261,7 @@ public abstract class AbstractBlockGate extends DoorBlock implements LiquidBlock
             final BlockPos checkPos = pos.relative(facing, hor);
             final BlockState checkState = worldIn.getBlockState(checkPos);
             if (checkState.getBlock() != this && checkState.isAir() && canPlace > 0
-                  && worldIn.getBlockState(checkPos.relative(facing)).getBlock() != this)
+                && worldIn.getBlockState(checkPos.relative(facing)).getBlock() != this)
             {
                 if (stack.getCount() > 1)
                 {
@@ -479,7 +479,6 @@ public abstract class AbstractBlockGate extends DoorBlock implements LiquidBlock
             return null;
         }
     }
-
 
     /**
      * Registery block at gameregistry.

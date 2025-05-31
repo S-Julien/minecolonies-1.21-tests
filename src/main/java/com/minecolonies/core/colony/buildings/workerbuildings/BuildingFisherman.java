@@ -22,7 +22,7 @@ public class BuildingFisherman extends AbstractBuilding
     /**
      * The job description.
      */
-    private static final String FISHERMAN = "fisherman";
+    private static final String FISHERMAN          = "fisherman";
 
     /**
      * Public constructor of the building, creates an object of the building.
@@ -33,7 +33,8 @@ public class BuildingFisherman extends AbstractBuilding
     public BuildingFisherman(final IColony c, final BlockPos l)
     {
         super(c, l);
-        keepX.put(itemStack -> ItemStackUtils.hasEquipmentLevel(itemStack, ModEquipmentTypes.fishing_rod.get(), TOOL_LEVEL_WOOD_OR_GOLD, getMaxEquipmentLevel()), new Tuple<>(1, true));
+        keepX.put(itemStack -> ItemStackUtils.hasEquipmentLevel(itemStack, ModEquipmentTypes.fishing_rod.get(), TOOL_LEVEL_WOOD_OR_GOLD, getMaxEquipmentLevel()),
+            new Tuple<>(1, true));
     }
 
     /**

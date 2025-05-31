@@ -52,7 +52,7 @@ public abstract class AbstractJob<AI extends AbstractAISkeleton<J> & ITickingSta
 {
     private static final String TAG_ASYNC_REQUESTS = "asyncRequests";
     private static final String TAG_ACTIONS_DONE   = "actionsDone";
-    private static final String TAG_WORK_POS = "workPos";
+    private static final String TAG_WORK_POS       = "workPos";
 
     /**
      * Job associated to the abstract job.
@@ -191,10 +191,10 @@ public abstract class AbstractJob<AI extends AbstractAISkeleton<J> & ITickingSta
 
         compound.putString(TAG_JOB_TYPE, getJobRegistryEntry().getKey().toString());
         compound.put(TAG_ASYNC_REQUESTS,
-          getAsyncRequests().stream()
-            .filter(token -> getColony().getRequestManager().getRequestForToken(token) != null)
-            .map(StandardFactoryController.getInstance()::serialize)
-            .collect(NBTUtils.toListNBT()));
+            getAsyncRequests().stream()
+                .filter(token -> getColony().getRequestManager().getRequestForToken(token) != null)
+                .map(StandardFactoryController.getInstance()::serialize)
+                .collect(NBTUtils.toListNBT()));
         compound.putInt(TAG_ACTIONS_DONE, actionsDone);
 
         if (workBuildingPos != null)
@@ -212,9 +212,9 @@ public abstract class AbstractJob<AI extends AbstractAISkeleton<J> & ITickingSta
         if (compound.contains(TAG_ASYNC_REQUESTS))
         {
             this.asyncRequests.addAll(NBTUtils.streamCompound(compound.getList(TAG_ASYNC_REQUESTS, Tag.TAG_COMPOUND))
-                                        .map(StandardFactoryController.getInstance()::deserialize)
-                                        .map(o -> (IToken<?>) o)
-                                        .collect(Collectors.toSet()));
+                .map(StandardFactoryController.getInstance()::deserialize)
+                .map(o -> (IToken<?>) o)
+                .collect(Collectors.toSet()));
         }
         if (compound.contains(TAG_ACTIONS_DONE))
         {
@@ -258,7 +258,7 @@ public abstract class AbstractJob<AI extends AbstractAISkeleton<J> & ITickingSta
         if (request != null)
         {
             citizen.triggerInteraction(new RequestBasedInteraction(Component.translatable(RequestSystemTranslationConstants.REQUEST_RESOLVER_NORMAL,
-              request.getLongDisplayString()), ChatPriority.BLOCKING, Component.translatable(RequestSystemTranslationConstants.REQUEST_RESOLVER_NORMAL), request.getId()));
+                request.getLongDisplayString()), ChatPriority.BLOCKING, Component.translatable(RequestSystemTranslationConstants.REQUEST_RESOLVER_NORMAL), request.getId()));
         }
 
         asyncRequests.remove(id);
@@ -278,10 +278,11 @@ public abstract class AbstractJob<AI extends AbstractAISkeleton<J> & ITickingSta
                 return;
             }
             Log.getLogger()
-              .error(
-                "Affected Citizen name:" + citizen.getName() + " id:" + citizen.getId() + " job:" + citizen.getJob() + " jobForAICreation:" + nameTag + " class:" + this.getClass()
-                  + " entityPresent:"
-                  + citizen.getEntity().isPresent());
+                .error(
+                    "Affected Citizen name:" + citizen.getName() + " id:" + citizen.getId() + " job:" + citizen.getJob() + " jobForAICreation:" + nameTag + " class:"
+                        + this.getClass()
+                        + " entityPresent:"
+                        + citizen.getEntity().isPresent());
             return;
         }
 

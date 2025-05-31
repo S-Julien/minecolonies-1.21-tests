@@ -156,7 +156,6 @@ public interface IRequestManager extends INBTSerializable<CompoundTag>, ITickabl
      *
      * @param requester The removed requester.
      * @throws IllegalArgumentException is thrown when no requester with the same token is registered.
-
      */
     void onRequesterRemovedFromColony(@NotNull final IRequester requester) throws IllegalArgumentException;
 

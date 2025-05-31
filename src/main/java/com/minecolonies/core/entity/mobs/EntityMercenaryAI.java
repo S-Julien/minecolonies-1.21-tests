@@ -137,7 +137,7 @@ public class EntityMercenaryAI extends Goal
     private boolean hasTarget()
     {
         if (entity.getTarget() != null && entity.getTarget().isAlive()
-              && !(entity.getTarget() instanceof EntityMercenary))
+            && !(entity.getTarget() instanceof EntityMercenary))
         {
             entity.getTarget().setLastHurtByMob(entity);
             return true;

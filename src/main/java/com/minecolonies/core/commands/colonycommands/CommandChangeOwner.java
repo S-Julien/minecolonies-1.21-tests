@@ -74,7 +74,7 @@ public class CommandChangeOwner implements IMCColonyOfficerCommand
     public LiteralArgumentBuilder<CommandSourceStack> build()
     {
         return IMCCommand.newLiteral(getName())
-                 .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1))
-                         .then(IMCCommand.newArgument(PLAYERNAME_ARG, GameProfileArgument.gameProfile()).executes(this::checkPreConditionAndExecute)));
+            .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1))
+                .then(IMCCommand.newArgument(PLAYERNAME_ARG, GameProfileArgument.gameProfile()).executes(this::checkPreConditionAndExecute)));
     }
 }

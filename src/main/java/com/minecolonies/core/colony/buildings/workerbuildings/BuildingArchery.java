@@ -52,7 +52,6 @@ public class BuildingArchery extends AbstractBuilding
         super(c, l);
     }
 
-
     @Override
     public void registerBlockPosition(@NotNull final Block block, @NotNull final BlockPos pos, @NotNull final Level world)
     {

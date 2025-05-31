@@ -74,7 +74,7 @@ public class DrownedPirateRaidEvent extends AbstractShipRaidEvent
         status = EventStatus.PREPARING;
 
         ServerFutureProcessor.queueBlueprint(new ServerFutureProcessor.BlueprintProcessingData(StructurePacks.getBlueprintFuture(STORAGE_STYLE,
-          "decorations" + ShipBasedRaiderUtils.SHIP_FOLDER + shipSize.schematicPrefix + this.getShipDesc() + ".blueprint"), colony.getWorld(), (blueprint -> {
+            "decorations" + ShipBasedRaiderUtils.SHIP_FOLDER + shipSize.schematicPrefix + this.getShipDesc() + ".blueprint"), colony.getWorld(), (blueprint -> {
             blueprint.setRotationMirror(RotationMirror.of(BlockPosUtil.getRotationFromRotations(shipRotation), Mirror.NONE), colony.getWorld());
 
             if (spawnPathResult != null && spawnPathResult.isDone())
@@ -96,7 +96,7 @@ public class DrownedPirateRaidEvent extends AbstractShipRaidEvent
                 spawnPoint = spawnPoint.below();
             }
 
-            while (PathfindingUtils.isLiquid(colony.getWorld().getBlockState(spawnPoint)) )
+            while (PathfindingUtils.isLiquid(colony.getWorld().getBlockState(spawnPoint)))
             {
                 spawnPoint = spawnPoint.below();
             }
@@ -111,8 +111,8 @@ public class DrownedPirateRaidEvent extends AbstractShipRaidEvent
             updateRaidBar();
 
             MessageUtils.format(RAID_EVENT_MESSAGE_U_PIRATE + shipSize.messageID, BlockPosUtil.calcDirection(colony.getCenter(), spawnPoint).getLongText(), colony.getName())
-              .withPriority(MessageUtils.MessagePriority.DANGER)
-              .sendTo(colony).forManagers();
+                .withPriority(MessageUtils.MessagePriority.DANGER)
+                .sendTo(colony).forManagers();
             colony.markDirty();
         })));
     }

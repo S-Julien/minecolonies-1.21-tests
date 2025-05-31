@@ -64,9 +64,9 @@ public class EntityAIStudy extends AbstractEntityAISkill<JobStudent, BuildingLib
     {
         super(job);
         super.registerTargets(
-          new AITarget(IDLE, START_WORKING, 1),
-          new AITarget(START_WORKING, this::startWorkingAtOwnBuilding, TICKS_SECOND),
-          new AITarget(STUDY, this::study, STANDARD_DELAY)
+            new AITarget(IDLE, START_WORKING, 1),
+            new AITarget(START_WORKING, this::startWorkingAtOwnBuilding, TICKS_SECOND),
+            new AITarget(STUDY, this::study, STANDARD_DELAY)
         );
         worker.setCanPickUpLoot(true);
     }

@@ -39,8 +39,8 @@ public class QuestDialogueInteraction extends StandardInteraction
     /**
      * Three icon options.
      */
-    private static final ResourceLocation QUEST_START_ICON = new ResourceLocation(Constants.MOD_ID, "textures/icons/queststart.png");
-    private static final ResourceLocation QUEST_NEXT_TASK_ICON = new ResourceLocation(Constants.MOD_ID, "textures/icons/nexttask.png");
+    private static final ResourceLocation QUEST_START_ICON        = new ResourceLocation(Constants.MOD_ID, "textures/icons/queststart.png");
+    private static final ResourceLocation QUEST_NEXT_TASK_ICON    = new ResourceLocation(Constants.MOD_ID, "textures/icons/nexttask.png");
     private static final ResourceLocation QUEST_WAITING_TASK_ICON = new ResourceLocation(Constants.MOD_ID, "textures/icons/opentask.png");
 
     /**
@@ -142,14 +142,16 @@ public class QuestDialogueInteraction extends StandardInteraction
             final IQuestDialogueAnswer result = this.currentElement.getOptionResult(responseId);
             if (result instanceof IFinalQuestDialogueAnswer)
             {
-                Network.getNetwork().sendToServer(new InteractionResponse(data.getColonyId(), data.getId(), player.level.dimension(), Component.literal(questId.toString()), responseId));
+                Network.getNetwork()
+                    .sendToServer(new InteractionResponse(data.getColonyId(), data.getId(), player.level.dimension(), Component.literal(questId.toString()), responseId));
                 this.currentElement = this.startElement;
                 finished = true;
                 return true;
             }
             else if (result instanceof DialogueObjectiveTemplateTemplate.DialogueElement)
             {
-                Network.getNetwork().sendToServer(new InteractionResponse(data.getColonyId(), data.getId(), player.level.dimension(), Component.literal(questId.toString()), responseId));
+                Network.getNetwork()
+                    .sendToServer(new InteractionResponse(data.getColonyId(), data.getId(), player.level.dimension(), Component.literal(questId.toString()), responseId));
                 this.currentElement = (DialogueObjectiveTemplateTemplate.DialogueElement) result;
                 return false;
             }
@@ -188,6 +190,7 @@ public class QuestDialogueInteraction extends StandardInteraction
 
     /**
      * Process the text to include the participant names.
+     *
      * @return the processed text.
      */
     private Component processText(final Component text)
@@ -267,6 +270,7 @@ public class QuestDialogueInteraction extends StandardInteraction
     @Override
     public boolean isValid(final ICitizenData citizen)
     {
-        return currentElement != null && citizen.isParticipantOfQuest(questId) && citizen.getColony().getQuestManager().getAvailableOrInProgressQuest(questId) != null && citizen.getColony().getQuestManager().getAvailableOrInProgressQuest(questId).getObjectiveIndex() == index;
+        return currentElement != null && citizen.isParticipantOfQuest(questId) && citizen.getColony().getQuestManager().getAvailableOrInProgressQuest(questId) != null
+            && citizen.getColony().getQuestManager().getAvailableOrInProgressQuest(questId).getObjectiveIndex() == index;
     }
 }

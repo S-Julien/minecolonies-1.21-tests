@@ -45,22 +45,23 @@ public class DefaultStonemasonCraftingProvider extends CustomRecipeProvider
         convert(consumer, Items.STONE_BRICKS, Items.PRISMARINE_SHARD, Items.PRISMARINE_BRICKS);
 
         CustomRecipeBuilder.create(STONEMASON, MODULE_CRAFTING, "end_stone")
-                .inputs(List.of(new ItemStorage(new ItemStack(Items.SANDSTONE, 8)),
-                        new ItemStorage(new ItemStack(Items.ENDER_PEARL))))
-                .result(new ItemStack(Items.END_STONE, 8))
-                .minResearchId(ResearchConstants.THE_END)
-                .build(consumer);
+            .inputs(List.of(new ItemStorage(new ItemStack(Items.SANDSTONE, 8)),
+                new ItemStorage(new ItemStack(Items.ENDER_PEARL))))
+            .result(new ItemStack(Items.END_STONE, 8))
+            .minResearchId(ResearchConstants.THE_END)
+            .build(consumer);
     }
 
-    private void convert(@NotNull final Consumer<FinishedRecipe> consumer,
-                         @NotNull final ItemLike input1,
-                         @NotNull final ItemLike input2,
-                         @NotNull final ItemLike output)
+    private void convert(
+        @NotNull final Consumer<FinishedRecipe> consumer,
+        @NotNull final ItemLike input1,
+        @NotNull final ItemLike input2,
+        @NotNull final ItemLike output)
     {
         CustomRecipeBuilder.create(STONEMASON, MODULE_CRAFTING,
-                        ForgeRegistries.ITEMS.getKey(output.asItem()).getPath())
-                .inputs(List.of(new ItemStorage(new ItemStack(input1)), new ItemStorage(new ItemStack(input2))))
-                .result(new ItemStack(output))
-                .build(consumer);
+                ForgeRegistries.ITEMS.getKey(output.asItem()).getPath())
+            .inputs(List.of(new ItemStorage(new ItemStack(input1)), new ItemStorage(new ItemStack(input2))))
+            .result(new ItemStack(output))
+            .build(consumer);
     }
 }

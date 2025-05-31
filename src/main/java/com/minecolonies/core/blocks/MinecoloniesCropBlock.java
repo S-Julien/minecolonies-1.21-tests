@@ -43,33 +43,33 @@ import static com.minecolonies.api.util.constant.Constants.UPDATE_FLAG;
 public class MinecoloniesCropBlock extends AbstractBlockMinecolonies<MinecoloniesCropBlock>
 {
     public static String BELL_PEPPER = "bell_pepper";
-    public static String CABBAGE = "cabbage";
-    public static String CHICKPEA = "chickpea";
-    public static String DURUM = "durum";
-    public static String EGGPLANT = "eggplant";
-    public static String GARLIC = "garlic";
-    public static String ONION = "onion";
-    public static String SOYBEAN = "soybean";
-    public static String TOMATO = "tomato";
-    public static String RICE = "rice";
+    public static String CABBAGE     = "cabbage";
+    public static String CHICKPEA    = "chickpea";
+    public static String DURUM       = "durum";
+    public static String EGGPLANT    = "eggplant";
+    public static String GARLIC      = "garlic";
+    public static String ONION       = "onion";
+    public static String SOYBEAN     = "soybean";
+    public static String TOMATO      = "tomato";
+    public static String RICE        = "rice";
 
     public static String BUTTERNUT_SQUASH = "butternut_squash";
-    public static String CORN = "corn";
-    public static String MINT = "mint";
-    public static String NETHER_PEPPER = "nether_pepper";
-    public static String PEAS = "peas";
+    public static String CORN             = "corn";
+    public static String MINT             = "mint";
+    public static String NETHER_PEPPER    = "nether_pepper";
+    public static String PEAS             = "peas";
 
-    public static final  IntegerProperty AGE = IntegerProperty.create("age", 0, 6);
-    private static final VoxelShape[] SHAPE_BY_AGE = new VoxelShape[] {
-      Block.box(0.0, 0.0, 0.0, 16.0, 2.0, 16.0),
-      Block.box(0.0, 0.0, 0.0, 16.0, 4.0, 16.0),
-      Block.box(0.0, 0.0, 0.0, 16.0, 6.0, 16.0),
-      Block.box(0.0, 0.0, 0.0, 16.0, 8.0, 16.0),
-      Block.box(0.0, 0.0, 0.0, 16.0, 10.0, 16.0),
-      Block.box(0.0, 0.0, 0.0, 16.0, 12.0, 16.0),
-      Block.box(0.0, 0.0, 0.0, 16.0, 14.0, 16.0)};
+    public static final  IntegerProperty AGE          = IntegerProperty.create("age", 0, 6);
+    private static final VoxelShape[]    SHAPE_BY_AGE = new VoxelShape[] {
+        Block.box(0.0, 0.0, 0.0, 16.0, 2.0, 16.0),
+        Block.box(0.0, 0.0, 0.0, 16.0, 4.0, 16.0),
+        Block.box(0.0, 0.0, 0.0, 16.0, 6.0, 16.0),
+        Block.box(0.0, 0.0, 0.0, 16.0, 8.0, 16.0),
+        Block.box(0.0, 0.0, 0.0, 16.0, 10.0, 16.0),
+        Block.box(0.0, 0.0, 0.0, 16.0, 12.0, 16.0),
+        Block.box(0.0, 0.0, 0.0, 16.0, 14.0, 16.0)};
 
-    private final Block preferredFarmland;
+    private final Block       preferredFarmland;
     private final List<Block> droppedFrom;
 
     private final ResourceLocation blockId;
@@ -77,6 +77,7 @@ public class MinecoloniesCropBlock extends AbstractBlockMinecolonies<Minecolonie
 
     /**
      * Constructor to create a block of this type.
+     *
      * @param blockName the block id.
      */
     public MinecoloniesCropBlock(final String blockName, final Block preferredFarmland, final List<Block> droppedFrom, @Nullable final TagKey<Biome> preferredBiome)
@@ -98,6 +99,7 @@ public class MinecoloniesCropBlock extends AbstractBlockMinecolonies<Minecolonie
 
     /**
      * Check if the block is of max age.
+     *
      * @param state the state its at.
      * @return true if max age.
      */
@@ -108,6 +110,7 @@ public class MinecoloniesCropBlock extends AbstractBlockMinecolonies<Minecolonie
 
     /**
      * Get the default max crop age.
+     *
      * @return the max age.
      */
     protected int getMaxAge()
@@ -117,9 +120,10 @@ public class MinecoloniesCropBlock extends AbstractBlockMinecolonies<Minecolonie
 
     /**
      * Method to be called to attempt grow this crop.
+     *
      * @param state current state.
      * @param level level its in.
-     * @param pos pos its at.
+     * @param pos   pos its at.
      */
     public void attemptGrow(BlockState state, ServerLevel level, BlockPos pos)
     {
@@ -131,7 +135,8 @@ public class MinecoloniesCropBlock extends AbstractBlockMinecolonies<Minecolonie
                 if (WorldUtil.isBlockLoaded(level, offset)
                     && level.getBlockState(offset.below()).getBlock() == level.getBlockState(pos.below()).getBlock()
                     && level.getBlockState(offset).isAir()
-                    && IColonyManager.getInstance().getColonyByPosFromWorld(level, pos) instanceof Colony colony && colony.getResearchManager().getResearchEffects().getEffectStrength(
+                    && IColonyManager.getInstance().getColonyByPosFromWorld(level, pos) instanceof Colony colony
+                    && colony.getResearchManager().getResearchEffects().getEffectStrength(
                     GREEN_REVOLUTION) > 0)
                 {
                     level.setBlock(offset, defaultBlockState(), UPDATE_FLAG);
@@ -151,7 +156,8 @@ public class MinecoloniesCropBlock extends AbstractBlockMinecolonies<Minecolonie
     @Override
     public boolean canSurvive(@NotNull BlockState state, LevelReader level, @NotNull BlockPos pos)
     {
-        return (level.getRawBrightness(pos, 0) >= 8 || level.canSeeSky(pos)) && super.canSurvive(state, level, pos) && level.getBlockState(pos.below()).getBlock() == preferredFarmland && (preferredBiome == null || level.getBiome(pos).is(preferredBiome));
+        return (level.getRawBrightness(pos, 0) >= 8 || level.canSeeSky(pos)) && super.canSurvive(state, level, pos)
+            && level.getBlockState(pos.below()).getBlock() == preferredFarmland && (preferredBiome == null || level.getBiome(pos).is(preferredBiome));
     }
 
     @Override
@@ -162,7 +168,13 @@ public class MinecoloniesCropBlock extends AbstractBlockMinecolonies<Minecolonie
 
     @NotNull
     @Override
-    public BlockState updateShape(BlockState state, @NotNull Direction dir, @NotNull BlockState newState, @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockPos neighborPos)
+    public BlockState updateShape(
+        BlockState state,
+        @NotNull Direction dir,
+        @NotNull BlockState newState,
+        @NotNull LevelAccessor level,
+        @NotNull BlockPos pos,
+        @NotNull BlockPos neighborPos)
     {
         return !state.canSurvive(level, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, dir, newState, level, pos, neighborPos);
     }
@@ -193,6 +205,7 @@ public class MinecoloniesCropBlock extends AbstractBlockMinecolonies<Minecolonie
 
     /**
      * Get the preferred farmland for this crop.
+     *
      * @return the preferred farmland.
      */
     public Block getPreferredFarmland()
@@ -210,6 +223,7 @@ public class MinecoloniesCropBlock extends AbstractBlockMinecolonies<Minecolonie
 
     /**
      * Get the preferred biome for this crop.
+     *
      * @return the preferred biome, or null if not picky.
      */
     @Nullable

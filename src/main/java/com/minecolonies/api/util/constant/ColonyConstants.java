@@ -72,8 +72,8 @@ public final class ColonyConstants
     /**
      * Barbarian Constants.
      */
-    public static final double           ARCHER_BARBARIANS_MULTIPLIER = 0.30;
-    public static final double           CHIEF_BARBARIANS_MULTIPLIER  = 0.1;
+    public static final double ARCHER_BARBARIANS_MULTIPLIER = 0.30;
+    public static final double CHIEF_BARBARIANS_MULTIPLIER  = 0.1;
 
     /**
      * Different horde ids and their sizes.
@@ -94,7 +94,7 @@ public final class ColonyConstants
     public static final String BIG_SHIP    = "big_";
 
     public static final long ONE_HOUR_IN_MILLIS = 3600000;
-    public static final int CHUNK_UNLOAD_DELAY = 20 * 60 * 10;
+    public static final int  CHUNK_UNLOAD_DELAY = 20 * 60 * 10;
 
     /**
      * Empty scoreboard

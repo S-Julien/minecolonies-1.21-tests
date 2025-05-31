@@ -41,7 +41,7 @@ public class ColonyStoryListener extends SimpleJsonResourceReloadListener
     /**
      * Names for abandoned colonies.
      */
-    public static final ResourceLocation ABANDONED_COLONY_NAME = new ResourceLocation(MOD_ID, "abandoned_name");
+    public static final ResourceLocation ABANDONED_COLONY_NAME  = new ResourceLocation(MOD_ID, "abandoned_name");
     /**
      * Stories for abandoned colonies.
      */
@@ -49,16 +49,16 @@ public class ColonyStoryListener extends SimpleJsonResourceReloadListener
     /**
      * Stories for supply camps.
      */
-    public static final ResourceLocation SUPPLY_CAMP_STORY = new ResourceLocation(MOD_ID, "camp");
+    public static final ResourceLocation SUPPLY_CAMP_STORY      = new ResourceLocation(MOD_ID, "camp");
     /**
      * Stories for supply ships.
      */
-    public static final ResourceLocation SUPPLY_SHIP_STORY = new ResourceLocation(MOD_ID, "ship");
+    public static final ResourceLocation SUPPLY_SHIP_STORY      = new ResourceLocation(MOD_ID, "ship");
 
     /**
      * List of story and lore elements loaded from data.
      */
-    public static Set<StoryText> abandonedColonyNames = new HashSet<>();
+    public static Set<StoryText> abandonedColonyNames   = new HashSet<>();
     public static Set<StoryText> abandonedColonyStories = new HashSet<>();
 
     public static Set<StoryText> supplyShipStories = new HashSet<>();
@@ -80,10 +80,11 @@ public class ColonyStoryListener extends SimpleJsonResourceReloadListener
 
     /**
      * Pick a random entry from the given set of story texts.
+     *
      * @param stories the set of story texts to pick from.
      * @param biome   biomes to filter the stories against.
      * @param rng     random number source.
-     * @return        one of the stories, at random.
+     * @return one of the stories, at random.
      */
     public static String pickRandom(final Collection<StoryText> stories, final Holder<Biome> biome, final Random rng)
     {
@@ -195,8 +196,9 @@ public class ColonyStoryListener extends SimpleJsonResourceReloadListener
 
         /**
          * Combine two {@link BiomeFilter} with an OR condition.
+         *
          * @param other the other filter.
-         * @return      a filter that returns {@code this || other}.
+         * @return a filter that returns {@code this || other}.
          */
         public BiomeFilter or(final BiomeFilter other)
         {
@@ -235,15 +237,19 @@ public class ColonyStoryListener extends SimpleJsonResourceReloadListener
 
     /**
      * A bit of story text that is filterable by biome.
+     *
      * @param biomeFilter the filter that passes any biome where this story is valid.
      * @param content     the text content.
      */
-    public record StoryText(BiomeFilter biomeFilter, String content)
+    public record StoryText(
+        BiomeFilter biomeFilter,
+        String content)
     {
         /**
          * Check if the given biome is valid for this story text.
+         *
          * @param biome the biome to check.
-         * @return      true if valid.
+         * @return true if valid.
          */
         public boolean matches(final Holder<Biome> biome)
         {
@@ -252,9 +258,10 @@ public class ColonyStoryListener extends SimpleJsonResourceReloadListener
 
         /**
          * Builds a list of all possible matches from a collection of {@link StoryText}.
+         *
          * @param stories the collection.
          * @param biome   the biome to match against.
-         * @return        a list of matching content.
+         * @return a list of matching content.
          */
         public static List<String> allMatches(final Collection<StoryText> stories, final Holder<Biome> biome)
         {

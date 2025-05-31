@@ -49,7 +49,8 @@ import static com.minecolonies.api.util.constant.BuildingConstants.LEISURE;
 /**
  * Creates a decoration controller block.
  */
-public class BlockDecorationController extends AbstractBlockMinecoloniesDirectional<BlockDecorationController> implements IBuilderUndestroyable, IAnchorBlock, EntityBlock, ILeveledBlueprintAnchorBlock, SimpleWaterloggedBlock
+public class BlockDecorationController extends AbstractBlockMinecoloniesDirectional<BlockDecorationController>
+    implements IBuilderUndestroyable, IAnchorBlock, EntityBlock, ILeveledBlueprintAnchorBlock, SimpleWaterloggedBlock
 {
     /**
      * The hardness this block has.
@@ -77,13 +78,10 @@ public class BlockDecorationController extends AbstractBlockMinecoloniesDirectio
     protected static final VoxelShape AABB_SOUTH = Shapes.box(0.25D, 0.314D, 0.7D, 0.75D, 0.86D, 1.0D);
     protected static final VoxelShape AABB_NORTH = Shapes.box(0.25D, 0.314D, 0.0D, 0.75D, 0.86D, 0.3D);
 
+    protected static final VoxelShape AABB_EAST = Shapes.box(0.7D, 0.314D, 0.25D, 1.0D, 0.86D, 0.75D);
+    protected static final VoxelShape AABB_WEST = Shapes.box(0.0D, 0.314D, 0.25D, 0.3D, 0.86D, 0.75D);
 
-    protected static final VoxelShape AABB_EAST  = Shapes.box(0.7D, 0.314D, 0.25D, 1.0D, 0.86D, 0.75D);
-    protected static final VoxelShape AABB_WEST  = Shapes.box(0.0D, 0.314D, 0.25D, 0.3D, 0.86D, 0.75D);
-
-
-
-    protected static final VoxelShape AABB_UP = Shapes.box(0.25D, 0.7D, 0.14D, 0.75D, 1.0D, 0.686D);
+    protected static final VoxelShape AABB_UP   = Shapes.box(0.25D, 0.7D, 0.14D, 0.75D, 1.0D, 0.686D);
     protected static final VoxelShape AABB_DOWN = Shapes.box(0.25D, 0.0D, 0.314D, 0.75D, 0.3D, 0.86D);
 
     /**
@@ -111,14 +109,14 @@ public class BlockDecorationController extends AbstractBlockMinecoloniesDirectio
         if (shape.isEmpty() || Block.isShapeFullBlock(shape))
         {
             return switch (direction)
-                     {
-                         case EAST -> AABB_EAST;
-                         case WEST -> AABB_WEST;
-                         case SOUTH -> AABB_SOUTH;
-                         case NORTH -> AABB_NORTH;
-                         case UP -> AABB_UP;
-                         case DOWN -> AABB_DOWN;
-                     };
+            {
+                case EAST -> AABB_EAST;
+                case WEST -> AABB_WEST;
+                case SOUTH -> AABB_SOUTH;
+                case NORTH -> AABB_NORTH;
+                case UP -> AABB_UP;
+                case DOWN -> AABB_DOWN;
+            };
         }
 
         return switch (direction)
@@ -135,12 +133,12 @@ public class BlockDecorationController extends AbstractBlockMinecoloniesDirectio
     @NotNull
     @Override
     public BlockState updateShape(
-      @NotNull final BlockState stateIn,
-      final Direction dir,
-      final BlockState state,
-      final LevelAccessor worldIn,
-      @NotNull final BlockPos currentPos,
-      final BlockPos pos)
+        @NotNull final BlockState stateIn,
+        final Direction dir,
+        final BlockState state,
+        final LevelAccessor worldIn,
+        @NotNull final BlockPos currentPos,
+        final BlockPos pos)
     {
         if (stateIn.getValue(WATERLOGGED))
         {
@@ -153,12 +151,12 @@ public class BlockDecorationController extends AbstractBlockMinecoloniesDirectio
 
     @Override
     public InteractionResult use(
-      final BlockState state,
-      final Level worldIn,
-      final BlockPos pos,
-      final Player player,
-      final InteractionHand hand,
-      final BlockHitResult ray)
+        final BlockState state,
+        final Level worldIn,
+        final BlockPos pos,
+        final Player player,
+        final InteractionHand hand,
+        final BlockHitResult ray)
     {
         if (worldIn.isClientSide)
         {
@@ -191,7 +189,9 @@ public class BlockDecorationController extends AbstractBlockMinecoloniesDirectio
         }
 
         final BlockEntity tileEntity = worldIn.getBlockEntity(pos);
-        if (tileEntity instanceof TileEntityDecorationController && ((TileEntityDecorationController) tileEntity).getPositionedTags().getOrDefault(BlockPos.ZERO, new ArrayList<>()).contains(LEISURE))
+        if (tileEntity instanceof TileEntityDecorationController && ((TileEntityDecorationController) tileEntity).getPositionedTags()
+            .getOrDefault(BlockPos.ZERO, new ArrayList<>())
+            .contains(LEISURE))
         {
             @Nullable final IColony colony = IColonyManager.getInstance().getColonyByPosFromWorld(worldIn, pos);
             if (colony != null)

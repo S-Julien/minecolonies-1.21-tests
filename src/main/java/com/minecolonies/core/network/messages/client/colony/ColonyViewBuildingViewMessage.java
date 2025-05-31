@@ -20,8 +20,8 @@ import org.jetbrains.annotations.Nullable;
  */
 public class ColonyViewBuildingViewMessage implements IMessage
 {
-    private int          colonyId;
-    private BlockPos     buildingId;
+    private int             colonyId;
+    private BlockPos        buildingId;
     private FriendlyByteBuf buildingData;
 
     /**

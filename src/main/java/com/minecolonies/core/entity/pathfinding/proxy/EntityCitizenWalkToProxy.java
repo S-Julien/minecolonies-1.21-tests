@@ -142,10 +142,10 @@ public class EntityCitizenWalkToProxy extends AbstractWalkToProxy
                 }
 
                 addToProxyList(
-                  new BlockPos(
-                    ladderPos.getX() + vector.getX() * OTHER_SIDE_OF_SHAFT,
-                    level.getDepth(),
-                    ladderPos.getZ() + vector.getZ() * OTHER_SIDE_OF_SHAFT));
+                    new BlockPos(
+                        ladderPos.getX() + vector.getX() * OTHER_SIDE_OF_SHAFT,
+                        level.getDepth(),
+                        ladderPos.getZ() + vector.getZ() * OTHER_SIDE_OF_SHAFT));
                 return getProxy(target, citizen.blockPosition(), distanceToPath);
 
                 //If he already is at ladder location, the closest node automatically will be his hut block.
@@ -162,18 +162,18 @@ public class EntityCitizenWalkToProxy extends AbstractWalkToProxy
                 if (buildingPos.getY() - level.getDepth() > 25)
                 {
                     addToProxyList(
-                      new BlockPos(
-                        ladderPos.getX() + vector.getX(),
-                        level.getDepth() + (buildingPos.getY() - level.getDepth()) / 2,
-                        ladderPos.getZ() + vector.getZ()));
+                        new BlockPos(
+                            ladderPos.getX() + vector.getX(),
+                            level.getDepth() + (buildingPos.getY() - level.getDepth()) / 2,
+                            ladderPos.getZ() + vector.getZ()));
                 }
 
                 //Then add the ladder position as the latest node.
                 addToProxyList(
-                  new BlockPos(
-                    ladderPos.getX() + vector.getX() * OTHER_SIDE_OF_SHAFT,
-                    level.getDepth(),
-                    ladderPos.getZ() + vector.getZ() * OTHER_SIDE_OF_SHAFT));
+                    new BlockPos(
+                        ladderPos.getX() + vector.getX() * OTHER_SIDE_OF_SHAFT,
+                        level.getDepth(),
+                        ladderPos.getZ() + vector.getZ() * OTHER_SIDE_OF_SHAFT));
 
                 if (module.getActiveNode() != null && module.getActiveNode().getParent() != null)
                 {

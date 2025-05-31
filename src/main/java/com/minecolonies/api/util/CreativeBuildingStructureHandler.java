@@ -73,7 +73,12 @@ public final class CreativeBuildingStructureHandler extends CreativeStructureHan
      * @param settings       the placement settings.
      * @param fancyPlacement if fancy or complete.
      */
-    public CreativeBuildingStructureHandler(final Level world, final BlockPos pos, final Future<Blueprint> blueprint, final PlacementSettings settings, final boolean fancyPlacement)
+    public CreativeBuildingStructureHandler(
+        final Level world,
+        final BlockPos pos,
+        final Future<Blueprint> blueprint,
+        final PlacementSettings settings,
+        final boolean fancyPlacement)
     {
         super(world, pos, blueprint, settings, fancyPlacement);
         setupBuilding();
@@ -152,9 +157,9 @@ public final class CreativeBuildingStructureHandler extends CreativeStructureHan
     public boolean isStackFree(@Nullable final ItemStack itemStack)
     {
         return itemStack == null
-                 || itemStack.isEmpty()
-                 || itemStack.is(ItemTags.LEAVES)
-                 || itemStack.getItem() == new ItemStack(ModBlocks.blockDecorationPlaceholder, 1).getItem();
+            || itemStack.isEmpty()
+            || itemStack.is(ItemTags.LEAVES)
+            || itemStack.getItem() == new ItemStack(ModBlocks.blockDecorationPlaceholder, 1).getItem();
     }
 
     /**
@@ -170,11 +175,11 @@ public final class CreativeBuildingStructureHandler extends CreativeStructureHan
      * @return the placed blueprint.
      */
     public static Blueprint loadAndPlaceStructureWithRotation(
-      final Level worldObj, @NotNull final Future<Blueprint> future,
-      @NotNull final BlockPos pos, final Rotation rotation,
-      @NotNull final Mirror mirror,
-      final boolean fancyPlacement,
-      @Nullable final ServerPlayer player)
+        final Level worldObj, @NotNull final Future<Blueprint> future,
+        @NotNull final BlockPos pos, final Rotation rotation,
+        @NotNull final Mirror mirror,
+        final boolean fancyPlacement,
+        @Nullable final ServerPlayer player)
     {
         try
         {

@@ -25,6 +25,7 @@ public interface IItemListModuleView extends IBuildingModuleView
      * @return true if so.
      */
     boolean isAllowedItem(final ItemStorage item);
+
     /**
      * Get the size of allowed items.
      *
@@ -41,18 +42,21 @@ public interface IItemListModuleView extends IBuildingModuleView
 
     /**
      * Get the unique id of this group (used to sync with server side).
+     *
      * @return the id.
      */
     String getId();
 
     /**
      * Get the supplier of the list of all items to display.
+     *
      * @return the list.
      */
     Function<IBuildingView, Set<ItemStorage>> getAllItems();
 
     /**
      * Check if the list is enabling or disabling.
+     *
      * @return true if enabling.
      */
     boolean isInverted();

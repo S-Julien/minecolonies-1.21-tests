@@ -111,15 +111,15 @@ public class ResourceScrollSaveWarehouseSnapshotMessage implements IMessage
     public void onExecute(final NetworkEvent.Context ctxIn, final boolean isLogicalServer)
     {
         Objects.requireNonNull(ctxIn.getSender()).getInventory().items.stream()
-          .filter(stack -> stack.getItem() instanceof ItemResourceScroll)
-          .filter(stack -> stack.getTag() != null)
-          .filter(stack -> Objects.equals(builderPos, BlockPosUtil.read(stack.getTag(), TAG_BUILDER)))
-          .forEach(stack -> {
-              CompoundTag data = stack.getTag();
-              CompoundTag newData = new CompoundTag();
-              snapshot.keySet().forEach(f -> newData.putInt(f, snapshot.getOrDefault(f, 0)));
-              data.put(TAG_WAREHOUSE_SNAPSHOT, newData);
-              data.putString(TAG_WAREHOUSE_SNAPSHOT_WO_HASH, workOrderHash);
-          });
+            .filter(stack -> stack.getItem() instanceof ItemResourceScroll)
+            .filter(stack -> stack.getTag() != null)
+            .filter(stack -> Objects.equals(builderPos, BlockPosUtil.read(stack.getTag(), TAG_BUILDER)))
+            .forEach(stack -> {
+                CompoundTag data = stack.getTag();
+                CompoundTag newData = new CompoundTag();
+                snapshot.keySet().forEach(f -> newData.putInt(f, snapshot.getOrDefault(f, 0)));
+                data.put(TAG_WAREHOUSE_SNAPSHOT, newData);
+                data.putString(TAG_WAREHOUSE_SNAPSHOT_WO_HASH, workOrderHash);
+            });
     }
 }

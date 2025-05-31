@@ -12,7 +12,7 @@ import java.util.List;
 public abstract class AbstractRecipeType<R extends IRecipeStorage>
 {
     final IRecipeStorage recipe;
-    ResourceLocation id; 
+    ResourceLocation id;
 
     /**
      * Constructor basis for recipe types

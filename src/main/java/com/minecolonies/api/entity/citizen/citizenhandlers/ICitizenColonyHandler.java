@@ -76,6 +76,7 @@ public interface ICitizenColonyHandler
 
     /**
      * Unsafe colony getter, doesn't run registration.
+     *
      * @return the colony.
      */
     IColony getColony();

@@ -28,6 +28,7 @@ public class QuestReputationRewardTemplate implements IQuestRewardTemplate
 
     /**
      * Create the reward.
+     *
      * @param jsonObject the json to read from.
      * @return the reward object.
      */

@@ -89,9 +89,9 @@ public class TileEntityBarrel extends AbstractTileEntityBarrel implements ITicka
         if (this.done)
         {
             ((ServerLevel) worldIn).sendParticles(
-              ParticleTypes.HAPPY_VILLAGER, this.getBlockPos().getX() + 0.5,
-              this.getBlockPos().getY() + 1.5, this.getBlockPos().getZ() + 0.5,
-              1, 0.2, 0, 0.2, 0);
+                ParticleTypes.HAPPY_VILLAGER, this.getBlockPos().getX() + 0.5,
+                this.getBlockPos().getY() + 1.5, this.getBlockPos().getZ() + 0.5,
+                1, 0.2, 0, 0.2, 0);
         }
     }
 
@@ -123,14 +123,28 @@ public class TileEntityBarrel extends AbstractTileEntityBarrel implements ITicka
             ItemStack compostStack = new ItemStack(ModItems.compost, 6);
             if (hitFace != null) // Spawn all as ItemEntity
             {
-                playerIn.level.addFreshEntity(new ItemEntity(playerIn.level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.75, worldPosition.getZ() + 0.5, compostStack, hitFace.getStepX() / 5f, hitFace.getStepY() / 5f + 0.2f, hitFace.getStepZ() / 5f));
+                playerIn.level.addFreshEntity(new ItemEntity(playerIn.level,
+                    worldPosition.getX() + 0.5,
+                    worldPosition.getY() + 1.75,
+                    worldPosition.getZ() + 0.5,
+                    compostStack,
+                    hitFace.getStepX() / 5f,
+                    hitFace.getStepY() / 5f + 0.2f,
+                    hitFace.getStepZ() / 5f));
                 this.level.playSound(null, worldPosition, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS, 1, 1);
             }
             else // Insert directly into inventory, spawning overflow as ItemEntity
             {
-                if(!playerIn.getInventory().add(compostStack))
+                if (!playerIn.getInventory().add(compostStack))
                 {
-                    playerIn.level.addFreshEntity(new ItemEntity(playerIn.level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.75, worldPosition.getZ() + 0.5, compostStack, 0, 0.2f, 0));
+                    playerIn.level.addFreshEntity(new ItemEntity(playerIn.level,
+                        worldPosition.getX() + 0.5,
+                        worldPosition.getY() + 1.75,
+                        worldPosition.getZ() + 0.5,
+                        compostStack,
+                        0,
+                        0.2f,
+                        0));
                 }
                 this.level.playSound(null, worldPosition, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS, 1, 1);
             }
@@ -179,7 +193,7 @@ public class TileEntityBarrel extends AbstractTileEntityBarrel implements ITicka
     private static CompostRecipe findCompostRecipe(final ItemStack itemStack)
     {
         return IColonyManager.getInstance().getCompatibilityManager()
-                .getCopyOfCompostRecipes().get(itemStack.getItem());
+            .getCopyOfCompostRecipes().get(itemStack.getItem());
         // TODO: use the recipe to get the ferment time and output count?
         // tricky because they might use multiple items with different values
     }

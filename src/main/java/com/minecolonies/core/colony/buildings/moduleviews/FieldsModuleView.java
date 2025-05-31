@@ -112,10 +112,10 @@ public abstract class FieldsModuleView extends AbstractBuildingModuleView
     public List<IBuildingExtension> getOwnedFields()
     {
         return getFields().stream()
-                 .filter(field -> buildingView.getID().equals(field.getBuildingId()))
-                 .distinct()
-                 .sorted(new FieldsComparator(buildingView))
-                 .toList();
+            .filter(field -> buildingView.getID().equals(field.getBuildingId()))
+            .distinct()
+            .sorted(new FieldsComparator(buildingView))
+            .toList();
     }
 
     /**
@@ -135,10 +135,10 @@ public abstract class FieldsModuleView extends AbstractBuildingModuleView
     public List<IBuildingExtension> getFields()
     {
         return getFieldsInColony().stream()
-                 .filter(field -> !field.isTaken() || buildingView.getID().equals(field.getBuildingId()))
-                 .distinct()
-                 .sorted(new FieldsComparator(buildingView))
-                 .toList();
+            .filter(field -> !field.isTaken() || buildingView.getID().equals(field.getBuildingId()))
+            .distinct()
+            .sorted(new FieldsComparator(buildingView))
+            .toList();
     }
 
     /**

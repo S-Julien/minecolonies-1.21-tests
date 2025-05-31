@@ -23,6 +23,7 @@ public class MaxFieldsTrigger extends AbstractCriterionTrigger<CriterionListener
 
     /**
      * Triggers the listener checks if there are any listening in
+     *
      * @param player the player the check regards
      */
     public void trigger(final ServerPlayer player)

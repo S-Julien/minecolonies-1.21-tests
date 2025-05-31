@@ -19,7 +19,7 @@ public class EntityAIWorkBaker extends AbstractEntityAIRequestSmelter<JobBaker, 
      * Baking icon
      */
     private final static VisibleCitizenStatus BAKING =
-      new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/work/baker.png"), "com.minecolonies.gui.visiblestatus.baker");
+        new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/work/baker.png"), "com.minecolonies.gui.visiblestatus.baker");
 
     /**
      * Constructor for the Baker. Defines the tasks the bakery executes.

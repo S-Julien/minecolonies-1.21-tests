@@ -25,11 +25,11 @@ public class OpenDecoBuildWindowMessage extends OpenBuildWindowMessage
      * @param path     the path in the pack.
      */
     public OpenDecoBuildWindowMessage(
-      final BlockPos pos,
-      final String packName,
-      final String path,
-      final Rotation rotation,
-      final Mirror mirror)
+        final BlockPos pos,
+        final String packName,
+        final String path,
+        final Rotation rotation,
+        final Mirror mirror)
     {
         super(pos, packName, path, rotation, mirror);
     }

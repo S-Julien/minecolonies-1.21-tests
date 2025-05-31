@@ -36,7 +36,7 @@ public abstract class AbstractTileEntityColonyBuilding extends TileEntityRack im
     /**
      * Corner positions of schematic, relative to te pos.
      */
-    private BlockPos corner1             = BlockPos.ZERO;
+    private BlockPos corner1 = BlockPos.ZERO;
     private BlockPos corner2 = BlockPos.ZERO;
 
     /**
@@ -176,7 +176,7 @@ public abstract class AbstractTileEntityColonyBuilding extends TileEntityRack im
     /**
      * Get the blueprint path of the tileEntity.
      *
-     * @return  path the path to get.
+     * @return path the path to get.
      */
     public abstract String getBlueprintPath();
 
@@ -269,6 +269,7 @@ public abstract class AbstractTileEntityColonyBuilding extends TileEntityRack im
 
     /**
      * Check if the TE is on an old data version.
+     *
      * @return true if so.
      */
     public boolean isOutdated()

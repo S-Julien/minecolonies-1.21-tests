@@ -69,20 +69,26 @@ public class BuildingFletcher extends AbstractBuilding
         public OptionalPredicate<ItemStack> getIngredientValidator()
         {
             return CraftingUtils.getIngredientValidatorBasedOnTags(CRAFTING_FLETCHER)
-                    .combine(super.getIngredientValidator());
+                .combine(super.getIngredientValidator());
         }
 
         @Override
         public boolean isRecipeCompatible(@NotNull final IGenericRecipe recipe)
         {
-            if (!super.isRecipeCompatible(recipe)) return false;
+            if (!super.isRecipeCompatible(recipe))
+            {
+                return false;
+            }
 
             final Optional<Boolean> isRecipeAllowed = CraftingUtils.isRecipeCompatibleBasedOnTags(recipe, CRAFTING_FLETCHER);
-            if (isRecipeAllowed.isPresent()) return isRecipeAllowed.get();
+            if (isRecipeAllowed.isPresent())
+            {
+                return isRecipeAllowed.get();
+            }
 
             final Item output = recipe.getPrimaryOutput().getItem();
             return output instanceof ArrowItem ||
-                    (output instanceof DyeableArmorItem &&
+                (output instanceof DyeableArmorItem &&
                     ((DyeableArmorItem) output).getMaterial() == ArmorMaterials.LEATHER);
         }
     }
@@ -101,9 +107,11 @@ public class BuildingFletcher extends AbstractBuilding
 
         /**
          * See {@link ICraftingBuildingModule#getIngredientValidator}.
+         *
          * @return the validator
          */
-        public @NotNull static OptionalPredicate<ItemStack> getStaticIngredientValidator()
+        public @NotNull
+        static OptionalPredicate<ItemStack> getStaticIngredientValidator()
         {
             return CraftingUtils.getIngredientValidatorBasedOnTags(CRAFTING_FLETCHER, true);
         }

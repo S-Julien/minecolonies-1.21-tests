@@ -46,10 +46,10 @@ public final class EquipmentTypeEntry
      * @param registryName the forge registry location of the equipment type
      */
     private EquipmentTypeEntry(
-      final Component displayName,
-      final BiPredicate<ItemStack, EquipmentTypeEntry> isEquipment,
-      final BiFunction<ItemStack, EquipmentTypeEntry, Integer> itemLevel,
-      final ResourceLocation registryName)
+        final Component displayName,
+        final BiPredicate<ItemStack, EquipmentTypeEntry> isEquipment,
+        final BiFunction<ItemStack, EquipmentTypeEntry, Integer> itemLevel,
+        final ResourceLocation registryName)
     {
         this.displayName = displayName;
         this.isEquipment = isEquipment;

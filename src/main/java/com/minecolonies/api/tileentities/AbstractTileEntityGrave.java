@@ -45,6 +45,7 @@ public abstract class AbstractTileEntityGrave extends TileEntityRack implements 
 
     /**
      * Delay the decay timer by minutes
+     *
      * @param minutes number of minutes to delay the time by
      */
     public void delayDecayTimer(final double minutes)
@@ -62,6 +63,7 @@ public abstract class AbstractTileEntityGrave extends TileEntityRack implements 
 
     /**
      * Set the graveData of the saved citizen
+     *
      * @param graveData
      */
     public void setGraveData(IGraveData graveData)

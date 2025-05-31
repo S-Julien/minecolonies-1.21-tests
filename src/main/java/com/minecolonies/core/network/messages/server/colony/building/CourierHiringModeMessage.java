@@ -18,7 +18,7 @@ public class CourierHiringModeMessage extends AbstractBuildingServerMessage<IBui
     /**
      * The module id
      */
-    private int  id;
+    private int id;
 
     /**
      * The Hiring mode to set.

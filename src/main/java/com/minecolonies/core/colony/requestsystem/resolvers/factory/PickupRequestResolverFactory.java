@@ -17,10 +17,11 @@ import org.jetbrains.annotations.NotNull;
  */
 public class PickupRequestResolverFactory implements IRequestResolverFactory<PickupRequestResolver>
 {
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
     private static final String NBT_TOKEN    = "Token";
     private static final String NBT_LOCATION = "Location";
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
+
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
 
     @NotNull
     @Override
@@ -39,10 +40,10 @@ public class PickupRequestResolverFactory implements IRequestResolverFactory<Pic
     @NotNull
     @Override
     public PickupRequestResolver getNewInstance(
-      @NotNull final IFactoryController factoryController,
-      @NotNull final ILocation iLocation,
-      @NotNull final Object... context)
-      throws IllegalArgumentException
+        @NotNull final IFactoryController factoryController,
+        @NotNull final ILocation iLocation,
+        @NotNull final Object... context)
+        throws IllegalArgumentException
     {
         return new PickupRequestResolver(iLocation, factoryController.getNewInstance(TypeConstants.ITOKEN));
     }
@@ -50,7 +51,7 @@ public class PickupRequestResolverFactory implements IRequestResolverFactory<Pic
     @NotNull
     @Override
     public CompoundTag serialize(
-      @NotNull final IFactoryController controller, @NotNull final PickupRequestResolver pickupRequestResolver)
+        @NotNull final IFactoryController controller, @NotNull final PickupRequestResolver pickupRequestResolver)
     {
         final CompoundTag compound = new CompoundTag();
         compound.put(NBT_TOKEN, controller.serialize(pickupRequestResolver.getId()));

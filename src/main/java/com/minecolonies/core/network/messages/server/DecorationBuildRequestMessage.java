@@ -87,12 +87,20 @@ public class DecorationBuildRequestMessage implements IMessage
     /**
      * Creates a build request for a decoration.
      *
-     * @param pos         the position of it.
-     * @param packName    pack name.
-     * @param path        blueprint path.
-     * @param dimension   the dimension we're executing on.
+     * @param pos       the position of it.
+     * @param packName  pack name.
+     * @param path      blueprint path.
+     * @param dimension the dimension we're executing on.
      */
-    public DecorationBuildRequestMessage(final WorkOrderType workOrderType, @NotNull final BlockPos pos, final String packName, final String path, final ResourceKey<Level> dimension, final Rotation rotation, final boolean mirror, final BlockPos builder)
+    public DecorationBuildRequestMessage(
+        final WorkOrderType workOrderType,
+        @NotNull final BlockPos pos,
+        final String packName,
+        final String path,
+        final ResourceKey<Level> dimension,
+        final Rotation rotation,
+        final boolean mirror,
+        final BlockPos builder)
     {
         super();
         this.workOrderType = workOrderType;
@@ -155,8 +163,8 @@ public class DecorationBuildRequestMessage implements IMessage
         }
 
         final Optional<Map.Entry<Integer, IServerWorkOrder>> wo = colony.getWorkManager().getWorkOrders().entrySet().stream()
-          .filter(entry -> entry.getValue() instanceof WorkOrderDecoration)
-          .filter(entry -> entry.getValue().getLocation().equals(pos)).findFirst();
+            .filter(entry -> entry.getValue() instanceof WorkOrderDecoration)
+            .filter(entry -> entry.getValue().getLocation().equals(pos)).findFirst();
 
         if (wo.isPresent())
         {
@@ -165,43 +173,43 @@ public class DecorationBuildRequestMessage implements IMessage
         }
 
         ServerFutureProcessor.queueBlueprint(new ServerFutureProcessor.BlueprintProcessingData(StructurePacks.getBlueprintFuture(packName, path),
-          player.level,
-          (blueprint -> {
-              if (blueprint == null)
-              {
-                  Log.getLogger().error(String.format("Schematic %s doesn't exist on the server.", path));
-                  return;
-              }
+            player.level,
+            (blueprint -> {
+                if (blueprint == null)
+                {
+                    Log.getLogger().error(String.format("Schematic %s doesn't exist on the server.", path));
+                    return;
+                }
 
-              final String[] split = path.split("/");
-              final String displayName = split[split.length - 1].replace(".blueprint", "");
+                final String[] split = path.split("/");
+                final String displayName = split[split.length - 1].replace(".blueprint", "");
 
-              final BlockState structureState = blueprint.getBlockInfoAsMap().get(blueprint.getPrimaryBlockOffset()).getState();
-              final WorkOrderType type = structureState != null && !(structureState.getBlock() instanceof BlockDecorationController)
-                      ? WorkOrderType.BUILD : workOrderType;
+                final BlockState structureState = blueprint.getBlockInfoAsMap().get(blueprint.getPrimaryBlockOffset()).getState();
+                final WorkOrderType type = structureState != null && !(structureState.getBlock() instanceof BlockDecorationController)
+                    ? WorkOrderType.BUILD : workOrderType;
 
-              final WorkOrderDecoration order = WorkOrderDecoration.create(
-                  type,
-                  packName,
-                  path,
-                  WordUtils.capitalizeFully(displayName),
-                  pos,
-                  rotation.ordinal(),
-                  mirror,
-                  0);
-              order.setBlueprint(blueprint, colony.getWorld());
+                final WorkOrderDecoration order = WorkOrderDecoration.create(
+                    type,
+                    packName,
+                    path,
+                    WordUtils.capitalizeFully(displayName),
+                    pos,
+                    rotation.ordinal(),
+                    mirror,
+                    0);
+                order.setBlueprint(blueprint, colony.getWorld());
 
-              if (!builder.equals(BlockPos.ZERO))
-              {
-                  final IBuilding building = colony.getBuildingManager().getBuilding(builder);
-                  if (building instanceof AbstractBuildingStructureBuilder)
-                  {
-                      order.setClaimedBy(builder);
-                  }
-              }
+                if (!builder.equals(BlockPos.ZERO))
+                {
+                    final IBuilding building = colony.getBuildingManager().getBuilding(builder);
+                    if (building instanceof AbstractBuildingStructureBuilder)
+                    {
+                        order.setClaimedBy(builder);
+                    }
+                }
 
-              colony.getWorkManager().addWorkOrder(order, false);
-          })));
+                colony.getWorkManager().addWorkOrder(order, false);
+            })));
     }
 }
 

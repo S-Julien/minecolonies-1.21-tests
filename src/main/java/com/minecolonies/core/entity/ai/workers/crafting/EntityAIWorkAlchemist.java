@@ -94,17 +94,17 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
     {
         super(alchemistJob);
         super.registerTargets(
-          /*
-           * Check if tasks should be executed.
-           */
-          new AIEventTarget(AIBlockingEventType.EVENT, this::isFuelNeeded, this::checkBrewingStandFuel, TICKS_SECOND * 10),
-          new AIEventTarget(AIBlockingEventType.EVENT, this::accelerateBrewingStand, this::getState, TICKS_SECOND),
-          new AITarget(START_USING_BREWINGSTAND, this::fillUpBrewingStand, TICKS_SECOND),
-          new AITarget(RETRIEVING_END_PRODUCT_FROM_BREWINGSTAMD, this::retrieveBrewableFromBrewingStand, TICKS_SECOND),
-          new AITarget(RETRIEVING_USED_FUEL_FROM_BREWINGSTAND, this::retrieveUsedFuel, TICKS_SECOND),
-          new AITarget(ADD_FUEL_TO_BREWINGSTAND, this::addFuelToBrewingStand, TICKS_SECOND),
-          new AITarget(HARVEST_MISTLETOE, this::harvestMistleToe, TICKS_SECOND),
-          new AITarget(HARVEST_NETHERWART, this::harvestNetherWart, TICKS_SECOND)
+            /*
+             * Check if tasks should be executed.
+             */
+            new AIEventTarget(AIBlockingEventType.EVENT, this::isFuelNeeded, this::checkBrewingStandFuel, TICKS_SECOND * 10),
+            new AIEventTarget(AIBlockingEventType.EVENT, this::accelerateBrewingStand, this::getState, TICKS_SECOND),
+            new AITarget(START_USING_BREWINGSTAND, this::fillUpBrewingStand, TICKS_SECOND),
+            new AITarget(RETRIEVING_END_PRODUCT_FROM_BREWINGSTAMD, this::retrieveBrewableFromBrewingStand, TICKS_SECOND),
+            new AITarget(RETRIEVING_USED_FUEL_FROM_BREWINGSTAND, this::retrieveUsedFuel, TICKS_SECOND),
+            new AITarget(ADD_FUEL_TO_BREWINGSTAND, this::addFuelToBrewingStand, TICKS_SECOND),
+            new AITarget(HARVEST_MISTLETOE, this::harvestMistleToe, TICKS_SECOND),
+            new AITarget(HARVEST_NETHERWART, this::harvestNetherWart, TICKS_SECOND)
         );
     }
 
@@ -252,16 +252,19 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
             final BlockState state = world.getBlockState(walkTo);
 
             final int slot =
-              InventoryUtils.getFirstSlotOfItemHandlerContainingEquipment(worker.getInventoryCitizen(), ModEquipmentTypes.shears.get(), TOOL_LEVEL_WOOD_OR_GOLD, building.getMaxEquipmentLevel());
+                InventoryUtils.getFirstSlotOfItemHandlerContainingEquipment(worker.getInventoryCitizen(),
+                    ModEquipmentTypes.shears.get(),
+                    TOOL_LEVEL_WOOD_OR_GOLD,
+                    building.getMaxEquipmentLevel());
             CitizenItemUtils.setHeldItem(worker, InteractionHand.MAIN_HAND, slot);
 
             worker.swing(InteractionHand.MAIN_HAND);
             world.playSound(null,
-              walkTo,
-              state.getSoundType(world, walkTo, worker).getBreakSound(),
-              SoundSource.BLOCKS,
-              state.getSoundType(world, walkTo, worker).getVolume(),
-              state.getSoundType(world, walkTo, worker).getPitch());
+                walkTo,
+                state.getSoundType(world, walkTo, worker).getBreakSound(),
+                SoundSource.BLOCKS,
+                state.getSoundType(world, walkTo, worker).getVolume(),
+                state.getSoundType(world, walkTo, worker).getPitch());
             Network.getNetwork().sendToTrackingEntity(new BlockParticleEffectMessage(walkTo, state, worker.getRandom().nextInt(7) - 1), worker);
             if (worker.getRandom().nextInt(40) <= 0)
             {
@@ -515,8 +518,8 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
         final Level world = building.getColony().getWorld();
 
         if (!InventoryUtils.hasItemInItemHandler(worker.getInventoryCitizen(), Items.BLAZE_POWDER)
-              && !InventoryUtils.hasItemInProvider(building, Items.BLAZE_POWDER)
-              && !building.hasWorkerOpenRequestsOfType(worker.getCitizenData().getId(), TypeToken.of(Stack.class)))
+            && !InventoryUtils.hasItemInProvider(building, Items.BLAZE_POWDER)
+            && !building.hasWorkerOpenRequestsOfType(worker.getCitizenData().getId(), TypeToken.of(Stack.class)))
         {
             worker.getCitizenData().createRequestAsync(new Stack(new ItemStack(Items.BLAZE_POWDER), BREWING_MIN_FUEL_COUNT * building.getAllBrewingStandPositions().size(), 1));
             return getState();
@@ -594,11 +597,11 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
                 final BrewingStandBlockEntity brewingStand = (BrewingStandBlockEntity) entity;
                 //Stoke the brewing stands
                 if (InventoryUtils.hasItemInItemHandler(worker.getInventoryCitizen(), Items.BLAZE_POWDER)
-                      && (hasBrewableAndNoFuel(brewingStand) || hasNeitherFuelNorBrewable(brewingStand)))
+                    && (hasBrewableAndNoFuel(brewingStand) || hasNeitherFuelNorBrewable(brewingStand)))
                 {
                     InventoryUtils.transferXOfFirstSlotInItemHandlerWithIntoInItemHandler(
-                      worker.getInventoryCitizen(), item -> item.getItem() == Items.BLAZE_POWDER, BREWING_MIN_FUEL_COUNT,
-                      new InvWrapper(brewingStand), BREWING_FUEL_SLOT);
+                        worker.getInventoryCitizen(), item -> item.getItem() == Items.BLAZE_POWDER, BREWING_MIN_FUEL_COUNT,
+                        new InvWrapper(brewingStand), BREWING_FUEL_SLOT);
 
                     if (preFuelState != null && preFuelState != ADD_FUEL_TO_BREWINGSTAND)
                     {
@@ -647,7 +650,7 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
                 for (int slot = 0; slot < 3; slot++)
                 {
                     if (!isEmpty(brewingStand.getItem(slot)) && ItemStackUtils.compareItemStacksIgnoreStackSize(currentRecipeStorage.getPrimaryOutput(),
-                      brewingStand.getItem(slot)))
+                        brewingStand.getItem(slot)))
                     {
                         countInResultSlot = brewingStand.getItem(slot).getCount();
                     }
@@ -673,7 +676,7 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
         final List<ItemStorage> input = storage.getCleanedInput();
         final int countInBewingStand = getExtendedCount(storage.getPrimaryOutput());
         int outputInInv =
-          InventoryUtils.getItemCountInItemHandler(worker.getInventoryCitizen(), stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(stack, storage.getPrimaryOutput()));
+            InventoryUtils.getItemCountInItemHandler(worker.getInventoryCitizen(), stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(stack, storage.getPrimaryOutput()));
 
         for (final ItemStorage inputStorage : input)
         {
@@ -729,7 +732,7 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
         walkTo = null;
 
         final int preExtractCount = InventoryUtils.getItemCountInItemHandler(worker.getInventoryCitizen(),
-          stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(currentRequest.getRequest().getStack(), stack));
+            stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(currentRequest.getRequest().getStack(), stack));
 
         for (int slot = 0; slot < 3; slot++)
         {
@@ -741,7 +744,7 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
 
         //Do we have the requested item in the inventory now?
         final int resultCount = InventoryUtils.getItemCountInItemHandler(worker.getInventoryCitizen(),
-          stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(currentRequest.getRequest().getStack(), stack)) - preExtractCount;
+            stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(currentRequest.getRequest().getStack(), stack)) - preExtractCount;
 
         if (resultCount > 0)
         {
@@ -889,10 +892,10 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
             final int maxBrewingStands = getMaxUsableBrewingStands();
             final int resultInBrewingStand = getExtendedCount(currentRecipeStorage.getPrimaryOutput());
             final int resultInCitizenInv = InventoryUtils.getItemCountInItemHandler(worker.getInventoryCitizen(),
-              stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(stack, currentRecipeStorage.getPrimaryOutput()));
+                stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(stack, currentRecipeStorage.getPrimaryOutput()));
 
             if (isEmpty(((BrewingStandBlockEntity) entity).getItem(0)) || isEmpty(((BrewingStandBlockEntity) entity).getItem(1))
-                  || isEmpty(((BrewingStandBlockEntity) entity).getItem(2)))
+                || isEmpty(((BrewingStandBlockEntity) entity).getItem(2)))
             {
                 final ItemStack potionStack = currentRecipeStorage.getCleanedInput().get(1).getItemStack();
 
@@ -900,7 +903,7 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
 
                 final int potionInBrewingStand = getExtendedCount(potionStack);
                 final int targetCount =
-                  currentRequest.getRequest().getCount() * currentRecipeStorage.getPrimaryOutput().getCount() - potionInBrewingStand - resultInBrewingStand - resultInCitizenInv;
+                    currentRequest.getRequest().getCount() * currentRecipeStorage.getPrimaryOutput().getCount() - potionInBrewingStand - resultInBrewingStand - resultInCitizenInv;
                 if (targetCount <= 0)
                 {
                     return START_WORKING;
@@ -937,11 +940,11 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
                                 }
                                 CitizenItemUtils.hitBlockWithToolInHand(worker, walkTo);
                                 InventoryUtils.transferXInItemHandlerIntoSlotInItemHandler(
-                                  worker.getInventoryCitizen(),
-                                  potion,
-                                  toTransfer,
-                                  new InvWrapper(brewingStand),
-                                  slot);
+                                    worker.getInventoryCitizen(),
+                                    potion,
+                                    toTransfer,
+                                    new InvWrapper(brewingStand),
+                                    slot);
                             }
                         }
                     }
@@ -966,8 +969,8 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
                 final Predicate<ItemStack> ingredient = stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(ingredientStack, stack);
                 final int ingredientInBrewingStand = getExtendedCount(ingredientStack);
                 final int targetCount =
-                  currentRequest.getRequest().getCount() * currentRecipeStorage.getPrimaryOutput().getCount() - ingredientInBrewingStand * 3 - resultInBrewingStand
-                    - resultInCitizenInv;
+                    currentRequest.getRequest().getCount() * currentRecipeStorage.getPrimaryOutput().getCount() - ingredientInBrewingStand * 3 - resultInBrewingStand
+                        - resultInCitizenInv;
                 if (targetCount <= 0)
                 {
                     return START_WORKING;
@@ -996,11 +999,11 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
                             }
                             CitizenItemUtils.hitBlockWithToolInHand(worker, walkTo);
                             InventoryUtils.transferXInItemHandlerIntoSlotInItemHandler(
-                              worker.getInventoryCitizen(),
-                              ingredient,
-                              toTransfer,
-                              new InvWrapper(brewingStand),
-                              INGREDIENT_SLOT);
+                                worker.getInventoryCitizen(),
+                                ingredient,
+                                toTransfer,
+                                new InvWrapper(brewingStand),
+                                INGREDIENT_SLOT);
                         }
                     }
                 }

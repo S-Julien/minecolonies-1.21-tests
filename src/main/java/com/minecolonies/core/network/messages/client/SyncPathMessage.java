@@ -31,10 +31,10 @@ public class SyncPathMessage implements IMessage
     /**
      * Set of chosen nodes for the path.
      */
-    public Set<MNode> lastDebugNodesPath = new HashSet<>();
+    public Set<MNode> lastDebugNodesPath     = new HashSet<>();
     public Set<MNode> debugNodesVisitedLater = new HashSet<>();
-    public Set<MNode> debugNodesOrgPath = new HashSet<>();
-    public Set<MNode> debugNodesExtra = new HashSet<>();
+    public Set<MNode> debugNodesOrgPath      = new HashSet<>();
+    public Set<MNode> debugNodesExtra        = new HashSet<>();
 
     /**
      * Default constructor.
@@ -48,12 +48,12 @@ public class SyncPathMessage implements IMessage
      * Create a new path message with the filled pathpoints.
      */
     public SyncPathMessage(
-      final Set<MNode> lastDebugNodesVisited,
-      final Set<MNode> lastDebugNodesNotVisited,
-      final Set<MNode> lastDebugNodesPath,
-      final Set<MNode> debugNodesVisitedLater,
-      final Set<MNode> debugNodesOrgPath,
-      final Set<MNode> debugNodesExtra)
+        final Set<MNode> lastDebugNodesVisited,
+        final Set<MNode> lastDebugNodesNotVisited,
+        final Set<MNode> lastDebugNodesPath,
+        final Set<MNode> debugNodesVisitedLater,
+        final Set<MNode> debugNodesOrgPath,
+        final Set<MNode> debugNodesExtra)
     {
         super();
         this.lastDebugNodesVisited = lastDebugNodesVisited;

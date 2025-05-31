@@ -79,22 +79,22 @@ public final class ColonyView implements IColonyView
 
     //  General Attributes
     private final int                            id;
-    private final Map<Integer, IWorkOrderView>   workOrders  = new HashMap<>();
+    private final Map<Integer, IWorkOrderView>   workOrders          = new HashMap<>();
     private final Map<Integer, BlockPos>         workOrderClaimCache = new HashMap<>();
-    private int                                  workOrderCachedCount;
+    private       int                            workOrderCachedCount;
     //  Administration/permissions
     @NotNull
-    private final PermissionsView                permissions = new PermissionsView();
+    private final PermissionsView                permissions         = new PermissionsView();
     @NotNull
-    private final Map<BlockPos, IBuildingView>   buildings = new HashMap<>();
+    private final Map<BlockPos, IBuildingView>   buildings           = new HashMap<>();
     @NotNull
-    private final Set<IBuildingExtension>        fields    = new HashSet<>();
+    private final Set<IBuildingExtension>        fields              = new HashSet<>();
     //  Citizenry
     @NotNull
-    private final Map<Integer, ICitizenDataView> citizens  = new HashMap<>();
-    private       Map<Integer, IVisitorViewData> visitors    = new HashMap<>();
-    private       String                         name        = "Unknown";
-    private       ResourceKey<Level>                            dimensionId;
+    private final Map<Integer, ICitizenDataView> citizens            = new HashMap<>();
+    private       Map<Integer, IVisitorViewData> visitors            = new HashMap<>();
+    private       String                         name                = "Unknown";
+    private       ResourceKey<Level>             dimensionId;
 
     /**
      * Colony team color.
@@ -104,9 +104,9 @@ public final class ColonyView implements IColonyView
     /**
      * The colony flag (set to plain white as default)
      */
-    private ListTag        colonyFlag      = new BannerPattern.Builder()
-                                               .addPattern(BannerPatterns.BASE, DyeColor.WHITE)
-                                               .toListTag();
+    private ListTag colonyFlag = new BannerPattern.Builder()
+        .addPattern(BannerPatterns.BASE, DyeColor.WHITE)
+        .toListTag();
 
     private BlockPos center = BlockPos.ZERO;
 
@@ -848,9 +848,9 @@ public final class ColonyView implements IColonyView
 
         this.style = buf.readUtf(32767);
         if (isNewSubscription
-              && StructurePacks.hasPack(this.style)
-              && RenderingCache.getOrCreateBlueprintPreviewData("blueprint").getBlueprint() == null
-              && this.isCoordInColony(world, Minecraft.getInstance().player.blockPosition())
+            && StructurePacks.hasPack(this.style)
+            && RenderingCache.getOrCreateBlueprintPreviewData("blueprint").getBlueprint() == null
+            && this.isCoordInColony(world, Minecraft.getInstance().player.blockPosition())
         )
         {
             StructurePacks.selectedPack = StructurePacks.getStructurePack(this.style);
@@ -866,20 +866,20 @@ public final class ColonyView implements IColonyView
         for (int i = 0; i < noOfAllies; i++)
         {
             allies.add(new CompactColonyReference(buf.readUtf(32767),
-              buf.readBlockPos(),
-              buf.readInt(),
-              buf.readBoolean(),
-              ResourceKey.create(Registries.DIMENSION, new ResourceLocation(buf.readUtf(32767)))));
+                buf.readBlockPos(),
+                buf.readInt(),
+                buf.readBoolean(),
+                ResourceKey.create(Registries.DIMENSION, new ResourceLocation(buf.readUtf(32767)))));
         }
 
         final int noOfFeuds = buf.readInt();
         for (int i = 0; i < noOfFeuds; i++)
         {
             feuds.add(new CompactColonyReference(buf.readUtf(32767),
-              buf.readBlockPos(),
-              buf.readInt(),
-              false,
-              ResourceKey.create(Registries.DIMENSION, new ResourceLocation(buf.readUtf(32767)))));
+                buf.readBlockPos(),
+                buf.readInt(),
+                false,
+                ResourceKey.create(Registries.DIMENSION, new ResourceLocation(buf.readUtf(32767)))));
         }
 
         final int ticketChunkCount = buf.readInt();
@@ -1094,16 +1094,16 @@ public final class ColonyView implements IColonyView
     public @NotNull List<IBuildingExtension> getBuildingExtensions(final Predicate<IBuildingExtension> matcher)
     {
         return fields.stream()
-                 .filter(matcher)
-                 .toList();
+            .filter(matcher)
+            .toList();
     }
 
     @Override
     public @Nullable IBuildingExtension getBuildingExtension(final Predicate<IBuildingExtension> matcher)
     {
         return getBuildingExtensions(matcher).stream()
-                 .findFirst()
-                 .orElse(null);
+            .findFirst()
+            .orElse(null);
     }
 
     /**
@@ -1168,7 +1168,7 @@ public final class ColonyView implements IColonyView
      * @return the ListNBT of flag (banner) patterns
      */
     @Override
-    public ListTag getColonyFlag() { return colonyFlag; }
+    public ListTag getColonyFlag() {return colonyFlag;}
 
     /**
      * Sets the name of the view.

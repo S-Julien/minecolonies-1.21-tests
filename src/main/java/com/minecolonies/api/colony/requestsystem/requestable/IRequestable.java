@@ -11,6 +11,7 @@ public interface IRequestable
 {
     /**
      * Get the super classes associated to this request type.
+     *
      * @return the type.
      */
     Set<TypeToken<?>> getSuperClasses();

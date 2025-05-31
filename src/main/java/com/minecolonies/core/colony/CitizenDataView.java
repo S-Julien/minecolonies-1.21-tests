@@ -70,13 +70,13 @@ public class CitizenDataView implements ICitizenDataView
     /**
      * Attributes.
      */
-    private final int     id;
+    private final int         id;
     private final IColonyView colonyView;
-    protected     int     entityId;
-    protected     String  name;
-    protected     boolean female;
-    protected     boolean paused;
-    protected     boolean isChild;
+    protected     int         entityId;
+    protected     String      name;
+    protected     boolean     female;
+    protected     boolean     paused;
+    protected     boolean     isChild;
 
     private IJobView jobView;
 
@@ -143,7 +143,8 @@ public class CitizenDataView implements ICitizenDataView
     /**
      * The current location of interest.
      */
-    @Nullable private BlockPos statusPosition;
+    @Nullable
+    private BlockPos statusPosition;
 
     /**
      * Parents of the citizen.
@@ -372,7 +373,7 @@ public class CitizenDataView implements ICitizenDataView
         {
             final CompoundTag compoundNBT = buf.readNbt();
             final ServerCitizenInteraction handler =
-              (ServerCitizenInteraction) MinecoloniesAPIProxy.getInstance().getInteractionResponseHandlerDataManager().createFrom(this, compoundNBT);
+                (ServerCitizenInteraction) MinecoloniesAPIProxy.getInstance().getInteractionResponseHandlerDataManager().createFrom(this, compoundNBT);
             citizenChatOptions.put(handler.getInquiry(), handler);
         }
 

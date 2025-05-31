@@ -169,8 +169,8 @@ public class CitizenManager implements ICitizenManager
         citizens.clear();
         //  Citizens before Buildings, because Buildings track the Citizens
         citizens.putAll(NBTUtils.streamCompound(compound.getList(TAG_CITIZENS, Tag.TAG_COMPOUND))
-                          .map(this::deserializeCitizen)
-                          .collect(Collectors.toMap(ICitizenData::getId, Function.identity())));
+            .map(this::deserializeCitizen)
+            .collect(Collectors.toMap(ICitizenData::getId, Function.identity())));
 
         // Update child state after loading citizen data
         colony.updateHasChilds();
@@ -198,8 +198,8 @@ public class CitizenManager implements ICitizenManager
 
     @Override
     public void sendPackets(
-      @NotNull final Set<ServerPlayer> closeSubscribers,
-      @NotNull final Set<ServerPlayer> newSubscribers)
+        @NotNull final Set<ServerPlayer> closeSubscribers,
+        @NotNull final Set<ServerPlayer> newSubscribers)
     {
         if (isCitizensDirty || !newSubscribers.isEmpty())
         {
@@ -261,10 +261,10 @@ public class CitizenManager implements ICitizenManager
 
     @NotNull
     private ICitizenData spawnCitizenOnPosition(
-      @Nullable final ICitizenData data,
-      @NotNull final Level world,
-      final boolean force,
-      final BlockPos spawnPoint)
+        @Nullable final ICitizenData data,
+        @NotNull final Level world,
+        final boolean force,
+        final BlockPos spawnPoint)
     {
         ICitizenData citizenData = data;
         if (citizenData == null)
@@ -353,7 +353,7 @@ public class CitizenManager implements ICitizenManager
             }
         }
 
-        if(resetId)
+        if (resetId)
         {
             compoundNBT.putInt(TAG_ID, topCitizenId);
         }
@@ -600,7 +600,8 @@ public class CitizenManager implements ICitizenManager
                 final ICitizenData newCitizen = createAndRegisterCivilianData();
                 if (firstCitizen)
                 {
-                    colony.getQuestManager().injectAvailableQuest(new QuestInstance(new ResourceLocation(MOD_ID, "tutorial/welcome"), colony, List.of(new CitizenTriggerReturnData(newCitizen))));
+                    colony.getQuestManager()
+                        .injectAvailableQuest(new QuestInstance(new ResourceLocation(MOD_ID, "tutorial/welcome"), colony, List.of(new CitizenTriggerReturnData(newCitizen))));
                 }
 
                 // For first citizen, give a random chance of male or female.
@@ -623,7 +624,7 @@ public class CitizenManager implements ICitizenManager
 
                 IMinecoloniesAPI.getInstance().getEventBus().post(new CitizenAddedModEvent(newCitizen, CitizenAddedModEvent.CitizenAddedSource.INITIAL));
                 colony.getEventDescriptionManager().addEventDescription(new CitizenSpawnedEvent(colony.getBuildingManager().getTownHall().getPosition(),
-                      newCitizen.getName()));
+                    newCitizen.getName()));
             }
         }
     }
@@ -704,7 +705,7 @@ public class CitizenManager implements ICitizenManager
     {
         calculateMaxCitizens();
 
-        for(final ICitizenData data: citizens.values())
+        for (final ICitizenData data : citizens.values())
         {
             data.onBuildingLoad();
         }

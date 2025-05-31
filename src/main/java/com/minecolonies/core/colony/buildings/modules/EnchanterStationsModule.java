@@ -40,8 +40,8 @@ public class EnchanterStationsModule extends AbstractBuildingModule implements I
     {
         buildingToGatherFrom.clear();
         NBTUtils.streamCompound(compound.getList(TAG_GATHER_LIST, Tag.TAG_COMPOUND))
-          .map(this::deserializeListElement)
-          .forEach(t -> buildingToGatherFrom.put(t.getA(), t.getB()));
+            .map(this::deserializeListElement)
+            .forEach(t -> buildingToGatherFrom.put(t.getA(), t.getB()));
     }
 
     @Override
@@ -75,6 +75,7 @@ public class EnchanterStationsModule extends AbstractBuildingModule implements I
 
     /**
      * Serialize the element.
+     *
      * @param entry the entry to serialize.
      * @return the resulting compound.
      */

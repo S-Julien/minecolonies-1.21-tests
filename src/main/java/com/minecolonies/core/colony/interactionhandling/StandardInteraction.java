@@ -26,10 +26,10 @@ public class StandardInteraction extends ServerCitizenInteraction
 
     @SuppressWarnings("unchecked")
     private static final Tuple<Component, Component>[] tuples = (Tuple<Component, Component>[]) new Tuple[] {
-      new Tuple<>(Component.translatable(INTERACTION_R_OKAY), null),
-      new Tuple<>(Component.translatable(INTERACTION_R_IGNORE), null),
-      new Tuple<>(Component.translatable(INTERACTION_R_REMIND), null),
-      new Tuple<>(Component.translatable(INTERACTION_R_SKIP), null)};
+        new Tuple<>(Component.translatable(INTERACTION_R_OKAY), null),
+        new Tuple<>(Component.translatable(INTERACTION_R_IGNORE), null),
+        new Tuple<>(Component.translatable(INTERACTION_R_REMIND), null),
+        new Tuple<>(Component.translatable(INTERACTION_R_SKIP), null)};
 
     /**
      * The server interaction response handler with custom validator.
@@ -39,9 +39,9 @@ public class StandardInteraction extends ServerCitizenInteraction
      * @param priority  the interaction priority.
      */
     public StandardInteraction(
-      final Component inquiry,
-      final Component validator,
-      final IChatPriority priority)
+        final Component inquiry,
+        final Component validator,
+        final IChatPriority priority)
     {
         super(inquiry, true, priority, InteractionValidatorRegistry.getStandardInteractionValidatorPredicate(validator), validator, tuples);
     }
@@ -53,8 +53,8 @@ public class StandardInteraction extends ServerCitizenInteraction
      * @param priority the interaction priority.
      */
     public StandardInteraction(
-      final Component inquiry,
-      final IChatPriority priority)
+        final Component inquiry,
+        final IChatPriority priority)
     {
         super(inquiry, true, priority, InteractionValidatorRegistry.getStandardInteractionValidatorPredicate(inquiry), inquiry, tuples);
     }

@@ -294,9 +294,9 @@ public class PathingStuckHandler<NAV extends PathNavigation & IMinecoloniesNavig
         if (canTeleportGoal && desired != null && desired != BlockPos.ZERO)
         {
             final BlockPos tpPos = BlockPosUtil.findAround(world, desired, 10, 10,
-              (posworld, pos) -> SurfaceType.getSurfaceType(posworld, posworld.getBlockState(pos.below()), pos.below()) == SurfaceType.WALKABLE
-                                   && SurfaceType.getSurfaceType(posworld, posworld.getBlockState(pos), pos) == SurfaceType.DROPABLE
-                                   && SurfaceType.getSurfaceType(posworld, posworld.getBlockState(pos.above()), pos.above()) == SurfaceType.DROPABLE);
+                (posworld, pos) -> SurfaceType.getSurfaceType(posworld, posworld.getBlockState(pos.below()), pos.below()) == SurfaceType.WALKABLE
+                    && SurfaceType.getSurfaceType(posworld, posworld.getBlockState(pos), pos) == SurfaceType.DROPABLE
+                    && SurfaceType.getSurfaceType(posworld, posworld.getBlockState(pos.above()), pos.above()) == SurfaceType.DROPABLE);
             if (tpPos != null)
             {
                 entity.teleportTo(tpPos.getX() + 0.5, tpPos.getY(), tpPos.getZ() + 0.5);
@@ -317,8 +317,8 @@ public class PathingStuckHandler<NAV extends PathNavigation & IMinecoloniesNavig
             for (int i = 1; i <= completeStuckBlockBreakRange; i++)
             {
                 if (!world.isEmptyBlock(BlockPos.containing(entity.position()).relative(facing, i)) || !world.isEmptyBlock(BlockPos.containing(entity.position())
-                  .relative(facing, i)
-                  .above()))
+                    .relative(facing, i)
+                    .above()))
                 {
                     breakBlocksAhead(world, BlockPos.containing(entity.position()).relative(facing, i - 1), facing);
                     break;
@@ -594,7 +594,7 @@ public class PathingStuckHandler<NAV extends PathNavigation & IMinecoloniesNavig
     {
         final BlockState state = world.getBlockState(pos);
         if ((canBreakBlocks || state.canBeReplaced() || state.isAir()) && state.getBlock() != Blocks.LADDER && !(state.getBlock() instanceof IBuilderUndestroyable) && !state.is(
-          ModTags.indestructible))
+            ModTags.indestructible))
         {
             for (final Direction dir : HORIZONTAL_DIRS)
             {

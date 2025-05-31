@@ -19,7 +19,8 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class AbstractBlockMinecoloniesConstructionTape<B extends AbstractBlockMinecoloniesConstructionTape<B>> extends AbstractBlockMinecoloniesFalling<B> implements SimpleWaterloggedBlock
+public abstract class AbstractBlockMinecoloniesConstructionTape<B extends AbstractBlockMinecoloniesConstructionTape<B>> extends AbstractBlockMinecoloniesFalling<B>
+    implements SimpleWaterloggedBlock
 {
     public static final BooleanProperty NORTH       = PipeBlock.NORTH;
     public static final BooleanProperty EAST        = PipeBlock.EAST;
@@ -105,18 +106,18 @@ public abstract class AbstractBlockMinecoloniesConstructionTape<B extends Abstra
 
         // All 16 possible block combinations, in a specific index to be retrieved by getIndex
         VoxelShape[] avoxelshape = new VoxelShape[]
-                                     {
-                                       Shapes.empty(), south, west, cornerse, north,
-                                       Shapes.or(south, north),
-                                       Shapes.or(west, north),
-                                       Shapes.or(cornerse, north), east,
-                                       Shapes.or(south, east),
-                                       Shapes.or(west, east),
-                                       Shapes.or(cornerse, east), cornernw,
-                                       Shapes.or(south, cornernw),
-                                       Shapes.or(west, cornernw),
-                                       Shapes.or(cornerse, cornernw)
-                                     };
+            {
+                Shapes.empty(), south, west, cornerse, north,
+                Shapes.or(south, north),
+                Shapes.or(west, north),
+                Shapes.or(cornerse, north), east,
+                Shapes.or(south, east),
+                Shapes.or(west, east),
+                Shapes.or(cornerse, east), cornernw,
+                Shapes.or(south, cornernw),
+                Shapes.or(west, cornernw),
+                Shapes.or(cornerse, cornernw)
+            };
 
         // Combine the arm voxel shapes with the main node for all combinations
         for (int i = 0; i < 16; ++i)

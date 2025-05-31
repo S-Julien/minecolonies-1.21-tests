@@ -15,7 +15,7 @@ public class CommandTree
     /**
      * List of child trees, commands are directly baked into rootNode
      */
-    private final List<CommandTree>                     childNodes;
+    private final List<CommandTree>                          childNodes;
 
     /**
      * Creates new command tree.

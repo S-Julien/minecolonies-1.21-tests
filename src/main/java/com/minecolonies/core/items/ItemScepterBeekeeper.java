@@ -38,7 +38,7 @@ import static com.minecolonies.api.util.constant.translation.ToolTranslationCons
  */
 public class ItemScepterBeekeeper extends AbstractItemMinecolonies implements IBlockOverlayItem
 {
-    private static final int RED_OVERLAY = 0xFFFF0000;
+    private static final int RED_OVERLAY    = 0xFFFF0000;
     private static final int YELLOW_OVERLAY = 0xFFFFFF00;
 
     /**

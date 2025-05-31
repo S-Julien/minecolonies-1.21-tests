@@ -57,7 +57,7 @@ public class CommandCanRaiderSpawn implements IMCOPCommand
     public LiteralArgumentBuilder<CommandSourceStack> build()
     {
         return IMCCommand.newLiteral(getName())
-                 .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1))
-                         .then(IMCCommand.newArgument(CANSPAWN_ARG, BoolArgumentType.bool()).executes(this::checkPreConditionAndExecute)));
+            .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1))
+                .then(IMCCommand.newArgument(CANSPAWN_ARG, BoolArgumentType.bool()).executes(this::checkPreConditionAndExecute)));
     }
 }

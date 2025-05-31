@@ -27,17 +27,18 @@ public class Food implements IDeliverable
     /**
      * Set of type tokens belonging to this class.
      */
-    private final static Set<TypeToken<?>> TYPE_TOKENS = ReflectionUtils.getSuperClasses(TypeToken.of(Food.class)).stream().filter(type -> !type.equals(TypeConstants.OBJECT)).collect(Collectors.toSet());
+    private final static Set<TypeToken<?>> TYPE_TOKENS =
+        ReflectionUtils.getSuperClasses(TypeToken.of(Food.class)).stream().filter(type -> !type.equals(TypeConstants.OBJECT)).collect(Collectors.toSet());
 
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
-    private static final String NBT_COUNT  = "Count";
-    private static final String NBT_RESULT = "Result";
-    private static final String NBT_EXCLUSION = "Exclusion";
-    private static final String NBT_MIN_NUTRITION  = "MinNutrition";
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
+    private static final String NBT_COUNT         = "Count";
+    private static final String NBT_RESULT        = "Result";
+    private static final String NBT_EXCLUSION     = "Exclusion";
+    private static final String NBT_MIN_NUTRITION = "MinNutrition";
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
 
-    private final int count;
-    private final int minNutrition;
+    private final        int    count;
+    private final        int    minNutrition;
 
     private final List<ItemStorage> exclusionList = new ArrayList<>();
 
@@ -181,9 +182,9 @@ public class Food implements IDeliverable
     public boolean matches(@NotNull final ItemStack stack)
     {
         return ItemStackUtils.ISFOOD.test(stack)
-                 && !exclusionList.contains(new ItemStorage(stack))
-                 && !(ItemStackUtils.ISCOOKABLE.test(stack) && exclusionList.contains(new ItemStorage(MinecoloniesAPIProxy.getInstance().getFurnaceRecipes().getSmeltingResult(stack))))
-                 && (ItemStackUtils.ISCOOKABLE.test(stack) || stack.getItem().getFoodProperties(stack, null).getNutrition() >= minNutrition);
+            && !exclusionList.contains(new ItemStorage(stack))
+            && !(ItemStackUtils.ISCOOKABLE.test(stack) && exclusionList.contains(new ItemStorage(MinecoloniesAPIProxy.getInstance().getFurnaceRecipes().getSmeltingResult(stack))))
+            && (ItemStackUtils.ISCOOKABLE.test(stack) || stack.getItem().getFoodProperties(stack, null).getNutrition() >= minNutrition);
     }
 
     @Override

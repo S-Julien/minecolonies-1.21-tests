@@ -47,9 +47,9 @@ public class FarmFieldRegistrationMessage extends AbstractColonyServerMessage
         }
 
         final Optional<IBuildingExtension> field = colony.getBuildingManager()
-                                         .getBuildingExtensions(f -> f.getBuildingExtensionType().equals(BuildingExtensionRegistries.farmField.get()) && f.getPosition().equals(position))
-                                         .stream()
-                                         .findFirst();
+            .getBuildingExtensions(f -> f.getBuildingExtensionType().equals(BuildingExtensionRegistries.farmField.get()) && f.getPosition().equals(position))
+            .stream()
+            .findFirst();
 
         if (field.isEmpty())
         {

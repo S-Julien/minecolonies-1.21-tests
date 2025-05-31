@@ -23,7 +23,7 @@ public class BuildingResearchRequirement implements IResearchRequirement
      * The NBT tag for an individual building's required level.
      */
     private static final String TAG_BUILDING_LVL = "building-lvl";
-    
+
     /**
      * The property name for the building.
      */

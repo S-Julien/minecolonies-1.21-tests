@@ -500,16 +500,16 @@ public final class WindowConstants
     public static final String RESOURCE_ICON             = "resourceIcon";
     public static final String STAR_IMAGE                = "star";
 
-    public static final String STOCK_ADD                 = "addStock";
-    public static final String STOCK_REMOVE              = "removeStock";
-    public static final String QUANTITY_LABEL            = "resourceQty";
-    public static final String IN_DELIVERY_ICON          = "indeliveryicon";
-    public static final String IN_DELIVERY_AMOUNT        = "indeliveryamount";
-    public static final String IN_WAREHOUSE_ICON         = "inWarehouseIcon";
-    public static final String IN_WAREHOUSE_AMOUNT       = "inWarehouseAmount";
-    public static final String WORK_ORDER_NAME           = "buildingName";
-    public static final String WORK_ORDER_POS            = "buildingPos";
-    public static final String WORK_ORDER_SELECT         = "manage";
+    public static final String STOCK_ADD           = "addStock";
+    public static final String STOCK_REMOVE        = "removeStock";
+    public static final String QUANTITY_LABEL      = "resourceQty";
+    public static final String IN_DELIVERY_ICON    = "indeliveryicon";
+    public static final String IN_DELIVERY_AMOUNT  = "indeliveryamount";
+    public static final String IN_WAREHOUSE_ICON   = "inWarehouseIcon";
+    public static final String IN_WAREHOUSE_AMOUNT = "inWarehouseAmount";
+    public static final String WORK_ORDER_NAME     = "buildingName";
+    public static final String WORK_ORDER_POS      = "buildingPos";
+    public static final String WORK_ORDER_SELECT   = "manage";
 
     public static final String GUIDE_RESOURCE_SUFFIX = ":gui/windowhutguide.xml";
     public static final String GUIDE_CONFIRM         = "confirm";
@@ -600,7 +600,7 @@ public final class WindowConstants
     public static final String UNHAPPY_ICON     = "minecolonies:textures/gui/unhappy_icon.png";
     public static final String UNSATISFIED_ICON = "minecolonies:textures/gui/unsatisfied_icon.png";
     public static final String HAPPY_ICON       = "minecolonies:textures/gui/happy_icon.png";
-    public static final String SATISFIED_ICON = "minecolonies:textures/gui/satisfied_icon.png";
+    public static final String SATISFIED_ICON   = "minecolonies:textures/gui/satisfied_icon.png";
 
     public static final String LABEL_CONSTRUCTION_NAME = "constructionName";
     public static final String LABEL_PROGRESS          = "progress";
@@ -976,7 +976,6 @@ public final class WindowConstants
      */
     public static final String BUTTON_DONE = "done";
 
-
     /**
      * Id of the hire button.
      */
@@ -1143,8 +1142,8 @@ public final class WindowConstants
     public static final int    SLIGHTLY_BLUE           = 100;
     public static final int    BUTTON_HEIGHT           = 17;
     public static final int    BUTTON_LENGTH           = 129;
-    public static final int    BUTTON_Y_BUFFER           = 3;
-    public static final int    BUTTON_X_BUFFER           = 10;
+    public static final int    BUTTON_Y_BUFFER         = 3;
+    public static final int    BUTTON_X_BUFFER         = 10;
     public static final String RESPONSE_BOX_ID         = "responseOptions";
     public static final String MEDIUM_SIZED_BUTTON_RES = "textures/gui/builderhut/builder_button_medium_large.png";
     public static final String MEDIUM_SIZED_BUTTON_DIS = "textures/gui/builderhut/builder_button_medium_large_disabled.png";

@@ -67,10 +67,10 @@ public final class SoundUtils
      * A much less chaotic scale (D major pentatonic) for random pitches
      */
     public static final Note[] PENTATONIC = {
-      // First Octave
-      Note.A, Note.B, Note.D, Note.E, Note.F_SHARP,
-      // Second Octave
-      Note.A, Note.B, Note.D
+        // First Octave
+        Note.A, Note.B, Note.D, Note.E, Note.F_SHARP,
+        // Second Octave
+        Note.A, Note.B, Note.D
     };
 
     /**
@@ -163,7 +163,7 @@ public final class SoundUtils
         }
         else
         {
-            playSoundAtCitizenWith(worldIn, pos, EventType.NOISE, citizen, EventType.NOISE.getChance(), VOLUME/2);
+            playSoundAtCitizenWith(worldIn, pos, EventType.NOISE, citizen, EventType.NOISE.getChance(), VOLUME / 2);
         }
     }
 
@@ -177,16 +177,17 @@ public final class SoundUtils
     public static void playSoundAtCitizen(@NotNull final Level worldIn, @NotNull final BlockPos position, @NotNull final SoundEvent event)
     {
         worldIn.playSound(null,
-          position,
-          event,
-          SoundSource.NEUTRAL,
-          (float) VOLUME,
-          (float) PITCH);
+            position,
+            event,
+            SoundSource.NEUTRAL,
+            (float) VOLUME,
+            (float) PITCH);
     }
 
     /**
      * Play a success sound.
-     * @param player the player to play it for.
+     *
+     * @param player   the player to play it for.
      * @param position the position it is played at.
      */
     public static void playSuccessSound(@NotNull final Player player, @NotNull final BlockPos position)
@@ -194,13 +195,13 @@ public final class SoundUtils
         if (player instanceof ServerPlayer)
         {
             ((ServerPlayer) player).connection.send(new ClientboundSoundPacket(SoundEvents.NOTE_BLOCK_BELL,
-              SoundSource.NEUTRAL,
-              position.getX(),
-              position.getY(),
-              position.getZ(),
-              (float) VOLUME * 2,
-              (float) 1.0,
-              player.level().random.nextLong()));
+                SoundSource.NEUTRAL,
+                position.getX(),
+                position.getY(),
+                position.getZ(),
+                (float) VOLUME * 2,
+                (float) 1.0,
+                player.level().random.nextLong()));
         }
         else
         {
@@ -210,7 +211,8 @@ public final class SoundUtils
 
     /**
      * Play an error sound.
-     * @param player the player to play it for.
+     *
+     * @param player   the player to play it for.
      * @param position the position it is played at.
      */
     public static void playErrorSound(@NotNull final Player player, @NotNull final BlockPos position)
@@ -218,13 +220,13 @@ public final class SoundUtils
         if (player instanceof ServerPlayer)
         {
             ((ServerPlayer) player).connection.send(new ClientboundSoundPacket(SoundEvents.NOTE_BLOCK_DIDGERIDOO,
-              SoundSource.NEUTRAL,
-              position.getX(),
-              position.getY(),
-              position.getZ(),
-              (float) VOLUME * 2,
-              (float) 0.3,
-              player.level().random.nextLong()));
+                SoundSource.NEUTRAL,
+                position.getX(),
+                position.getY(),
+                position.getZ(),
+                (float) VOLUME * 2,
+                (float) 0.3,
+                player.level().random.nextLong()));
         }
         else
         {
@@ -241,10 +243,10 @@ public final class SoundUtils
      * @param citizenData the citizen.
      */
     public static void playSoundAtCitizenWith(
-      @NotNull final Level worldIn,
-      @NotNull final BlockPos position,
-      @Nullable final EventType type,
-      @Nullable final ICivilianData citizenData)
+        @NotNull final Level worldIn,
+        @NotNull final BlockPos position,
+        @Nullable final EventType type,
+        @Nullable final ICivilianData citizenData)
     {
         playSoundAtCitizenWith(worldIn, position, type, citizenData, type.getChance());
     }
@@ -258,10 +260,10 @@ public final class SoundUtils
      * @param citizenData the citizen.
      */
     public static void playSoundAtCitizenWith(
-      @NotNull final Level worldIn,
-      @NotNull final BlockPos position,
-      @Nullable final EventType type,
-      @Nullable final ICivilianData citizenData, final double chance, final double volume)
+        @NotNull final Level worldIn,
+        @NotNull final BlockPos position,
+        @Nullable final EventType type,
+        @Nullable final ICivilianData citizenData, final double chance, final double volume)
     {
         if (citizenData == null)
         {
@@ -288,21 +290,23 @@ public final class SoundUtils
             jobDesc = "unemployed";
         }
 
-        final SoundEvent event = citizenData.isFemale() ? CITIZEN_SOUND_EVENTS.get(jobDesc).get(type).get(citizenData.getVoiceProfile()).getB() : CITIZEN_SOUND_EVENTS.get(jobDesc).get(type).get(citizenData.getVoiceProfile()).getA();
+        final SoundEvent event = citizenData.isFemale()
+            ? CITIZEN_SOUND_EVENTS.get(jobDesc).get(type).get(citizenData.getVoiceProfile()).getB()
+            : CITIZEN_SOUND_EVENTS.get(jobDesc).get(type).get(citizenData.getVoiceProfile()).getA();
         if (chance > rand.nextDouble() * ONE_HUNDRED)
         {
             if (worldIn.isClientSide || !citizenData.getEntity().isPresent())
             {
                 worldIn.playSound(null,
-                  position,
-                  event,
-                  SoundSource.NEUTRAL,
-                  (float) volume,
-                  PITCH);
+                    position,
+                    event,
+                    SoundSource.NEUTRAL,
+                    (float) volume,
+                    PITCH);
             }
             else
             {
-              citizenData.getEntity().get().queueSound(event, position, 60, 0, (float) volume, PITCH);
+                citizenData.getEntity().get().queueSound(event, position, 60, 0, (float) volume, PITCH);
             }
         }
     }
@@ -316,10 +320,10 @@ public final class SoundUtils
      * @param citizenData the citizen.
      */
     public static void playSoundAtCitizenWith(
-      @NotNull final Level worldIn,
-      @NotNull final BlockPos position,
-      @Nullable final EventType type,
-      @Nullable final ICivilianData citizenData, final double chance)
+        @NotNull final Level worldIn,
+        @NotNull final BlockPos position,
+        @Nullable final EventType type,
+        @Nullable final ICivilianData citizenData, final double chance)
     {
         playSoundAtCitizenWith(worldIn, position, type, citizenData, chance, VOLUME);
     }
@@ -345,7 +349,7 @@ public final class SoundUtils
     {
         int index = random.nextInt(PENTATONIC.length);
         int tone = PENTATONIC[index].ordinal() + Math.floorDiv(index, 5) * 12;
-        return Math.pow(2.0D, (double)(tone - 12) / 12.0D);
+        return Math.pow(2.0D, (double) (tone - 12) / 12.0D);
     }
 
     /**
@@ -354,12 +358,12 @@ public final class SoundUtils
     public static void playSoundForPlayer(final ServerPlayer playerEntity, final SoundEvent sound, float volume, final float pitch)
     {
         playerEntity.connection.send(new ClientboundSoundPacket(Holder.direct(sound),
-          playerEntity.getSoundSource(),
-          playerEntity.getX(),
-          playerEntity.getY(),
-          playerEntity.getZ(),
-          16.0F * volume,
-          pitch,
-          playerEntity.level().random.nextLong()));
+            playerEntity.getSoundSource(),
+            playerEntity.getX(),
+            playerEntity.getY(),
+            playerEntity.getZ(),
+            16.0F * volume,
+            pitch,
+            playerEntity.level().random.nextLong()));
     }
 }

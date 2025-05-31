@@ -30,23 +30,23 @@ public class DefaultItemModelProvider extends ItemModelProvider
         final ResourceLocation disabledGoggles = modLoc("build_goggles_disabled");
         basicItem(disabledGoggles);
         basicItem(ModItems.buildGoggles)
-                .override()
-                    .predicate(new ResourceLocation("disabled"), 1.0F)
-                    .model(getExistingFile(disabledGoggles))
-                .end();
+            .override()
+            .predicate(new ResourceLocation("disabled"), 1.0F)
+            .model(getExistingFile(disabledGoggles))
+            .end();
 
         for (final Item foodItem : ModItems.getAllIngredients())
         {
             getBuilder(foodItem.toString())
-              .parent(new ModelFile.UncheckedModelFile("item/generated"))
-              .texture("layer0", new ResourceLocation(MOD_ID, "item/food/" + foodItem.toString()));
+                .parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .texture("layer0", new ResourceLocation(MOD_ID, "item/food/" + foodItem.toString()));
         }
 
         for (final Item foodItem : ModItems.getAllFoods())
         {
             getBuilder(foodItem.toString())
-              .parent(new ModelFile.UncheckedModelFile("item/generated"))
-              .texture("layer0", new ResourceLocation(MOD_ID, "item/food/" + foodItem.toString()));
+                .parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .texture("layer0", new ResourceLocation(MOD_ID, "item/food/" + foodItem.toString()));
         }
     }
 }

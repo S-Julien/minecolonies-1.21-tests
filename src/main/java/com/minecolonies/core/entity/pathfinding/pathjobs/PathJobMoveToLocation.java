@@ -23,7 +23,7 @@ public class PathJobMoveToLocation extends AbstractPathJob implements IDestinati
     // 1^2 + 1^2 + 1^2 + (epsilon of 0.1F)
     private static final float    DESTINATION_SLACK_ADJACENT = (float) Math.sqrt(2f);
     @NotNull
-    protected final BlockPos destination;
+    protected final      BlockPos destination;
     // 0 = exact match
     private              float    destinationSlack           = DESTINATION_SLACK_NONE;
 
@@ -83,8 +83,8 @@ public class PathJobMoveToLocation extends AbstractPathJob implements IDestinati
         if (destinationSlack <= DESTINATION_SLACK_NONE)
         {
             atDest = n.x == destination.getX()
-                       && n.y == destination.getY()
-                       && n.z == destination.getZ();
+                && n.y == destination.getY()
+                && n.z == destination.getZ();
         }
         else if (n.y == destination.getY() - 1)
         {
@@ -98,7 +98,7 @@ public class PathJobMoveToLocation extends AbstractPathJob implements IDestinati
         if (atDest)
         {
             atDest = SurfaceType.getSurfaceType(world, cachedBlockLookup.getBlockState(n.x, n.y - 1, n.z), tempWorldPos.set(n.x, n.y - 1, n.z), getPathingOptions())
-                       == SurfaceType.WALKABLE;
+                == SurfaceType.WALKABLE;
         }
 
         return atDest;

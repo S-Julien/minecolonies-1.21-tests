@@ -60,7 +60,7 @@ public class WindowDecorationController extends AbstractWindowSkeleton
         registerButton(BUTTON_CANCEL, this::cancelClicked);
 
         findPaneOfTypeByID(LABEL_NAME, Text.class).setText(Component.literal(controller.getBlueprintPath()
-                .replace(".blueprint", "").replace("\\", "/").replace("/", "\n")));
+            .replace(".blueprint", "").replace("\\", "/").replace("/", "\n")));
 
         final IColonyView view = IColonyManager.getInstance().getClosestColonyView(world, controller.getBlockPos());
 
@@ -91,7 +91,7 @@ public class WindowDecorationController extends AbstractWindowSkeleton
                 {
                     final String cleanedPackName = this.controller.getPackName().replace(Minecraft.getInstance().player.getUUID().toString(), "");
                     ClientFutureProcessor.queueBlueprint(new ClientFutureProcessor.BlueprintProcessingData(StructurePacks.getBlueprintFuture(cleanedPackName,
-                      StructurePacks.getStructurePack(cleanedPackName).getPath().resolve(this.controller.getBlueprintPath())), (blueprint -> {
+                        StructurePacks.getStructurePack(cleanedPackName).getPath().resolve(this.controller.getBlueprintPath())), (blueprint -> {
                         if (blueprint != null)
                         {
                             final BlockState blockState = blueprint.getBlockState(blueprint.getPrimaryBlockOffset());
@@ -106,17 +106,17 @@ public class WindowDecorationController extends AbstractWindowSkeleton
                     {
                         final String path = this.controller.getBlueprintPath().replace(level + ".blueprint", (level + 1) + ".blueprint");
                         ClientFutureProcessor.queueBlueprint(new ClientFutureProcessor.BlueprintProcessingData(StructurePacks.getBlueprintFuture(cleanedPackName,
-                          StructurePacks.getStructurePack(cleanedPackName).getPath().resolve(path)),
-                          (blueprint -> {
-                              if (blueprint != null)
-                              {
-                                  final BlockState blockState = blueprint.getBlockState(blueprint.getPrimaryBlockOffset());
-                                  if (blockState.getBlock() == ModBlocks.blockDecorationPlaceholder)
-                                  {
-                                      findPaneByID(BUTTON_BUILD).show();
-                                  }
-                              }
-                          })));
+                            StructurePacks.getStructurePack(cleanedPackName).getPath().resolve(path)),
+                            (blueprint -> {
+                                if (blueprint != null)
+                                {
+                                    final BlockState blockState = blueprint.getBlockState(blueprint.getPrimaryBlockOffset());
+                                    if (blockState.getBlock() == ModBlocks.blockDecorationPlaceholder)
+                                    {
+                                        findPaneByID(BUTTON_BUILD).show();
+                                    }
+                                }
+                            })));
                     }
                 }
                 catch (final Exception ex)
@@ -146,18 +146,18 @@ public class WindowDecorationController extends AbstractWindowSkeleton
 
         close();
         new WindowBuildDecoration(controller.getBlockPos(),
-          controller.getPackName(),
-          path,
-          controller.getRotation(),
-          controller.getMirror(),
-          builder -> new DecorationBuildRequestMessage(WorkOrderType.BUILD,
-            controller.getBlockPos(),
             controller.getPackName(),
             path,
-            Minecraft.getInstance().level.dimension(),
             controller.getRotation(),
             controller.getMirror(),
-            builder)).open();
+            builder -> new DecorationBuildRequestMessage(WorkOrderType.BUILD,
+                controller.getBlockPos(),
+                controller.getPackName(),
+                path,
+                Minecraft.getInstance().level.dimension(),
+                controller.getRotation(),
+                controller.getMirror(),
+                builder)).open();
     }
 
     /**
@@ -167,17 +167,17 @@ public class WindowDecorationController extends AbstractWindowSkeleton
     {
         close();
         new WindowBuildDecoration(controller.getBlockPos(),
-          controller.getPackName(),
-          controller.getBlueprintPath(),
-          controller.getRotation(),
-          controller.getMirror(),
-          builder -> new DecorationBuildRequestMessage(WorkOrderType.REPAIR,
-            controller.getBlockPos(),
             controller.getPackName(),
             controller.getBlueprintPath(),
-            Minecraft.getInstance().level.dimension(),
             controller.getRotation(),
             controller.getMirror(),
-            builder)).open();
+            builder -> new DecorationBuildRequestMessage(WorkOrderType.REPAIR,
+                controller.getBlockPos(),
+                controller.getPackName(),
+                controller.getBlueprintPath(),
+                Minecraft.getInstance().level.dimension(),
+                controller.getRotation(),
+                controller.getMirror(),
+                builder)).open();
     }
 }

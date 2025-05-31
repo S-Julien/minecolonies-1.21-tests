@@ -72,6 +72,6 @@ public class CommandReclaimChunks implements IMCOPCommand
     public LiteralArgumentBuilder<CommandSourceStack> build()
     {
         return IMCCommand.newLiteral(getName())
-          .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1)).executes(this::checkPreConditionAndExecute));
+            .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1)).executes(this::checkPreConditionAndExecute));
     }
 }

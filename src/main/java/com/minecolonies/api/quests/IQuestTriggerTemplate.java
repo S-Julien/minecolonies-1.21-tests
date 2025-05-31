@@ -15,6 +15,7 @@ public interface IQuestTriggerTemplate
 {
     /**
      * Check if the quest trigger condition is fulfilled.
+     *
      * @param colony the colony the quest is in.
      * @return true if so.
      */
@@ -22,8 +23,9 @@ public interface IQuestTriggerTemplate
 
     /**
      * Check if the quest trigger condition is fulfilled.
+     *
      * @param questId the quest to try to trigger.
-     * @param colony the colony the quest is in.
+     * @param colony  the colony the quest is in.
      * @return true if so.
      */
     default ITriggerReturnData canTriggerQuest(final ResourceLocation questId, final IColony colony)
@@ -33,7 +35,8 @@ public interface IQuestTriggerTemplate
 
     /**
      * Match a nbt tag and a json element tag.
-     * @param nbtTag the nbt tag to check.
+     *
+     * @param nbtTag   the nbt tag to check.
      * @param matchTag the element tag to check.
      * @return true if the matchTag fits into the nbtTag or if they match.
      */
@@ -44,9 +47,10 @@ public interface IQuestTriggerTemplate
 
     /**
      * Match a nbt tag and a json element tag.
-     * @param nbtTag the nbt tag to check.
+     *
+     * @param nbtTag   the nbt tag to check.
      * @param matchTag the element tag to check.
-     * @param count the number of elements to match in a list.
+     * @param count    the number of elements to match in a list.
      * @return true if the matchTag fits into the nbtTag or if they match.
      */
     static boolean matchNbt(final Tag nbtTag, final JsonElement matchTag, final int count)
@@ -95,7 +99,7 @@ public interface IQuestTriggerTemplate
                 return false;
             }
 
-            for (final JsonElement element: arrayTag)
+            for (final JsonElement element : arrayTag)
             {
                 boolean matched = false;
                 for (final Tag tag : nbtList)

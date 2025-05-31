@@ -28,7 +28,6 @@ public class WindowStatsModule extends AbstractModuleWindow
      * Map of intervals.
      */
     private static final LinkedHashMap<String, Integer> INTERVAL = new LinkedHashMap<>();
-
     static
     {
         INTERVAL.put("com.minecolonies.coremod.gui.interval.yesterday", 1);

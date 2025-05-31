@@ -153,7 +153,8 @@ public class WindowInteraction extends AbstractWindowSkeleton
         if (currentInteraction < interactions.size())
         {
             interactions.get(currentInteraction).onClosed();
-            Network.getNetwork().sendToServer(new InteractionClose(citizen.getColonyId(), citizen.getId(), mc.level.dimension(), interactions.get(currentInteraction).getInquiry()));
+            Network.getNetwork()
+                .sendToServer(new InteractionClose(citizen.getColonyId(), citizen.getId(), mc.level.dimension(), interactions.get(currentInteraction).getInquiry()));
         }
     }
 

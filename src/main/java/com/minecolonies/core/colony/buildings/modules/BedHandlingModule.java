@@ -91,13 +91,12 @@ public class BedHandlingModule extends AbstractBuildingModule implements IModule
             {
                 final BlockState state = world.getBlockState(pos);
                 if (state.getBlock() instanceof BedBlock
-                      && state.getValue(BedBlock.OCCUPIED)
-                      && state.getValue(BedBlock.PART).equals(BedPart.HEAD))
+                    && state.getValue(BedBlock.OCCUPIED)
+                    && state.getValue(BedBlock.PART).equals(BedPart.HEAD))
                 {
                     world.setBlock(pos, state.setValue(BedBlock.OCCUPIED, false), 0x03);
                 }
             }
         }
     }
-
 }

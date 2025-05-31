@@ -20,7 +20,8 @@ public class OpenGuiWindowTrigger extends AbstractCriterionTrigger<OpenGuiWindow
 
     /**
      * Triggers the listener checks if there are any listening in
-     * @param player the player the check regards
+     *
+     * @param player         the player the check regards
      * @param windowResource the window id that was just opened
      */
     public void trigger(final ServerPlayer player, final String windowResource)

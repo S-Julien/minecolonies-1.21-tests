@@ -41,10 +41,10 @@ public class TickingTransition<S extends IState> extends BasicTransition<S> impl
      * @param tickRate  The expected tickrate at which this transition should be checked.
      */
     public TickingTransition(
-      @NotNull final S state,
-      @NotNull final BooleanSupplier condition,
-      @NotNull final Supplier<S> nextState,
-      final int tickRate)
+        @NotNull final S state,
+        @NotNull final BooleanSupplier condition,
+        @NotNull final Supplier<S> nextState,
+        final int tickRate)
     {
         super(state, condition, nextState);
 
@@ -70,9 +70,9 @@ public class TickingTransition<S extends IState> extends BasicTransition<S> impl
      * @param tickRate  The expected tickrate at which this transition should be checked.
      */
     public TickingTransition(
-      @NotNull final BooleanSupplier condition,
-      @NotNull final Supplier<S> nextState,
-      final int tickRate)
+        @NotNull final BooleanSupplier condition,
+        @NotNull final Supplier<S> nextState,
+        final int tickRate)
     {
         super(condition, nextState);
 

@@ -69,7 +69,7 @@ public class StandardToken implements IToken<UUID>
     public String toString()
     {
         return "StandardToken{" +
-                 "id=" + id +
-                 '}';
+            "id=" + id +
+            '}';
     }
 }

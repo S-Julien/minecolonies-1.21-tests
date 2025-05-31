@@ -25,7 +25,7 @@ public class JobResearch extends AbstractJob<EntityAIWorkResearcher, JobResearch
     /**
      * How often the max tickrate per second is executed.
      */
-    private static final int MAX_TICKRATE_PER_SECOND = MAX_TICKRATE/TICKS_SECOND;
+    private static final int MAX_TICKRATE_PER_SECOND = MAX_TICKRATE / TICKS_SECOND;
 
     /**
      * The amount of Mana the researcher stored additionally.
@@ -35,6 +35,7 @@ public class JobResearch extends AbstractJob<EntityAIWorkResearcher, JobResearch
 
     //when the colony was offline and goes into online state, we compare how long the colony was offline, then we take the speed in which they level (level 99 = almost realtime) and fill up mana up to mana level (max 99 = 4h).
     // then with this AI we tick randomly the research additionally (up to twice the rate until currentMana is depleted.
+
     /**
      * Public constructor of the researcher job.
      *
@@ -64,6 +65,7 @@ public class JobResearch extends AbstractJob<EntityAIWorkResearcher, JobResearch
 
     /**
      * Get the current mana filling.
+     *
      * @return the current quantity.
      */
     public int getCurrentMana()

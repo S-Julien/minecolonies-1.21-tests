@@ -268,9 +268,9 @@ public class GraveManager implements IGraveManager
                 if (world.getBlockState(pos.above(i)).getBlock() instanceof AirBlock)
                 {
                     firstValidPosition = BlockPosUtil.findAround(world, pos, 1, 16,
-                      (blockAccess, current) ->
-                        blockAccess.getBlockState(current).isAir() &&
-                          BlockUtils.isAnySolid(blockAccess.getBlockState(current.below())));
+                        (blockAccess, current) ->
+                            blockAccess.getBlockState(current).isAir() &&
+                                BlockUtils.isAnySolid(blockAccess.getBlockState(current.below())));
                     break;
                 }
             }
@@ -283,16 +283,16 @@ public class GraveManager implements IGraveManager
         else
         {
             firstValidPosition = BlockPosUtil.findAround(world, pos, 10, 10,
-              (blockAccess, current) ->
-                blockAccess.getBlockState(current).isAir() &&
-                  BlockUtils.isAnySolid(blockAccess.getBlockState(current.below())));
+                (blockAccess, current) ->
+                    blockAccess.getBlockState(current).isAir() &&
+                        BlockUtils.isAnySolid(blockAccess.getBlockState(current.below())));
         }
 
 
         if (firstValidPosition != null)
         {
             world.setBlockAndUpdate(firstValidPosition,
-              BlockMinecoloniesGrave.getPlacementState(ModBlocks.blockGrave.defaultBlockState(), firstValidPosition));
+                BlockMinecoloniesGrave.getPlacementState(ModBlocks.blockGrave.defaultBlockState(), firstValidPosition));
             final TileEntityGrave graveEntity = (TileEntityGrave) world.getBlockEntity(firstValidPosition);
             if (!InventoryUtils.transferAllItemHandler(citizenData.getInventory(), graveEntity.getInventory()))
             {

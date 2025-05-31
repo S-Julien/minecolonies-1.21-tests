@@ -475,9 +475,9 @@ public abstract class AbstractBuildingView implements IBuildingView
     public <R> ImmutableList<IRequest<? extends R>> getOpenRequestsOfType(@NotNull final ICitizenDataView citizenData, final Class<R> requestType)
     {
         return ImmutableList.copyOf(getOpenRequests(citizenData).stream()
-                                      .filter(request ->  request.getType().isSubtypeOf(requestType))
-                                      .map(request -> (IRequest<? extends R>) request)
-                                      .iterator());
+            .filter(request -> request.getType().isSubtypeOf(requestType))
+            .map(request -> (IRequest<? extends R>) request)
+            .iterator());
     }
 
     @Override
@@ -501,18 +501,18 @@ public abstract class AbstractBuildingView implements IBuildingView
         }
 
         return ImmutableList.copyOf(list
-                                      .stream().filter(Objects::nonNull)
-                                      .map(getColony().getRequestManager()::getRequestForToken)
-                                      .filter(Objects::nonNull).iterator());
+            .stream().filter(Objects::nonNull)
+            .map(getColony().getRequestManager()::getRequestForToken)
+            .filter(Objects::nonNull).iterator());
     }
 
     @Override
     public ImmutableList<IRequest<?>> getOpenRequestsOfBuilding()
     {
         return ImmutableList.copyOf(getOpenRequestsByCitizen().values().stream().flatMap(Collection::stream)
-                                      .filter(Objects::nonNull)
-                                      .map(getColony().getRequestManager()::getRequestForToken)
-                                      .filter(Objects::nonNull).iterator());
+            .filter(Objects::nonNull)
+            .map(getColony().getRequestManager()::getRequestForToken)
+            .filter(Objects::nonNull).iterator());
     }
 
     /**
@@ -529,15 +529,15 @@ public abstract class AbstractBuildingView implements IBuildingView
     @Override
     @SuppressWarnings({GENERIC_WILDCARD, UNCHECKED})
     public <R> ImmutableList<IRequest<? extends R>> getOpenRequestsOfTypeFiltered(
-      @NotNull final ICitizenDataView citizenData,
-      final Class<R> requestType,
-      final Predicate<IRequest<? extends R>> filter)
+        @NotNull final ICitizenDataView citizenData,
+        final Class<R> requestType,
+        final Predicate<IRequest<? extends R>> filter)
     {
         return ImmutableList.copyOf(getOpenRequests(citizenData).stream()
-                                      .filter(request ->  request.getType().isSubtypeOf(requestType))
-                                      .map(request -> (IRequest<? extends R>) request)
-                                      .filter(filter)
-                                      .iterator());
+            .filter(request -> request.getType().isSubtypeOf(requestType))
+            .map(request -> (IRequest<? extends R>) request)
+            .filter(filter)
+            .iterator());
     }
 
     @Override
@@ -680,16 +680,16 @@ public abstract class AbstractBuildingView implements IBuildingView
     public <T extends IBuildingModuleView> List<T> getModuleViews(final Class<T> clazz)
     {
         return this.moduleViews.values().stream()
-                 .filter(clazz::isInstance)
-                 .map(c -> (T) c)
-                 .collect(Collectors.toList());
+            .filter(clazz::isInstance)
+            .map(c -> (T) c)
+            .collect(Collectors.toList());
     }
 
     @Override
     public void registerModule(final IBuildingModuleView iModuleView)
     {
         iModuleView.setBuildingView(this);
-        this.moduleViews.put(iModuleView.getProducer().getRuntimeID(),iModuleView);
+        this.moduleViews.put(iModuleView.getProducer().getRuntimeID(), iModuleView);
     }
 
     @Override

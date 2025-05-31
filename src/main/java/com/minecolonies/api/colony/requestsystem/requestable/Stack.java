@@ -26,20 +26,20 @@ public class Stack implements IConcreteDeliverable
      * Set of type tokens belonging to this class.
      */
     private final static Set<TypeToken<?>>
-      TYPE_TOKENS = ReflectionUtils.getSuperClasses(TypeToken.of(Stack.class)).stream().filter(type -> !type.equals(TypeConstants.OBJECT)).collect(Collectors.toSet());
+        TYPE_TOKENS = ReflectionUtils.getSuperClasses(TypeToken.of(Stack.class)).stream().filter(type -> !type.equals(TypeConstants.OBJECT)).collect(Collectors.toSet());
 
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
-    private static final String NBT_STACK       = "Stack";
-    private static final String NBT_MATCHMETA   = "MatchMeta";
-    private static final String NBT_MATCHNBT    = "MatchNBT";
-    private static final String NBT_BUILDING_RES = "BuildingRes";
-    private static final String NBT_RESULT       = "Result";
-    private static final String NBT_COUNT       = "Count";
-    private static final String NBT_MINCOUNT    = "MinCount";
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
+    private static final String    NBT_STACK        = "Stack";
+    private static final String    NBT_MATCHMETA    = "MatchMeta";
+    private static final String    NBT_MATCHNBT     = "MatchNBT";
+    private static final String    NBT_BUILDING_RES = "BuildingRes";
+    private static final String    NBT_RESULT       = "Result";
+    private static final String    NBT_COUNT        = "Count";
+    private static final String    NBT_MINCOUNT     = "MinCount";
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
 
     @NotNull
-    private final ItemStack theStack;
+    private final        ItemStack theStack;
 
     /**
      * If damage should match.
@@ -82,14 +82,13 @@ public class Stack implements IConcreteDeliverable
     /**
      * Create a Stack deliverable.
      *
-     * @param stack the required stack.
+     * @param stack           the required stack.
      * @param matchDurability whether or not to match Durability
      */
     public Stack(@NotNull final ItemStack stack, boolean matchDurability)
     {
         this(stack, matchDurability, true, ItemStackUtils.EMPTY, Math.min(stack.getCount(), stack.getMaxStackSize()), Math.min(stack.getCount(), stack.getMaxStackSize()));
     }
-
 
     /**
      * Create a Stack deliverable.
@@ -115,8 +114,9 @@ public class Stack implements IConcreteDeliverable
 
     /**
      * Create a Stack deliverable with variable nbt.
-     * @param stack the stack to deliver.
-     * @param count the count.
+     *
+     * @param stack    the stack to deliver.
+     * @param count    the count.
      * @param minCount the min count.
      * @param matchNBT if nbt has to match.
      */
@@ -129,19 +129,19 @@ public class Stack implements IConcreteDeliverable
      * Create a Stack deliverable.
      *
      * @param stack       the required stack.
-     * @param matchDamage   if damage has to be matched.
+     * @param matchDamage if damage has to be matched.
      * @param matchNBT    if NBT has to be matched.
      * @param result      the result stack.
      * @param count       the count.
      * @param minCount    the min count.
      */
     public Stack(
-      @NotNull final ItemStack stack,
-      final boolean matchDamage,
-      final boolean matchNBT,
-      @NotNull final ItemStack result,
-      final int count,
-      final int minCount)
+        @NotNull final ItemStack stack,
+        final boolean matchDamage,
+        final boolean matchNBT,
+        @NotNull final ItemStack result,
+        final int count,
+        final int minCount)
     {
         this(stack, matchDamage, matchNBT, ItemStackUtils.EMPTY, count, minCount, true);
     }
@@ -149,15 +149,22 @@ public class Stack implements IConcreteDeliverable
     /**
      * Create a Stack deliverable.
      *
-     * @param stack       the required stack.
-     * @param matchDamage   if damage has to be matched.
-     * @param matchNBT    if NBT has to be matched.
-     * @param result      the result stack.
-     * @param count       the count.
-     * @param minCount    the min count.
+     * @param stack                   the required stack.
+     * @param matchDamage             if damage has to be matched.
+     * @param matchNBT                if NBT has to be matched.
+     * @param result                  the result stack.
+     * @param count                   the count.
+     * @param minCount                the min count.
      * @param canBeResolvedByBuilding if can be resolved by building.
      */
-    public Stack(final ItemStack stack, final boolean matchDamage, final boolean matchNBT, final ItemStack result, final int count, final int minCount, final boolean canBeResolvedByBuilding)
+    public Stack(
+        final ItemStack stack,
+        final boolean matchDamage,
+        final boolean matchNBT,
+        final ItemStack result,
+        final int count,
+        final int minCount,
+        final boolean canBeResolvedByBuilding)
     {
         if (ItemStackUtils.isEmpty(stack))
         {
@@ -312,6 +319,7 @@ public class Stack implements IConcreteDeliverable
 
     /**
      * Check if nbt should be matched.
+     *
      * @return true if so.
      */
     public boolean matchNBT()
@@ -321,6 +329,7 @@ public class Stack implements IConcreteDeliverable
 
     /**
      * Check if damage should be matched.
+     *
      * @return true if so.
      */
     public boolean matchDamage()

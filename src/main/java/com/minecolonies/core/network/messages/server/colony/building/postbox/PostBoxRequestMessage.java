@@ -70,7 +70,7 @@ public class PostBoxRequestMessage extends AbstractBuildingServerMessage<PostBox
 
     @Override
     protected void onExecute(
-      final NetworkEvent.Context ctxIn, final boolean isLogicalServer, final IColony colony, final PostBox building)
+        final NetworkEvent.Context ctxIn, final boolean isLogicalServer, final IColony colony, final PostBox building)
     {
 
         final int minCount = (deliverAvailable) ? 1 : reqQuantity;

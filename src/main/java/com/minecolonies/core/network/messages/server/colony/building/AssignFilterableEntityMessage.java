@@ -43,7 +43,7 @@ public class AssignFilterableEntityMessage extends AbstractBuildingServerMessage
      *
      * @param id       the id of the list of filterables.
      * @param assign   compost if true, dont if false.
-     * @param entity     the entity to assign
+     * @param entity   the entity to assign
      * @param building the building we're executing on.
      */
     public AssignFilterableEntityMessage(final IBuildingView building, final int id, final ResourceLocation entity, final boolean assign)
@@ -58,7 +58,7 @@ public class AssignFilterableEntityMessage extends AbstractBuildingServerMessage
     public void fromBytesOverride(@NotNull final FriendlyByteBuf buf)
     {
         this.assign = buf.readBoolean();
-        this.entity =buf.readResourceLocation();
+        this.entity = buf.readResourceLocation();
         this.id = buf.readInt();
     }
 
@@ -72,7 +72,7 @@ public class AssignFilterableEntityMessage extends AbstractBuildingServerMessage
 
     @Override
     public void onExecute(
-      final NetworkEvent.Context ctxIn, final boolean isLogicalServer, final IColony colony, final AbstractBuilding building)
+        final NetworkEvent.Context ctxIn, final boolean isLogicalServer, final IColony colony, final AbstractBuilding building)
     {
         if (building.getModule(id) instanceof EntityListModule module)
         {

@@ -106,7 +106,7 @@ public abstract class AbstractEntityAIInteract<J extends AbstractJob<?, J>, B ex
     {
         super(job);
         super.registerTargets(
-          //no new targets for now
+            //no new targets for now
         );
     }
 
@@ -147,17 +147,17 @@ public abstract class AbstractEntityAIInteract<J extends AbstractJob<?, J>, B ex
      * @return true once we're done
      */
     protected final boolean mineBlock(
-      @NotNull final BlockPos blockToMine,
-      @Nullable final BlockPos safeStand,
-      final boolean damageTool,
-      final boolean getDrops,
-      final Runnable blockBreakAction)
+        @NotNull final BlockPos blockToMine,
+        @Nullable final BlockPos safeStand,
+        final boolean damageTool,
+        final boolean getDrops,
+        final Runnable blockBreakAction)
     {
         final BlockState curBlockState = world.getBlockState(blockToMine);
         @Nullable final Block curBlock = curBlockState.getBlock();
         if (curBlock instanceof AirBlock
-              || curBlock instanceof IBuilderUndestroyable
-              || curBlock == Blocks.BEDROCK)
+            || curBlock instanceof IBuilderUndestroyable
+            || curBlock == Blocks.BEDROCK)
         {
             if (!curBlockState.getFluidState().isEmpty())
             {
@@ -311,8 +311,8 @@ public abstract class AbstractEntityAIInteract<J extends AbstractJob<?, J>, B ex
         }
 
         return MineColonies.getConfig().getServer().pvp_mode.get()
-                 ? BLOCK_MINING_DELAY / 2
-                 : calculateWorkerMiningDelay(state, pos);
+            ? BLOCK_MINING_DELAY / 2
+            : calculateWorkerMiningDelay(state, pos);
     }
 
     /**
@@ -327,10 +327,10 @@ public abstract class AbstractEntityAIInteract<J extends AbstractJob<?, J>, B ex
         final double reduction = 1 - worker.getCitizenColonyHandler().getColonyOrRegister().getResearchManager().getResearchEffects().getEffectStrength(BLOCK_BREAK_SPEED);
 
         return (int) (((BLOCK_MINING_DELAY * Math.pow(LEVEL_MODIFIER, getBreakSpeedLevel() / 2.0))
-                         * (double) world.getBlockState(pos).getDestroySpeed(world, pos) / (double) (worker.getMainHandItem()
-                                                                                                       .getItem()
-                                                                                                       .getDestroySpeed(worker.getMainHandItem(), state)))
-                        * reduction);
+            * (double) world.getBlockState(pos).getDestroySpeed(world, pos) / (double) (worker.getMainHandItem()
+            .getItem()
+            .getDestroySpeed(worker.getMainHandItem(), state)))
+            * reduction);
     }
 
     /**
@@ -349,8 +349,8 @@ public abstract class AbstractEntityAIInteract<J extends AbstractJob<?, J>, B ex
     public void fillItemsList()
     {
         searchForItems(worker.getBoundingBox()
-                         .expandTowards(RANGE_HORIZONTAL_PICKUP, RANGE_VERTICAL_PICKUP, RANGE_HORIZONTAL_PICKUP)
-                         .expandTowards(-RANGE_HORIZONTAL_PICKUP, -RANGE_VERTICAL_PICKUP, -RANGE_HORIZONTAL_PICKUP));
+            .expandTowards(RANGE_HORIZONTAL_PICKUP, RANGE_VERTICAL_PICKUP, RANGE_HORIZONTAL_PICKUP)
+            .expandTowards(-RANGE_HORIZONTAL_PICKUP, -RANGE_VERTICAL_PICKUP, -RANGE_HORIZONTAL_PICKUP));
     }
 
     /**
@@ -361,12 +361,12 @@ public abstract class AbstractEntityAIInteract<J extends AbstractJob<?, J>, B ex
     public void searchForItems(final AABB boundingBox)
     {
         items = world.getEntitiesOfClass(ItemEntity.class, boundingBox)
-                  .stream()
-                  .filter(item -> item != null && item.isAlive() &&
-                                    (!item.getPersistentData().contains("PreventRemoteMovement") || !item.getPersistentData().getBoolean("PreventRemoteMovement")) &&
-                                    isItemWorthPickingUp(item.getItem()))
-                  .map(BlockPosUtil::fromEntity)
-                  .collect(Collectors.toList());
+            .stream()
+            .filter(item -> item != null && item.isAlive() &&
+                (!item.getPersistentData().contains("PreventRemoteMovement") || !item.getPersistentData().getBoolean("PreventRemoteMovement")) &&
+                isItemWorthPickingUp(item.getItem()))
+            .map(BlockPosUtil::fromEntity)
+            .collect(Collectors.toList());
     }
 
     /**

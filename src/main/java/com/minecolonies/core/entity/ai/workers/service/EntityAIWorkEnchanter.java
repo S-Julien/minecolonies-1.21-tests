@@ -103,8 +103,8 @@ public class EntityAIWorkEnchanter extends AbstractEntityAICrafting<JobEnchanter
     {
         super(job);
         super.registerTargets(
-          new AITarget(ENCHANTER_DRAIN, this::gatherAndDrain, 10),
-          new AITarget(ENCHANT, this::enchant, TICKS_SECOND)
+            new AITarget(ENCHANTER_DRAIN, this::gatherAndDrain, 10),
+            new AITarget(ENCHANT, this::enchant, TICKS_SECOND)
         );
         worker.setCanPickUpLoot(true);
     }
@@ -144,7 +144,7 @@ public class EntityAIWorkEnchanter extends AbstractEntityAICrafting<JobEnchanter
                 if (worker.getCitizenData() != null)
                 {
                     worker.getCitizenData()
-                      .triggerInteraction(new StandardInteraction(Component.translatable(NO_WORKERS_TO_DRAIN_SET), ChatPriority.BLOCKING));
+                        .triggerInteraction(new StandardInteraction(Component.translatable(NO_WORKERS_TO_DRAIN_SET), ChatPriority.BLOCKING));
                 }
                 return IDLE;
             }
@@ -225,22 +225,22 @@ public class EntityAIWorkEnchanter extends AbstractEntityAICrafting<JobEnchanter
         if (progressTicks++ < MAX_ENCHANTMENT_TICKS / building.getBuildingLevel())
         {
             Network.getNetwork().sendToTrackingEntity(
-              new CircleParticleEffectMessage(
-                worker.position().add(0, 2, 0),
-                ParticleTypes.ENCHANT,
-                progressTicks), worker);
+                new CircleParticleEffectMessage(
+                    worker.position().add(0, 2, 0),
+                    ParticleTypes.ENCHANT,
+                    progressTicks), worker);
 
             Network.getNetwork().sendToTrackingEntity(
-              new CircleParticleEffectMessage(
-                worker.position().add(0, 1.5, 0),
-                ParticleTypes.ENCHANT,
-                progressTicks), worker);
+                new CircleParticleEffectMessage(
+                    worker.position().add(0, 1.5, 0),
+                    ParticleTypes.ENCHANT,
+                    progressTicks), worker);
 
             Network.getNetwork().sendToTrackingEntity(
-              new CircleParticleEffectMessage(
-                worker.position().add(0, 1, 0),
-                ParticleTypes.ENCHANT,
-                progressTicks), worker);
+                new CircleParticleEffectMessage(
+                    worker.position().add(0, 1, 0),
+                    ParticleTypes.ENCHANT,
+                    progressTicks), worker);
 
             worker.queueSound(SoundEvents.ENCHANTMENT_TABLE_USE, worker.blockPosition().above(), 20, 0, 0.5f, worker.getRandom().nextFloat());
 
@@ -262,8 +262,8 @@ public class EntityAIWorkEnchanter extends AbstractEntityAICrafting<JobEnchanter
             if (loot != null)
             {
                 final int enchantmentLevel = loot.stream()
-                                               .mapToInt(EntityAIWorkEnchanter::getEnchantedBookLevel)
-                                               .max().orElse(0);
+                    .mapToInt(EntityAIWorkEnchanter::getEnchantedBookLevel)
+                    .max().orElse(0);
 
                 //Decrement mana.
                 data.getCitizenSkillHandler().incrementLevel(Skill.Mana, -enchantmentLevel);
@@ -281,8 +281,8 @@ public class EntityAIWorkEnchanter extends AbstractEntityAICrafting<JobEnchanter
         if (stack.getItem().equals(Items.ENCHANTED_BOOK))
         {
             return EnchantedBookItem.getEnchantments(stack).stream()
-                     .mapToInt(nbt -> ((CompoundTag) nbt).getShort("lvl"))
-                     .max().orElse(0);
+                .mapToInt(nbt -> ((CompoundTag) nbt).getShort("lvl"))
+                .max().orElse(0);
         }
         return 0;
     }
@@ -367,18 +367,18 @@ public class EntityAIWorkEnchanter extends AbstractEntityAICrafting<JobEnchanter
             final Vec3 goal = citizenToGatherFrom.getEntity().get().position().add(0, 2, 0);
 
             Network.getNetwork().sendToTrackingEntity(
-              new StreamParticleEffectMessage(
-                start,
-                goal,
-                ParticleTypes.ENCHANT,
-                progressTicks % MAX_PROGRESS_TICKS,
-                MAX_PROGRESS_TICKS), worker);
+                new StreamParticleEffectMessage(
+                    start,
+                    goal,
+                    ParticleTypes.ENCHANT,
+                    progressTicks % MAX_PROGRESS_TICKS,
+                    MAX_PROGRESS_TICKS), worker);
 
             Network.getNetwork().sendToTrackingEntity(
-              new CircleParticleEffectMessage(
-                start,
-                ParticleTypes.HAPPY_VILLAGER,
-                progressTicks), worker);
+                new CircleParticleEffectMessage(
+                    start,
+                    ParticleTypes.HAPPY_VILLAGER,
+                    progressTicks), worker);
 
             WorkerUtil.faceBlock(BlockPos.containing(goal), worker);
 

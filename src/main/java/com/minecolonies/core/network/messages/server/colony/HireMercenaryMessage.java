@@ -42,7 +42,7 @@ public class HireMercenaryMessage extends AbstractColonyServerMessage
 
         EntityMercenary.spawnMercenariesInColony(colony);
         colony.getWorld()
-          .playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.ILLUSIONER_CAST_SPELL, null, 1.0f, 1.0f, true);
+            .playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.ILLUSIONER_CAST_SPELL, null, 1.0f, 1.0f, true);
     }
 
     @Override

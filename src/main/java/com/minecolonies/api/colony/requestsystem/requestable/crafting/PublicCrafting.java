@@ -20,7 +20,8 @@ public class PublicCrafting extends AbstractCrafting
     /**
      * Set of type tokens belonging to this class.
      */
-    private final static Set<TypeToken<?>> TYPE_TOKENS = ReflectionUtils.getSuperClasses(TypeToken.of(PublicCrafting.class)).stream().filter(type -> !type.equals(TypeConstants.OBJECT)).collect(Collectors.toSet());
+    private final static Set<TypeToken<?>> TYPE_TOKENS =
+        ReflectionUtils.getSuperClasses(TypeToken.of(PublicCrafting.class)).stream().filter(type -> !type.equals(TypeConstants.OBJECT)).collect(Collectors.toSet());
 
     /**
      * Create a Stack deliverable.

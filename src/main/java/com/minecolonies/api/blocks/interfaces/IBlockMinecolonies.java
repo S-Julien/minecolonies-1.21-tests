@@ -25,6 +25,7 @@ public interface IBlockMinecolonies<B extends IBlockMinecolonies<B>>
 
     /**
      * Get the registry name of the block.
+     *
      * @return the registry name.
      */
     ResourceLocation getRegistryName();

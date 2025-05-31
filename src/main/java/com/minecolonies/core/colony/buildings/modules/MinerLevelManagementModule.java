@@ -261,6 +261,7 @@ public class MinerLevelManagementModule extends AbstractBuildingModule implement
 
     /**
      * Repair the level.
+     *
      * @param level the level to repair.
      */
     public void repairLevel(final int level)
@@ -273,16 +274,17 @@ public class MinerLevelManagementModule extends AbstractBuildingModule implement
             final int zOffset = SHAFT_RADIUS * vector.getZ();
 
             BuildingMiner.initStructure(null,
-              0,
-              new BlockPos(ladderPos.getX() + xOffset, levels.get(level).getDepth(), ladderPos.getZ() + zOffset),
-              (BuildingMiner) building,
-              building.getColony().getWorld(),
-              null);
+                0,
+                new BlockPos(ladderPos.getX() + xOffset, levels.get(level).getDepth(), ladderPos.getZ() + zOffset),
+                (BuildingMiner) building,
+                building.getColony().getWorld(),
+                null);
         }
     }
 
     /**
      * Get the list of levels.
+     *
      * @return the list.
      */
     public List<MinerLevel> getLevels()

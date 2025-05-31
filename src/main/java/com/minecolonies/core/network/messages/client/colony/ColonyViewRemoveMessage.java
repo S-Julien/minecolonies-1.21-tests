@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public class ColonyViewRemoveMessage implements IMessage
 {
-    private int id;
+    private int                id;
     private ResourceKey<Level> dimension;
 
     public ColonyViewRemoveMessage()

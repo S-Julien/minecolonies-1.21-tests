@@ -38,19 +38,23 @@ public class RenderBipedCitizen extends MobRenderer<AbstractEntityCitizen, Citiz
     public RenderBipedCitizen(final EntityRendererProvider.Context context)
     {
         super(context, new CitizenModel<>(context.bakeLayer(ModelLayers.PLAYER)), (float) SHADOW_SIZE);
-        this.addLayer(new CitizenArmorLayer(this, new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_INNER_ARMOR)), new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_OUTER_ARMOR)), context.getModelManager(), context.getModelSet()));
+        this.addLayer(new CitizenArmorLayer(this,
+            new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_INNER_ARMOR)),
+            new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_OUTER_ARMOR)),
+            context.getModelManager(),
+            context.getModelSet()));
         super.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
         ModModelTypeInitializer.init(context);
     }
 
     @Override
     public void render(
-      @NotNull final AbstractEntityCitizen citizen,
-      final float limbSwing,
-      final float partialTicks,
-      @NotNull final PoseStack matrixStack,
-      @NotNull final MultiBufferSource renderTypeBuffer,
-      final int light)
+        @NotNull final AbstractEntityCitizen citizen,
+        final float limbSwing,
+        final float partialTicks,
+        @NotNull final PoseStack matrixStack,
+        @NotNull final MultiBufferSource renderTypeBuffer,
+        final int light)
     {
 
         setupMainModelFrom(citizen);
@@ -99,11 +103,11 @@ public class RenderBipedCitizen extends MobRenderer<AbstractEntityCitizen, Citiz
 
     @Override
     protected void renderNameTag(
-      @NotNull final AbstractEntityCitizen entityIn,
-      @NotNull final Component str,
-      @NotNull final PoseStack matrixStack,
-      @NotNull final MultiBufferSource buffer,
-      final int packedLight)
+        @NotNull final AbstractEntityCitizen entityIn,
+        @NotNull final Component str,
+        @NotNull final PoseStack matrixStack,
+        @NotNull final MultiBufferSource buffer,
+        final int packedLight)
     {
         super.renderNameTag(entityIn, str, matrixStack, buffer, packedLight);
 

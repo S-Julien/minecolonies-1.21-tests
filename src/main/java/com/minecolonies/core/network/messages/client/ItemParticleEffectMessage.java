@@ -73,13 +73,13 @@ public class ItemParticleEffectMessage implements IMessage
      * @param eyeHeight     the eye height.
      */
     public ItemParticleEffectMessage(
-      final ItemStack stack,
-      final double posX,
-      final double posY,
-      final double posZ,
-      final double rotationPitch,
-      final double rotationYaw,
-      final double eyeHeight)
+        final ItemStack stack,
+        final double posX,
+        final double posY,
+        final double posZ,
+        final double rotationPitch,
+        final double rotationYaw,
+        final double eyeHeight)
     {
         this.stack = stack;
         this.posX = posX;
@@ -139,12 +139,12 @@ public class ItemParticleEffectMessage implements IMessage
                 randomOffset = randomOffset.yRot((float) (-rotationYaw * 0.017453292F));
                 randomOffset = randomOffset.add(posX, posY + eyeHeight, posZ);
                 world.addParticle(new ItemParticleOption(ParticleTypes.ITEM, localStack),
-                  randomOffset.x,
-                  randomOffset.y,
-                  randomOffset.z,
-                  randomPos.x,
-                  randomPos.y + 0.05D,
-                  randomPos.z);
+                    randomOffset.x,
+                    randomOffset.y,
+                    randomOffset.z,
+                    randomPos.x,
+                    randomPos.y + 0.05D,
+                    randomPos.z);
             }
         }
     }

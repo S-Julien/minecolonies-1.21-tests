@@ -107,10 +107,10 @@ public class StandardPlayerRequestResolver implements IPlayerRequestResolver
         if (colony instanceof Colony)
         {
             if (MinecoloniesAPIProxy.getInstance().getConfig().getServer().creativeResolve.get() &&
-                  request.getRequest() instanceof IDeliverable &&
-                  request.getRequester() instanceof BuildingBasedRequester &&
-                  ((BuildingBasedRequester) request.getRequester()).getBuilding(manager, request.getId()).isPresent() &&
-                  ((BuildingBasedRequester) request.getRequester()).getBuilding(manager, request.getId()).get() instanceof AbstractBuilding)
+                request.getRequest() instanceof IDeliverable &&
+                request.getRequester() instanceof BuildingBasedRequester &&
+                ((BuildingBasedRequester) request.getRequester()).getBuilding(manager, request.getId()).isPresent() &&
+                ((BuildingBasedRequester) request.getRequester()).getBuilding(manager, request.getId()).get() instanceof AbstractBuilding)
             {
                 final AbstractBuilding building = (AbstractBuilding) ((BuildingBasedRequester) request.getRequester()).getBuilding(manager, request.getId()).get();
                 final Optional<ICitizenData> citizenDataOptional = building.getCitizenForRequest(request.getId());
@@ -121,8 +121,8 @@ public class StandardPlayerRequestResolver implements IPlayerRequestResolver
                     final ItemStack resolveStack = resolvablestacks.get(0);
                     resolveStack.setCount(Math.min(((IDeliverable) request.getRequest()).getCount(), resolveStack.getMaxStackSize()));
                     final ItemStack remainingItemStack = InventoryUtils.addItemStackToItemHandlerWithResult(
-                      citizenDataOptional.get().getInventory(),
-                      resolveStack);
+                        citizenDataOptional.get().getInventory(),
+                        resolveStack);
 
                     if (ItemStackUtils.isEmpty(remainingItemStack))
                     {
@@ -182,44 +182,44 @@ public class StandardPlayerRequestResolver implements IPlayerRequestResolver
     public void onColonyUpdate(@NotNull final IRequestManager manager, @NotNull final Predicate<IRequest<?>> shouldTriggerReassign)
     {
         new ArrayList<>(assignedRequests).stream()
-          .map(manager::getRequestForToken)
-          .forEach(request ->
-          {
-              if (request != null)
-              {
-                  if (shouldTriggerReassign.test(request))
-                  {
-                      final IToken<?> newResolverToken = manager.reassignRequest(request.getId(), ImmutableList.of(token));
-                      if (newResolverToken != null && !newResolverToken.equals(token))
-                      {
-                          assignedRequests.remove(request.getId());
-                      }
-                  }
-                  else
-                  {
-                      IRequest<?> req = request;
-                      while (req != null && req.hasParent())
-                      {
-                          req = manager.getRequestForToken(req.getParent());
-                          if (req != null && shouldTriggerReassign.test(req))
-                          {
-                              if (req.hasChildren())
-                              {
-                                  final ImmutableCollection<IToken<?>> currentChildren = req.getChildren();
-                                  currentChildren.forEach(((IStandardRequestManager) manager).getRequestHandler()::onRequestCancelledDirectly);
-                              }
+            .map(manager::getRequestForToken)
+            .forEach(request ->
+            {
+                if (request != null)
+                {
+                    if (shouldTriggerReassign.test(request))
+                    {
+                        final IToken<?> newResolverToken = manager.reassignRequest(request.getId(), ImmutableList.of(token));
+                        if (newResolverToken != null && !newResolverToken.equals(token))
+                        {
+                            assignedRequests.remove(request.getId());
+                        }
+                    }
+                    else
+                    {
+                        IRequest<?> req = request;
+                        while (req != null && req.hasParent())
+                        {
+                            req = manager.getRequestForToken(req.getParent());
+                            if (req != null && shouldTriggerReassign.test(req))
+                            {
+                                if (req.hasChildren())
+                                {
+                                    final ImmutableCollection<IToken<?>> currentChildren = req.getChildren();
+                                    currentChildren.forEach(((IStandardRequestManager) manager).getRequestHandler()::onRequestCancelledDirectly);
+                                }
 
-                              IToken<?> newResolverToken = manager.reassignRequest(req.getId(), ImmutableList.of(getId()));
-                              if (newResolverToken != getId())
-                              {
-                                  assignedRequests.remove(request.getId());
-                                  break;
-                              }
-                          }
-                      }
-                  }
-              }
-          });
+                                IToken<?> newResolverToken = manager.reassignRequest(req.getId(), ImmutableList.of(getId()));
+                                if (newResolverToken != getId())
+                                {
+                                    assignedRequests.remove(request.getId());
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
     }
 
     public void setAllAssignedRequests(final Set<IToken<?>> assignedRequests)

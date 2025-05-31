@@ -16,6 +16,7 @@ public interface ITownHall extends IBuilding
 
     /**
      * Removes all permission events with the given player id (because they were just given permissions)
+     *
      * @param id the player id
      */
     void removePermissionEvents(UUID id);

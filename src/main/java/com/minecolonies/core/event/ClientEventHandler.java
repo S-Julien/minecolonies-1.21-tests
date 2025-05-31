@@ -105,8 +105,8 @@ public class ClientEventHandler
 
         final ResourceLocation soundLocation = event.getSound().getLocation();
         if (!MinecoloniesAPIProxy.getInstance().getConfig().getClient().citizenVoices.get()
-              && soundLocation.getNamespace().equals(Constants.MOD_ID)
-              && soundLocation.getPath().startsWith(CITIZEN_SOUND_EVENT_PREFIX)
+            && soundLocation.getNamespace().equals(Constants.MOD_ID)
+            && soundLocation.getPath().startsWith(CITIZEN_SOUND_EVENT_PREFIX)
         )
         {
             event.setSound(null);
@@ -206,7 +206,7 @@ public class ClientEventHandler
                 {
                     final ChatFormatting researchFormat;
                     if (colony != null && (colony.getResearchManager().getResearchTree().hasCompletedResearch(id) ||
-                                             colony.getResearchManager().getResearchEffects().getEffectStrength(id) > 0))
+                        colony.getResearchManager().getResearchEffects().getEffectStrength(id) > 0))
                     {
                         researchFormat = ChatFormatting.AQUA;
                     }
@@ -218,7 +218,7 @@ public class ClientEventHandler
                     for (IGlobalResearch research : researches)
                     {
                         toolTip.add(Component.translatable(COM_MINECOLONIES_COREMOD_ITEM_REQUIRES_RESEARCH_TOOLTIP_GUI,
-                          MutableComponent.create(research.getName())).setStyle(Style.EMPTY.withColor(researchFormat)));
+                            MutableComponent.create(research.getName())).setStyle(Style.EMPTY.withColor(researchFormat)));
                     }
                 }
             }
@@ -250,7 +250,7 @@ public class ClientEventHandler
             else
             {
                 final MutableComponent reqBuildingTxt = Component.translatable(COM_MINECOLONIES_COREMOD_ITEM_AVAILABLE_TOOLTIP_GUI, craftingBuildingName)
-                                                          .setStyle(Style.EMPTY.withItalic(true).withColor(ChatFormatting.GRAY));
+                    .setStyle(Style.EMPTY.withItalic(true).withColor(ChatFormatting.GRAY));
                 toolTip.add(reqBuildingTxt);
             }
         }
@@ -266,8 +266,8 @@ public class ClientEventHandler
     {
         final String namespace = building.getBuildingBlock().getRegistryName().getNamespace();
         final String modName = ModList.get().getModContainerById(namespace)
-          .map(m -> m.getModInfo().getDisplayName())
-          .orElse(namespace);
+            .map(m -> m.getModInfo().getDisplayName())
+            .orElse(namespace);
         final Component buildingName = building.getBuildingBlock().getName();
         return Component.literal(modName + " ").append(buildingName);
     }
@@ -348,9 +348,9 @@ public class ClientEventHandler
                 }
 
                 event.getLeft()
-                  .add(Component.translatable(DEBUG_NEXT_COLONY,
-                    (int) Math.sqrt(colony.getDistanceSquared(pos)),
-                    IColonyManager.getInstance().getMinimumDistanceBetweenTownHalls()).getString());
+                    .add(Component.translatable(DEBUG_NEXT_COLONY,
+                        (int) Math.sqrt(colony.getDistanceSquared(pos)),
+                        IColonyManager.getInstance().getMinimumDistanceBetweenTownHalls()).getString());
                 return;
             }
 

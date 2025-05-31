@@ -36,11 +36,11 @@ public final class NbtTagConstants
      * @deprecated Superseeded by request-based pickup system.
      */
     @Deprecated
-    public static final String TAG_PRIO_STATE     = "prioState";
-    public static final String TAG_COLONIES       = "colonies";
-    public static final String TAG_COLONY_MANAGER = "colonymanager";
-    public static final String TAG_UUID           = "uuid";
-    public static final String TAG_FIELDS         = "fields";
+    public static final String TAG_PRIO_STATE             = "prioState";
+    public static final String TAG_COLONIES               = "colonies";
+    public static final String TAG_COLONY_MANAGER         = "colonymanager";
+    public static final String TAG_UUID                   = "uuid";
+    public static final String TAG_FIELDS                 = "fields";
     public static final String TAG_FIELD                  = "field";
     public static final String TAG_LEISURE                = "leisureSites";
     public static final String TAG_CONSTRUCTION_TAPE      = "constructiontape";
@@ -71,20 +71,20 @@ public final class NbtTagConstants
     public static final String TAG_PAUSED                 = "paused";
     public static final String TAG_CHILD                  = "child";
     public static final String TAG_CHILD_TIME             = "childTime";
-    public static final String TAG_JUST_ATE       = "justAte";
-    public static final String TAG_EXPLOSIONS     = "Explosions";
-    public static final String TAG_FIREWORKS      = "Fireworks";
-    public static final String TAG_COLORS         = "Colors";
-    public static final String TAG_FLICKER        = "Flicker";
-    public static final String TAG_TRAIL          = "Trail";
-    public static final String TAG_TYPE           = "Type";
-    public static final String TAG_MERCENARY_TIME = "mercenaryUseTime";
-    public static final String TAG_IDLE           = "idle";
-    public static final String TAG_PURGED_MOBS    = "purgedMobs";
-    public static final String TAG_RESERVED       = "reserved";
-    public static final String TAG_DESC           = "desc";
-    public static final String TAG_BREWING_STAND  = "brewingStand";
-    public static final String TAG_SUMMARIZE      = "summarize";
+    public static final String TAG_JUST_ATE               = "justAte";
+    public static final String TAG_EXPLOSIONS             = "Explosions";
+    public static final String TAG_FIREWORKS              = "Fireworks";
+    public static final String TAG_COLORS                 = "Colors";
+    public static final String TAG_FLICKER                = "Flicker";
+    public static final String TAG_TRAIL                  = "Trail";
+    public static final String TAG_TYPE                   = "Type";
+    public static final String TAG_MERCENARY_TIME         = "mercenaryUseTime";
+    public static final String TAG_IDLE                   = "idle";
+    public static final String TAG_PURGED_MOBS            = "purgedMobs";
+    public static final String TAG_RESERVED               = "reserved";
+    public static final String TAG_DESC                   = "desc";
+    public static final String TAG_BREWING_STAND          = "brewingStand";
+    public static final String TAG_SUMMARIZE              = "summarize";
 
     public static final String TAG_PARENT_A = "parentA";
     public static final String TAG_PARENT_B = "parentB";
@@ -735,10 +735,10 @@ public final class NbtTagConstants
     /**
      * Supplycamp related things.
      */
-    public static final String TAG_SAW_STORY     = "sawstory";
-    public static final String TAG_RANDOM_KEY    = "randkey";
+    public static final String TAG_SAW_STORY  = "sawstory";
+    public static final String TAG_RANDOM_KEY = "randkey";
 
-    public static final String TAG_LAST_FOODS    = "lastfoods";
+    public static final String TAG_LAST_FOODS = "lastfoods";
 
     /**
      * Farmer building related things.

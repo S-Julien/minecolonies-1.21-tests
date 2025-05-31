@@ -14,7 +14,7 @@ public class OpenColonyFoundingCovenantMessage implements IMessage
     /**
      * Info on the closest colony.
      */
-    private String closestName;
+    private String   closestName;
     private int      closestDistance;
     private BlockPos townHallPos;
 

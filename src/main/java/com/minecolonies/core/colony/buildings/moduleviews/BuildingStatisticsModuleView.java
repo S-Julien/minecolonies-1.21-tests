@@ -44,6 +44,7 @@ public class BuildingStatisticsModuleView extends AbstractBuildingModuleView
 
     /**
      * Get the statistic manager of the building.
+     *
      * @return the manager.
      */
     public IStatisticsManager getBuildingStatisticsManager()

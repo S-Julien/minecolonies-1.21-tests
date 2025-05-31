@@ -168,9 +168,9 @@ public class CommandPruneWorld implements IMCOPCommand
     public LiteralArgumentBuilder<CommandSourceStack> build()
     {
         return IMCCommand.newLiteral(getName())
-                 .then(IMCCommand.newArgument(COMMAND_STAGE, IntegerArgumentType.integer(1))
-                         .executes(this::executeWithPage)
-                         .then(IMCCommand.newArgument(RADIUS_ARG, IntegerArgumentType.integer(100, 5000)).executes(this::executeWithPage)))
-                 .executes(this::checkPreConditionAndExecute);
+            .then(IMCCommand.newArgument(COMMAND_STAGE, IntegerArgumentType.integer(1))
+                .executes(this::executeWithPage)
+                .then(IMCCommand.newArgument(RADIUS_ARG, IntegerArgumentType.integer(100, 5000)).executes(this::executeWithPage)))
+            .executes(this::checkPreConditionAndExecute);
     }
 }

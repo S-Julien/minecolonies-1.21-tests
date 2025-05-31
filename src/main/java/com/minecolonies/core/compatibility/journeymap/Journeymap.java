@@ -26,7 +26,7 @@ public class Journeymap
 {
     private static Journeymap INSTANCE;
 
-    private IClientAPI jmap;
+    private IClientAPI        jmap;
     private JourneymapOptions options;
 
     public Journeymap(final IClientAPI jmap)
@@ -65,6 +65,7 @@ public class Journeymap
 
     /**
      * Sets the Journeymap custom options.
+     *
      * @param options The new options instance.
      */
     public void setOptions(final JourneymapOptions options)
@@ -104,15 +105,16 @@ public class Journeymap
     /**
      * Loads JSON data from disk via a Codec.
      *
-     * @param filePath The path to the json file (need not exist)
+     * @param filePath    The path to the json file (need not exist)
      * @param description What you're trying to load (for error logging).
-     * @param codec The codec for the object being loaded.
-     * @param <T> The type of the object being loaded.
+     * @param codec       The codec for the object being loaded.
+     * @param <T>         The type of the object being loaded.
      * @return The loaded data, or empty if the file was absent or unloadable.
      */
-    public <T> Optional<T> loadData(@NotNull final Path filePath,
-                                    @NotNull final String description,
-                                    @NotNull final Codec<T> codec)
+    public <T> Optional<T> loadData(
+        @NotNull final Path filePath,
+        @NotNull final String description,
+        @NotNull final Codec<T> codec)
     {
         if (Files.exists(filePath))
         {
@@ -125,7 +127,7 @@ public class Journeymap
                 }
 
                 return codec.parse(JsonOps.INSTANCE, json)
-                        .resultOrPartial(error -> Log.getLogger().error("Failed to load " + description + " from " + filePath));
+                    .resultOrPartial(error -> Log.getLogger().error("Failed to load " + description + " from " + filePath));
             }
             catch (final Exception ex)
             {
@@ -139,23 +141,24 @@ public class Journeymap
     /**
      * Saves JSON data to disk via a Codec.
      *
-     * @param filePath The path to the json file (need not exist)
+     * @param filePath    The path to the json file (need not exist)
      * @param description What you're trying to save (for error logging).
-     * @param codec The codec for the object being saved.
-     * @param value The object being saved.
-     * @param <T> The type of the object being saved.
+     * @param codec       The codec for the object being saved.
+     * @param value       The object being saved.
+     * @param <T>         The type of the object being saved.
      * @return True if the object was saved successfully.
      */
-    public <T> boolean saveData(@NotNull final Path filePath,
-                                @NotNull final String description,
-                                @NotNull final Codec<T> codec,
-                                @NotNull final T value)
+    public <T> boolean saveData(
+        @NotNull final Path filePath,
+        @NotNull final String description,
+        @NotNull final Codec<T> codec,
+        @NotNull final T value)
     {
         try
         {
             final JsonElement json = codec.encodeStart(JsonOps.INSTANCE, value)
-                    .resultOrPartial(error -> Log.getLogger().error("Failed to save " + description + ": " + error))
-                    .orElse(null);
+                .resultOrPartial(error -> Log.getLogger().error("Failed to save " + description + ": " + error))
+                .orElse(null);
             if (json != null)
             {
                 Files.createDirectories(filePath.getParent());

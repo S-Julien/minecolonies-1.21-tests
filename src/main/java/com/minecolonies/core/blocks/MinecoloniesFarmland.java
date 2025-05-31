@@ -48,13 +48,13 @@ public class MinecoloniesFarmland extends AbstractBlockMinecolonies<Minecolonies
 {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    public static final String FARMLAND         = "farmland";
+    public static final String FARMLAND = "farmland";
     public static final String FLOODED_FARMLAND = "floodedfarmland";
 
-    public static final    IntegerProperty MOISTURE     = BlockStateProperties.MOISTURE;
-    protected final VoxelShape shape;
+    public static final IntegerProperty MOISTURE = BlockStateProperties.MOISTURE;
+    protected final     VoxelShape      shape;
 
-    private final ResourceLocation    blockId;
+    private final ResourceLocation blockId;
 
     /**
      * If should behave waterlogged.
@@ -63,7 +63,13 @@ public class MinecoloniesFarmland extends AbstractBlockMinecolonies<Minecolonies
 
     public MinecoloniesFarmland(@NotNull final String blockName, final boolean waterLogged, final double height)
     {
-        super(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).randomTicks().strength(0.6F).sound(SoundType.GRAVEL).isViewBlocking((s,g,p) -> true).isSuffocating((s,g,p) -> true));
+        super(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.DIRT)
+            .randomTicks()
+            .strength(0.6F)
+            .sound(SoundType.GRAVEL)
+            .isViewBlocking((s, g, p) -> true)
+            .isSuffocating((s, g, p) -> true));
         this.registerDefaultState(this.stateDefinition.any().setValue(MOISTURE, 0));
         this.blockId = new ResourceLocation(Constants.MOD_ID, blockName);
         this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, Boolean.valueOf(waterLogged)));
@@ -74,7 +80,13 @@ public class MinecoloniesFarmland extends AbstractBlockMinecolonies<Minecolonies
 
     @NotNull
     @Override
-    public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState newState, @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockPos neighborPos)
+    public BlockState updateShape(
+        @NotNull BlockState state,
+        @NotNull Direction direction,
+        @NotNull BlockState newState,
+        @NotNull LevelAccessor level,
+        @NotNull BlockPos pos,
+        @NotNull BlockPos neighborPos)
     {
         if (direction == Direction.UP && !state.canSurvive(level, pos))
         {
@@ -137,7 +149,7 @@ public class MinecoloniesFarmland extends AbstractBlockMinecolonies<Minecolonies
             }
             else if (!shouldMaintainFarmland(level, pos))
             {
-                turnToDirt( null, state, level, pos);
+                turnToDirt(null, state, level, pos);
             }
         }
         else if (i < 7)
@@ -154,7 +166,9 @@ public class MinecoloniesFarmland extends AbstractBlockMinecolonies<Minecolonies
         if (aboveState.getBlock() instanceof MinecoloniesCropBlock cropBlock && rng.nextInt(100) <= growthChance)
         {
             cropBlock.attemptGrow(aboveState, level, pos.above());
-            Network.getNetwork().sendToPosition(new VanillaParticleMessage(pos.getX() + 0.5F, pos.getY() - 0.5F, pos.getZ() + 0.5F, ParticleTypes.HAPPY_VILLAGER),  new PacketDistributor.TargetPoint(pos.getX(), pos.getY(), pos.getZ(), BLOCK_BREAK_SOUND_RANGE, level.dimension()));
+            Network.getNetwork()
+                .sendToPosition(new VanillaParticleMessage(pos.getX() + 0.5F, pos.getY() - 0.5F, pos.getZ() + 0.5F, ParticleTypes.HAPPY_VILLAGER),
+                    new PacketDistributor.TargetPoint(pos.getX(), pos.getY(), pos.getZ(), BLOCK_BREAK_SOUND_RANGE, level.dimension()));
         }
     }
 
@@ -197,13 +211,13 @@ public class MinecoloniesFarmland extends AbstractBlockMinecolonies<Minecolonies
     {
         BlockState state = level.getBlockState(thisPos);
         BlockPos.MutableBlockPos blockPos = new BlockPos.MutableBlockPos();
-        for (int x = thisPos.getX() -4; x <= thisPos.getX() + 4; x++)
+        for (int x = thisPos.getX() - 4; x <= thisPos.getX() + 4; x++)
         {
-            for (int z = thisPos.getZ() -4; z <= thisPos.getZ() + 4; z++)
+            for (int z = thisPos.getZ() - 4; z <= thisPos.getZ() + 4; z++)
             {
                 for (int y = thisPos.getY() - 1; y <= thisPos.getY(); y++)
                 {
-                    blockPos.set(x,y,z);
+                    blockPos.set(x, y, z);
                     if (state.canBeHydrated(level, thisPos, level.getFluidState(blockPos), blockPos))
                     {
                         return true;

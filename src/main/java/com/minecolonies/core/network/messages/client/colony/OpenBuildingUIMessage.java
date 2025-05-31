@@ -21,8 +21,8 @@ import org.jetbrains.annotations.Nullable;
  */
 public class OpenBuildingUIMessage implements IMessage
 {
-    private int          colonyId;
-    private BlockPos     buildingId;
+    private int      colonyId;
+    private BlockPos buildingId;
 
     /**
      * Dimension of the colony.
@@ -76,7 +76,8 @@ public class OpenBuildingUIMessage implements IMessage
     @Override
     public void onExecute(final NetworkEvent.Context ctxIn, final boolean isLogicalServer)
     {
-        if (IColonyManager.getInstance().getColonyView(colonyId, dimension) instanceof ColonyView colonyView && colonyView.getBuilding(buildingId) instanceof AbstractBuildingView buildingView)
+        if (IColonyManager.getInstance().getColonyView(colonyId, dimension) instanceof ColonyView colonyView
+            && colonyView.getBuilding(buildingId) instanceof AbstractBuildingView buildingView)
         {
             buildingView.openGui(false);
         }

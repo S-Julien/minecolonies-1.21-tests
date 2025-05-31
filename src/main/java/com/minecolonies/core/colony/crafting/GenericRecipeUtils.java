@@ -27,7 +27,7 @@ import static com.minecolonies.api.util.constant.BuildingConstants.CONST_DEFAULT
  */
 public final class GenericRecipeUtils
 {
-    private GenericRecipeUtils() { }
+    private GenericRecipeUtils() {}
 
     @NotNull
     public static List<Component> calculateRestrictions(@NotNull final CustomRecipe customRecipe)
@@ -36,24 +36,24 @@ public final class GenericRecipeUtils
         if (customRecipe.getMinBuildingLevel() == customRecipe.getMaxBuildingLevel())
         {
             restrictions.add(Component.translatable(TranslationConstants.PARTIAL_JEI_INFO + "onelevelrestriction",
-                    customRecipe.getMinBuildingLevel()));
+                customRecipe.getMinBuildingLevel()));
         }
         else if (customRecipe.getMinBuildingLevel() > 1 || customRecipe.getMaxBuildingLevel() < CONST_DEFAULT_MAX_BUILDING_LEVEL)
         {
             restrictions.add(Component.translatable(TranslationConstants.PARTIAL_JEI_INFO + "levelrestriction",
-                    customRecipe.getMinBuildingLevel(), customRecipe.getMaxBuildingLevel()));
+                customRecipe.getMinBuildingLevel(), customRecipe.getMaxBuildingLevel()));
         }
         for (final ResourceLocation researchId : customRecipe.getRequiredResearchIds())
         {
             final Component researchName = getResearchDisplayName(researchId);
             restrictions.add(Component.translatable(TranslationConstants.PARTIAL_JEI_INFO + "minresearch",
-                    researchName));
+                researchName));
         }
         for (final ResourceLocation researchId : customRecipe.getExcludedResearchIds())
         {
             final Component researchName = getResearchDisplayName(researchId);
             restrictions.add(Component.translatable(TranslationConstants.PARTIAL_JEI_INFO + "maxresearch",
-                    researchName));
+                researchName));
         }
         return restrictions;
     }
@@ -62,23 +62,24 @@ public final class GenericRecipeUtils
     public static IGenericRecipe create(@NotNull final CustomRecipe customRecipe, @NotNull final IRecipeStorage storage)
     {
         return GenericRecipe.builder(storage)
-                .withRestrictions(calculateRestrictions(customRecipe))
-                .withLevelSort(customRecipe.getMinBuildingLevel())
-                .build();
+            .withRestrictions(calculateRestrictions(customRecipe))
+            .withLevelSort(customRecipe.getMinBuildingLevel())
+            .build();
     }
 
     /**
      * Exclude input ingredients that fail the supplied predicate.
      *
-     * @param recipe the original recipe
+     * @param recipe    the original recipe
      * @param predicate an ingredient predicate that returns false to reject an ingredient
      * @return the original recipe, if there were no problems.
-     *         or a modified recipe, if some ingredients were banned but alternates were acceptable.
-     *         some slots might still contain banned ingredients if there were no valid alternatives.
+     * or a modified recipe, if some ingredients were banned but alternates were acceptable.
+     * some slots might still contain banned ingredients if there were no valid alternatives.
      */
     @NotNull
-    public static IGenericRecipe filterInputs(@NotNull IGenericRecipe recipe,
-                                              @NotNull OptionalPredicate<ItemStack> predicate)
+    public static IGenericRecipe filterInputs(
+        @NotNull IGenericRecipe recipe,
+        @NotNull OptionalPredicate<ItemStack> predicate)
     {
         // for filtering purposes, most recipes want to treat null/don't-care in the ingredient filter as
         // acceptable (don't remove the item from the recipe).  DO recipes, though, have a massive
@@ -91,8 +92,8 @@ public final class GenericRecipeUtils
         for (final List<ItemStack> slot : recipe.getInputs())
         {
             final List<ItemStack> newSlot = slot.stream()
-                    .filter(stack -> predicate.test(stack).orElse(fallbackAccept))
-                    .collect(Collectors.toList());
+                .filter(stack -> predicate.test(stack).orElse(fallbackAccept))
+                .collect(Collectors.toList());
 
             if (newSlot.isEmpty() && !slot.isEmpty())
             {
@@ -117,7 +118,10 @@ public final class GenericRecipeUtils
     private static boolean isDomumRecipe(@NotNull final IGenericRecipe recipe)
     {
         final ItemStack output = recipe.getPrimaryOutput();
-        if (output.isEmpty()) return false;
+        if (output.isEmpty())
+        {
+            return false;
+        }
 
         if (output.getItem() instanceof BlockItem blockItem)
         {

@@ -17,9 +17,10 @@ public class CompleteBuildRequestTrigger extends AbstractCriterionTrigger<Comple
 
     /**
      * Triggers the listener checks if there are any listening in
-     * @param player the player the check regards
+     *
+     * @param player        the player the check regards
      * @param structureName the structure that was just completed
-     * @param level the level the structure got upgraded to, or 0
+     * @param level         the level the structure got upgraded to, or 0
      */
     public void trigger(final ServerPlayer player, final String structureName, final int level)
     {

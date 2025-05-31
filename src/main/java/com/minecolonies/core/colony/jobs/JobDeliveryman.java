@@ -77,14 +77,14 @@ public class JobDeliveryman extends AbstractJob<EntityAIWorkDeliveryman, JobDeli
     private void setupRsDataStore()
     {
         rsDataStoreToken = this.getCitizen()
-                             .getColony()
-                             .getRequestManager()
-                             .getDataStoreManager()
-                             .get(
-                               StandardFactoryController.getInstance().getNewInstance(TypeConstants.ITOKEN),
-                               TypeConstants.REQUEST_SYSTEM_DELIVERY_MAN_JOB_DATA_STORE
-                             )
-                             .getId();
+            .getColony()
+            .getRequestManager()
+            .getDataStoreManager()
+            .get(
+                StandardFactoryController.getInstance().getNewInstance(TypeConstants.ITOKEN),
+                TypeConstants.REQUEST_SYSTEM_DELIVERY_MAN_JOB_DATA_STORE
+            )
+            .getId();
     }
 
     @Override
@@ -94,7 +94,7 @@ public class JobDeliveryman extends AbstractJob<EntityAIWorkDeliveryman, JobDeli
         {
             final AbstractEntityCitizen worker = getCitizen().getEntity().get();
             final AttributeModifier speedModifier = new AttributeModifier(SKILL_BONUS_ADD, getCitizen().getCitizenSkillHandler().getLevel(getCitizen().getWorkBuilding().getModule(
-              BuildingModules.COURIER_WORK).getPrimarySkill()) * BONUS_SPEED_PER_LEVEL, AttributeModifier.Operation.ADDITION);
+                BuildingModules.COURIER_WORK).getPrimarySkill()) * BONUS_SPEED_PER_LEVEL, AttributeModifier.Operation.ADDITION);
             AttributeModifierUtils.addModifier(worker, speedModifier, Attributes.MOVEMENT_SPEED);
         }
     }
@@ -236,7 +236,6 @@ public class JobDeliveryman extends AbstractJob<EntityAIWorkDeliveryman, JobDeli
                 {
                     break;
                 }
-
             }
 
             module.getMutableRequestList().removeAll(reqsToRemove);
@@ -246,7 +245,6 @@ public class JobDeliveryman extends AbstractJob<EntityAIWorkDeliveryman, JobDeli
             {
                 return null;
             }
-
         }
 
         return (IRequest<IDeliverymanRequestable>) getColony().getRequestManager().getRequestForToken(request);
@@ -515,9 +513,9 @@ public class JobDeliveryman extends AbstractJob<EntityAIWorkDeliveryman, JobDeli
         {
             // No task, compare with dman pos
             totalScore = getClosenessFactorTo(getSource(newRequest),
-              getTarget(newRequest),
-              getCitizen().getLastPosition(),
-              getTarget(newRequest));
+                getTarget(newRequest),
+                getCitizen().getLastPosition(),
+                getTarget(newRequest));
 
             totalScore -= ((AbstractDeliverymanRequestable) newRequest.getRequest()).getPriority();
         }
@@ -558,7 +556,7 @@ public class JobDeliveryman extends AbstractJob<EntityAIWorkDeliveryman, JobDeli
     public double getScoreOfRequestComparedTo(final IRequest<?> source, final IRequest<?> comparing, final int comparingIndex)
     {
         if (!(comparing != null && comparing.getRequest() instanceof AbstractDeliverymanRequestable && source != null
-                && source.getRequest() instanceof AbstractDeliverymanRequestable))
+            && source.getRequest() instanceof AbstractDeliverymanRequestable))
         {
             return 100;
         }
@@ -605,7 +603,7 @@ public class JobDeliveryman extends AbstractJob<EntityAIWorkDeliveryman, JobDeli
     private static int getPickUpRequestScore(final IRequest<?> newRequest, final IRequest<?> existing)
     {
         if (newRequest.getRequest() instanceof Pickup && existing.getRequest() instanceof Delivery
-              || newRequest.getRequest() instanceof Delivery && existing.getRequest() instanceof Pickup)
+            || newRequest.getRequest() instanceof Delivery && existing.getRequest() instanceof Pickup)
         {
             return 0;
         }
@@ -703,6 +701,7 @@ public class JobDeliveryman extends AbstractJob<EntityAIWorkDeliveryman, JobDeli
 
     /**
      * Add a concurrent delivery that is going on.
+     *
      * @param requestToken the token of the request.
      */
     public void addConcurrentDelivery(final IToken<?> requestToken)
@@ -712,6 +711,7 @@ public class JobDeliveryman extends AbstractJob<EntityAIWorkDeliveryman, JobDeli
 
     /**
      * Remove a concurrent delivery that is going on.
+     *
      * @param requestToken the token of the request.
      */
     public void removeConcurrentDelivery(final IToken<?> requestToken)

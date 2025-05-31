@@ -56,8 +56,8 @@ public abstract class CustomRecipeProvider implements DataProvider
             }
 
             futures.put(recipe.getId(), DataProvider.saveStable(cache,
-                    recipe.serializeRecipe(),
-                    pathProvider.json(recipe.getId())));
+                recipe.serializeRecipe(),
+                pathProvider.json(recipe.getId())));
         });
 
         return CompletableFuture.allOf(futures.values().toArray(new CompletableFuture[0]));
@@ -70,9 +70,9 @@ public abstract class CustomRecipeProvider implements DataProvider
      */
     public static class CustomRecipeBuilder
     {
-        private final JsonObject json = new JsonObject();
+        private final JsonObject       json         = new JsonObject();
         private final ResourceLocation id;
-        private Block intermediate = Blocks.AIR;
+        private       Block            intermediate = Blocks.AIR;
 
         private CustomRecipeBuilder(final String crafter, final String module, final String id)
         {
@@ -148,6 +148,7 @@ public abstract class CustomRecipeProvider implements DataProvider
         /**
          * Sets a research id that is required before this recipe is available.  Can be called multiple times to add
          * additional researches, all of which will be required before this recipe is available.
+         *
          * @param researchId the required research id.
          */
         @NotNull
@@ -177,6 +178,7 @@ public abstract class CustomRecipeProvider implements DataProvider
         /**
          * Sets a research id that is required before this recipe is no longer available.  Can be called multiple
          * times to add additional researches, all of which will be required before this recipe is removed.
+         *
          * @param researchId the excluded research id.
          */
         @NotNull
@@ -293,7 +295,7 @@ public abstract class CustomRecipeProvider implements DataProvider
 
         private static class Result implements FinishedRecipe
         {
-            final JsonObject json;
+            final JsonObject       json;
             final ResourceLocation id;
 
             public Result(final JsonObject json, final ResourceLocation id)

@@ -109,11 +109,11 @@ public class CitizenJobHandler implements ICitizenJobHandler
             {
                 IColony colony = citizen.getCitizenColonyHandler().getColonyOrRegister();
                 int guards = ((int) colony.getCitizenManager().getCitizens()
-                  .stream()
-                  .filter(citizen -> citizen.getJob() instanceof AbstractJobGuard)
-                  .count());
+                    .stream()
+                    .filter(citizen -> citizen.getJob() instanceof AbstractJobGuard)
+                    .count());
                 AdvancementUtils.TriggerAdvancementPlayersForColony(citizen.getCitizenColonyHandler().getColonyOrRegister(),
-                  player -> AdvancementTriggers.ARMY_POPULATION.trigger(player, guards));
+                    player -> AdvancementTriggers.ARMY_POPULATION.trigger(player, guards));
             }
 
             job.initEntityValues(citizen);

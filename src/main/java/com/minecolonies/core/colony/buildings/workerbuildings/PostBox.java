@@ -81,7 +81,7 @@ public class PostBox extends AbstractBuilding implements IRSComponent
     @Override
     public Tuple<BlockPos, BlockPos> getCorners()
     {
-        return new Tuple<>(getPosition(),getPosition());
+        return new Tuple<>(getPosition(), getPosition());
     }
 
     @Override

@@ -39,7 +39,7 @@ public class BuildingDataManager implements IBuildingDataManager
         catch (final Exception ex)
         {
             Log.getLogger().error(String.format("A Building %s(%s) has thrown an exception during loading, its state cannot be restored. Report this to the mod author",
-              type, building.getClass().getName()), ex);
+                type, building.getClass().getName()), ex);
             building = null;
         }
 

@@ -331,8 +331,8 @@ public class RegisteredStructureManager implements IRegisteredStructureManager
         if (!removedBuildings.isEmpty() && removedBuildings.size() >= buildings.values().size())
         {
             Log.getLogger()
-              .warn("Colony:" + colony.getID()
-                      + " is removing all buildings at once. Did you just load a backup? If not there is a chance that colony data got corrupted and you want to restore a backup.");
+                .warn("Colony:" + colony.getID()
+                    + " is removing all buildings at once. Did you just load a backup? If not there is a chance that colony data got corrupted and you want to restore a backup.");
         }
 
         removedBuildings.forEach(IBuilding::destroy);
@@ -572,10 +572,10 @@ public class RegisteredStructureManager implements IRegisteredStructureManager
                 building.upgradeBuildingLevelToSchematicData();
 
                 Log.getLogger().debug(String.format("Colony %d - new Building %s for %s at %s",
-                  colony.getID(),
-                  building.getBuildingDisplayName(),
-                  tileEntity.getBlockState().getBlock(),
-                  tileEntity.getPosition()));
+                    colony.getID(),
+                    building.getBuildingDisplayName(),
+                    tileEntity.getBlockState().getBlock(),
+                    tileEntity.getPosition()));
 
                 building.setIsMirrored(tileEntity.isMirrored());
                 if (tileEntity.getStructurePack() != null)
@@ -601,9 +601,9 @@ public class RegisteredStructureManager implements IRegisteredStructureManager
             else
             {
                 Log.getLogger().error(String.format("Colony %d unable to create AbstractBuilding for %s at %s",
-                  colony.getID(),
-                  tileEntity.getBlockState().getClass(),
-                  tileEntity.getPosition()), new Exception());
+                    colony.getID(),
+                    tileEntity.getBlockState().getClass(),
+                    tileEntity.getPosition()), new Exception());
             }
 
             colony.getCitizenManager().calculateMaxCitizens();
@@ -635,9 +635,9 @@ public class RegisteredStructureManager implements IRegisteredStructureManager
             }
 
             Log.getLogger().info(String.format("Colony %d - removed AbstractBuilding %s of type %s",
-              colony.getID(),
-              building.getID(),
-              building.getSchematicName()));
+                colony.getID(),
+                building.getID(),
+                building.getSchematicName()));
         }
 
         if (building instanceof BuildingTownHall)
@@ -911,16 +911,16 @@ public class RegisteredStructureManager implements IRegisteredStructureManager
     public List<IBuildingExtension> getBuildingExtensions(Predicate<IBuildingExtension> matcher)
     {
         return buildingExtensions.values().stream()
-                 .filter(matcher)
-                 .toList();
+            .filter(matcher)
+            .toList();
     }
 
     @Override
     public Optional<IBuildingExtension> getMatchingBuildingExtension(Predicate<IBuildingExtension> matcher)
     {
         return getBuildingExtensions(matcher)
-                 .stream()
-                 .findFirst();
+            .stream()
+            .findFirst();
     }
 
     @Override

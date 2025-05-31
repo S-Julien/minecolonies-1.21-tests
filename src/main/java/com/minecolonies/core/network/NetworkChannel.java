@@ -76,9 +76,9 @@ public class NetworkChannel
      * Cache of partially received messages, this holds the data untill it is processed.
      */
     private final Cache<Integer, Map<Integer, byte[]>> messageCache = CacheBuilder.newBuilder()
-                                                                        .expireAfterAccess(1, TimeUnit.MINUTES)
-                                                                        .concurrencyLevel(8)
-                                                                        .build();
+        .expireAfterAccess(1, TimeUnit.MINUTES)
+        .concurrencyLevel(8)
+        .build();
 
     /**
      * An atomic counter which keeps track of the split messages that have been send to somewhere from this network node.
@@ -94,7 +94,8 @@ public class NetworkChannel
     public NetworkChannel(final String channelName)
     {
         final String modVersion = ModList.get().getModContainerById(Constants.MOD_ID).get().getModInfo().getVersion().toString();
-        rawChannel = NetworkRegistry.newSimpleChannel(new ResourceLocation(Constants.MOD_ID, channelName), () -> modVersion, str -> str.equals(modVersion), str -> str.equals(modVersion));
+        rawChannel =
+            NetworkRegistry.newSimpleChannel(new ResourceLocation(Constants.MOD_ID, channelName), () -> modVersion, str -> str.equals(modVersion), str -> str.equals(modVersion));
     }
 
     /**

@@ -51,7 +51,7 @@ public class ColonyViewBuildingExtensionsUpdateMessage implements IMessage
     /**
      * Creates a message to handle colony all building extension views.
      *
-     * @param colony the colony this building extension is in.
+     * @param colony     the colony this building extension is in.
      * @param extensions the complete list of building extensions of this colony.
      */
     public ColonyViewBuildingExtensionsUpdateMessage(@NotNull final IColony colony, @NotNull final Collection<IBuildingExtension> extensions)

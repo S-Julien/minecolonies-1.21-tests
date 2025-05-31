@@ -31,7 +31,7 @@ public class TypeTokenFactory implements IFactory<Class<?>, TypeToken<?>>
     @NotNull
     @Override
     public TypeToken<?> getNewInstance(
-      @NotNull final IFactoryController factoryController, @NotNull final Class<?> aClass, @NotNull final Object... context) throws IllegalArgumentException
+        @NotNull final IFactoryController factoryController, @NotNull final Class<?> aClass, @NotNull final Object... context) throws IllegalArgumentException
     {
         return TypeToken.of(aClass);
     }

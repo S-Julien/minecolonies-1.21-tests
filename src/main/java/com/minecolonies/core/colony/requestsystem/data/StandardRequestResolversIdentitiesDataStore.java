@@ -34,8 +34,8 @@ public class StandardRequestResolversIdentitiesDataStore implements IRequestReso
     private final BiMap<IToken<?>, IRequestResolver<?>> map;
 
     public StandardRequestResolversIdentitiesDataStore(
-      final IToken<?> id,
-      final BiMap<IToken<?>, IRequestResolver<?>> map)
+        final IToken<?> id,
+        final BiMap<IToken<?>, IRequestResolver<?>> map)
     {
         this.id = id;
         this.map = map;
@@ -85,7 +85,7 @@ public class StandardRequestResolversIdentitiesDataStore implements IRequestReso
         @NotNull
         @Override
         public StandardRequestResolversIdentitiesDataStore getNewInstance(
-          @NotNull final IFactoryController factoryController, @NotNull final FactoryVoidInput factoryVoidInput, @NotNull final Object... context) throws IllegalArgumentException
+            @NotNull final IFactoryController factoryController, @NotNull final FactoryVoidInput factoryVoidInput, @NotNull final Object... context) throws IllegalArgumentException
         {
             return new StandardRequestResolversIdentitiesDataStore();
         }
@@ -93,7 +93,7 @@ public class StandardRequestResolversIdentitiesDataStore implements IRequestReso
         @NotNull
         @Override
         public CompoundTag serialize(
-          @NotNull final IFactoryController controller, @NotNull final StandardRequestResolversIdentitiesDataStore standardRequestIdentitiesDataStore)
+            @NotNull final IFactoryController controller, @NotNull final StandardRequestResolversIdentitiesDataStore standardRequestIdentitiesDataStore)
         {
             final CompoundTag systemCompound = new CompoundTag();
 
@@ -134,8 +134,8 @@ public class StandardRequestResolversIdentitiesDataStore implements IRequestReso
 
         @Override
         public void serialize(
-          IFactoryController controller, StandardRequestResolversIdentitiesDataStore input,
-          FriendlyByteBuf packetBuffer)
+            IFactoryController controller, StandardRequestResolversIdentitiesDataStore input,
+            FriendlyByteBuf packetBuffer)
         {
             controller.serialize(packetBuffer, input.id);
             packetBuffer.writeInt(input.getIdentities().size());
@@ -147,8 +147,8 @@ public class StandardRequestResolversIdentitiesDataStore implements IRequestReso
 
         @Override
         public StandardRequestResolversIdentitiesDataStore deserialize(
-          IFactoryController controller,
-          FriendlyByteBuf buffer) throws Throwable
+            IFactoryController controller,
+            FriendlyByteBuf buffer) throws Throwable
         {
             final IToken<?> token = controller.deserialize(buffer);
             final Map<IToken<?>, IRequestResolver<?>> identities = new HashMap<>();

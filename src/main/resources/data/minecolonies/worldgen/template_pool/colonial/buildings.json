@@ -7,7 +7,7 @@
       "element": {
         "location": "minecolonies:colonial/builder1",
         "processors": "minecolonies:colonial/placeholder_replacement",
-		    "projection": "rigid",
+        "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
     },
@@ -116,5 +116,5 @@
         "element_type": "minecraft:empty_pool_element"
       }
     }
- ]
+  ]
 }

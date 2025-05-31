@@ -61,7 +61,7 @@ public final class BlockPosUtil
      */
     public static final BiPredicate<BlockGetter, BlockPos> SOLID_AIR_POS_SELECTOR = (world, pos) -> {
         return (world.getBlockState(pos).isSolid() || world.getBlockState(pos).liquid()) && world.getBlockState(
-          pos.above()).isAir() && world.getBlockState(pos.above(2)).isAir();
+            pos.above()).isAir() && world.getBlockState(pos.above(2)).isAir();
     };
 
     /**
@@ -104,8 +104,8 @@ public final class BlockPosUtil
      */
     @NotNull
     public static CompoundTag writeOptional(
-      @NotNull final CompoundTag compound, @NotNull final String name,
-      @Nullable final BlockPos value)
+        @NotNull final CompoundTag compound, @NotNull final String name,
+        @Nullable final BlockPos value)
     {
         if (value != null)
         {
@@ -122,8 +122,8 @@ public final class BlockPosUtil
     public static BlockPos getRandomPosAround(final BlockPos center, final int distance)
     {
         final Vec3 vec =
-          new Vec3(ColonyConstants.rand.nextDouble() - 0.5, ColonyConstants.rand.nextDouble() - 0.5, ColonyConstants.rand.nextDouble() - 0.5).normalize()
-            .multiply(distance, distance, distance);
+            new Vec3(ColonyConstants.rand.nextDouble() - 0.5, ColonyConstants.rand.nextDouble() - 0.5, ColonyConstants.rand.nextDouble() - 0.5).normalize()
+                .multiply(distance, distance, distance);
         return new BlockPos((int) Math.round(center.getX() + vec.x), (int) Math.round(center.getY() + vec.y), (int) Math.round(center.getZ() + vec.z));
     }
 
@@ -158,14 +158,14 @@ public final class BlockPosUtil
         int tries = 0;
         BlockPos pos = null;
         while (pos == null
-                 || !load && !WorldUtil.isEntityBlockLoaded(world, pos)
-                 || world.getBlockState(pos).liquid()
-                 || !BlockUtils.isAnySolid(world.getBlockState(pos.below()))
-                 || (!world.isEmptyBlock(pos) || !world.isEmptyBlock(pos.above())))
+            || !load && !WorldUtil.isEntityBlockLoaded(world, pos)
+            || world.getBlockState(pos).liquid()
+            || !BlockUtils.isAnySolid(world.getBlockState(pos.below()))
+            || (!world.isEmptyBlock(pos) || !world.isEmptyBlock(pos.above())))
         {
             pos = getRandomPosAround(currentPosition, ColonyConstants.rand.nextInt(maxDist) + minDist)
-              .above(ColonyConstants.rand.nextInt(UP_DOWN_RANGE))
-              .below(ColonyConstants.rand.nextInt(UP_DOWN_RANGE));
+                .above(ColonyConstants.rand.nextInt(UP_DOWN_RANGE))
+                .below(ColonyConstants.rand.nextInt(UP_DOWN_RANGE));
 
             if (tries >= MAX_TRIES)
             {
@@ -376,14 +376,14 @@ public final class BlockPosUtil
         }
 
         while (returnHeight >= 1 && world.isEmptyBlock(new BlockPos(Mth.floor(position.x),
-          (int) returnHeight,
-          Mth.floor(position.z))))
+            (int) returnHeight,
+            Mth.floor(position.z))))
         {
             returnHeight -= 1.0D;
         }
 
         while (!world.isEmptyBlock(
-          new BlockPos(Mth.floor(position.x), (int) returnHeight, Mth.floor(position.z))))
+            new BlockPos(Mth.floor(position.x), (int) returnHeight, Mth.floor(position.z))))
         {
             returnHeight += 1.0D;
         }
@@ -407,7 +407,7 @@ public final class BlockPosUtil
         if (result < 0)
         {
             throw new IllegalStateException("max-sqrt is to high! Failure to catch overflow with "
-                                              + xDiff + " | " + yDiff + " | " + zDiff);
+                + xDiff + " | " + yDiff + " | " + zDiff);
         }
         return result;
     }
@@ -474,7 +474,7 @@ public final class BlockPosUtil
         if (result < 0)
         {
             throw new IllegalStateException("max-sqrt is to high! Failure to catch overflow with "
-                                              + xDiff + " | " + zDiff);
+                + xDiff + " | " + zDiff);
         }
         return result;
     }
@@ -594,7 +594,7 @@ public final class BlockPosUtil
         final int y1 = pos.getY() & ~15;
         final int z1 = pos.getZ() & ~15;
         return new BoundingBox(x1 - blockRadius, y1 - blockRadius, z1 - blockRadius,
-          x1 + blockRadius + 15, y1 + blockRadius + 15, z1 + blockRadius + 15);
+            x1 + blockRadius + 15, y1 + blockRadius + 15, z1 + blockRadius + 15);
     }
 
     /**
@@ -621,10 +621,10 @@ public final class BlockPosUtil
     public static List<ItemStack> getBlockDrops(@NotNull final Level world, @NotNull final BlockPos coords, final int fortune, final ItemStack stack, final LivingEntity entity)
     {
         return world.getBlockState(coords).getDrops(new LootParams.Builder((ServerLevel) world)
-          .withLuck(fortune)
-          .withOptionalParameter(LootContextParams.BLOCK_ENTITY, world.getBlockEntity(coords))
-          .withParameter(LootContextParams.ORIGIN, entity.position())
-          .withParameter(LootContextParams.TOOL, stack));
+            .withLuck(fortune)
+            .withOptionalParameter(LootContextParams.BLOCK_ENTITY, world.getBlockEntity(coords))
+            .withParameter(LootContextParams.ORIGIN, entity.position())
+            .withParameter(LootContextParams.TOOL, stack));
     }
 
     /**
@@ -751,7 +751,7 @@ public final class BlockPosUtil
         }
         //If there is no air above the block go upwards
         if (!EntityUtils.solidOrLiquid(world, position.set(position.getX(), position.getY() + 1, position.getZ())) &&
-              !EntityUtils.solidOrLiquid(world, position.set(position.getX(), position.getY() + 2, position.getZ())))
+            !EntityUtils.solidOrLiquid(world, position.set(position.getX(), position.getY() + 2, position.getZ())))
         {
             return position.immutable();
         }
@@ -1031,11 +1031,11 @@ public final class BlockPosUtil
      * @return position or null
      */
     public static BlockPos findAround(
-      final Level world,
-      final BlockPos start,
-      final int verticalRange,
-      final int horizontalRange,
-      final BiPredicate<BlockGetter, BlockPos> predicate)
+        final Level world,
+        final BlockPos start,
+        final int verticalRange,
+        final int horizontalRange,
+        final BiPredicate<BlockGetter, BlockPos> predicate)
     {
         if (horizontalRange < 1 && verticalRange < 1)
         {
@@ -1134,7 +1134,7 @@ public final class BlockPosUtil
     public static BlockPos findSpawnPosAround(final Level worldReader, final BlockPos start)
     {
         return findAround(worldReader, start, 1, 1,
-          (world, pos) -> world.getBlockState(pos).isAir() && world.getBlockState(pos.above()).isAir());
+            (world, pos) -> world.getBlockState(pos).isAir() && world.getBlockState(pos.above()).isAir());
     }
 
     /**
@@ -1222,7 +1222,7 @@ public final class BlockPosUtil
         }
 
         return location.getX() >= x1 - 1 && location.getX() <= x2 + 1
-                 && location.getY() >= y1 - 1 && location.getY() <= y2 + 1
-                 && location.getZ() >= z1 - 1 && location.getZ() <= z2 + 1;
+            && location.getY() >= y1 - 1 && location.getY() <= y2 + 1
+            && location.getZ() >= z1 - 1 && location.getZ() <= z2 + 1;
     }
 }

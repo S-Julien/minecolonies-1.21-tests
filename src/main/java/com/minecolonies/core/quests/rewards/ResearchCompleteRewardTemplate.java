@@ -22,6 +22,7 @@ public class ResearchCompleteRewardTemplate implements IQuestRewardTemplate
 
     /**
      * Setup the research reward.
+     *
      * @param research the research.
      */
     public ResearchCompleteRewardTemplate(final ResourceLocation research)
@@ -31,6 +32,7 @@ public class ResearchCompleteRewardTemplate implements IQuestRewardTemplate
 
     /**
      * Create the reward.
+     *
      * @param jsonObject the json to read from.
      * @return the reward object.
      */
@@ -40,6 +42,7 @@ public class ResearchCompleteRewardTemplate implements IQuestRewardTemplate
         final ResourceLocation research = new ResourceLocation(details.get(ID_KEY).getAsString());
         return new ResearchCompleteRewardTemplate(research);
     }
+
     @Override
     public void applyReward(final IColony colony, final Player player, final IQuestInstance colonyQuest)
     {

@@ -16,9 +16,10 @@ import static com.minecolonies.api.util.constant.Constants.MOD_ID;
 
 public class DefaultEntityTypeTagsProvider extends EntityTypeTagsProvider
 {
-    public DefaultEntityTypeTagsProvider(final PackOutput output,
-      final CompletableFuture<HolderLookup.Provider> lookupProvider,
-      @Nullable final ExistingFileHelper existingFileHelper)
+    public DefaultEntityTypeTagsProvider(
+        final PackOutput output,
+        final CompletableFuture<HolderLookup.Provider> lookupProvider,
+        @Nullable final ExistingFileHelper existingFileHelper)
     {
         super(output, lookupProvider, MOD_ID, existingFileHelper);
     }

@@ -61,12 +61,12 @@ public class PrivateCraftingTeachingTransferHandler implements IRecipeTransferHa
     @Nullable
     @Override
     public IRecipeTransferError transferRecipe(
-            @NotNull final ContainerCrafting craftingGUIBuilding,
-            @NotNull final CraftingRecipe recipe,
-            @NotNull final IRecipeSlotsView recipeSlots,
-            @NotNull final Player player,
-            final boolean maxTransfer,
-            final boolean doTransfer)
+        @NotNull final ContainerCrafting craftingGUIBuilding,
+        @NotNull final CraftingRecipe recipe,
+        @NotNull final IRecipeSlotsView recipeSlots,
+        @NotNull final Player player,
+        final boolean maxTransfer,
+        final boolean doTransfer)
     {
         // compact the crafting grid into a 2x2 area
         final Map<Integer, ItemStack> guiIngredients = new HashMap<>();

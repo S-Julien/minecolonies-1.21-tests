@@ -33,7 +33,8 @@ public class DefaultJobView implements IJobView
 
     /**
      * Instantiate the default job view.
-     * @param iColonyView the colony it belongs to.
+     *
+     * @param iColonyView      the colony it belongs to.
      * @param iCitizenDataView the citizen it belongs to.
      */
     public DefaultJobView(final IColonyView iColonyView, final ICitizenDataView iCitizenDataView)
@@ -67,6 +68,7 @@ public class DefaultJobView implements IJobView
 
     /**
      * Get the colony view this job belongs to.
+     *
      * @return the view.
      */
     protected IColonyView getColonyView()

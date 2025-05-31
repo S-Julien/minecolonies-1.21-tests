@@ -18,8 +18,8 @@ import static com.minecolonies.core.items.ItemColonyMap.TAG_COLONY;
 public class ClipBoardDecorator implements IItemDecorator
 {
     private static IColonyView colonyView;
-    private static boolean render = false;
-    private long lastChange;
+    private static boolean     render = false;
+    private        long        lastChange;
 
     @Override
     public boolean render(GuiGraphics graphics, Font font, ItemStack stack, int xOffset, int yOffset)
@@ -59,10 +59,10 @@ public class ClipBoardDecorator implements IItemDecorator
                             ps.pushPose();
                             ps.translate(0, 0, 500);
                             graphics.drawCenteredString(font,
-                              Component.literal(count + ""),
-                              xOffset + 15,
-                              yOffset - 2,
-                              0xFF4500 | (255 << 24));
+                                Component.literal(count + ""),
+                                xOffset + 15,
+                                yOffset - 2,
+                                0xFF4500 | (255 << 24));
                             ps.popPose();
                             return true;
                         }

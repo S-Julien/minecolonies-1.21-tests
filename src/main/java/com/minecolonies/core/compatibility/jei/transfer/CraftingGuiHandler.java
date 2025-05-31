@@ -34,9 +34,10 @@ public class CraftingGuiHandler extends AbstractTeachingGuiHandler<WindowCraftin
 
     @NotNull
     @Override
-    public Collection<IGuiClickableArea> getGuiClickableAreas(@NotNull final WindowCrafting containerScreen,
-                                                              final double mouseX,
-                                                              final double mouseY)
+    public Collection<IGuiClickableArea> getGuiClickableAreas(
+        @NotNull final WindowCrafting containerScreen,
+        final double mouseX,
+        final double mouseY)
     {
         final List<IGuiClickableArea> areas = new ArrayList<>();
         final JobBasedRecipeCategory<?> category = getRecipeCategory(containerScreen.getBuildingView());

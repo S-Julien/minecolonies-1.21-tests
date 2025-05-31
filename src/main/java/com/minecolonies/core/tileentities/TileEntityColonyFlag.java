@@ -28,13 +28,17 @@ import static com.minecolonies.api.util.constant.NbtTagConstants.*;
 
 public class TileEntityColonyFlag extends BlockEntity
 {
-    /** A list of the default banner patterns, for colonies that have not chosen a flag */
+    /**
+     * A list of the default banner patterns, for colonies that have not chosen a flag
+     */
     private ListTag patterns = new ListTag();
 
-    /** The colony of the player that placed this banner */
+    /**
+     * The colony of the player that placed this banner
+     */
     public int colonyId = -1;
 
-    public TileEntityColonyFlag(final BlockPos pos, final BlockState state) { super(MinecoloniesTileEntities.COLONY_FLAG.get(), pos, state); }
+    public TileEntityColonyFlag(final BlockPos pos, final BlockState state) {super(MinecoloniesTileEntities.COLONY_FLAG.get(), pos, state);}
 
     @Override
     public void saveAdditional(CompoundTag compound)
@@ -54,7 +58,7 @@ public class TileEntityColonyFlag extends BlockEntity
         this.patterns = compound.getList(TAG_BANNER_PATTERNS, 10);
         this.colonyId = compound.getInt(TAG_COLONY_ID);
 
-        if(this.colonyId == -1 && this.hasLevel())
+        if (this.colonyId == -1 && this.hasLevel())
         {
             IColony colony = IColonyManager.getInstance().getIColony(this.getLevel(), worldPosition);
             if (colony != null)
@@ -72,7 +76,7 @@ public class TileEntityColonyFlag extends BlockEntity
     }
 
     @Override
-    public CompoundTag getUpdateTag() { return this.saveWithId(); }
+    public CompoundTag getUpdateTag() {return this.saveWithId();}
 
     @Override
     public void onDataPacket(final Connection net, final ClientboundBlockEntityDataPacket packet)
@@ -83,6 +87,7 @@ public class TileEntityColonyFlag extends BlockEntity
 
     /**
      * Retrieves the patterns, similar to {@link BannerBlockEntity#getPatterns()}
+     *
      * @return the list of pattern-color pairs
      */
     public List<Pair<Holder<BannerPattern>, DyeColor>> getPatterns()
@@ -99,16 +104,17 @@ public class TileEntityColonyFlag extends BlockEntity
         }
 
         List<Pair<Holder<BannerPattern>, DyeColor>> pattern = BannerBlockEntity.createPatterns(
-                DyeColor.WHITE,
-                this.patterns
+            DyeColor.WHITE,
+            this.patterns
         );
-	//remove the first base layer
-	pattern.remove(0);
-    	return pattern;
+        //remove the first base layer
+        pattern.remove(0);
+        return pattern;
     }
 
     /**
      * Builds a mutable ItemStack from the information within the tile entity
+     *
      * @return the ItemStack representing this banner
      */
     @OnlyIn(Dist.CLIENT)
@@ -127,13 +133,16 @@ public class TileEntityColonyFlag extends BlockEntity
         }
 
         if (!nbt.isEmpty())
+        {
             itemstack.getOrCreateTagElement("BlockEntityTag").put(TAG_BANNER_PATTERNS, nbt);
+        }
 
         return itemstack;
     }
 
     /**
      * Serverside version of the getItem method.
+     *
      * @return the classic stack.
      */
     public ItemStack getItemServer()

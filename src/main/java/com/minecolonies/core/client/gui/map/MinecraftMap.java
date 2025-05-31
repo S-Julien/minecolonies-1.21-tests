@@ -13,7 +13,7 @@ import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
  */
 public class MinecraftMap extends Pane implements AutoCloseable
 {
-    private DynamicTexture texture;
+    private DynamicTexture   texture;
     private ResourceLocation textureResLoc;
 
     /**
@@ -36,6 +36,7 @@ public class MinecraftMap extends Pane implements AutoCloseable
 
     /**
      * Set the fitting map data.
+     *
      * @param mapData the mapData to set.
      */
     public void setMapData(final MapItemSavedData mapData)

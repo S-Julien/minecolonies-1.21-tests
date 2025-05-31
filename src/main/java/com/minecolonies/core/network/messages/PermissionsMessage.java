@@ -41,7 +41,7 @@ public class PermissionsMessage
      */
     public static class View implements IMessage
     {
-        private int          colonyID;
+        private int             colonyID;
         private FriendlyByteBuf data;
 
         /**
@@ -274,11 +274,11 @@ public class PermissionsMessage
         /**
          * the ID of the colony
          */
-        private int colonyID;
+        private int                colonyID;
         /**
          * the name of the new rank
          */
-        private String rankName;
+        private String             rankName;
         /**
          * the dimension of the colony
          */
@@ -294,8 +294,9 @@ public class PermissionsMessage
 
         /**
          * Constructor for adding a rank to the colony
+         *
          * @param colony the colony to add the rank to
-         * @param name the name of the rank
+         * @param name   the name of the rank
          */
         public AddRank(@NotNull IColonyView colony, @NotNull String name)
         {
@@ -468,7 +469,6 @@ public class PermissionsMessage
             dimension = ResourceKey.create(Registries.DIMENSION, new ResourceLocation(buf.readUtf(32767)));
             IColony colony = IColonyManager.getInstance().getColonyByDimension(colonyID, dimension);
             rank = colony.getPermissions().getRank(buf.readInt());
-
         }
 
         @Override
@@ -560,10 +560,10 @@ public class PermissionsMessage
             final ServerPlayer player = ctxIn.getSender();
             final ColonyPlayer permissionsPlayer = colony.getPermissions().getPlayers().get(playerID);
             if ((permissionsPlayer.getRank().isHostile() && colony.getPermissions().hasPermission(player, Action.EDIT_PERMISSIONS))
-                  || (!permissionsPlayer.getRank().isHostile()
-                        && colony.getPermissions().hasPermission(player, Action.EDIT_PERMISSIONS)
-                        && colony.getPermissions().getRank(player).isColonyManager())
-                  || player.getUUID().equals(playerID))
+                || (!permissionsPlayer.getRank().isHostile()
+                && colony.getPermissions().hasPermission(player, Action.EDIT_PERMISSIONS)
+                && colony.getPermissions().getRank(player).isColonyManager())
+                || player.getUUID().equals(playerID))
             {
                 colony.getPermissions().removePlayer(playerID);
             }
@@ -578,11 +578,11 @@ public class PermissionsMessage
         /**
          * the colony ID
          */
-        private int colonyId;
+        private int                colonyId;
         /**
          * the rank ID
          */
-        private int rankId;
+        private int                rankId;
         /**
          * the dimension of the colony
          */
@@ -598,8 +598,9 @@ public class PermissionsMessage
 
         /**
          * Constructor for removing a rank from a colony
+         *
          * @param colony the colony to remove the rank from
-         * @param rank the rank to remove
+         * @param rank   the rank to remove
          */
         public RemoveRank(@NotNull final IColonyView colony, @NotNull final Rank rank)
         {
@@ -644,11 +645,11 @@ public class PermissionsMessage
         /**
          * the colony id
          */
-        private int colonyId;
+        private int                colonyId;
         /**
          * the rank id
          */
-        private int rankId;
+        private int                rankId;
         /**
          * the dimension
          */
@@ -656,17 +657,18 @@ public class PermissionsMessage
         /**
          * the new rank type
          */
-        private int rankType;
+        private int                rankType;
 
         /**
          * empty public constructor
          */
-        public EditRankType() { super(); }
+        public EditRankType() {super();}
 
         /**
          * Constructor for changing the rank type
-         * @param colony the colony of the rank
-         * @param rank the rank
+         *
+         * @param colony   the colony of the rank
+         * @param rank     the rank
          * @param rankType the new rank type
          */
         public EditRankType(@NotNull final IColonyView colony, @NotNull final Rank rank, final int rankType)
@@ -730,11 +732,11 @@ public class PermissionsMessage
         /**
          * the colony ID
          */
-        private int colonyId;
+        private int                colonyId;
         /**
          * the rank ID
          */
-        private int rankId;
+        private int                rankId;
         /**
          * the dimension
          */
@@ -742,17 +744,18 @@ public class PermissionsMessage
         /**
          * the new isSubscriber state
          */
-        private boolean isSubscriber;
+        private boolean            isSubscriber;
 
         /**
          * Empty public constructor
          */
-        public SetSubscriber() { super(); }
+        public SetSubscriber() {super();}
 
         /**
          * Constructor to change whether the given rank is a subscriber
-         * @param colony the colony of the rank
-         * @param rank the rank
+         *
+         * @param colony       the colony of the rank
+         * @param rank         the rank
          * @param isSubscriber whether the rank should be a subscriber
          */
         public SetSubscriber(@NotNull final IColonyView colony, @NotNull final Rank rank, final boolean isSubscriber)

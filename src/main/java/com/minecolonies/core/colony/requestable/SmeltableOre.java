@@ -24,14 +24,14 @@ public class SmeltableOre implements IDeliverable
      * Set of type tokens belonging to this class.
      */
     private final static Set<TypeToken<?>>
-      TYPE_TOKENS = ReflectionUtils.getSuperClasses(TypeToken.of(SmeltableOre.class)).stream().filter(type -> !type.equals(TypeConstants.OBJECT)).collect(Collectors.toSet());
+        TYPE_TOKENS = ReflectionUtils.getSuperClasses(TypeToken.of(SmeltableOre.class)).stream().filter(type -> !type.equals(TypeConstants.OBJECT)).collect(Collectors.toSet());
 
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
     private static final String NBT_COUNT  = "Count";
     private static final String NBT_RESULT = "Result";
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
 
-    private final int count;
+    private final        int    count;
 
     private ItemStack result;
 

@@ -33,7 +33,7 @@ public class FishermanRecipeCategory extends JobBasedRecipeCategory<FishermanRec
     public FishermanRecipeCategory(@NotNull final IGuiHelper guiHelper)
     {
         super(ModJobs.fisherman.get().produceJob(null), ModRecipeTypes.FISHING,
-                new ItemStack(ModBuildings.fisherman.get().getBuildingBlock()), guiHelper);
+            new ItemStack(ModBuildings.fisherman.get().getBuildingBlock()), guiHelper);
     }
 
     private static final int LOOT_SLOTS_X = CITIZEN_X + CITIZEN_W + 4;
@@ -44,14 +44,15 @@ public class FishermanRecipeCategory extends JobBasedRecipeCategory<FishermanRec
     protected List<Component> generateInfoBlocks(@NotNull FishingRecipe recipe)
     {
         return Collections.singletonList(
-                Component.translatable(PARTIAL_JEI_INFO + "onelevelrestriction",
-                        recipe.getLevel()));
+            Component.translatable(PARTIAL_JEI_INFO + "onelevelrestriction",
+                recipe.getLevel()));
     }
 
     @Override
-    public void setRecipe(@NotNull final IRecipeLayoutBuilder builder,
-                          @NotNull final FishingRecipe recipe,
-                          @NotNull final IFocusGroup focuses)
+    public void setRecipe(
+        @NotNull final IRecipeLayoutBuilder builder,
+        @NotNull final FishingRecipe recipe,
+        @NotNull final IFocusGroup focuses)
     {
         addToolSlot(builder, ModEquipmentTypes.fishing_rod.get(), WIDTH - 18, CITIZEN_Y - 20, true);
 
@@ -68,9 +69,9 @@ public class FishermanRecipeCategory extends JobBasedRecipeCategory<FishermanRec
             for (final LootTableAnalyzer.LootDrop drop : recipe.getDrops())
             {
                 builder.addSlot(RecipeIngredientRole.OUTPUT, x, y)
-                        .setBackground(this.chanceSlot, -1, -1)
-                        .addItemStacks(drop.getItemStacks())
-                        .addTooltipCallback(new LootTableTooltipCallback(drop, recipe.getId()));
+                    .setBackground(this.chanceSlot, -1, -1)
+                    .addItemStacks(drop.getItemStacks())
+                    .addTooltipCallback(new LootTableTooltipCallback(drop, recipe.getId()));
                 if (++c >= columns)
                 {
                     c = 0;
@@ -102,8 +103,8 @@ public class FishermanRecipeCategory extends JobBasedRecipeCategory<FishermanRec
 
     public static class FishingRecipe
     {
-        private final ResourceLocation id;
-        private final int level;
+        private final ResourceLocation                 id;
+        private final int                              level;
         @NotNull
         private final List<LootTableAnalyzer.LootDrop> drops;
 

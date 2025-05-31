@@ -78,9 +78,9 @@ public class ItemQuestLog extends AbstractItemMinecolonies
     @Override
     @NotNull
     public InteractionResultHolder<ItemStack> use(
-      final Level worldIn,
-      final Player playerIn,
-      final InteractionHand hand)
+        final Level worldIn,
+        final Player playerIn,
+        final InteractionHand hand)
     {
         final ItemStack questLog = playerIn.getItemInHand(hand);
 

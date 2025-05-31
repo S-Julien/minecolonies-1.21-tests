@@ -69,35 +69,38 @@ public class BuildingBlacksmith extends AbstractBuilding
         public OptionalPredicate<ItemStack> getIngredientValidator()
         {
             return CraftingUtils.getIngredientValidatorBasedOnTags(CRAFTING_BLACKSMITH)
-                    .combine(super.getIngredientValidator());
+                .combine(super.getIngredientValidator());
         }
 
         @Override
         public boolean isRecipeCompatible(@NotNull final IGenericRecipe recipe)
         {
-            if (!super.isRecipeCompatible(recipe)) return false;
+            if (!super.isRecipeCompatible(recipe))
+            {
+                return false;
+            }
 
             if (recipe.matchesInput(OptionalPredicate.failIf(input -> input.is(Items.LEATHER)))
-                    .equals(Optional.of(false)))
+                .equals(Optional.of(false)))
             {
                 // explicitly disallow anything using leather; that's the fletcher's responsibility
                 return false;
             }
             if (recipe.matchesOutput(OptionalPredicate.passIf(output ->
-                                    ModEquipmentTypes.axe.get().checkIsEquipment(output) ||
-                                    ModEquipmentTypes.pickaxe.get().checkIsEquipment(output) ||
-                                    ModEquipmentTypes.shovel.get().checkIsEquipment(output) ||
-                                    ModEquipmentTypes.hoe.get().checkIsEquipment(output) ||
-                                    ModEquipmentTypes.shears.get().checkIsEquipment(output) ||
-                                    ModEquipmentTypes.sword.get().checkIsEquipment(output) ||
-                                    ModEquipmentTypes.shield.get().checkIsEquipment(output) ||
-                                    ModEquipmentTypes.helmet.get().checkIsEquipment(output) ||
-                                    ModEquipmentTypes.chestplate.get().checkIsEquipment(output) ||
-                                    ModEquipmentTypes.leggings.get().checkIsEquipment(output) ||
-                                    ModEquipmentTypes.boots.get().checkIsEquipment(output) ||
-                                    // deliberately excluding FISHINGROD and FLINT_N_STEEL
-                                    Compatibility.isTinkersWeapon(output)))
-                    .equals(Optional.of(true)))
+                    ModEquipmentTypes.axe.get().checkIsEquipment(output) ||
+                        ModEquipmentTypes.pickaxe.get().checkIsEquipment(output) ||
+                        ModEquipmentTypes.shovel.get().checkIsEquipment(output) ||
+                        ModEquipmentTypes.hoe.get().checkIsEquipment(output) ||
+                        ModEquipmentTypes.shears.get().checkIsEquipment(output) ||
+                        ModEquipmentTypes.sword.get().checkIsEquipment(output) ||
+                        ModEquipmentTypes.shield.get().checkIsEquipment(output) ||
+                        ModEquipmentTypes.helmet.get().checkIsEquipment(output) ||
+                        ModEquipmentTypes.chestplate.get().checkIsEquipment(output) ||
+                        ModEquipmentTypes.leggings.get().checkIsEquipment(output) ||
+                        ModEquipmentTypes.boots.get().checkIsEquipment(output) ||
+                        // deliberately excluding FISHINGROD and FLINT_N_STEEL
+                        Compatibility.isTinkersWeapon(output)))
+                .equals(Optional.of(true)))
             {
                 // allow any other tool/armor even if it uses an excluded ingredient
                 return true;

@@ -30,7 +30,7 @@ public class PrivateWorkerCraftingRequestResolver extends AbstractCraftingReques
 {
     public PrivateWorkerCraftingRequestResolver(@NotNull final ILocation location, @NotNull final IToken<?> token, @NotNull final JobEntry entry)
     {
-        super(location, token, entry,false);
+        super(location, token, entry, false);
     }
 
     @Nullable
@@ -78,9 +78,9 @@ public class PrivateWorkerCraftingRequestResolver extends AbstractCraftingReques
         }
 
         return request.getRequester().getRequesterDisplayName(manager, request)
-                 .append(Component.literal(" ("))
-                 .append(Component.translatable(TranslationConstants.COM_MINECOLONIES_PRIVATE_CRAFTING_RESOLVER_NAME))
-                 .append(Component.literal(")"));
+            .append(Component.literal(" ("))
+            .append(Component.translatable(TranslationConstants.COM_MINECOLONIES_PRIVATE_CRAFTING_RESOLVER_NAME))
+            .append(Component.literal(")"));
     }
 
     @Override

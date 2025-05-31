@@ -54,7 +54,7 @@ public class WorkManager implements IWorkManager
     /**
      * Checks if there has been changes.
      */
-    private              boolean                  dirty           = false;
+    private       boolean                        dirty          = false;
 
     /**
      * Constructor, saves reference to the colony.
@@ -273,7 +273,8 @@ public class WorkManager implements IWorkManager
         {
             for (final IServerWorkOrder or : workOrders.values())
             {
-                if (or.getLocation().equals(order.getLocation()) && or.getStructurePath().equals(order.getStructurePath()) && or.getStructurePack().equals(order.getStructurePack()))
+                if (or.getLocation().equals(order.getLocation()) && or.getStructurePath().equals(order.getStructurePath()) && or.getStructurePack()
+                    .equals(order.getStructurePack()))
                 {
                     Log.getLogger().warn("Avoiding adding duplicate workOrder");
                     removeWorkOrder(or);
@@ -302,13 +303,13 @@ public class WorkManager implements IWorkManager
                 if (building != null)
                 {
                     AdvancementUtils.TriggerAdvancementPlayersForColony(colony,
-                            player -> AdvancementTriggers.CREATE_BUILD_REQUEST.trigger(player, building.getBuildingType().getBuildingBlock().getBlueprintName(), level));
+                        player -> AdvancementTriggers.CREATE_BUILD_REQUEST.trigger(player, building.getBuildingType().getBuildingBlock().getBlueprintName(), level));
                 }
             }
             else if (order instanceof WorkOrderDecoration)
             {
                 AdvancementUtils.TriggerAdvancementPlayersForColony(colony,
-                  player -> AdvancementTriggers.CREATE_BUILD_REQUEST.trigger(player, order.getFileName().replace(String.valueOf(level), ""), level));
+                    player -> AdvancementTriggers.CREATE_BUILD_REQUEST.trigger(player, order.getFileName().replace(String.valueOf(level), ""), level));
             }
         }
 
@@ -327,11 +328,11 @@ public class WorkManager implements IWorkManager
         final Level world = colony.getWorld();
         final Blueprint blueprint = StructurePacks.getBlueprint(order.getStructurePack(), order.getStructurePath());
         final Tuple<BlockPos, BlockPos> corners
-          = ColonyUtils.calculateCorners(order.getLocation(),
-          world,
-          blueprint,
-          order.getRotation(),
-          order.isMirrored());
+            = ColonyUtils.calculateCorners(order.getLocation(),
+            world,
+            blueprint,
+            order.getRotation(),
+            order.isMirrored());
 
         Set<ChunkPos> chunks = new HashSet<>();
         final int minX = Math.min(corners.getA().getX(), corners.getB().getX()) + 1;
@@ -397,9 +398,9 @@ public class WorkManager implements IWorkManager
     public <W extends IServerWorkOrder> List<W> getOrderedList(Class<W> type, BlockPos builder)
     {
         return getOrderedList(type::isInstance, builder)
-          .stream()
-          .map(m -> (W) m)
-          .collect(Collectors.toList());
+            .stream()
+            .map(m -> (W) m)
+            .collect(Collectors.toList());
     }
 
     /**
@@ -413,10 +414,10 @@ public class WorkManager implements IWorkManager
     public List<IServerWorkOrder> getOrderedList(@NotNull Predicate<IServerWorkOrder> predicate, final BlockPos builder)
     {
         return workOrders.values().stream()
-          .filter(o -> (!o.isClaimed() || o.getClaimedBy().equals(builder)))
-          .filter(predicate)
-          .sorted(Comparator.comparingInt(IWorkOrder::getPriority).reversed())
-          .collect(Collectors.toList());
+            .filter(o -> (!o.isClaimed() || o.getClaimedBy().equals(builder)))
+            .filter(predicate)
+            .sorted(Comparator.comparingInt(IWorkOrder::getPriority).reversed())
+            .collect(Collectors.toList());
     }
 
     /**

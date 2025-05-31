@@ -99,21 +99,21 @@ public class StringSetting implements IStringSetting<String>
     @OnlyIn(Dist.CLIENT)
     @Override
     public void setupHandler(
-      final ISettingKey<?> key,
-      final Pane pane,
-      final ISettingsModuleView settingsModuleView,
-      final IBuildingView building, final BOWindow window)
+        final ISettingKey<?> key,
+        final Pane pane,
+        final ISettingsModuleView settingsModuleView,
+        final IBuildingView building, final BOWindow window)
     {
         pane.findPaneOfTypeByID("trigger", ButtonImage.class).setHandler(button -> settingsModuleView.trigger(key));
     }
 
     @Override
     public void render(
-      final ISettingKey<?> key,
-      final Pane pane,
-      final ISettingsModuleView settingsModuleView,
-      final IBuildingView building,
-      final BOWindow window)
+        final ISettingKey<?> key,
+        final Pane pane,
+        final ISettingsModuleView settingsModuleView,
+        final IBuildingView building,
+        final BOWindow window)
     {
         int buttonWidth = MathUtils.clamp(getButtonWidth(settingsModuleView), 0, MAX_BUTTON_WIDTH);
         ButtonImage triggerButton = pane.findPaneOfTypeByID("trigger", ButtonImage.class);

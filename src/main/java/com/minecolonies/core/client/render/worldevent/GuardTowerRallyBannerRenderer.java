@@ -9,7 +9,7 @@ public class GuardTowerRallyBannerRenderer
 {
     /**
      * Renders the rallying banner guard tower indicators into the world.
-     * 
+     *
      * @param ctx rendering context
      */
     static void render(final WorldEventContext ctx)

@@ -64,15 +64,15 @@ public class WorkOrderBuilding extends AbstractWorkOrder
         String schemPath = building.getBlueprintPath().replace(".blueprint", "");
         schemPath = schemPath.substring(0, schemPath.length() - 1) + targetSchematicLevel + ".blueprint";
         WorkOrderBuilding wo = new WorkOrderBuilding(
-          building.getStructurePack(),
-          schemPath,
-          building.getBuildingType().getTranslationKey(),
-          type,
-          building.getID(),
-          building.getRotation(),
-          building.getTileEntity() == null ? building.isMirrored() : building.getTileEntity().isMirrored(),
-          building.getBuildingLevel(),
-          targetLevel);
+            building.getStructurePack(),
+            schemPath,
+            building.getBuildingType().getTranslationKey(),
+            type,
+            building.getID(),
+            building.getRotation(),
+            building.getTileEntity() == null ? building.isMirrored() : building.getTileEntity().isMirrored(),
+            building.getBuildingLevel(),
+            targetLevel);
         wo.setCustomName(building);
         wo.setColony(building.getColony());
         return wo;
@@ -87,15 +87,15 @@ public class WorkOrderBuilding extends AbstractWorkOrder
     }
 
     private WorkOrderBuilding(
-      String packName,
-      String path,
-      String translationKey,
-      WorkOrderType workOrderType,
-      BlockPos location,
-      int rotation,
-      boolean isMirrored,
-      int currentLevel,
-      int targetLevel)
+        String packName,
+        String path,
+        String translationKey,
+        WorkOrderType workOrderType,
+        BlockPos location,
+        int rotation,
+        boolean isMirrored,
+        int currentLevel,
+        int targetLevel)
     {
         super(packName, path, translationKey, workOrderType, location, rotation, isMirrored, currentLevel, targetLevel);
     }
@@ -161,8 +161,8 @@ public class WorkOrderBuilding extends AbstractWorkOrder
 
         final IBuilding building = citizen.getWorkBuilding();
         return canBuildIgnoringDistance(building.getPosition(), building.getBuildingLevel())
-                 && (citizen.getWorkBuilding().getPosition().distSqr(getLocation()) <= MAX_DISTANCE_SQ
-                 || (isClaimed() && getClaimedBy().equals(building.getPosition())));
+            && (citizen.getWorkBuilding().getPosition().distSqr(getLocation()) <= MAX_DISTANCE_SQ
+            || (isClaimed() && getClaimedBy().equals(building.getPosition())));
     }
 
     /**
@@ -185,11 +185,11 @@ public class WorkOrderBuilding extends AbstractWorkOrder
     public boolean tooFarFromAnyBuilder(final IColony colony, final int level)
     {
         return colony.getBuildingManager()
-          .getBuildings()
-          .values()
-          .stream()
-          .noneMatch(building -> building instanceof BuildingBuilder && !building.getAllAssignedCitizen().isEmpty()
-                                   && building.getPosition().distSqr(getLocation()) <= MAX_DISTANCE_SQ);
+            .getBuildings()
+            .values()
+            .stream()
+            .noneMatch(building -> building instanceof BuildingBuilder && !building.getAllAssignedCitizen().isEmpty()
+                && building.getPosition().distSqr(getLocation()) <= MAX_DISTANCE_SQ);
     }
 
     /**
@@ -253,7 +253,7 @@ public class WorkOrderBuilding extends AbstractWorkOrder
             if (building != null)
             {
                 AdvancementUtils.TriggerAdvancementPlayersForColony(colony,
-                        player -> AdvancementTriggers.COMPLETE_BUILD_REQUEST.trigger(player, building.getBuildingType().getBuildingBlock().getBlueprintName(), this.getTargetLevel()));
+                    player -> AdvancementTriggers.COMPLETE_BUILD_REQUEST.trigger(player, building.getBuildingType().getBuildingBlock().getBlueprintName(), this.getTargetLevel()));
             }
         }
     }

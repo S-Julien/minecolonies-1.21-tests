@@ -27,14 +27,14 @@ import static com.minecolonies.api.colony.IColony.CLOSE_COLONY_CAP;
 public class ColonyBorderRenderer
 {
     private static final int RENDER_DIST_THRESHOLD = 3;
-    private static final int CHUNK_SIZE = 16;
-    private static final int CHUNK_HEIGHT = 256;
-    private static final int PLAYER_CHUNK_STEP = CHUNK_SIZE / 4;
+    private static final int CHUNK_SIZE            = 16;
+    private static final int CHUNK_HEIGHT          = 256;
+    private static final int PLAYER_CHUNK_STEP     = CHUNK_SIZE / 4;
 
     private static VertexBuffer colonies           = null;
     private static VertexBuffer chunktickets       = null;
-    private static ChunkPos                     lastPlayerChunkPos = null;
-    private static IColonyView lastColony = null;
+    private static ChunkPos     lastPlayerChunkPos = null;
+    private static IColonyView  lastColony         = null;
 
     static void render(final WorldEventContext ctx)
     {
@@ -62,7 +62,10 @@ public class ColonyBorderRenderer
                 for (int chunkZ = -range; chunkZ <= range; chunkZ++)
                 {
                     final LevelChunk chunk = ctx.clientLevel.getChunk(playerChunkPos.x + chunkX, playerChunkPos.z + chunkZ);
-                    if (chunk.isEmpty()) { continue; }
+                    if (chunk.isEmpty())
+                    {
+                        continue;
+                    }
                     final ChunkPos chunkPos = chunk.getPos();
 
                     chunk.getCapability(CLOSE_COLONY_CAP, null).ifPresent(cap -> coloniesMap.put(chunkPos, cap.getOwningColony()));
@@ -105,7 +108,6 @@ public class ColonyBorderRenderer
         popShaderMVstack();
     }
 
-
     private static void pushShaderMVstack(final PoseStack pushWith)
     {
         final PoseStack ps = RenderSystem.getModelViewStack();
@@ -121,7 +123,8 @@ public class ColonyBorderRenderer
         RenderSystem.applyModelViewMatrix();
     }
 
-    private static VertexBuffer draw(final BufferBuilder bufferbuilder,
+    private static VertexBuffer draw(
+        final BufferBuilder bufferbuilder,
         final Map<ChunkPos, Integer> mapToDraw,
         final int playerColonyId,
         final ChunkPos playerChunkPos,

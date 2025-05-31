@@ -89,8 +89,8 @@ public class CommandClaimChunks implements IMCOPCommand
     public LiteralArgumentBuilder<CommandSourceStack> build()
     {
         return IMCCommand.newLiteral(getName())
-                 .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1))
-                         .then(IMCCommand.newArgument(RANGE_ARG, IntegerArgumentType.integer(0, 10))
-                                 .then(IMCCommand.newArgument(ADD_ARG, BoolArgumentType.bool()).executes(this::checkPreConditionAndExecute))));
+            .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1))
+                .then(IMCCommand.newArgument(RANGE_ARG, IntegerArgumentType.integer(0, 10))
+                    .then(IMCCommand.newArgument(ADD_ARG, BoolArgumentType.bool()).executes(this::checkPreConditionAndExecute))));
     }
 }

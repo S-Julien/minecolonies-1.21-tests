@@ -10,6 +10,7 @@ public interface IDefinesCoreBuildingStatsModule extends IBuildingModule
 {
     /**
      * Get the max number of inhabitants this module allows.
+     *
      * @return the modules max number of assigned citizens.
      */
     IStat<Integer> getMaxInhabitants();

@@ -36,8 +36,9 @@ public class GiveToolMessage extends AbstractBuildingServerMessage<AbstractBuild
 
     /**
      * Create a new tool message.
+     *
      * @param building the building it's created from.
-     * @param item the item to give.
+     * @param item     the item to give.
      */
     public GiveToolMessage(final IBuildingView building, final Item item)
     {

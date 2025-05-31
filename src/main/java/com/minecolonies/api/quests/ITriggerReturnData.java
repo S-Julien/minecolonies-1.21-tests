@@ -7,12 +7,14 @@ public interface ITriggerReturnData<T>
 {
     /**
      * Check if it is a match.
+     *
      * @return true if so.
      */
     boolean isPositive();
 
     /**
      * Get the actual content of the return data.
+     *
      * @return the content.
      */
     T getContent();

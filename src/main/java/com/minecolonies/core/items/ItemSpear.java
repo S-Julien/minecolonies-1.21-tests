@@ -31,7 +31,8 @@ public class ItemSpear extends TridentItem
     public void initializeClient(final Consumer<IClientItemExtensions> consumer)
     {
         super.initializeClient(consumer);
-        consumer.accept(new IClientItemExtensions() {
+        consumer.accept(new IClientItemExtensions()
+        {
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer()
             {

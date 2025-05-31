@@ -102,6 +102,7 @@ public class BuildingResourcesModuleView extends AbstractBuildingModuleView
 
     /**
      * Get the current stage status.
+     *
      * @return the stage.
      */
     public int getCurrentStage()
@@ -111,6 +112,7 @@ public class BuildingResourcesModuleView extends AbstractBuildingModuleView
 
     /**
      * Get the total number of stages,
+     *
      * @return all stages.
      */
     public int getTotalStages()

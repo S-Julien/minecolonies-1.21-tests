@@ -30,7 +30,7 @@ public class IntegerFactory implements IFactory<FactoryVoidInput, Integer>
     @NotNull
     @Override
     public Integer getNewInstance(
-      @NotNull final IFactoryController factoryController, @NotNull final FactoryVoidInput factoryVoidInput, @NotNull final Object... context) throws IllegalArgumentException
+        @NotNull final IFactoryController factoryController, @NotNull final FactoryVoidInput factoryVoidInput, @NotNull final Object... context) throws IllegalArgumentException
     {
         return Integer.valueOf(0);
     }

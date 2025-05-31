@@ -19,9 +19,9 @@ public class BasicEvent extends BasicTransition<IAIState> implements IStateMachi
     private final IStateEventType eventType;
 
     public BasicEvent(
-      @NotNull final IStateEventType eventType,
-      @NotNull final BooleanSupplier condition,
-      @NotNull final Supplier<IAIState> nextState)
+        @NotNull final IStateEventType eventType,
+        @NotNull final BooleanSupplier condition,
+        @NotNull final Supplier<IAIState> nextState)
     {
         super(condition, nextState);
         this.eventType = eventType;

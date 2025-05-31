@@ -32,12 +32,14 @@ public interface IQuestInstance extends INBTSerializable<CompoundTag>
 
     /**
      * Id of questgiver.
+     *
      * @return the id.
      */
     int getQuestGiverId();
 
     /**
      * Check if the expiration date relative to the colony day count was reached.
+     *
      * @param colony the colony to check the validity for.
      * @return true if so.
      */
@@ -45,6 +47,7 @@ public interface IQuestInstance extends INBTSerializable<CompoundTag>
 
     /**
      * Get the quest id of the quest.
+     *
      * @return the id.
      */
     ResourceLocation getId();
@@ -56,7 +59,8 @@ public interface IQuestInstance extends INBTSerializable<CompoundTag>
 
     /**
      * Advance the quest objective to this id.
-     * @param player the player advancing this objective.
+     *
+     * @param player        the player advancing this objective.
      * @param nextObjective the id to advance it to.
      * @return the next objective instance.
      */
@@ -69,12 +73,14 @@ public interface IQuestInstance extends INBTSerializable<CompoundTag>
 
     /**
      * Get the current objective index.
+     *
      * @return the index number.
      */
     int getObjectiveIndex();
 
     /**
      * Get one of the other participants by index.
+     *
      * @param target the target participant id.
      * @return the quest participant.
      */
@@ -82,18 +88,21 @@ public interface IQuestInstance extends INBTSerializable<CompoundTag>
 
     /**
      * Get the full list of quest participants.
+     *
      * @return the list of participants.
      */
     List<Integer> getParticipants();
 
     /**
      * Get the id of the current task holder in the quest.
+     *
      * @return the quest participant.
      */
     int getQuestTarget();
 
     /**
      * Get the objective data of the current objective.
+     *
      * @return the data.
      */
     @Nullable
@@ -101,18 +110,21 @@ public interface IQuestInstance extends INBTSerializable<CompoundTag>
 
     /**
      * Get the colony matching the quest.
+     *
      * @return the colony.
      */
     IColony getColony();
 
     /**
      * Get the player UUID that accepted the quest.
+     *
      * @return the player uuid.
      */
     UUID getAssignedPlayer();
 
     /**
      * Simple advance objective by one.
+     *
      * @param player the player involved.
      */
     void advanceObjective(Player player);

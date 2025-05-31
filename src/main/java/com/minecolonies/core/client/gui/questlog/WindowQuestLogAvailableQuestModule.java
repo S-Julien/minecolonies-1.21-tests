@@ -59,9 +59,9 @@ public class WindowQuestLogAvailableQuestModule implements WindowQuestLogQuestMo
         if (label.getRenderedTextWidth() > label.getWidth())
         {
             PaneBuilders.tooltipBuilder()
-              .append(component)
-              .hoverPane(label)
-              .build();
+                .append(component)
+                .hoverPane(label)
+                .build();
         }
     }
 

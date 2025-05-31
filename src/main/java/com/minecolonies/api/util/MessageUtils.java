@@ -94,16 +94,16 @@ public class MessageUtils
             if (job != null)
             {
                 builder = MessageUtils.format(job.getJobRegistryEntry().getTranslationKey())
-                  .append(Component.literal(" "))
-                  .append(citizen.getCustomName())
-                  .append(Component.literal(": "))
-                  .append(component);
+                    .append(Component.literal(" "))
+                    .append(citizen.getCustomName())
+                    .append(Component.literal(": "))
+                    .append(component);
             }
             else
             {
                 builder = MessageUtils.format(citizen.getCustomName())
-                  .append(Component.literal(": "))
-                  .append(component);
+                    .append(Component.literal(": "))
+                    .append(component);
             }
 
             return builder;
@@ -253,13 +253,13 @@ public class MessageUtils
         public MutableComponent create()
         {
             final Style newStyle = Style.EMPTY
-              .withColor(priority.color)
-              .withClickEvent(clickEvent);
+                .withColor(priority.color)
+                .withClickEvent(clickEvent);
 
             fullComponent.withStyle(newStyle);
             fullComponent.getSiblings().stream()
-              .map(this::getFormattableComponent)
-              .forEach(comp -> comp.withStyle(newStyle));
+                .map(this::getFormattableComponent)
+                .forEach(comp -> comp.withStyle(newStyle));
             return fullComponent;
         }
 

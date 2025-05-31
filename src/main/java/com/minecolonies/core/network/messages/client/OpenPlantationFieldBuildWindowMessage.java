@@ -26,11 +26,11 @@ public class OpenPlantationFieldBuildWindowMessage extends OpenBuildWindowMessag
      * @param path     the path in the pack.
      */
     public OpenPlantationFieldBuildWindowMessage(
-      final BlockPos pos,
-      final String packName,
-      final String path,
-      final Rotation rotation,
-      final Mirror mirror)
+        final BlockPos pos,
+        final String packName,
+        final String path,
+        final Rotation rotation,
+        final Mirror mirror)
     {
         super(pos, packName, path, rotation, mirror);
     }

@@ -37,13 +37,13 @@ public class DefaultFletcherCraftingProvider extends CustomRecipeProvider
     protected void registerRecipes(@NotNull final Consumer<FinishedRecipe> consumer)
     {
         CustomRecipeBuilder.create(FLETCHER, MODULE_CRAFTING, "flint")
-                .inputs(List.of(new ItemStorage(new ItemStack(Items.GRAVEL, 3))))
-                .result(new ItemStack(Items.FLINT))
-                .build(consumer);
+            .inputs(List.of(new ItemStorage(new ItemStack(Items.GRAVEL, 3))))
+            .result(new ItemStack(Items.FLINT))
+            .build(consumer);
 
         CustomRecipeBuilder.create(FLETCHER, MODULE_CRAFTING, "string")
-                .inputs(List.of(new ItemStorage(new ItemStack(Items.WHITE_WOOL))))
-                .result(new ItemStack(Items.STRING, 4))
-                .build(consumer);
+            .inputs(List.of(new ItemStorage(new ItemStack(Items.WHITE_WOOL))))
+            .result(new ItemStack(Items.STRING, 4))
+            .build(consumer);
     }
 }

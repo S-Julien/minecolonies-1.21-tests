@@ -49,6 +49,7 @@ public class WarehouseModule extends AbstractBuildingModule implements IPersiste
 
     /**
      * Get the upgrade level.
+     *
      * @return the level.
      */
     public int getStorageUpgrade()

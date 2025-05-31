@@ -21,7 +21,11 @@ import java.util.function.Predicate;
  * @param rarity    the rarity of the disease.
  * @param cureItems the list of items needed to heal.
  */
-public record Disease(ResourceLocation id, Component name, int rarity, List<ItemStorage> cureItems) implements WeightedEntry
+public record Disease(
+    ResourceLocation id,
+    Component name,
+    int rarity,
+    List<ItemStorage> cureItems) implements WeightedEntry
 {
     /**
      * Predicate for the different usages to check if inventory contains a cure.

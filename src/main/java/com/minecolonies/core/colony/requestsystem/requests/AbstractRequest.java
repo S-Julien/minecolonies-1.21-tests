@@ -452,7 +452,7 @@ public abstract class AbstractRequest<R extends IRequestable> implements IReques
         if (itemExamples == null)
         {
             itemExamples =
-              ImmutableList.copyOf(IColonyManager.getInstance().getCompatibilityManager().getListOfAllItems().stream().filter(deliverable::matches).collect(Collectors.toList()));
+                ImmutableList.copyOf(IColonyManager.getInstance().getCompatibilityManager().getListOfAllItems().stream().filter(deliverable::matches).collect(Collectors.toList()));
         }
 
         return itemExamples;

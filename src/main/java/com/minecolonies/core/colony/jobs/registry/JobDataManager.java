@@ -24,10 +24,10 @@ public final class JobDataManager implements IJobDataManager
     @Nullable
     @Override
     public IJob<?> createFrom(
-      final ICitizenData citizen, @NotNull final CompoundTag compound)
+        final ICitizenData citizen, @NotNull final CompoundTag compound)
     {
         final ResourceLocation jobType =
-          compound.contains(NbtTagConstants.TAG_JOB_TYPE) ? new ResourceLocation(compound.getString(NbtTagConstants.TAG_JOB_TYPE)) : ModJobs.PLACEHOLDER_ID;
+            compound.contains(NbtTagConstants.TAG_JOB_TYPE) ? new ResourceLocation(compound.getString(NbtTagConstants.TAG_JOB_TYPE)) : ModJobs.PLACEHOLDER_ID;
         final IJob<?> job = Optional.ofNullable(IJobRegistry.getInstance().getValue(jobType)).map(r -> r.produceJob(citizen)).orElse(null);
 
         if (job != null)
@@ -39,7 +39,7 @@ public final class JobDataManager implements IJobDataManager
             catch (final RuntimeException ex)
             {
                 Log.getLogger().error(String.format("A Job %s has thrown an exception during loading, its state cannot be restored. Report this to the mod author",
-                  jobType), ex);
+                    jobType), ex);
                 return null;
             }
         }
@@ -53,7 +53,7 @@ public final class JobDataManager implements IJobDataManager
 
     @Override
     public IJobView createViewFrom(
-      final IColonyView colony, final ICitizenDataView citizenDataView, final FriendlyByteBuf networkBuffer)
+        final IColonyView colony, final ICitizenDataView citizenDataView, final FriendlyByteBuf networkBuffer)
     {
         final ResourceLocation jobName = new ResourceLocation(networkBuffer.readUtf(32767));
         final JobEntry entry = IJobRegistry.getInstance().getValue(jobName);

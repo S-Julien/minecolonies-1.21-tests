@@ -46,9 +46,9 @@ public class SettingsModuleWindow extends AbstractModuleWindow
      * @param moduleView the assigned module view.
      */
     public SettingsModuleWindow(
-      final String res,
-      final IBuildingView building,
-      final SettingsModuleView moduleView)
+        final String res,
+        final IBuildingView building,
+        final SettingsModuleView moduleView)
     {
         super(building, res);
 
@@ -119,9 +119,9 @@ public class SettingsModuleWindow extends AbstractModuleWindow
                     else
                     {
                         Log.getLogger()
-                          .warn(
-                            "Settings for class \"{}\" it's window does not provide an \"id\" field. Make sure this exists so the view can be properly recycled when the settings list is modified!",
-                            setting.getClass().getName());
+                            .warn(
+                                "Settings for class \"{}\" it's window does not provide an \"id\" field. Make sure this exists so the view can be properly recycled when the settings list is modified!",
+                                setting.getClass().getName());
                     }
                     final Text rowDescriptionField = rowPane.findPaneOfTypeByID("desc", Text.class);
                     if (rowDescriptionField != null)

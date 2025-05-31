@@ -37,22 +37,22 @@ public class DefaultDyerCraftingProvider extends CustomRecipeProvider
     protected void registerRecipes(@NotNull final Consumer<FinishedRecipe> consumer)
     {
         CustomRecipeBuilder.create(DYER, MODULE_CRAFTING, "red_sand")
-                .inputs(List.of(new ItemStorage(new ItemStack(Items.SAND, 4)),
-                        new ItemStorage(new ItemStack(Items.RED_DYE))))
-                .result(new ItemStack(Items.RED_SAND, 4))
-                .build(consumer);
+            .inputs(List.of(new ItemStorage(new ItemStack(Items.SAND, 4)),
+                new ItemStorage(new ItemStack(Items.RED_DYE))))
+            .result(new ItemStack(Items.RED_SAND, 4))
+            .build(consumer);
 
         CustomRecipeBuilder.create(DYER, MODULE_CRAFTING, "black_dye")
-                .inputs(List.of(new ItemStorage(new ItemStack(Items.CHARCOAL))))
-                .result(new ItemStack(Items.BLACK_DYE))
-                .minBuildingLevel(2)
-                .build(consumer);
+            .inputs(List.of(new ItemStorage(new ItemStack(Items.CHARCOAL))))
+            .result(new ItemStack(Items.BLACK_DYE))
+            .minBuildingLevel(2)
+            .build(consumer);
 
         CustomRecipeBuilder.create(DYER, MODULE_CRAFTING, "dark_prismarine")
-                .inputs(List.of(new ItemStorage(new ItemStack(Items.PRISMARINE, 4)),
-                        new ItemStorage(new ItemStack(Items.BLACK_DYE))))
-                .result(new ItemStack(Items.DARK_PRISMARINE, 4))
-                .minBuildingLevel(3)
-                .build(consumer);
+            .inputs(List.of(new ItemStorage(new ItemStack(Items.PRISMARINE, 4)),
+                new ItemStorage(new ItemStack(Items.BLACK_DYE))))
+            .result(new ItemStack(Items.DARK_PRISMARINE, 4))
+            .minBuildingLevel(3)
+            .build(consumer);
     }
 }

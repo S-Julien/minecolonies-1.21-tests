@@ -143,10 +143,11 @@ public class WorkerBuildingModuleView extends AbstractBuildingModuleView impleme
     public boolean canAssign(final ICitizenDataView citizen)
     {
         return !citizen.isChild() &&
-                 (citizen.getWorkBuilding() == null
-                    || workerIDs.contains(citizen.getId())
-                    || buildingView.getColony().getBuilding(citizen.getWorkBuilding()) != null && buildingView.getColony().getBuilding(citizen.getWorkBuilding()).getModuleViewMatching(WorkerBuildingModuleView.class, m -> m.canBeHiredAs(getJobEntry()))
-                         != null);
+            (citizen.getWorkBuilding() == null
+                || workerIDs.contains(citizen.getId())
+                || buildingView.getColony().getBuilding(citizen.getWorkBuilding()) != null
+                && buildingView.getColony().getBuilding(citizen.getWorkBuilding()).getModuleViewMatching(WorkerBuildingModuleView.class, m -> m.canBeHiredAs(getJobEntry()))
+                != null);
     }
 
     @Override

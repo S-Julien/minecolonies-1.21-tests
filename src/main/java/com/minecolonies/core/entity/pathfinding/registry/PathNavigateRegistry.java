@@ -21,7 +21,7 @@ public class PathNavigateRegistry implements IPathNavigateRegistry
 
     @Override
     public IPathNavigateRegistry registerNewPathNavigate(
-      final Predicate<Mob> selectionPredicate, final Function<Mob, AbstractAdvancedPathNavigate> navigateProducer)
+        final Predicate<Mob> selectionPredicate, final Function<Mob, AbstractAdvancedPathNavigate> navigateProducer)
     {
         registry.put(selectionPredicate, navigateProducer);
         return this;

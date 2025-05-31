@@ -34,7 +34,6 @@ public class SyncPathReachedMessage implements IMessage
 
     /**
      * Create the message to send a set of positions over to the client side.
-     *
      */
     public SyncPathReachedMessage(final Set<BlockPos> reached)
     {

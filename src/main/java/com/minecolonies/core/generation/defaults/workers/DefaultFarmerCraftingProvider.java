@@ -39,16 +39,16 @@ public class DefaultFarmerCraftingProvider extends CustomRecipeProvider
     protected void registerRecipes(@NotNull final Consumer<FinishedRecipe> consumer)
     {
         CustomRecipeBuilder.create(FARMER, MODULE_CRAFTING, "carved_pumpkin")
-                .inputs(List.of(new ItemStorage(new ItemStack(Items.PUMPKIN))))
-                .result(new ItemStack(Items.CARVED_PUMPKIN))
-                .requiredTool(ModEquipmentTypes.shears.get())
-                .build(consumer);
+            .inputs(List.of(new ItemStorage(new ItemStack(Items.PUMPKIN))))
+            .result(new ItemStack(Items.CARVED_PUMPKIN))
+            .requiredTool(ModEquipmentTypes.shears.get())
+            .build(consumer);
 
         CustomRecipeBuilder.create(FARMER, MODULE_CRAFTING, "mud")
-                .inputs(List.of(new ItemStorage(new ItemStack(Items.DIRT)),
-                        new ItemStorage(ModItems.large_water_bottle.getDefaultInstance())))
-                .result(new ItemStack(Items.MUD))
-                .lootTable(DefaultRecipeLootProvider.LOOT_TABLE_LARGE_BOTTLE)
-                .build(consumer);
+            .inputs(List.of(new ItemStorage(new ItemStack(Items.DIRT)),
+                new ItemStorage(ModItems.large_water_bottle.getDefaultInstance())))
+            .result(new ItemStack(Items.MUD))
+            .lootTable(DefaultRecipeLootProvider.LOOT_TABLE_LARGE_BOTTLE)
+            .build(consumer);
     }
 }

@@ -26,6 +26,7 @@ public class DynamicHappinessSupplier implements IHappinessSupplierWrapper
 
     /**
      * Create a new dynamic supplier.
+     *
      * @param key the key of the function.
      */
     public DynamicHappinessSupplier(final ResourceLocation key)

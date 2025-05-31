@@ -71,9 +71,9 @@ public class BuildingChickenHerder extends AbstractBuilding
             final List<IGenericRecipe> recipes = new ArrayList<>(super.getRecipesForDisplayPurposesOnly(animal));
 
             recipes.add(GenericRecipe.builder()
-                    .withOutput(Items.EGG)
-                    .withRequiredEntity(animal.getType())
-                    .build());
+                .withOutput(Items.EGG)
+                .withRequiredEntity(animal.getType())
+                .build());
 
             return recipes;
         }

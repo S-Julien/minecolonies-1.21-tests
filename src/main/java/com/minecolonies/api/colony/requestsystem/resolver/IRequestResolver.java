@@ -119,6 +119,7 @@ public interface IRequestResolver<R extends IRequestable> extends IRequester
 
     /**
      * Check how suitable this resolver is for the request.
+     *
      * @param manager the req manager.
      * @param request the request to check.
      * @return the suitability metric (an int for easy comparison).
@@ -137,6 +138,7 @@ public interface IRequestResolver<R extends IRequestable> extends IRequester
 
     /**
      * If this resolver has valid data in it.
+     *
      * @return true if so.
      */
     boolean isValid();

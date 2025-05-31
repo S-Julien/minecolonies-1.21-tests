@@ -46,15 +46,15 @@ public class MobAIRegistry implements IMobAIRegistry
     private static void setupMobAiTasks(final IMobAIRegistry registry)
     {
         registry
-          .registerNewAiTaskForMobs(PRIORITY_ZERO, FloatGoal::new, mob -> !(mob instanceof AbstractDrownedEntityPirateRaider))
-          .registerNewAiTargetTaskForMobs(PRIORITY_THREE, mob -> new EntityAIInteractToggleAble(mob, FENCE_TOGGLE))
-          .registerNewAiTargetTaskForMobs(PRIORITY_THREE, mob -> new EntityAIBreakDoor(mob))
-          .registerNewAiTaskForMobs(PRIORITY_FIVE, mob -> new LookAtPlayerGoal(mob, Player.class, MAX_WATCH_DISTANCE))
-          .registerNewAiTaskForMobs(PRIORITY_SIX, mob -> new LookAtPlayerGoal(mob, EntityCitizen.class, MAX_WATCH_DISTANCE))
-          .registerNewStateAI(mob -> new RaiderMeleeAI<>(mob, mob.getAI()), mob -> !(mob instanceof IArcherMobEntity))
-          .registerNewStateAI(mob -> new RaiderRangedAI(mob, mob.getAI()), mob -> mob instanceof IRangedMobEntity)
-          .registerNewStateAI(mob -> new RaiderWalkAI((AbstractEntityMinecoloniesRaider) mob, mob.getAI()), mob -> mob instanceof AbstractEntityMinecoloniesRaider)
-          .registerNewStateAI(mob -> new CampWalkAI(mob, mob.getAI()), mob -> !(mob instanceof AbstractEntityMinecoloniesRaider));
+            .registerNewAiTaskForMobs(PRIORITY_ZERO, FloatGoal::new, mob -> !(mob instanceof AbstractDrownedEntityPirateRaider))
+            .registerNewAiTargetTaskForMobs(PRIORITY_THREE, mob -> new EntityAIInteractToggleAble(mob, FENCE_TOGGLE))
+            .registerNewAiTargetTaskForMobs(PRIORITY_THREE, mob -> new EntityAIBreakDoor(mob))
+            .registerNewAiTaskForMobs(PRIORITY_FIVE, mob -> new LookAtPlayerGoal(mob, Player.class, MAX_WATCH_DISTANCE))
+            .registerNewAiTaskForMobs(PRIORITY_SIX, mob -> new LookAtPlayerGoal(mob, EntityCitizen.class, MAX_WATCH_DISTANCE))
+            .registerNewStateAI(mob -> new RaiderMeleeAI<>(mob, mob.getAI()), mob -> !(mob instanceof IArcherMobEntity))
+            .registerNewStateAI(mob -> new RaiderRangedAI(mob, mob.getAI()), mob -> mob instanceof IRangedMobEntity)
+            .registerNewStateAI(mob -> new RaiderWalkAI((AbstractEntityMinecoloniesRaider) mob, mob.getAI()), mob -> mob instanceof AbstractEntityMinecoloniesRaider)
+            .registerNewStateAI(mob -> new CampWalkAI(mob, mob.getAI()), mob -> !(mob instanceof AbstractEntityMinecoloniesRaider));
     }
 
     @NotNull
@@ -62,16 +62,16 @@ public class MobAIRegistry implements IMobAIRegistry
     public Multimap<Integer, Goal> getEntityAiTasksForMobs(final AbstractEntityMinecoloniesMonster mob)
     {
         return mobAiTasks.stream().filter(wrapper -> wrapper.entityPredicate.test(mob)).collect(MultimapCollector.toMultimap(
-          TaskInformationWrapper::getPriority,
-          wrapper -> wrapper.getAiTaskProducer().apply(mob)
-          )
+                TaskInformationWrapper::getPriority,
+                wrapper -> wrapper.getAiTaskProducer().apply(mob)
+            )
         );
     }
 
     @NotNull
     @Override
     public IMobAIRegistry registerNewAiTaskForMobs(
-      final int priority, final Function<AbstractEntityMinecoloniesMonster, Goal> aiTaskProducer, final Predicate<AbstractEntityMinecoloniesMonster> applyPredicate)
+        final int priority, final Function<AbstractEntityMinecoloniesMonster, Goal> aiTaskProducer, final Predicate<AbstractEntityMinecoloniesMonster> applyPredicate)
     {
         mobAiTasks.add(new TaskInformationWrapper<>(priority, aiTaskProducer, applyPredicate));
         return this;
@@ -80,7 +80,7 @@ public class MobAIRegistry implements IMobAIRegistry
     @NotNull
     @Override
     public IMobAIRegistry registerNewStateAI(
-      final Function<AbstractEntityMinecoloniesMonster, IStateAI> aiTaskProducer, final Predicate<AbstractEntityMinecoloniesMonster> applyPredicate)
+        final Function<AbstractEntityMinecoloniesMonster, IStateAI> aiTaskProducer, final Predicate<AbstractEntityMinecoloniesMonster> applyPredicate)
     {
         mobStateAITasks.add(new TaskInformationWrapper<>(0, aiTaskProducer, applyPredicate));
         return this;
@@ -120,16 +120,16 @@ public class MobAIRegistry implements IMobAIRegistry
     public Multimap<Integer, Goal> getEntityAiTargetTasksForMobs(final AbstractEntityMinecoloniesMonster mob)
     {
         return mobAiTargetTasks.stream().filter(wrapper -> wrapper.getEntityPredicate().test(mob)).collect(MultimapCollector.toMultimap(
-          TaskInformationWrapper::getPriority,
-          wrapper -> wrapper.getAiTaskProducer().apply(mob)
-          )
+                TaskInformationWrapper::getPriority,
+                wrapper -> wrapper.getAiTaskProducer().apply(mob)
+            )
         );
     }
 
     @NotNull
     @Override
     public IMobAIRegistry registerNewAiTargetTaskForMobs(
-      final int priority, final Function<AbstractEntityMinecoloniesMonster, Goal> aiTaskProducer, final Predicate<AbstractEntityMinecoloniesMonster> applyPredicate)
+        final int priority, final Function<AbstractEntityMinecoloniesMonster, Goal> aiTaskProducer, final Predicate<AbstractEntityMinecoloniesMonster> applyPredicate)
     {
         mobAiTargetTasks.add(new TaskInformationWrapper<>(priority, aiTaskProducer, applyPredicate));
         return this;
@@ -147,8 +147,8 @@ public class MobAIRegistry implements IMobAIRegistry
         private final Predicate<M>                                   entityPredicate;
 
         TaskInformationWrapper(
-          final int priority,
-          final Function<AbstractEntityMinecoloniesMonster, G> aiTaskProducer, final Predicate<M> entityPredicate)
+            final int priority,
+            final Function<AbstractEntityMinecoloniesMonster, G> aiTaskProducer, final Predicate<M> entityPredicate)
         {
             this.priority = priority;
             this.aiTaskProducer = aiTaskProducer;

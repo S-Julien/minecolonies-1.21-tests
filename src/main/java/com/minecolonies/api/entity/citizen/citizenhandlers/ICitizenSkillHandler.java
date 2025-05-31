@@ -27,8 +27,8 @@ public interface ICitizenSkillHandler
      * Initiate a citizen with parent citizen data.
      *
      * @param firstParent  the first parent data.
-     * @param secondParent  the second parent data.
-     * @param rand random var.
+     * @param secondParent the second parent data.
+     * @param rand         random var.
      */
     void init(@NotNull final IColony colony, @Nullable final ICitizenData firstParent, @Nullable final ICitizenData secondParent, Random rand);
 

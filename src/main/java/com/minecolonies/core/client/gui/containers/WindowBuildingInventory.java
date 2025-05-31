@@ -76,6 +76,6 @@ public class WindowBuildingInventory extends AbstractContainerScreen<ContainerBu
         int j = (this.height - this.imageHeight) / 2;
         stack.blit(TEXT, i, j, 0, 0, this.imageWidth, this.inventoryRows * SLOT_OFFSET + SLOT_OFFSET - 1, TEXTURE_SIZE, TEXTURE_SIZE);
         stack.blit(TEXT, i, j + this.inventoryRows * SLOT_OFFSET + SLOT_OFFSET - 1, 0,
-          TEXTURE_OFFSET, this.imageWidth, TEXTURE_HEIGHT, TEXTURE_SIZE, TEXTURE_SIZE);
+            TEXTURE_OFFSET, this.imageWidth, TEXTURE_HEIGHT, TEXTURE_SIZE, TEXTURE_SIZE);
     }
 }

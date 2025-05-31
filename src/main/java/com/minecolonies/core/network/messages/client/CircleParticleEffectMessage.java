@@ -106,12 +106,12 @@ public class CircleParticleEffectMessage implements IMessage
             final Vec3 randomPos = new Vec3(RAND.nextDouble() * 0.1D + 0.1D, RAND.nextDouble() * 0.1D + 0.1D, RAND.nextDouble() * 0.1D + 0.1D);
             final Vec3 randomOffset = new Vec3((RAND.nextDouble() - 0.5D) * 0.1D, (RAND.nextDouble() - 0.5D) * 0.1D, (RAND.nextDouble() - 0.5D) * 0.1D);
             world.addParticle(type,
-              x + randomOffset.x,
-              posY + randomOffset.y,
-              z + randomOffset.z,
-              randomPos.x,
-              randomPos.y + 0.05D,
-              randomPos.z);
+                x + randomOffset.x,
+                posY + randomOffset.y,
+                z + randomOffset.z,
+                randomPos.x,
+                randomPos.y + 0.05D,
+                randomPos.z);
         }
     }
 }

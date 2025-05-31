@@ -24,18 +24,21 @@ public interface IJobView
 
     /**
      * Deserialize the job from the buffer.
+     *
      * @param buffer the buffer to read it from.
      */
     void deserialize(final FriendlyByteBuf buffer);
 
     /**
      * Getter for the job entry of the job.
+     *
      * @return the entry.
      */
     JobEntry getEntry();
 
     /**
      * Set the job entry of the view.
+     *
      * @param jobEntry the entry to set.
      */
     void setEntry(JobEntry jobEntry);

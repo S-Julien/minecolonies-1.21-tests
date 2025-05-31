@@ -72,7 +72,7 @@ public class TileEntityColonyFlagRenderer implements BlockEntityRenderer<TileEnt
             if (blockstate.getBlock() instanceof BlockColonyFlagBanner)
             {
                 transform.translate(0.5D, 0.5D, 0.5D);
-                float f1 = (float)(-blockstate.getValue(BlockColonyFlagBanner.ROTATION) * 360) / 16.0F;
+                float f1 = (float) (-blockstate.getValue(BlockColonyFlagBanner.ROTATION) * 360) / 16.0F;
                 transform.mulPose(Axis.YP.rotationDegrees(f1));
                 this.standPost.visible = true;
             }
@@ -87,26 +87,28 @@ public class TileEntityColonyFlagRenderer implements BlockEntityRenderer<TileEnt
 
             Minecraft mc = Minecraft.getInstance();
             if (mc.player.getMainHandItem().getItem() instanceof BannerItem
-             && mc.gameMode.getPlayerMode() == GameType.CREATIVE)
+                && mc.gameMode.getPlayerMode() == GameType.CREATIVE)
             {
                 transform.pushPose();
                 ItemStack placeholder = new ItemStack(ModBlocks.blockSubstitution.get());
 
                 transform.translate(0.0D, 0.5D, 0.0D);
                 transform.scale(0.75F, 0.75F, 0.75F);
-                Minecraft.getInstance().getItemRenderer().renderStatic(placeholder, ItemDisplayContext.FIXED, combinedLightIn, combinedOverlayIn, transform, bufferIn, mc.level, OverlayTexture.NO_OVERLAY);
+                Minecraft.getInstance()
+                    .getItemRenderer()
+                    .renderStatic(placeholder, ItemDisplayContext.FIXED, combinedLightIn, combinedOverlayIn, transform, bufferIn, mc.level, OverlayTexture.NO_OVERLAY);
                 transform.popPose();
             }
         }
 
         transform.pushPose();
-        transform.scale(2/3F, -2/3F, -2/3F);
+        transform.scale(2 / 3F, -2 / 3F, -2 / 3F);
         VertexConsumer ivertexbuilder = ModelBakery.BANNER_BASE.buffer(bufferIn, RenderType::entitySolid);
         this.standPost.render(transform, ivertexbuilder, combinedLightIn, combinedOverlayIn);
         this.crossbar.render(transform, ivertexbuilder, combinedLightIn, combinedOverlayIn);
         BlockPos blockpos = flagIn.getBlockPos();
-        float f2 = ((float)Math.floorMod((long)(blockpos.getX() * 7 + blockpos.getY() * 9 + blockpos.getZ() * 13) + i, 100L) + partialTicks) / 100.0F;
-        this.cloth.xRot = (-0.0125F + 0.01F * Mth.cos(((float)Math.PI * 2F) * f2)) * (float)Math.PI;
+        float f2 = ((float) Math.floorMod((long) (blockpos.getX() * 7 + blockpos.getY() * 9 + blockpos.getZ() * 13) + i, 100L) + partialTicks) / 100.0F;
+        this.cloth.xRot = (-0.0125F + 0.01F * Mth.cos(((float) Math.PI * 2F) * f2)) * (float) Math.PI;
         this.cloth.y = -32.0F;
         BannerRenderer.renderPatterns(transform, bufferIn, combinedLightIn, combinedOverlayIn, this.cloth, ModelBakery.BANNER_BASE, true, list);
         transform.popPose();

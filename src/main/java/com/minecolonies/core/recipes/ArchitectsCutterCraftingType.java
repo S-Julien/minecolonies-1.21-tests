@@ -42,13 +42,15 @@ public class ArchitectsCutterCraftingType extends RecipeCraftingType<Container, 
             final Block generatedBlock = ForgeRegistries.BLOCKS.getValue(recipe.getBlockName());
 
             if (!(generatedBlock instanceof final IMateriallyTexturedBlock materiallyTexturedBlock))
+            {
                 continue;
+            }
 
             final List<List<ItemStack>> inputs = new ArrayList<>();
             for (final IMateriallyTexturedBlockComponent component : materiallyTexturedBlock.getComponents())
             {
                 final List<Block> blocks = ForgeRegistries.BLOCKS.tags().getTag(component.getValidSkins()).stream()
-                        .collect(Collectors.toCollection(ArrayList::new));
+                    .collect(Collectors.toCollection(ArrayList::new));
                 Collections.shuffle(blocks, rnd);
                 inputs.add(blocks.stream().map(ItemStack::new).collect(Collectors.toList()));
             }
@@ -64,11 +66,11 @@ public class ArchitectsCutterCraftingType extends RecipeCraftingType<Container, 
             }
 
             recipes.add(GenericRecipe.builder()
-                    .withRecipeId(recipe.getId())
-                    .withOutput(output)
-                    .withInputs(inputs)
-                    .withGridSize(3)
-                    .build());
+                .withRecipeId(recipe.getId())
+                .withOutput(output)
+                .withInputs(inputs)
+                .withGridSize(3)
+                .build());
         }
 
         return recipes;

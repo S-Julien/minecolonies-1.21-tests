@@ -28,7 +28,7 @@ public class MultiOutputRecipe extends AbstractRecipeType<IRecipeStorage>
     @Override
     public List<ItemStack> getOutputDisplayStacks()
     {
-        if(outputDisplayStacks.isEmpty())
+        if (outputDisplayStacks.isEmpty())
         {
             if (!recipe.getPrimaryOutput().isEmpty())
             {

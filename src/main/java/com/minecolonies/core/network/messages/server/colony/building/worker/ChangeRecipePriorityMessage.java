@@ -44,10 +44,11 @@ public class ChangeRecipePriorityMessage extends AbstractBuildingServerMessage<I
 
     /**
      * Creates message for player to change the priority of the recipes.
-     *  @param building view of the building to read data from
+     *
+     * @param building view of the building to read data from
      * @param location the recipeLocation.
      * @param up       up or down?
-     * @param id the unique id of the crafting module.
+     * @param id       the unique id of the crafting module.
      * @param fullMove if it should be moved to the beginning/end.
      */
     public ChangeRecipePriorityMessage(@NotNull final IBuildingView building, final int location, final boolean up, final int id, final boolean fullMove)

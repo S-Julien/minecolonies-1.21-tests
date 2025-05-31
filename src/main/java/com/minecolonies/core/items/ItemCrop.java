@@ -40,8 +40,8 @@ public class ItemCrop extends BlockItem
     /**
      * Creates a new Crop item.
      *
-     * @param cropBlock   the {@link AbstractBlockHut} this item represents.
-     * @param builder the item properties to use.
+     * @param cropBlock the {@link AbstractBlockHut} this item represents.
+     * @param builder   the item properties to use.
      */
     public ItemCrop(@NotNull final MinecoloniesCropBlock cropBlock, @NotNull final Properties builder, @Nullable final TagKey<Biome> preferredBiome)
     {
@@ -80,11 +80,12 @@ public class ItemCrop extends BlockItem
 
     /**
      * Check if this can planted in a given biome.
+     *
      * @param biome the biome to check.
      * @return true if so.
      */
     public boolean canBePlantedIn(final Holder<Biome> biome)
     {
-        return preferredBiome == null ||  biome.is(preferredBiome);
+        return preferredBiome == null || biome.is(preferredBiome);
     }
 }

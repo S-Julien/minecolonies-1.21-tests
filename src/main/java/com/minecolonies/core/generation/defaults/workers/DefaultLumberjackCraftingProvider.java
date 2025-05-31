@@ -39,9 +39,9 @@ public class DefaultLumberjackCraftingProvider extends CustomRecipeProvider
     {
         // Bamboo blocks, whilst they can be stripped, do not fall under the logs tag, hence they do not appear as part of the strip_logs.json
         CustomRecipeBuilder.create(LUMBERJACK, MODULE_CUSTOM, "strip_bamboo_block")
-          .inputs(List.of(new ItemStorage(new ItemStack(Items.BAMBOO_BLOCK))))
-          .result(new ItemStack(Items.STRIPPED_BAMBOO_BLOCK))
-          .requiredTool(ModEquipmentTypes.axe.get())
-          .build(consumer);
+            .inputs(List.of(new ItemStorage(new ItemStack(Items.BAMBOO_BLOCK))))
+            .result(new ItemStack(Items.STRIPPED_BAMBOO_BLOCK))
+            .requiredTool(ModEquipmentTypes.axe.get())
+            .build(consumer);
     }
 }

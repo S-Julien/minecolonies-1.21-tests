@@ -158,9 +158,9 @@ public class WindowCrafting extends AbstractContainerScreen<ContainerCrafting>
          * The button to click done after finishing the recipe.
          */
         final Button doneButton = Button.builder(buttonDisplay, this::onDoneClicked)
-                .pos(leftPos + BUTTON_X_OFFSET, topPos + BUTTON_Y_POS)
-                .size(BUTTON_WIDTH, BUTTON_HEIGHT)
-                .build();
+            .pos(leftPos + BUTTON_X_OFFSET, topPos + BUTTON_Y_POS)
+            .size(BUTTON_WIDTH, BUTTON_HEIGHT)
+            .build();
         this.addRenderableWidget(doneButton);
         if (!module.canLearn(ModCraftingTypes.SMALL_CRAFTING.get()))
         {
@@ -168,7 +168,7 @@ public class WindowCrafting extends AbstractContainerScreen<ContainerCrafting>
         }
 
         this.switchButton = new ImageButton(leftPos + SWITCH_X_OFFSET, topPos + SWITCH_Y_OFFSET, SWITCH_WIDTH, SWITCH_HEIGHT,
-                0, 0, SWITCH_HEIGHT + 1, SWITCH_TEXTURE, btn ->
+            0, 0, SWITCH_HEIGHT + 1, SWITCH_TEXTURE, btn ->
         {
             Network.getNetwork().sendToServer(new SwitchRecipeCraftingTeachingMessage());
         });
@@ -205,7 +205,13 @@ public class WindowCrafting extends AbstractContainerScreen<ContainerCrafting>
             if (!ItemStackUtils.isEmpty(primaryOutput))
             {
                 Network.getNetwork()
-                  .sendToServer(new AddRemoveRecipeMessage(building, input, completeCrafting ? 3 : 2, primaryOutput, secondaryOutputs, false, module.getProducer().getRuntimeID()));
+                    .sendToServer(new AddRemoveRecipeMessage(building,
+                        input,
+                        completeCrafting ? 3 : 2,
+                        primaryOutput,
+                        secondaryOutputs,
+                        false,
+                        module.getProducer().getRuntimeID()));
             }
         }
     }

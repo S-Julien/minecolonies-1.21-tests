@@ -20,14 +20,14 @@ public final class Pond
     /**
      * The minimum pond requirements.
      */
-    public static final int WATER_POOL_WIDTH_REQUIREMENT  = 5;
-    public static final int WATER_DEPTH_REQUIREMENT       = 2;
+    public static final int WATER_POOL_WIDTH_REQUIREMENT = 5;
+    public static final int WATER_DEPTH_REQUIREMENT      = 2;
 
     /**
      * Checks if on position "water" really is water, if the water is connected to land and if the pond is big enough (bigger then 20).
      *
-     * @param world The world the player is in.
-     * @param water The coordinate to check.
+     * @param world               The world the player is in.
+     * @param water               The coordinate to check.
      * @param problematicPosition Will contain position of problematic block (if not null && pond was not found).
      * @return true if water.
      */

@@ -60,14 +60,14 @@ public class PathJobFindTree extends AbstractPathJob implements ISearchPathJob
      * @param colony      the colony.
      */
     public PathJobFindTree(
-      final Level world,
-      @NotNull final BlockPos start,
-      final BlockPos home,
-      final int range,
-      final List<ItemStorage> treesToCut,
-      final int dyntreesize,
-      final IColony colony,
-      final Mob entity)
+        final Level world,
+        @NotNull final BlockPos start,
+        final BlockPos home,
+        final int range,
+        final List<ItemStorage> treesToCut,
+        final int dyntreesize,
+        final IColony colony,
+        final Mob entity)
     {
         super(world, start, range, new TreePathResult(), entity);
         this.excludedTrees = treesToCut;
@@ -89,31 +89,31 @@ public class PathJobFindTree extends AbstractPathJob implements ISearchPathJob
      * @param colony           the colony.
      */
     public PathJobFindTree(
-      final Level world,
-      @NotNull final BlockPos start,
-      final BlockPos startRestriction,
-      final BlockPos endRestriction,
-      final BlockPos furthestRestriction,
-      final List<ItemStorage> excludedTrees,
-      final int dyntreesize,
-      final IColony colony,
-      final Mob entity)
+        final Level world,
+        @NotNull final BlockPos start,
+        final BlockPos startRestriction,
+        final BlockPos endRestriction,
+        final BlockPos furthestRestriction,
+        final List<ItemStorage> excludedTrees,
+        final int dyntreesize,
+        final IColony colony,
+        final Mob entity)
     {
         super(world,
-          start,
-          (int) (BlockPosUtil.dist(entity.blockPosition(),
-            (startRestriction.getX() + endRestriction.getX()) / 2,
-            (startRestriction.getY() + endRestriction.getY()) / 2,
-            (startRestriction.getZ() + endRestriction.getZ()) / 2) + BlockPosUtil.dist(startRestriction, endRestriction)),
-          new TreePathResult(),
-          entity);
+            start,
+            (int) (BlockPosUtil.dist(entity.blockPosition(),
+                (startRestriction.getX() + endRestriction.getX()) / 2,
+                (startRestriction.getY() + endRestriction.getY()) / 2,
+                (startRestriction.getZ() + endRestriction.getZ()) / 2) + BlockPosUtil.dist(startRestriction, endRestriction)),
+            new TreePathResult(),
+            entity);
 
         restrictionBox = new AABB(Math.min(startRestriction.getX(), endRestriction.getX()),
-          Math.min(startRestriction.getY(), endRestriction.getY()),
-          Math.min(startRestriction.getZ(), endRestriction.getZ()),
-          Math.max(startRestriction.getX(), endRestriction.getX()),
-          Math.max(startRestriction.getY(), endRestriction.getY()),
-          Math.max(startRestriction.getZ(), endRestriction.getZ()));
+            Math.min(startRestriction.getY(), endRestriction.getY()),
+            Math.min(startRestriction.getZ(), endRestriction.getZ()),
+            Math.max(startRestriction.getX(), endRestriction.getX()),
+            Math.max(startRestriction.getY(), endRestriction.getY()),
+            Math.max(startRestriction.getZ(), endRestriction.getZ()));
 
         this.excludedTrees = excludedTrees;
         this.colony = colony;
@@ -144,8 +144,8 @@ public class PathJobFindTree extends AbstractPathJob implements ISearchPathJob
         }
 
         return n.parent != null && isNearTree(n)
-                 && SurfaceType.getSurfaceType(world, cachedBlockLookup.getBlockState(n.x, n.y - 1, n.z), tempWorldPos.set(n.x, n.y - 1, n.z), getPathingOptions())
-                      == SurfaceType.WALKABLE;
+            && SurfaceType.getSurfaceType(world, cachedBlockLookup.getBlockState(n.x, n.y - 1, n.z), tempWorldPos.set(n.x, n.y - 1, n.z), getPathingOptions())
+            == SurfaceType.WALKABLE;
     }
 
     private boolean isNearTree(@NotNull final MNode n)
@@ -193,15 +193,15 @@ public class PathJobFindTree extends AbstractPathJob implements ISearchPathJob
 
     @Override
     protected double modifyCost(
-      double cost,
-      final MNode parent,
-      final boolean swimstart,
-      final boolean swimming,
-      final int x,
-      final int y,
-      final int z,
-      final BlockState state,
-      final BlockState below)
+        double cost,
+        final MNode parent,
+        final boolean swimstart,
+        final boolean swimming,
+        final int x,
+        final int y,
+        final int z,
+        final BlockState state,
+        final BlockState below)
     {
         if (!state.isAir() && isLeafLike(state))
         {

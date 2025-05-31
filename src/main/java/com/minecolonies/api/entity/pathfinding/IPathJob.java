@@ -16,12 +16,14 @@ public interface IPathJob extends Callable<Path>
 {
     /**
      * Get the path result holder for this job
+     *
      * @return
      */
     PathResult getResult();
 
     /**
      * Get the pathing options used for this job
+     *
      * @return
      */
     public PathingOptions getPathingOptions();

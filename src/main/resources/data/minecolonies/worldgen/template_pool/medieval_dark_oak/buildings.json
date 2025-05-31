@@ -7,7 +7,7 @@
       "element": {
         "location": "minecolonies:medieval_dark_oak/builder1",
         "processors": "minecolonies:medieval_dark_oak/placeholder_replacement",
-		    "projection": "rigid",
+        "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
     },
@@ -152,5 +152,5 @@
         "element_type": "minecraft:empty_pool_element"
       }
     }
- ]
+  ]
 }

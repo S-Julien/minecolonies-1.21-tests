@@ -121,12 +121,12 @@ public class RenderFishHook extends EntityRenderer<Entity>
     private static void vertex(VertexConsumer p_114712_, Matrix4f p_114713_, Matrix3f p_114714_, int p_114715_, float p_114716_, int p_114717_, int p_114718_, int p_114719_)
     {
         p_114712_.vertex(p_114713_, p_114716_ - 0.5F, (float) p_114717_ - 0.5F, 0.0F)
-          .color(255, 255, 255, 255)
-          .uv((float) p_114718_, (float) p_114719_)
-          .overlayCoords(OverlayTexture.NO_OVERLAY)
-          .uv2(p_114715_)
-          .normal(p_114714_, 0.0F, 1.0F, 0.0F)
-          .endVertex();
+            .color(255, 255, 255, 255)
+            .uv((float) p_114718_, (float) p_114719_)
+            .overlayCoords(OverlayTexture.NO_OVERLAY)
+            .uv2(p_114715_)
+            .normal(p_114714_, 0.0F, 1.0F, 0.0F)
+            .endVertex();
     }
 
     private static void stringVertex(float p_174119_, float p_174120_, float p_174121_, VertexConsumer p_174122_, PoseStack.Pose p_174123_, float p_174124_, float p_174125_)

@@ -30,7 +30,8 @@ public abstract class AbstractCivilianEntity extends AbstractFastMinecoloniesEnt
 
     /**
      * Create a new instance.
-     * @param type from type.
+     *
+     * @param type    from type.
      * @param worldIn the world.
      */
     protected AbstractCivilianEntity(final EntityType<? extends PathfinderMob> type, final Level worldIn)
@@ -83,7 +84,7 @@ public abstract class AbstractCivilianEntity extends AbstractFastMinecoloniesEnt
         {
             final BlockPos pos = getSleepingPos().get();
             final BlockState state = level.getBlockState(getSleepingPos().get());
-            return state.getBlock().isBed(state,level,pos,this);
+            return state.getBlock().isBed(state, level, pos, this);
         }
 
         return false;

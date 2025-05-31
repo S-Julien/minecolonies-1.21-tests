@@ -17,7 +17,8 @@ public class CitizenEatFoodTrigger extends AbstractCriterionTrigger<CitizenEatFo
 
     /**
      * Triggers the listener checks if there are any listening in
-     * @param player the player the check regards
+     *
+     * @param player        the player the check regards
      * @param foodItemStack the food eaten by the citizen
      */
     public void trigger(final ServerPlayer player, final ItemStack foodItemStack)
@@ -31,7 +32,7 @@ public class CitizenEatFoodTrigger extends AbstractCriterionTrigger<CitizenEatFo
             }
         }
     }
-    
+
     @Override
     public CitizenEatFoodCriterionInstance createInstance(final JsonObject jsonObject, final DeserializationContext conditionArrayParser)
     {

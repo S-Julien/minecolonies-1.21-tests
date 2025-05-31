@@ -319,21 +319,21 @@ public class WorldUtil
      * @return a list of all within those borders.
      */
     public static <T extends Entity> List<? extends T> getEntitiesWithinBuilding(
-      final @NotNull Level world,
-      final @NotNull Class<? extends T> clazz,
-      final @NotNull IBuilding building,
-      @Nullable final Predicate<? super T> predicate)
+        final @NotNull Level world,
+        final @NotNull Class<? extends T> clazz,
+        final @NotNull IBuilding building,
+        @Nullable final Predicate<? super T> predicate)
     {
         final Tuple<BlockPos, BlockPos> corners = building.getCorners();
 
         if (predicate == null)
         {
             return world.getEntitiesOfClass(clazz,
-              new AABB(corners.getA().getX(), corners.getA().getY(), corners.getA().getZ(), corners.getB().getX(), corners.getB().getY(), corners.getB().getZ()));
+                new AABB(corners.getA().getX(), corners.getA().getY(), corners.getA().getZ(), corners.getB().getX(), corners.getB().getY(), corners.getB().getZ()));
         }
         return world.getEntitiesOfClass(clazz,
-          new AABB(corners.getA().getX(), corners.getA().getY(), corners.getA().getZ(), corners.getB().getX(), corners.getB().getY(), corners.getB().getZ()),
-          predicate);
+            new AABB(corners.getA().getX(), corners.getA().getY(), corners.getA().getZ(), corners.getB().getX(), corners.getB().getY(), corners.getB().getZ()),
+            predicate);
     }
 
     /**
@@ -373,10 +373,11 @@ public class WorldUtil
 
     /**
      * Get nearest player, our own cheaper check.
+     *
      * @param livingEntity the entity to check.
-     * @param x pos x
-     * @param y pos y
-     * @param z pos z
+     * @param x            pos x
+     * @param y            pos y
+     * @param z            pos z
      * @param lookDistance min distance.
      * @return closest player or null.
      */
@@ -388,14 +389,15 @@ public class WorldUtil
 
     /**
      * Get the closest entity, cheaper than mojank.
-     * @param entityList entity list to check.
+     *
+     * @param entityList   entity list to check.
      * @param livingEntity the entity they should be close to.
-     * @param x pos x
-     * @param y pos y
-     * @param z pos z
+     * @param x            pos x
+     * @param y            pos y
+     * @param z            pos z
      * @param lookDistance max distance.
+     * @param <T>          type of entity.
      * @return the entity or null.
-     * @param <T> type of entity.
      */
     @Nullable
     public static <T extends LivingEntity> T getNearestEntity(List<? extends T> entityList, @Nullable Mob livingEntity, int x, int y, int z, double lookDistance)

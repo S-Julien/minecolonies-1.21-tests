@@ -119,8 +119,8 @@ public class CreateColonyMessage implements IMessage
         if (!(tileEntity instanceof TileEntityColonyBuilding))
         {
             MessageUtils.format(WARNING_TOWN_HALL_NO_TILE_ENTITY)
-              .withPriority(MessagePriority.DANGER)
-              .sendTo(sender);
+                .withPriority(MessagePriority.DANGER)
+                .sendTo(sender);
             return;
         }
 
@@ -177,14 +177,14 @@ public class CreateColonyMessage implements IMessage
             if (reactivate)
             {
                 MessageUtils.format(MESSAGE_COLONY_REACTIVATED, colonyName)
-                  .withPriority(MessagePriority.IMPORTANT)
-                  .sendTo(sender);
+                    .withPriority(MessagePriority.IMPORTANT)
+                    .sendTo(sender);
             }
             else
             {
                 MessageUtils.format(MESSAGE_COLONY_FOUNDED)
-                  .withPriority(MessagePriority.IMPORTANT)
-                  .sendTo(sender);
+                    .withPriority(MessagePriority.IMPORTANT)
+                    .sendTo(sender);
             }
 
             IMinecoloniesAPI.getInstance().getEventBus().post(new ColonyCreatedModEvent(createdColony));
@@ -195,7 +195,7 @@ public class CreateColonyMessage implements IMessage
         ownedColony.getPackageManager().sendColonyViewPackets();
         ownedColony.getPackageManager().sendPermissionsPackets();
         MessageUtils.format(WARNING_COLONY_FOUNDING_FAILED)
-          .withPriority(MessagePriority.DANGER)
-          .sendTo(sender);
+            .withPriority(MessagePriority.DANGER)
+            .sendTo(sender);
     }
 }

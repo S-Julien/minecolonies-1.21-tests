@@ -26,19 +26,19 @@ import static com.minecolonies.core.commands.CommandArgumentNames.PLAYERNAME_ARG
 
 public class CommandGetRanks implements IMCOPCommand
 {
-    private static final String COLONY_INFO_TEXT       = "ID: %s  Name: %s  Rank: %s";
-    private static final String COORDINATES_TEXT       = "Coordinates: ";
+    private static final String COLONY_INFO_TEXT        = "ID: %s  Name: %s  Rank: %s";
+    private static final String COORDINATES_TEXT        = "Coordinates: ";
     private static final String COORDINATES_XYZ         = "x=%s y=%s z=%s";
     private static final String RANKS_COMMAND_SUGGESTED = "/minecolonies ranks ";
     private static final String PAGE_TOP_LEFT           = "   ------------------ page ";
-    private static final String PAGE_TOP_RIGHT         = " ------------------";
-    private static final String PAGE_TOP_MIDDLE        = " of ";
-    private static final String PREV_PAGE              = " <- prev";
-    private static final String NEXT_PAGE              = "next -> ";
-    private static final String PAGE_LINE              = " ----------------";
-    private static final String PAGE_LINE_DIVIDER      = " | ";
-    private static final int    COLONIES_ON_PAGE       = 10;
-    private static final String START_PAGE_ARG         = "startpage";
+    private static final String PAGE_TOP_RIGHT          = " ------------------";
+    private static final String PAGE_TOP_MIDDLE         = " of ";
+    private static final String PREV_PAGE               = " <- prev";
+    private static final String NEXT_PAGE               = "next -> ";
+    private static final String PAGE_LINE               = " ----------------";
+    private static final String PAGE_LINE_DIVIDER       = " | ";
+    private static final int    COLONIES_ON_PAGE        = 10;
+    private static final String START_PAGE_ARG          = "startpage";
 
     @Override
     public int onExecute(final CommandContext<CommandSourceStack> context)

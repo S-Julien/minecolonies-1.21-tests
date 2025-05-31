@@ -55,7 +55,7 @@ public final class ReflectionUtils
     }
 
     public static void setFMLLoggingLevelOnConsoleToDebug(final AppenderControl control)
-      throws NoSuchFieldException, IllegalAccessException
+        throws NoSuchFieldException, IllegalAccessException
     {
         final Field levelField = control.getClass().getField("level");
         levelField.setAccessible(true);

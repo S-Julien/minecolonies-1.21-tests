@@ -27,7 +27,7 @@ public class VisitorSpawnedEvent extends AbstractCitizenEvent
 
     /**
      * Creates a new visitor spawned event.
-     * 
+     *
      * @param eventPos    the position of the hut block of the building.
      * @param citizenName the name of the building.
      */

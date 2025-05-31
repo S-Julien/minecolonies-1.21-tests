@@ -28,6 +28,7 @@ public class IntSetting implements ISetting<Integer>
 
     /**
      * Create a new boolean setting.
+     *
      * @param init the initial value.
      */
     public IntSetting(final int init)
@@ -38,8 +39,9 @@ public class IntSetting implements ISetting<Integer>
 
     /**
      * Create a new int setting.
+     *
      * @param value the value.
-     * @param def the default value.
+     * @param def   the default value.
      */
     public IntSetting(final int value, final int def)
     {
@@ -49,6 +51,7 @@ public class IntSetting implements ISetting<Integer>
 
     /**
      * Get the setting value.
+     *
      * @return the set value.
      */
     public Integer getValue()
@@ -58,6 +61,7 @@ public class IntSetting implements ISetting<Integer>
 
     /**
      * Get the default value.
+     *
      * @return the default value.
      */
     public int getDefault()
@@ -74,10 +78,10 @@ public class IntSetting implements ISetting<Integer>
     @OnlyIn(Dist.CLIENT)
     @Override
     public void setupHandler(
-      final ISettingKey<?> key,
-      final Pane pane,
-      final ISettingsModuleView settingsModuleView,
-      final IBuildingView building, final BOWindow window)
+        final ISettingKey<?> key,
+        final Pane pane,
+        final ISettingsModuleView settingsModuleView,
+        final IBuildingView building, final BOWindow window)
     {
         pane.findPaneOfTypeByID("trigger", TextField.class).setHandler(input -> {
             try
@@ -101,11 +105,11 @@ public class IntSetting implements ISetting<Integer>
 
     @Override
     public void render(
-      final ISettingKey<?> key,
-      final Pane pane,
-      final ISettingsModuleView settingsModuleView,
-      final IBuildingView building,
-      final BOWindow window)
+        final ISettingKey<?> key,
+        final Pane pane,
+        final ISettingsModuleView settingsModuleView,
+        final IBuildingView building,
+        final BOWindow window)
     {
         final TextField field = pane.findPaneOfTypeByID("trigger", TextField.class);
         field.setEnabled(isActive(settingsModuleView));
@@ -127,6 +131,7 @@ public class IntSetting implements ISetting<Integer>
 
     /**
      * Set a new int value.
+     *
      * @param value the int to set.
      */
     public void setValue(final int value)

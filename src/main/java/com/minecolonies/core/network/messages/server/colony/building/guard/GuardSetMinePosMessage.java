@@ -22,7 +22,7 @@ public class GuardSetMinePosMessage extends AbstractBuildingServerMessage<Abstra
     /**
      * Indicates whether minePos is a valid position
      */
-    private Boolean hasMinePos = false;
+    private Boolean  hasMinePos = false;
 
     /**
      * Empty standard constructor
@@ -34,8 +34,9 @@ public class GuardSetMinePosMessage extends AbstractBuildingServerMessage<Abstra
 
     /**
      * Creates an instance of the message to set a new position
+     *
      * @param building the building to apply the position change to
-     * @param minePos the position of the mine
+     * @param minePos  the position of the mine
      */
     public GuardSetMinePosMessage(@NotNull AbstractBuildingGuards.View building, BlockPos minePos)
     {
@@ -46,6 +47,7 @@ public class GuardSetMinePosMessage extends AbstractBuildingServerMessage<Abstra
 
     /**
      * Creates an instance of the message to clear the position
+     *
      * @param building the building to apply the position change to
      */
     public GuardSetMinePosMessage(@NotNull AbstractBuildingGuards.View building)

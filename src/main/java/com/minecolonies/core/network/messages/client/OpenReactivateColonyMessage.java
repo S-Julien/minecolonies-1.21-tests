@@ -14,7 +14,7 @@ public class OpenReactivateColonyMessage implements IMessage
     /**
      * Colony pos at which we are trying to place.
      */
-    private String closestName;
+    private String   closestName;
     private int      closestDistance;
     private BlockPos townHallPos;
 

@@ -32,15 +32,16 @@ public class CrafterRecipeListener extends SimpleJsonResourceReloadListener
     }
 
     @Override
-    protected void apply(@NotNull final Map<ResourceLocation, JsonElement> object,
-                         @NotNull final ResourceManager resourceManagerIn,
-                         @NotNull final ProfilerFiller profilerIn)
+    protected void apply(
+        @NotNull final Map<ResourceLocation, JsonElement> object,
+        @NotNull final ResourceManager resourceManagerIn,
+        @NotNull final ProfilerFiller profilerIn)
     {
         Log.getLogger().info("Beginning load of custom recipes for colony workers");
 
         final CustomRecipeManager recipeManager = CustomRecipeManager.getInstance();
         recipeManager.reset();
-        for(final Map.Entry<ResourceLocation, JsonElement> entry : object.entrySet())
+        for (final Map.Entry<ResourceLocation, JsonElement> entry : object.entrySet())
         {
             final ResourceLocation key = entry.getKey();
             try

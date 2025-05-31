@@ -41,39 +41,39 @@ public class DefaultMechanicCraftingProvider extends CustomRecipeProvider
     protected void registerRecipes(@NotNull final Consumer<FinishedRecipe> consumer)
     {
         CustomRecipeBuilder.create(MECHANIC, MODULE_CRAFTING, "gate_wood")
-                .inputs(List.of(new ItemStorage(new ItemStack(Items.OAK_LOG, 5))))
-                .result(new ItemStack(ModItems.woodgate))
-                .showTooltip(true)
-                .build(consumer);
+            .inputs(List.of(new ItemStorage(new ItemStack(Items.OAK_LOG, 5))))
+            .result(new ItemStack(ModItems.woodgate))
+            .showTooltip(true)
+            .build(consumer);
 
         CustomRecipeBuilder.create(MECHANIC, MODULE_CRAFTING, "gate_iron")
-                .inputs(List.of(new ItemStorage(new ItemStack(Items.IRON_NUGGET, 5))))
-                .result(new ItemStack(ModItems.irongate))
-                .showTooltip(true)
-                .build(consumer);
+            .inputs(List.of(new ItemStorage(new ItemStack(Items.IRON_NUGGET, 5))))
+            .result(new ItemStack(ModItems.irongate))
+            .showTooltip(true)
+            .build(consumer);
 
         CustomRecipeBuilder.create(MECHANIC, MODULE_CRAFTING, "rails")
-                .inputs(List.of(new ItemStorage(new ItemStack(Items.STICK, 5)),
-                        new ItemStorage(new ItemStack(Items.IRON_INGOT, 2))))
-                .result(new ItemStack(Items.RAIL, 16))
-                .minBuildingLevel(3)
-                .build(consumer);
+            .inputs(List.of(new ItemStorage(new ItemStack(Items.STICK, 5)),
+                new ItemStorage(new ItemStack(Items.IRON_INGOT, 2))))
+            .result(new ItemStack(Items.RAIL, 16))
+            .minBuildingLevel(3)
+            .build(consumer);
 
         CustomRecipeBuilder.create(MECHANIC, MODULE_CRAFTING, "lantern")
-                .inputs(List.of(new ItemStorage(new ItemStack(Items.IRON_NUGGET, 3)),
-                        new ItemStorage(new ItemStack(Items.GLASS_BOTTLE)),
-                        new ItemStorage(new ItemStack(Items.TORCH))))
-                .result(new ItemStack(Items.LANTERN))
-                .minBuildingLevel(3)
-                .build(consumer);
+            .inputs(List.of(new ItemStorage(new ItemStack(Items.IRON_NUGGET, 3)),
+                new ItemStorage(new ItemStack(Items.GLASS_BOTTLE)),
+                new ItemStorage(new ItemStack(Items.TORCH))))
+            .result(new ItemStack(Items.LANTERN))
+            .minBuildingLevel(3)
+            .build(consumer);
 
         CustomRecipeBuilder.create(MECHANIC, MODULE_CRAFTING, "soul_lantern")
-                .inputs(List.of(new ItemStorage(new ItemStack(Items.IRON_NUGGET, 3)),
-                        new ItemStorage(new ItemStack(Items.GLASS_BOTTLE)),
-                        new ItemStorage(new ItemStack(Items.SOUL_TORCH))))
-                .result(new ItemStack(Items.SOUL_LANTERN))
-                .minBuildingLevel(3)
-                .build(consumer);
+            .inputs(List.of(new ItemStorage(new ItemStack(Items.IRON_NUGGET, 3)),
+                new ItemStorage(new ItemStack(Items.GLASS_BOTTLE)),
+                new ItemStorage(new ItemStack(Items.SOUL_TORCH))))
+            .result(new ItemStack(Items.SOUL_LANTERN))
+            .minBuildingLevel(3)
+            .build(consumer);
 
         deoxidize(consumer, Items.OXIDIZED_COPPER, Items.WEATHERED_COPPER);
         deoxidize(consumer, Items.OXIDIZED_CUT_COPPER, Items.WEATHERED_CUT_COPPER);
@@ -83,14 +83,15 @@ public class DefaultMechanicCraftingProvider extends CustomRecipeProvider
         deoxidize(consumer, Items.EXPOSED_CUT_COPPER, Items.CUT_COPPER);
     }
 
-    private void deoxidize(@NotNull final Consumer<FinishedRecipe> consumer,
-                           @NotNull final Item input,
-                           @NotNull final Item output)
+    private void deoxidize(
+        @NotNull final Consumer<FinishedRecipe> consumer,
+        @NotNull final Item input,
+        @NotNull final Item output)
     {
         CustomRecipeBuilder.create(MECHANIC, MODULE_CRAFTING, "deoxidize_" + ForgeRegistries.ITEMS.getKey(input).getPath())
-                .inputs(List.of(new ItemStorage(new ItemStack(input))))
-                .result(new ItemStack(output))
-                .requiredTool(ModEquipmentTypes.axe.get())
-                .build(consumer);
+            .inputs(List.of(new ItemStorage(new ItemStack(input))))
+            .result(new ItemStack(output))
+            .requiredTool(ModEquipmentTypes.axe.get())
+            .build(consumer);
     }
 }

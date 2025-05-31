@@ -62,9 +62,9 @@ public class WindowAlliancePage extends AbstractWindowTownHall
         final CompactColonyReference ally = building.getColony().getAllies().get(row);
 
         MessageUtils.format(DO_REALLY_WANNA_TP, ally.name)
-          .withPriority(MessagePriority.IMPORTANT)
-          .withClickEvent(new ClickEventWithExecutable(() -> Network.getNetwork().sendToServer(new TeleportToColonyMessage(ally.dimension, ally.id))))
-          .sendTo(Minecraft.getInstance().player);
+            .withPriority(MessagePriority.IMPORTANT)
+            .withClickEvent(new ClickEventWithExecutable(() -> Network.getNetwork().sendToServer(new TeleportToColonyMessage(ally.dimension, ally.id))))
+            .sendTo(Minecraft.getInstance().player);
         this.close();
     }
 

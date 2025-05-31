@@ -25,7 +25,7 @@ public class ColonyViewWorkOrderMessage implements IMessage
 {
     private int                colonyId;
     private ResourceKey<Level> dimension;
-    private FriendlyByteBuf       workOrderBuffer;
+    private FriendlyByteBuf    workOrderBuffer;
 
     /**
      * Empty constructor used when registering the

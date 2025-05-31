@@ -122,7 +122,7 @@ public class TransferItemsToCitizenRequestMessage extends AbstractColonyServerMe
         else
         {
             amountToTake = Math.min(quantity,
-              InventoryUtils.getItemCountInItemHandler(new InvWrapper(player.getInventory()), stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(stack, itemStack)));
+                InventoryUtils.getItemCountInItemHandler(new InvWrapper(player.getInventory()), stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(stack, itemStack)));
         }
 
         final List<ItemStack> itemsToPut = new ArrayList<>();
@@ -162,7 +162,8 @@ public class TransferItemsToCitizenRequestMessage extends AbstractColonyServerMe
             while (amountToRemoveFromPlayer > 0)
             {
                 final int slot =
-                  InventoryUtils.findFirstSlotInItemHandlerWith(new InvWrapper(player.getInventory()), stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(stack, itemStack));
+                    InventoryUtils.findFirstSlotInItemHandlerWith(new InvWrapper(player.getInventory()),
+                        stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(stack, itemStack));
                 final ItemStack itemsTaken = player.getInventory().removeItem(slot, amountToRemoveFromPlayer);
                 amountToRemoveFromPlayer -= ItemStackUtils.getSize(itemsTaken);
             }

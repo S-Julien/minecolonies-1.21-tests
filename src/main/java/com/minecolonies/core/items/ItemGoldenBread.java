@@ -18,7 +18,7 @@ import java.util.List;
 import static com.minecolonies.api.util.constant.Constants.STACKSIZE;
 
 /**
- * Golden Bread, made by the Baker. Heals 2 hearts 
+ * Golden Bread, made by the Baker. Heals 2 hearts
  */
 public class ItemGoldenBread extends AbstractItemMinecolonies
 {
@@ -27,9 +27,9 @@ public class ItemGoldenBread extends AbstractItemMinecolonies
      * Setup the food definition
      */
     private static FoodProperties goldenBread = (new FoodProperties.Builder())
-                                        .nutrition(5)
-                                        .saturationMod(0.6F)
-                                        .build(); 
+        .nutrition(5)
+        .saturationMod(0.6F)
+        .build();
 
     /**
      * Sets the name, creative tab, and registers the Golden Bread item.
@@ -41,23 +41,24 @@ public class ItemGoldenBread extends AbstractItemMinecolonies
         super("golden_bread", properties.stacksTo(STACKSIZE).food(goldenBread));
     }
 
-   /**
-    * Heal 2 hearts
-    */
+    /**
+     * Heal 2 hearts
+     */
     @Override
-    public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
-        
+    public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving)
+    {
+
         if (!worldIn.isClientSide)
         {
             entityLiving.heal(4);
         }
 
         return super.finishUsingItem(stack, worldIn, entityLiving);
-    }    
+    }
 
     @Override
     public void appendHoverText(
-    @NotNull final ItemStack stack, @Nullable final Level worldIn, @NotNull final List<Component> tooltip, @NotNull final TooltipFlag flagIn)
+        @NotNull final ItemStack stack, @Nullable final Level worldIn, @NotNull final List<Component> tooltip, @NotNull final TooltipFlag flagIn)
     {
         final MutableComponent guiHint = Component.translatable(TranslationConstants.COM_MINECOLONIES_COREMOD_GOLDEN_BREAD_TOOLTIP_GUI);
         guiHint.setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY));

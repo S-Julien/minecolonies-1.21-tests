@@ -68,23 +68,22 @@ public class UndertakerConstants
     /**
      * Effort needed to resurrect a citizen
      */
-    public static final int EFFORT_RESURRECT = 400;
+    public static final int                  EFFORT_RESURRECT = 400;
     /**
      * Undertaker emptying icon
      */
-    public final static VisibleCitizenStatus EMPTYING_ICON =
-            new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/work/undertaker.png"), MESSAGE_INFO_CITIZEN_STATUS_UNDERTAKER_EMPTYING);
+    public final static VisibleCitizenStatus EMPTYING_ICON    =
+        new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/work/undertaker.png"), MESSAGE_INFO_CITIZEN_STATUS_UNDERTAKER_EMPTYING);
 
     /**
      * Undertaker digging icon
      */
     public final static VisibleCitizenStatus DIGGING_ICON =
-            new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/work/undertaker.png"), MESSAGE_INFO_CITIZEN_STATUS_UNDERTAKER_DIGGING);
+        new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/work/undertaker.png"), MESSAGE_INFO_CITIZEN_STATUS_UNDERTAKER_DIGGING);
 
     /**
      * Undertaker bury icon
      */
     public final static VisibleCitizenStatus BURYING_ICON =
-            new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/work/undertaker.png"), MESSAGE_INFO_CITIZEN_STATUS_UNDERTAKER_BURYING);
-
+        new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/work/undertaker.png"), MESSAGE_INFO_CITIZEN_STATUS_UNDERTAKER_BURYING);
 }

@@ -19,18 +19,16 @@ import java.util.regex.Pattern;
  */
 public final class Utils
 {
-    private static final NavigableMap<Long, String> suffixes = new TreeMap<> ();
-    
+    private static final NavigableMap<Long, String> suffixes = new TreeMap<>();
     static
     {
-    suffixes.put(1_000L, "k");
-    suffixes.put(1_000_000L, "M");
-    suffixes.put(1_000_000_000L, "G");
-    suffixes.put(1_000_000_000_000L, "T");
-    suffixes.put(1_000_000_000_000_000L, "P");
-    suffixes.put(1_000_000_000_000_000_000L, "E");
+        suffixes.put(1_000L, "k");
+        suffixes.put(1_000_000L, "M");
+        suffixes.put(1_000_000_000L, "G");
+        suffixes.put(1_000_000_000_000L, "T");
+        suffixes.put(1_000_000_000_000_000L, "P");
+        suffixes.put(1_000_000_000_000_000_000L, "E");
     }
-
     /**
      * Private constructor to hide the implicit public one.
      */
@@ -69,6 +67,7 @@ public final class Utils
 
     /**
      * Split path util.
+     *
      * @param path the path string.
      * @return the array.
      */
@@ -83,7 +82,8 @@ public final class Utils
 
     /**
      * Resolve a path with a sub path.
-     * @param path the path.
+     *
+     * @param path    the path.
      * @param subPath the sub path.
      * @return the appended path.
      */
@@ -169,18 +169,28 @@ public final class Utils
             Log.getLogger().error("Directory doesn't exist and failed to be created: " + directory.toString());
         }
     }
-    
+
     /**
      * Formats a long value into a abbreviated string, ie: 1000 to 1k, 1200 to 1.2k, 13000 to 13k
+     *
      * @param value to format
      * @return string version of the value
      */
     public static String format(long value)
     {
         //Long.MIN_VALUE == -Long.MIN_VALUE so we need an adjustment here
-        if (value == Long.MIN_VALUE) return format(Long.MIN_VALUE + 1);
-        if (value < 0) return "-" + format(-value);
-        if (value < 1000) return Long.toString(value); //deal with easy case
+        if (value == Long.MIN_VALUE)
+        {
+            return format(Long.MIN_VALUE + 1);
+        }
+        if (value < 0)
+        {
+            return "-" + format(-value);
+        }
+        if (value < 1000)
+        {
+            return Long.toString(value); //deal with easy case
+        }
 
         Entry<Long, String> e = suffixes.floorEntry(value);
         Long divideBy = e.getKey();
@@ -193,6 +203,7 @@ public final class Utils
 
     /**
      * Get the level of this blueprint from the name
+     *
      * @param schematicName the name of the blueprint.
      * @return the level or -1 if it doesn't have one.
      */

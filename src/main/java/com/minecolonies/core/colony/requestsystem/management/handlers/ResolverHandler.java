@@ -158,9 +158,9 @@ public class ResolverHandler implements IResolverHandler
         }
 
         if (manager.getRequestResolverRequestAssignmentDataStore().getAssignments()
-              .containsKey(registeredResolver.getId())
-              && !manager.getRequestResolverRequestAssignmentDataStore().getAssignments()
-                    .get(registeredResolver.getId()).isEmpty())
+            .containsKey(registeredResolver.getId())
+            && !manager.getRequestResolverRequestAssignmentDataStore().getAssignments()
+            .get(registeredResolver.getId()).isEmpty())
         {
             throw new IllegalArgumentException("Cannot remove a resolver that is still in use. Reassign all registered requests before removing");
         }
@@ -182,7 +182,7 @@ public class ResolverHandler implements IResolverHandler
 
         //Skip if the resolver has no requests assigned.
         if (!manager.getRequestResolverRequestAssignmentDataStore().getAssignments().containsKey(resolverToken)
-              || manager.getRequestResolverRequestAssignmentDataStore().getAssignments().get(resolverToken).isEmpty())
+            || manager.getRequestResolverRequestAssignmentDataStore().getAssignments().get(resolverToken).isEmpty())
         {
             //No requests assigned so lets process this resolver as such.
             removeResolverWithoutAssignedRequests(resolverToken);
@@ -258,7 +258,7 @@ public class ResolverHandler implements IResolverHandler
     public Collection<IToken<?>> getRequestsAssignedToResolver(final IRequestResolver<?> resolver)
     {
         if (manager.getRequestResolverRequestAssignmentDataStore().getAssignments()
-              .containsKey(resolver.getId()))
+            .containsKey(resolver.getId()))
         {
             return manager.getRequestResolverRequestAssignmentDataStore().getAssignments().get(resolver.getId());
         }

@@ -25,11 +25,11 @@ import java.util.stream.Collectors;
  */
 public class StandardPlayerRequestResolverFactory implements IFactory<IRequestManager, StandardPlayerRequestResolver>
 {
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
-    private static final String NBT_TOKEN             = "Token";
-    private static final String NBT_LOCATION          = "Location";
-    private static final String NBT_ASSIGNED_REQUESTS = "Requests";
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
+    private static final String  NBT_TOKEN                      = "Token";
+    private static final String  NBT_LOCATION                   = "Location";
+    private static final String  NBT_ASSIGNED_REQUESTS          = "Requests";
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
 
     private static final Integer CONST_PLAYER_RESOLVER_ID_SCALE = -1;
 
@@ -50,16 +50,16 @@ public class StandardPlayerRequestResolverFactory implements IFactory<IRequestMa
     @NotNull
     @Override
     public StandardPlayerRequestResolver getNewInstance(
-      @NotNull final IFactoryController factoryController,
-      @NotNull final IRequestManager iRequestManager,
-      @NotNull final Object... context)
-      throws IllegalArgumentException
+        @NotNull final IFactoryController factoryController,
+        @NotNull final IRequestManager iRequestManager,
+        @NotNull final Object... context)
+        throws IllegalArgumentException
     {
         final ILocation location;
         try
         {
             location =
-              factoryController.getNewInstance(TypeConstants.ILOCATION, iRequestManager.getColony().getCenter(), iRequestManager.getColony().getDimension());
+                factoryController.getNewInstance(TypeConstants.ILOCATION, iRequestManager.getColony().getCenter(), iRequestManager.getColony().getDimension());
         }
         catch (final Exception ex)
         {
@@ -89,7 +89,7 @@ public class StandardPlayerRequestResolverFactory implements IFactory<IRequestMa
         final ILocation location = controller.deserialize(nbt.getCompound(NBT_LOCATION));
 
         final Set<IToken<?>> assignedRequests =
-          NBTUtils.streamCompound(nbt.getList(NBT_ASSIGNED_REQUESTS, Tag.TAG_COMPOUND)).map(c -> (IToken<?>) controller.deserialize(c)).collect(Collectors.toSet());
+            NBTUtils.streamCompound(nbt.getList(NBT_ASSIGNED_REQUESTS, Tag.TAG_COMPOUND)).map(c -> (IToken<?>) controller.deserialize(c)).collect(Collectors.toSet());
 
         final StandardPlayerRequestResolver resolver = new StandardPlayerRequestResolver(location, token);
         resolver.setAllAssignedRequests(assignedRequests);

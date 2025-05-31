@@ -27,14 +27,14 @@ import org.jetbrains.annotations.Nullable;
  */
 public class CompostRecipe implements Recipe<Container>
 {
-    private static final int FERMENT_TIME = 24000;
+    private static final int FERMENT_TIME   = 24000;
     private static final int COMPOST_RESULT = 6;
 
     private final ResourceLocation id;
 
     private final Ingredient input;
-    private final ItemStack output;
-    private final int strength;
+    private final ItemStack  output;
+    private final int        strength;
 
     public CompostRecipe(@NotNull final ResourceLocation id, @NotNull final Ingredient ingredient, final int strength)
     {
@@ -46,11 +46,11 @@ public class CompostRecipe implements Recipe<Container>
 
     @NotNull
     @Override
-    public RecipeType<?> getType() { return ModRecipeSerializer.CompostRecipeType.get(); }
+    public RecipeType<?> getType() {return ModRecipeSerializer.CompostRecipeType.get();}
 
     @NotNull
     @Override
-    public ResourceLocation getId() { return this.id; }
+    public ResourceLocation getId() {return this.id;}
 
     /**
      * Get the input ingredient for this recipe (this is multiple alternative item types).
@@ -58,7 +58,7 @@ public class CompostRecipe implements Recipe<Container>
      *
      * @return The input.
      */
-    public Ingredient getInput() { return this.input; }
+    public Ingredient getInput() {return this.input;}
 
     /**
      * Get the strength of this recipe.  A higher strength means fewer input items are required to craft the same
@@ -66,7 +66,7 @@ public class CompostRecipe implements Recipe<Container>
      *
      * @return The strength; typically 2, 4, or 8, but other values are possible.
      */
-    public int getStrength() { return this.strength; }
+    public int getStrength() {return this.strength;}
 
     /**
      * The number of ticks that this recipe should take to ferment into compost.
@@ -74,7 +74,7 @@ public class CompostRecipe implements Recipe<Container>
      *
      * @return A number of ticks.
      */
-    public int getFermentTime() { return FERMENT_TIME; }
+    public int getFermentTime() {return FERMENT_TIME;}
 
     @Override
     public boolean matches(final Container inv, final Level worldIn)

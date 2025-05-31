@@ -54,7 +54,7 @@ public class PlayAudioMessage implements IMessage
     /**
      * Create a play music message with a specific sound event.
      *
-     * @param event the sound event.
+     * @param event    the sound event.
      * @param category the sound category to play on
      */
     public PlayAudioMessage(final SoundEvent event, final SoundSource category)
@@ -97,22 +97,23 @@ public class PlayAudioMessage implements IMessage
         }
 
         Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(
-          soundEvent, category,
+            soundEvent, category,
             1.0F, 1.0F, RandomSource.create(), false, 0, SoundInstance.Attenuation.NONE, player.getX(), player.getY(), player.getZ(), true));
     }
 
     /**
      * Plays a sound event to everyone in the colony
-     * @param col the colony
+     *
+     * @param col       the colony
      * @param important if the audio is sent to important message players only
-     * @param stop if all other sounds should be stopped first
-     * @param messages one or more messages to send to each player.
+     * @param stop      if all other sounds should be stopped first
+     * @param messages  one or more messages to send to each player.
      */
     public static void sendToAll(IColony col, boolean important, boolean stop, PlayAudioMessage... messages)
     {
         List<Player> players = important
-          ? col.getImportantMessageEntityPlayers()
-          : col.getMessagePlayerEntities();
+            ? col.getImportantMessageEntityPlayers()
+            : col.getMessagePlayerEntities();
 
         for (Player player : players)
         {

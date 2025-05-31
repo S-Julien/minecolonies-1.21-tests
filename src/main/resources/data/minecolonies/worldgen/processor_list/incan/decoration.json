@@ -21,7 +21,7 @@
           "input_predicate": {
             "block": "minecraft:dirt",
             "predicate_type": "minecraft:random_block_match",
-            "probability":0.15
+            "probability": 0.15
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -31,12 +31,12 @@
       "processor_type": "minecraft:rule"
     },
     {
-      "blocks":[
+      "blocks": [
         {
-          "Name":"structurize:blocksubstitution"
+          "Name": "structurize:blocksubstitution"
         },
         {
-          "Name":"minecolonies:blockwaypoint"
+          "Name": "minecolonies:blockwaypoint"
         }
       ],
       "processor_type": "minecraft:block_ignore"

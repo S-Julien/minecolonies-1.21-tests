@@ -98,9 +98,9 @@ public class CommandShowClaim implements IMCOPCommand
                         if (building != null)
                         {
                             text.append(Component.translatable("ID: %s Building: %s Pos: %s\n",
-                              entry.getKey(),
-                              Component.translatable(building.getBuildingDisplayName()),
-                              buildingPos));
+                                entry.getKey(),
+                                Component.translatable(building.getBuildingDisplayName()),
+                                buildingPos));
                         }
                         else
                         {
@@ -129,7 +129,7 @@ public class CommandShowClaim implements IMCOPCommand
     public LiteralArgumentBuilder<CommandSourceStack> build()
     {
         return IMCCommand.newLiteral(getName())
-          .then(IMCCommand.newArgument(POS_ARG, BlockPosArgument.blockPos()).executes(this::checkPreConditionAndExecute))
-          .executes(this::checkPreConditionAndExecute);
+            .then(IMCCommand.newArgument(POS_ARG, BlockPosArgument.blockPos()).executes(this::checkPreConditionAndExecute))
+            .executes(this::checkPreConditionAndExecute);
     }
 }

@@ -210,7 +210,7 @@ public final class ColonyManager implements IColonyManager
             cap.deleteColony(id);
             BackUpHelper.markColonyDeleted(colony.getID(), colony.getDimension());
             colony.getImportantMessageEntityPlayers()
-              .forEach(player -> Network.getNetwork().sendToPlayer(new ColonyViewRemoveMessage(colony.getID(), colony.getDimension()), (ServerPlayer) player));
+                .forEach(player -> Network.getNetwork().sendToPlayer(new ColonyViewRemoveMessage(colony.getID(), colony.getDimension()), (ServerPlayer) player));
             Log.getLogger().info("Successfully deleted colony: " + id);
         }
         catch (final RuntimeException e)
@@ -319,8 +319,8 @@ public final class ColonyManager implements IColonyManager
         }
 
         return ChunkDataHelper.canClaimChunksInRange(w,
-          pos,
-          getConfig().getServer().initialColonySize.get());
+            pos,
+            getConfig().getServer().initialColonySize.get());
     }
 
     @Override
@@ -683,11 +683,11 @@ public final class ColonyManager implements IColonyManager
 
     @Override
     public void handleColonyViewMessage(
-      final int colonyId,
-      @NotNull final FriendlyByteBuf colonyData,
-      @NotNull final Level world,
-      final boolean isNewSubscription,
-      final ResourceKey<Level> dim)
+        final int colonyId,
+        @NotNull final FriendlyByteBuf colonyData,
+        @NotNull final Level world,
+        final boolean isNewSubscription,
+        final ResourceKey<Level> dim)
     {
         IColonyView view = getColonyView(colonyId, dim);
         if (view == null)

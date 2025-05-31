@@ -73,12 +73,12 @@ public class BlockScarecrow extends AbstractBlockMinecoloniesDefault<BlockScarec
 
     @Override
     public InteractionResult use(
-      final BlockState state,
-      final Level worldIn,
-      final BlockPos pos,
-      final Player player,
-      final InteractionHand hand,
-      final BlockHitResult ray)
+        final BlockState state,
+        final Level worldIn,
+        final BlockPos pos,
+        final Player player,
+        final InteractionHand hand,
+        final BlockHitResult ray)
     {
         // If the world is client, open the inventory of the field.
         if (worldIn.isClientSide)
@@ -126,17 +126,17 @@ public class BlockScarecrow extends AbstractBlockMinecoloniesDefault<BlockScarec
 
     @Override
     public VoxelShape getShape(
-      final BlockState state, final BlockGetter worldIn, final BlockPos pos, final CollisionContext context)
+        final BlockState state, final BlockGetter worldIn, final BlockPos pos, final CollisionContext context)
     {
         // Force the different halves to share the same collision space;
         // the user will think it is one big block
         return Shapes.box(
-          (float) START_COLLISION,
-          (float) (BOTTOM_COLLISION - (state.getValue(HALF) == DoubleBlockHalf.UPPER ? 1 : 0)),
-          (float) START_COLLISION,
-          (float) END_COLLISION,
-          (float) (HEIGHT_COLLISION - (state.getValue(HALF) == DoubleBlockHalf.UPPER ? 1 : 0)),
-          (float) END_COLLISION
+            (float) START_COLLISION,
+            (float) (BOTTOM_COLLISION - (state.getValue(HALF) == DoubleBlockHalf.UPPER ? 1 : 0)),
+            (float) START_COLLISION,
+            (float) END_COLLISION,
+            (float) (HEIGHT_COLLISION - (state.getValue(HALF) == DoubleBlockHalf.UPPER ? 1 : 0)),
+            (float) END_COLLISION
         );
     }
 
@@ -218,7 +218,8 @@ public class BlockScarecrow extends AbstractBlockMinecoloniesDefault<BlockScarec
             final IColony colony = IColonyManager.getInstance().getColonyByPosFromWorld(worldIn, pos);
             if (colony != null)
             {
-                colony.getBuildingManager().removeBuildingExtension(field -> field.getBuildingExtensionType().equals(BuildingExtensionRegistries.farmField.get()) && field.getPosition().equals(pos));
+                colony.getBuildingManager()
+                    .removeBuildingExtension(field -> field.getBuildingExtensionType().equals(BuildingExtensionRegistries.farmField.get()) && field.getPosition().equals(pos));
             }
         }
     }

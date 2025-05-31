@@ -30,7 +30,7 @@ public class ItemBowlFood extends Item implements IMinecoloniesFoodItem
      * Creates a new food item.
      *
      * @param builder the item properties to use.
-     * @param tier the nutrition tier.
+     * @param tier    the nutrition tier.
      */
     public ItemBowlFood(@NotNull final Properties builder, final int tier)
     {

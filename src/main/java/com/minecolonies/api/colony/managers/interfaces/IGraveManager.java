@@ -59,12 +59,12 @@ public interface IGraveManager
 
     /**
      * Attempt to create a TileEntityGrave at @pos containing the specific @citizenData
-     *
+     * <p>
      * On failure: drop all the citizen inventory on the ground.
      *
-     * @param world        The world.
-     * @param pos          The position where to spawn a grave
-     * @param citizenData  The citizenData
+     * @param world       The world.
+     * @param pos         The position where to spawn a grave
+     * @param citizenData The citizenData
      * @return true if a grave was created.
      */
     boolean createCitizenGrave(final Level world, final BlockPos pos, final ICitizenData citizenData);
@@ -80,7 +80,7 @@ public interface IGraveManager
     /**
      * Add a grave from the Colony.
      *
-     * @param pos    position of the TileEntityGrave to add.
+     * @param pos position of the TileEntityGrave to add.
      * @return the grave that was created and added.
      */
     boolean addNewGrave(@NotNull final BlockPos pos);
@@ -88,7 +88,7 @@ public interface IGraveManager
     /**
      * Remove a TileEntityGrave from the Colony (when it is destroyed).
      *
-     * @param pos    position of the TileEntityGrave to remove.
+     * @param pos position of the TileEntityGrave to remove.
      */
     void removeGrave(@NotNull final BlockPos pos);
 }

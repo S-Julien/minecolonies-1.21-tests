@@ -42,9 +42,9 @@ public abstract class AbstractCraftingProductionResolver<C extends AbstractCraft
      * @param cClass   the class.
      */
     public AbstractCraftingProductionResolver(
-      @NotNull final ILocation location,
-      @NotNull final IToken<?> token,
-      @NotNull final JobEntry jobEntry, final Class<C> cClass)
+        @NotNull final ILocation location,
+        @NotNull final IToken<?> token,
+        @NotNull final JobEntry jobEntry, final Class<C> cClass)
     {
         super(location, token);
         this.cClass = cClass;
@@ -59,6 +59,7 @@ public abstract class AbstractCraftingProductionResolver<C extends AbstractCraft
 
     /**
      * Get the job entry for the production resolver.
+     *
      * @return the entry.
      */
     public JobEntry getJobEntry()
@@ -102,22 +103,22 @@ public abstract class AbstractCraftingProductionResolver<C extends AbstractCraft
     {
         final AbstractBuilding buildingWorker = (AbstractBuilding) building;
         return attemptResolveForBuildingAndStack(
-          manager,
-          buildingWorker,
-          request.getRequest().getStack(),
-          request.getRequest().getCount(),
-          request.getRequest().getMinCount(),
-          request.getRequest().getRecipeID());
+            manager,
+            buildingWorker,
+            request.getRequest().getStack(),
+            request.getRequest().getCount(),
+            request.getRequest().getMinCount(),
+            request.getRequest().getRecipeID());
     }
 
     @Nullable
     protected List<IToken<?>> attemptResolveForBuildingAndStack(
-      @NotNull final IRequestManager manager,
-      @NotNull final AbstractBuilding building,
-      final ItemStack stack,
-      final int count,
-      final int minCount,
-      final IToken<?> recipeId)
+        @NotNull final IRequestManager manager,
+        @NotNull final AbstractBuilding building,
+        final ItemStack stack,
+        final int count,
+        final int minCount,
+        final IToken<?> recipeId)
     {
         final ICraftingBuildingModule module = building.getCraftingModuleForRecipe(recipeId);
         if (module == null)
@@ -152,11 +153,11 @@ public abstract class AbstractCraftingProductionResolver<C extends AbstractCraft
 
     @Nullable
     protected List<IToken<?>> createRequestsForRecipe(
-      @NotNull final IRequestManager manager,
-      @NotNull final AbstractBuilding building,
-      final int count,
-      final int minCount,
-      @NotNull final IRecipeStorage storage)
+        @NotNull final IRequestManager manager,
+        @NotNull final AbstractBuilding building,
+        final int count,
+        final int minCount,
+        @NotNull final IRecipeStorage storage)
     {
         final List<IToken<?>> materialRequests = new ArrayList<>();
         for (final ItemStorage ingredient : storage.getCleanedInput())
@@ -166,22 +167,23 @@ public abstract class AbstractCraftingProductionResolver<C extends AbstractCraft
                 final ItemStack craftingHelperStack = ingredient.getItemStack().copy();
                 final ItemStack container = ingredient.getItemStack().getCraftingRemainingItem();
                 //if recipe secondary produces craftinghelperstack, don't add it by count, add it once. If it's in the tools list, check to see if we need it first. 
-                if(!storage.getSecondaryOutputs().isEmpty() && ItemStackUtils.compareItemStackListIgnoreStackSize(storage.getSecondaryOutputs(), craftingHelperStack, false, true))
+                if (!storage.getSecondaryOutputs().isEmpty() && ItemStackUtils.compareItemStackListIgnoreStackSize(storage.getSecondaryOutputs(), craftingHelperStack, false, true))
                 {
                     materialRequests.add(createNewRequestForStack(manager, craftingHelperStack, ingredient.getAmount(), ingredient.getAmount(), false));
                 }
-                else if(!storage.getCraftingTools().isEmpty() && ItemStackUtils.compareItemStackListIgnoreStackSize(storage.getCraftingTools(), craftingHelperStack, false, true))
+                else if (!storage.getCraftingTools().isEmpty() && ItemStackUtils.compareItemStackListIgnoreStackSize(storage.getCraftingTools(), craftingHelperStack, false, true))
                 {
-                    int requiredForDurability = craftingHelperStack.isDamageableItem() ? (int) Math.ceil((double) count / ingredient.getRemainingDurablityValue()) : ingredient.getAmount();
+                    int requiredForDurability =
+                        craftingHelperStack.isDamageableItem() ? (int) Math.ceil((double) count / ingredient.getRemainingDurablityValue()) : ingredient.getAmount();
                     materialRequests.add(createNewRequestForStack(manager, craftingHelperStack, requiredForDurability, requiredForDurability, false));
                 }
                 else if (!ItemStackUtils.isEmpty(container) && ItemStackUtils.compareItemStacksIgnoreStackSize(container, craftingHelperStack, false, true))
                 {
                     materialRequests.add(createNewRequestForStack(manager, craftingHelperStack, ingredient.getAmount(), ingredient.getAmount(), false));
-                } 
+                }
                 else
                 {
-                    materialRequests.add(createNewRequestForStack(manager, craftingHelperStack, ingredient.getAmount() * count, ingredient.getAmount() * minCount, true ));
+                    materialRequests.add(createNewRequestForStack(manager, craftingHelperStack, ingredient.getAmount() * count, ingredient.getAmount() * minCount, true));
                 }
             }
         }
@@ -203,10 +205,10 @@ public abstract class AbstractCraftingProductionResolver<C extends AbstractCraft
     }
 
     protected void onAssignedToThisResolverForBuilding(
-      @NotNull final IRequestManager manager,
-      @NotNull final IRequest<? extends C> request,
-      final boolean simulation,
-      @NotNull final AbstractBuilding building)
+        @NotNull final IRequestManager manager,
+        @NotNull final IRequest<? extends C> request,
+        final boolean simulation,
+        @NotNull final AbstractBuilding building)
     {
         //Noop
     }
@@ -241,7 +243,9 @@ public abstract class AbstractCraftingProductionResolver<C extends AbstractCraft
             manager.updateRequestState(request.getId(), RequestState.FAILED);
             return;
         }
-        final IRecipeStorage storage = module.getFirstFulfillableRecipe(stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(stack, request.getRequest().getStack()), request.getRequest().getCount(), false);
+        final IRecipeStorage storage = module.getFirstFulfillableRecipe(stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(stack, request.getRequest().getStack()),
+            request.getRequest().getCount(),
+            false);
 
         if (storage == null)
         {

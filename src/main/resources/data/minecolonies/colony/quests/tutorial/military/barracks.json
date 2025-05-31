@@ -18,7 +18,7 @@
     },
     {
       "type": "minecolonies:citizen",
-      "state": { }
+      "state": {}
     }
   ],
   "triggerOrder": "1 || 2",
@@ -124,7 +124,9 @@
       }
     },
     {
-      "unlocks-rewards": [0],
+      "unlocks-rewards": [
+        0
+      ],
       "type": "minecolonies:dialogue",
       "target": 0,
       "text": "Great. If you want to start having guards you should also build and upgrade the barracks towers. I will leave this to you. Here, some equipment to get your guards going!",

@@ -49,25 +49,25 @@ public class ModTags
 
     public static final TagKey<Block> validSpawn = BlockTags.create(TagConstants.VALIDSPAWNBLOCKS);
 
-    public static final TagKey<Block> mushroomBlocks   = BlockTags.create(TagConstants.MUSHROOMS);
-    public static final TagKey<Block> hugeMushroomBlocks   = BlockTags.create(TagConstants.MUSHROOMS_HUGE);
-    public static final TagKey<Block> fungiBlocks      = BlockTags.create(TagConstants.FUNGI);
-    public static final TagKey<Item> fungi             = ItemTags.create(TagConstants.FUNGI);
-    public static final TagKey<Item> compostables      = ItemTags.create(TagConstants.COMPOSTABLES);
-    public static final TagKey<Item> compostables_poor = ItemTags.create(TagConstants.COMPOSTABLES_POOR);
-    public static final TagKey<Item> compostables_rich = ItemTags.create(TagConstants.COMPOSTABLES_RICH);
+    public static final TagKey<Block> mushroomBlocks     = BlockTags.create(TagConstants.MUSHROOMS);
+    public static final TagKey<Block> hugeMushroomBlocks = BlockTags.create(TagConstants.MUSHROOMS_HUGE);
+    public static final TagKey<Block> fungiBlocks        = BlockTags.create(TagConstants.FUNGI);
+    public static final TagKey<Item>  fungi              = ItemTags.create(TagConstants.FUNGI);
+    public static final TagKey<Item>  compostables       = ItemTags.create(TagConstants.COMPOSTABLES);
+    public static final TagKey<Item>  compostables_poor  = ItemTags.create(TagConstants.COMPOSTABLES_POOR);
+    public static final TagKey<Item>  compostables_rich  = ItemTags.create(TagConstants.COMPOSTABLES_RICH);
 
     public static final TagKey<Item> meshes = ItemTags.create(TagConstants.MESHES);
 
     public static final TagKey<Item> floristFlowers = ItemTags.create(TagConstants.FLORIST_FLOWERS);
-    public static final TagKey<Item> excludedFood = ItemTags.create(TagConstants.EXCLUDED_FOOD);
+    public static final TagKey<Item> excludedFood   = ItemTags.create(TagConstants.EXCLUDED_FOOD);
 
     public static final TagKey<Item> breakable_ore = ItemTags.create(TagConstants.BREAKABLE_ORE);
-    public static final TagKey<Item> raw_ore = ItemTags.create(TagConstants.RAW_ORE);
+    public static final TagKey<Item> raw_ore       = ItemTags.create(TagConstants.RAW_ORE);
 
     public static final TagKey<Item> poisonous_food = ItemTags.create(TagConstants.POISONOUS_FOOD);
 
-    public static final TagKey<EntityType<?>> hostile = TagKey.create(Registries.ENTITY_TYPE, TagConstants.HOSTILE);
+    public static final TagKey<EntityType<?>> hostile            = TagKey.create(Registries.ENTITY_TYPE, TagConstants.HOSTILE);
     public static final TagKey<EntityType<?>> mobAttackBlacklist = TagKey.create(Registries.ENTITY_TYPE, TagConstants.MOB_ATTACK_BLACKLIST);
 
     public static final TagKey<EntityType<?>> raiders = TagKey.create(Registries.ENTITY_TYPE, TagConstants.RAIDERS);
@@ -76,18 +76,16 @@ public class ModTags
 
     public static final TagKey<Item> ignoreNBT = ItemTags.create(TagConstants.IGNORE_NBT);
 
-    public static final TagKey<Biome> coldBiomes = TagKey.create(Registries.BIOME, TagConstants.COLD_BIOMES);
+    public static final TagKey<Biome> coldBiomes      = TagKey.create(Registries.BIOME, TagConstants.COLD_BIOMES);
     public static final TagKey<Biome> temperateBiomes = TagKey.create(Registries.BIOME, TagConstants.TEMPERATE_BIOMES);
-    public static final TagKey<Biome> humidBiomes = TagKey.create(Registries.BIOME, TagConstants.HUMID_BIOMES);
-    public static final TagKey<Biome> dryBiomes = TagKey.create(Registries.BIOME, TagConstants.DRY_BIOMES);
-
+    public static final TagKey<Biome> humidBiomes     = TagKey.create(Registries.BIOME, TagConstants.HUMID_BIOMES);
+    public static final TagKey<Biome> dryBiomes       = TagKey.create(Registries.BIOME, TagConstants.DRY_BIOMES);
 
     public static final Map<String, TagKey<Item>> crafterProduct              = new HashMap<>();
     public static final Map<String, TagKey<Item>> crafterProductExclusions    = new HashMap<>();
     public static final Map<String, TagKey<Item>> crafterIngredient           = new HashMap<>();
     public static final Map<String, TagKey<Item>> crafterIngredientExclusions = new HashMap<>();
     public static final Map<String, TagKey<Item>> crafterDoIngredient         = new HashMap<>();
-
 
     /**
      * Tag specifier for Products to Include
@@ -136,6 +134,7 @@ public class ModTags
 
     /**
      * Initialize the four tags for a particular crafter
+     *
      * @param crafterName the string name of the crafter to initialize
      */
     private static void initCrafterRules(@NotNull final String crafterName)

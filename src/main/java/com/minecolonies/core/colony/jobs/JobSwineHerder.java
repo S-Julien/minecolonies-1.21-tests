@@ -60,7 +60,7 @@ public class JobSwineHerder extends AbstractJob<EntityAIWorkSwineHerder, JobSwin
     public boolean onStackPickUp(@NotNull final ItemStack pickedUpStack)
     {
         if (getCitizen().getWorkBuilding() != null && getCitizen().getEntity().isPresent() && getCitizen().getWorkBuilding()
-          .isInBuilding(getCitizen().getEntity().get().blockPosition()))
+            .isInBuilding(getCitizen().getEntity().get().blockPosition()))
         {
             getCitizen().getWorkBuilding().getModule(STATS_MODULE).incrementBy(ITEM_USED + ";" + pickedUpStack.getItem().getDescriptionId(), pickedUpStack.getCount());
         }

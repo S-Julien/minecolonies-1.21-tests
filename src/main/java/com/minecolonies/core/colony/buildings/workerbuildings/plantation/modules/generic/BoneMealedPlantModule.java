@@ -50,7 +50,7 @@ public abstract class BoneMealedPlantModule extends AbstractPlantationModule
      * @param item     the item which is harvested.
      */
     protected BoneMealedPlantModule(
-      final IBuildingExtension field, final String fieldTag, final String workTag, final Item item)
+        final IBuildingExtension field, final String fieldTag, final String workTag, final Item item)
     {
         super(field, fieldTag, workTag, item);
         this.random = new Random();

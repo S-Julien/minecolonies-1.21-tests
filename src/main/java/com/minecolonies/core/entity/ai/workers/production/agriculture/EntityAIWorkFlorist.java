@@ -82,7 +82,7 @@ public class EntityAIWorkFlorist extends AbstractEntityAIInteract<JobFlorist, Bu
      * Gardening icon
      */
     private final static VisibleCitizenStatus GARDENING =
-      new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/work/florist.png"), "com.minecolonies.gui.visiblestatus.florist");
+        new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/work/florist.png"), "com.minecolonies.gui.visiblestatus.florist");
 
     /**
      * Xp gained on harvest
@@ -120,11 +120,11 @@ public class EntityAIWorkFlorist extends AbstractEntityAIInteract<JobFlorist, Bu
     {
         super(job);
         super.registerTargets(
-          new AITarget(IDLE, START_WORKING, 1),
-          new AITarget(START_WORKING, DECIDE, TICKS_SECOND),
-          new AITarget(DECIDE, this::decide, 200),
-          new AITarget(FLORIST_HARVEST, this::harvest, TICKS_SECOND),
-          new AITarget(FLORIST_COMPOST, this::compost, TICKS_SECOND)
+            new AITarget(IDLE, START_WORKING, 1),
+            new AITarget(START_WORKING, DECIDE, TICKS_SECOND),
+            new AITarget(DECIDE, this::decide, 200),
+            new AITarget(FLORIST_HARVEST, this::harvest, TICKS_SECOND),
+            new AITarget(FLORIST_COMPOST, this::compost, TICKS_SECOND)
         );
         worker.setCanPickUpLoot(true);
     }
@@ -133,8 +133,8 @@ public class EntityAIWorkFlorist extends AbstractEntityAIInteract<JobFlorist, Bu
     protected void updateRenderMetaData()
     {
         worker.setRenderMetadata(
-          (InventoryUtils.hasItemInItemHandler(worker.getItemHandlerCitizen(), stack -> stack.is(ItemTags.FLOWERS)) ? RENDER_META_FLOWERS : "")
-            + (getState() == IDLE ? "" : RENDER_META_WORKING));
+            (InventoryUtils.hasItemInItemHandler(worker.getItemHandlerCitizen(), stack -> stack.is(ItemTags.FLOWERS)) ? RENDER_META_FLOWERS : "")
+                + (getState() == IDLE ? "" : RENDER_META_WORKING));
     }
 
     /**

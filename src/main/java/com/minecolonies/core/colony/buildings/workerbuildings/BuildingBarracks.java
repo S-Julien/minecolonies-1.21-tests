@@ -143,7 +143,8 @@ public class BuildingBarracks extends AbstractBuilding
         {
             if (!colony.getRaiderManager().areSpiesEnabled())
             {
-                if (InventoryUtils.tryRemoveStackFromItemHandler(this.getCapability(ForgeCapabilities.ITEM_HANDLER).orElseGet(null), new ItemStack(Items.GOLD_INGOT, SPIES_GOLD_COST)))
+                if (InventoryUtils.tryRemoveStackFromItemHandler(this.getCapability(ForgeCapabilities.ITEM_HANDLER).orElseGet(null),
+                    new ItemStack(Items.GOLD_INGOT, SPIES_GOLD_COST)))
                 {
                     colony.getRaiderManager().setSpiesEnabled(true);
                     colony.markDirty();
@@ -171,8 +172,8 @@ public class BuildingBarracks extends AbstractBuilding
             final IBuilding building = colony.getBuildingManager().getBuilding(pos);
             if (building != null)
             {
-                if (building.getBuildingLevel() < 4) 
-                { 
+                if (building.getBuildingLevel() < 4)
+                {
                     barracksClaimRadius = 2;
                     break;
                 }
@@ -187,8 +188,8 @@ public class BuildingBarracks extends AbstractBuilding
         super.deserializeNBT(compound);
         towers.clear();
         towers.addAll(NBTUtils.streamCompound(compound.getList(TAG_TOWERS, Tag.TAG_COMPOUND))
-                        .map(resultCompound -> BlockPosUtil.read(resultCompound, TAG_POS))
-                        .collect(Collectors.toList()));
+            .map(resultCompound -> BlockPosUtil.read(resultCompound, TAG_POS))
+            .collect(Collectors.toList()));
     }
 
     @Override

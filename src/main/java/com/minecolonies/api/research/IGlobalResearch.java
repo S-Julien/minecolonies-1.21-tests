@@ -47,24 +47,28 @@ public interface IGlobalResearch
 
     /**
      * Start the research.
+     *
      * @param localResearchTree the local research tree to store in the colony.
      */
     void startResearch(@NotNull final ILocalResearchTree localResearchTree);
 
     /**
      * Human-readable description of research, in human-readable text or as a translation key.
+     *
      * @return the description.
      */
     TranslatableContents getName();
 
     /**
      * Subtitle description of research, in human-readable text or as a translation key.
+     *
      * @return the optional subtitle name.
      */
     TranslatableContents getSubtitle();
 
     /**
      * Getter of the id of the research.
+     *
      * @return the research id, as a ResourceLocation
      */
     ResourceLocation getId();
@@ -108,6 +112,7 @@ public interface IGlobalResearch
     /**
      * Check if this research should automatically start when requirements are complete.
      * This can temporarily exceed normal limits of the max number of concurrent researches.
+     *
      * @return true if so.
      */
     boolean isAutostart();
@@ -150,24 +155,28 @@ public interface IGlobalResearch
 
     /**
      * Add a child to a research, without setting parentage.
+     *
      * @param child the child to add
      */
     void addChild(final ResourceLocation child);
 
     /**
      * Add an individual cost.
+     *
      * @param cost the individual item to add to the cost list, as a reseach cost instance.
      */
     void addCost(final IResearchCost cost);
 
     /**
      * Add an individual effect.
+     *
      * @param effect the individual effect to add to the research, as a IResearchEffect.
      */
     void addEffect(final IResearchEffect effect);
 
     /**
      * Add an individual requirement
+     *
      * @param requirement the individual requirement to add to the research, as an IResearchRequirement.
      */
     void addRequirement(final IResearchRequirement requirement);

@@ -145,6 +145,7 @@ public interface IRequestHandler
 
     /**
      * Remove a specific requester and all assigned requests from the manager.
+     *
      * @param requester the requester.
      */
     void removeRequester(IRequester requester);

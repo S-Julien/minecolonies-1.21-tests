@@ -35,17 +35,17 @@ public class RequestBasedInteraction extends ServerCitizenInteraction
 
     @SuppressWarnings("unchecked")
     private static final Tuple<Component, Component>[] tuples = (Tuple<Component, Component>[]) new Tuple[] {
-      new Tuple<>(Component.translatable(INTERACTION_R_OKAY), null),
-      new Tuple<>(Component.translatable(INTERACTION_R_REMIND), null),
-      new Tuple<>(Component.translatable("com.minecolonies.coremod.gui.chat.cancel"), null),
-      new Tuple<>(Component.translatable("com.minecolonies.coremod.gui.chat.fulfill"), null)};
+        new Tuple<>(Component.translatable(INTERACTION_R_OKAY), null),
+        new Tuple<>(Component.translatable(INTERACTION_R_REMIND), null),
+        new Tuple<>(Component.translatable("com.minecolonies.coremod.gui.chat.cancel"), null),
+        new Tuple<>(Component.translatable("com.minecolonies.coremod.gui.chat.fulfill"), null)};
 
     @SuppressWarnings("unchecked")
     private static final Tuple<Component, Component>[] tuplesAsync = (Tuple<Component, Component>[]) new Tuple[] {
-      new Tuple<>(Component.translatable(INTERACTION_R_OKAY), null),
-      new Tuple<>(Component.translatable(INTERACTION_R_IGNORE), null),
-      new Tuple<>(Component.translatable(INTERACTION_R_REMIND), null),
-      new Tuple<>(Component.translatable(INTERACTION_R_SKIP), null)};
+        new Tuple<>(Component.translatable(INTERACTION_R_OKAY), null),
+        new Tuple<>(Component.translatable(INTERACTION_R_IGNORE), null),
+        new Tuple<>(Component.translatable(INTERACTION_R_REMIND), null),
+        new Tuple<>(Component.translatable(INTERACTION_R_SKIP), null)};
 
     /**
      * The request this is related to.
@@ -66,10 +66,10 @@ public class RequestBasedInteraction extends ServerCitizenInteraction
      * @param validator the validator id.
      */
     public RequestBasedInteraction(
-      final Component inquiry,
-      final IChatPriority priority,
-      final Component validator,
-      final IToken<?> token)
+        final Component inquiry,
+        final IChatPriority priority,
+        final Component validator,
+        final IToken<?> token)
     {
         super(inquiry, true, priority, null, validator, priority == ChatPriority.BLOCKING ? tuples : tuplesAsync);
         this.validator = InteractionValidatorRegistry.getTokenBasedInteractionValidatorPredicate(validator);
@@ -84,9 +84,9 @@ public class RequestBasedInteraction extends ServerCitizenInteraction
      * @param token    the token this is related to.
      */
     public RequestBasedInteraction(
-      final Component inquiry,
-      final IChatPriority priority,
-      final IToken<?> token)
+        final Component inquiry,
+        final IChatPriority priority,
+        final IToken<?> token)
     {
         super(inquiry, true, priority, null, inquiry, tuples);
         this.validator = InteractionValidatorRegistry.getTokenBasedInteractionValidatorPredicate(inquiry);

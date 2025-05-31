@@ -75,5 +75,4 @@ public class ImmutableItemStorageFactory implements IImmutableItemStorageFactory
         newItem.setAmount(size);
         return newItem.toImmutable();
     }
-    
 }

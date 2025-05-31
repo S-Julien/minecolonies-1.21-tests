@@ -21,7 +21,7 @@ public abstract class AbstractWindowCitizen extends AbstractWindowRequestTree
      * Constructor to initiate the citizen windows.
      *
      * @param citizen citizen to bind the window to.
-     * @param ui the xml res loc.
+     * @param ui      the xml res loc.
      */
     public AbstractWindowCitizen(final ICitizenDataView citizen, final String ui)
     {

@@ -17,7 +17,7 @@ import static com.minecolonies.api.util.constant.Constants.MOD_ID;
 @ClientPlugin
 public class JourneymapPlugin implements IClientPlugin
 {
-    private Journeymap jmap;
+    private Journeymap    jmap;
     private EventListener listener;
 
     @Override
@@ -27,9 +27,9 @@ public class JourneymapPlugin implements IClientPlugin
         this.listener = new EventListener(this.jmap);
 
         api.subscribe(MOD_ID, EnumSet.of(
-                ClientEvent.Type.MAPPING_STARTED,
-                ClientEvent.Type.MAPPING_STOPPED,
-                ClientEvent.Type.REGISTRY));
+            ClientEvent.Type.MAPPING_STARTED,
+            ClientEvent.Type.MAPPING_STOPPED,
+            ClientEvent.Type.REGISTRY));
     }
 
     @Override

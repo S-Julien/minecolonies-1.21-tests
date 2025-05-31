@@ -16,7 +16,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-/** A loot condition that checks if the entity producing loot is in a biome with a particular tag. */
+/**
+ * A loot condition that checks if the entity producing loot is in a biome with a particular tag.
+ */
 public class EntityInBiomeTag implements LootItemCondition
 {
     @Nullable
@@ -64,9 +66,10 @@ public class EntityInBiomeTag implements LootItemCondition
     public static class Serializer implements net.minecraft.world.level.storage.loot.Serializer<EntityInBiomeTag>
     {
         @Override
-        public void serialize(@NotNull final JsonObject json,
-                              @NotNull final EntityInBiomeTag condition,
-                              @NotNull final JsonSerializationContext context)
+        public void serialize(
+            @NotNull final JsonObject json,
+            @NotNull final EntityInBiomeTag condition,
+            @NotNull final JsonSerializationContext context)
         {
             if (condition.tag != null)
             {
@@ -76,8 +79,9 @@ public class EntityInBiomeTag implements LootItemCondition
 
         @NotNull
         @Override
-        public EntityInBiomeTag deserialize(@NotNull final JsonObject json,
-                                            @NotNull final JsonDeserializationContext context)
+        public EntityInBiomeTag deserialize(
+            @NotNull final JsonObject json,
+            @NotNull final JsonDeserializationContext context)
         {
             final String tagId = GsonHelper.getAsString(json, "tag", "");
             final TagKey<Biome> tag = tagId.isEmpty() ? null : ForgeRegistries.BIOMES.tags().createTagKey(new ResourceLocation(tagId));

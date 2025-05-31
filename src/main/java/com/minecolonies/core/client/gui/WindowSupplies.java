@@ -41,7 +41,7 @@ import static com.minecolonies.api.util.constant.WindowConstants.SUPPLIES_RESOUR
 public class WindowSupplies extends AbstractBlueprintManipulationWindow
 {
     /**
-     *  The displayed boxes category
+     * The displayed boxes category
      */
     private static final String RENDER_BOX_CATEGORY = "placement";
 
@@ -107,16 +107,16 @@ public class WindowSupplies extends AbstractBlueprintManipulationWindow
         structurePack = StructurePacks.selectedPack;
 
         ClientFutureProcessor.queueBlueprint(new ClientFutureProcessor.BlueprintProcessingData(
-                StructurePacks.getBlueprintFuture(structurePack.getName(), "decorations/supplies/" + type + ".blueprint"),
-                blueprint -> {
-                    if (blueprint == null)
-                    {
-                        return;
-                    }
-                    RenderingCache.getOrCreateBlueprintPreviewData("supplies").setBlueprint(blueprint);
-                    adjustToGroundOffset();
-                    findPaneOfTypeByID("tip", Text.class).setVisible(false);
-                }));
+            StructurePacks.getBlueprintFuture(structurePack.getName(), "decorations/supplies/" + type + ".blueprint"),
+            blueprint -> {
+                if (blueprint == null)
+                {
+                    return;
+                }
+                RenderingCache.getOrCreateBlueprintPreviewData("supplies").setBlueprint(blueprint);
+                adjustToGroundOffset();
+                findPaneOfTypeByID("tip", Text.class).setVisible(false);
+            }));
     }
 
     @Override
@@ -146,16 +146,16 @@ public class WindowSupplies extends AbstractBlueprintManipulationWindow
         if (type.equals("supplycamp"))
         {
             if (ItemSupplyCampDeployer.canCampBePlaced(Minecraft.getInstance().level, RenderingCache.getOrCreateBlueprintPreviewData("supplies").getPos(),
-              placementErrorList,
-              Minecraft.getInstance().player))
+                placementErrorList,
+                Minecraft.getInstance().player))
             {
                 Network.getNetwork()
-                  .sendToServer(new BuildToolPlacementMessage(handlerType, handlerId,
-                          structurePack.getName(),
-                          structurePack.getSubPath(previewData.getBlueprint().getFilePath().resolve(previewData.getBlueprint().getFileName() + ".blueprint")),
-                    previewData.getPos(),
-                    previewData.getRotation(),
-                    previewData.getMirror()));
+                    .sendToServer(new BuildToolPlacementMessage(handlerType, handlerId,
+                        structurePack.getName(),
+                        structurePack.getSubPath(previewData.getBlueprint().getFilePath().resolve(previewData.getBlueprint().getFileName() + ".blueprint")),
+                        previewData.getPos(),
+                        previewData.getRotation(),
+                        previewData.getMirror()));
                 cancelClicked();
                 return;
             }
@@ -163,17 +163,17 @@ public class WindowSupplies extends AbstractBlueprintManipulationWindow
         else
         {
             if (ItemSupplyChestDeployer.canShipBePlaced(Minecraft.getInstance().level, RenderingCache.getOrCreateBlueprintPreviewData("supplies").getPos(),
-              previewData.getBlueprint(),
-              placementErrorList,
-              Minecraft.getInstance().player))
+                previewData.getBlueprint(),
+                placementErrorList,
+                Minecraft.getInstance().player))
             {
                 Network.getNetwork()
-                  .sendToServer(new BuildToolPlacementMessage(handlerType, handlerId,
-                          structurePack.getName(),
-                          structurePack.getSubPath(previewData.getBlueprint().getFilePath().resolve(previewData.getBlueprint().getFileName() + ".blueprint")),
-                    previewData.getPos(),
-                    previewData.getRotation(),
-                    previewData.getMirror()));
+                    .sendToServer(new BuildToolPlacementMessage(handlerType, handlerId,
+                        structurePack.getName(),
+                        structurePack.getSubPath(previewData.getBlueprint().getFilePath().resolve(previewData.getBlueprint().getFileName() + ".blueprint")),
+                        previewData.getPos(),
+                        previewData.getRotation(),
+                        previewData.getMirror()));
                 cancelClicked();
                 return;
             }
@@ -188,9 +188,9 @@ public class WindowSupplies extends AbstractBlueprintManipulationWindow
             for (final PlacementError error : placementErrorList)
             {
                 HighlightManager.addHighlight(RENDER_BOX_CATEGORY, String.valueOf(i++), new TimedBoxRenderData(error.getPos())
-                  .addText(Component.translatable(PARTIAL_WARNING_SUPPLY_BUILDING_ERROR + error.getType().toString().toLowerCase()).getString())
-                  .setColor(0x80FF0000)
-                  .setDuration(Duration.ofSeconds(60)));
+                    .addText(Component.translatable(PARTIAL_WARNING_SUPPLY_BUILDING_ERROR + error.getType().toString().toLowerCase()).getString())
+                    .setColor(0x80FF0000)
+                    .setDuration(Duration.ofSeconds(60)));
             }
         }
     }

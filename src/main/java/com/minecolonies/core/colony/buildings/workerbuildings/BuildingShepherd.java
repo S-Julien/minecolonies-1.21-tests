@@ -36,7 +36,8 @@ public class BuildingShepherd extends AbstractBuilding
     /**
      * Automatic shearing.
      */
-    public static final ISettingKey<BoolSetting> SHEARING = new SettingKey<>(BoolSetting.class, new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, "shearing"));
+    public static final ISettingKey<BoolSetting> SHEARING =
+        new SettingKey<>(BoolSetting.class, new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, "shearing"));
 
     /**
      * Description of the job executed in the hut.
@@ -104,10 +105,10 @@ public class BuildingShepherd extends AbstractBuilding
             final List<IGenericRecipe> recipes = new ArrayList<>(super.getRecipesForDisplayPurposesOnly(animal));
 
             recipes.add(GenericRecipe.builder()
-                    .withOutputs(ForgeRegistries.ITEMS.tags().getTag(ItemTags.WOOL).stream().map(ItemStack::new).toList())
-                    .withRequiredTool(ModEquipmentTypes.shears.get())
-                    .withRequiredEntity(animal.getType())
-                    .build());
+                .withOutputs(ForgeRegistries.ITEMS.tags().getTag(ItemTags.WOOL).stream().map(ItemStack::new).toList())
+                .withRequiredTool(ModEquipmentTypes.shears.get())
+                .withRequiredEntity(animal.getType())
+                .build());
 
             return recipes;
         }

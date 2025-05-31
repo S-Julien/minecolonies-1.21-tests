@@ -136,9 +136,9 @@ public abstract class AbstractBuildingStructureBuilder extends AbstractBuilding
                 }
             }
             if (checkIfShouldKeepEquipment(ModEquipmentTypes.pickaxe.get(), stack, localAlreadyKept)
-                  || checkIfShouldKeepEquipment(ModEquipmentTypes.shovel.get(), stack, localAlreadyKept)
-                  || checkIfShouldKeepEquipment(ModEquipmentTypes.axe.get(), stack, localAlreadyKept)
-                  || checkIfShouldKeepEquipment(ModEquipmentTypes.hoe.get(), stack, localAlreadyKept))
+                || checkIfShouldKeepEquipment(ModEquipmentTypes.shovel.get(), stack, localAlreadyKept)
+                || checkIfShouldKeepEquipment(ModEquipmentTypes.axe.get(), stack, localAlreadyKept)
+                || checkIfShouldKeepEquipment(ModEquipmentTypes.hoe.get(), stack, localAlreadyKept))
             {
                 localAlreadyKept.add(new ItemStorage(stack, 1, true));
                 return 0;
@@ -179,7 +179,7 @@ public abstract class AbstractBuildingStructureBuilder extends AbstractBuilding
         for (final BuildingBuilderResource stack : getModule(BuildingModules.BUILDING_RESOURCES).getNeededResources().values())
         {
             toKeep.put(itemstack -> ItemStackUtils.compareItemStacksIgnoreStackSize(stack.getItemStack(), itemstack),
-              new net.minecraft.util.Tuple<>(stack.getAmount(), true));
+                new net.minecraft.util.Tuple<>(stack.getAmount(), true));
         }
 
         return toKeep;
@@ -336,7 +336,7 @@ public abstract class AbstractBuildingStructureBuilder extends AbstractBuilding
      */
     public boolean requiresResourceForBuilding(final ItemStack stack)
     {
-       return getFirstModuleOccurance(BuildingResourcesModule.class).requiresResourceForBuilding(stack);
+        return getFirstModuleOccurance(BuildingResourcesModule.class).requiresResourceForBuilding(stack);
     }
 
     /**
@@ -420,6 +420,7 @@ public abstract class AbstractBuildingStructureBuilder extends AbstractBuilding
 
     /**
      * Set the total number of stages.
+     *
      * @param total the total.
      */
     public void setTotalStages(final int total)

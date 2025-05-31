@@ -23,8 +23,8 @@ import org.jetbrains.annotations.NotNull;
 public class PickupRequestResolver extends DeliverymenRequestResolver<Pickup>
 {
     public PickupRequestResolver(
-      @NotNull final ILocation location,
-      @NotNull final IToken<?> token)
+        @NotNull final ILocation location,
+        @NotNull final IToken<?> token)
     {
         super(location, token);
     }
@@ -46,7 +46,6 @@ public class PickupRequestResolver extends DeliverymenRequestResolver<Pickup>
 
         return super.canResolveRequest(manager, requestToCheck);
     }
-
 
     @Override
     public TypeToken<? extends Pickup> getRequestType()

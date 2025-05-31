@@ -97,12 +97,12 @@ public class VanillaParticleMessage implements IMessage
             double d1 = rand.nextGaussian() * 0.02D;
             double d2 = rand.nextGaussian() * 0.02D;
             world.addParticle(particleType,
-              x + (rand.nextFloat() * CITIZEN_WIDTH * 2.0F) - CITIZEN_WIDTH,
-              y + 1.0D + (rand.nextFloat() * CITIZEN_HEIGHT),
-              z + (rand.nextFloat() * CITIZEN_WIDTH * 2.0F) - CITIZEN_WIDTH,
-              d0,
-              d1,
-              d2);
+                x + (rand.nextFloat() * CITIZEN_WIDTH * 2.0F) - CITIZEN_WIDTH,
+                y + 1.0D + (rand.nextFloat() * CITIZEN_HEIGHT),
+                z + (rand.nextFloat() * CITIZEN_WIDTH * 2.0F) - CITIZEN_WIDTH,
+                d0,
+                d1,
+                d2);
         }
     }
 }

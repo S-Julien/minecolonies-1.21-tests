@@ -104,7 +104,8 @@ public final class TinkersToolHelper extends TinkersToolProxy
 
     /**
      * Check if a certain item stack is a tinkers tool of the given tool type.
-     * @param stack the stack to check for.
+     *
+     * @param stack    the stack to check for.
      * @param toolType the tool type.
      * @return true if so.
      */

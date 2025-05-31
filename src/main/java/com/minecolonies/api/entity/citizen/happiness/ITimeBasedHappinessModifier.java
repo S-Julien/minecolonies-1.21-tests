@@ -10,12 +10,12 @@ public interface ITimeBasedHappinessModifier extends IHappinessModifier
     /**
      * Called at the end of each day.
      */
-    default void dayEnd(final ICitizenData data) { }
+    default void dayEnd(final ICitizenData data) {}
 
     /**
      * Reset the modifier.
      */
-    default void reset() { }
+    default void reset() {}
 
     /**
      * Get the days this is active.

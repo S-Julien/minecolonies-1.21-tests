@@ -66,7 +66,7 @@ public class BuildingAlchemist extends AbstractBuilding
     {
         super(c, l);
         keepX.put(itemStack -> ItemStackUtils.hasEquipmentLevel(itemStack, ModEquipmentTypes.shears.get(), TOOL_LEVEL_WOOD_OR_GOLD, getMaxEquipmentLevel()), new Tuple<>(1, true));
-        keepX.put(itemStack ->  itemStack.getItem() == Items.NETHER_WART, new Tuple<>(16, false));
+        keepX.put(itemStack -> itemStack.getItem() == Items.NETHER_WART, new Tuple<>(16, false));
         keepX.put(itemStack -> ItemStackUtils.hasEquipmentLevel(itemStack, ModEquipmentTypes.axe.get(), TOOL_LEVEL_WOOD_OR_GOLD, getMaxEquipmentLevel()), new Tuple<>(1, true));
     }
 
@@ -190,6 +190,7 @@ public class BuildingAlchemist extends AbstractBuilding
 
     /**
      * Remove a vanished brewing stand.
+     *
      * @param pos the position of it.
      */
     public void removeBrewingStand(final BlockPos pos)
@@ -199,6 +200,7 @@ public class BuildingAlchemist extends AbstractBuilding
 
     /**
      * Remove soil position.
+     *
      * @param pos the position of it.
      */
     public void removeSoilPosition(final BlockPos pos)
@@ -208,6 +210,7 @@ public class BuildingAlchemist extends AbstractBuilding
 
     /**
      * Remove leaf position.
+     *
      * @param pos the position of it.
      */
     public void removeLeafPosition(final BlockPos pos)
@@ -244,7 +247,9 @@ public class BuildingAlchemist extends AbstractBuilding
         public boolean isRecipeCompatible(@NotNull final IGenericRecipe recipe)
         {
             if (!super.isRecipeCompatible(recipe))
+            {
                 return false;
+            }
 
             return recipe.getPrimaryOutput().getItem() == ModItems.magicpotion;
         }
@@ -262,17 +267,17 @@ public class BuildingAlchemist extends AbstractBuilding
 
             // growing mistletoe
             recipes.add(GenericRecipe.builder()
-                    .withOutput(ModItems.mistletoe)
-                    .withIntermediate(Blocks.OAK_LEAVES)
-                    .withRequiredTool(ModEquipmentTypes.shears.get())
-                    .build());
+                .withOutput(ModItems.mistletoe)
+                .withIntermediate(Blocks.OAK_LEAVES)
+                .withRequiredTool(ModEquipmentTypes.shears.get())
+                .build());
 
             // growing netherwart
             recipes.add(GenericRecipe.builder()
-                    .withOutput(Items.NETHER_WART, 4)
-                    .withInputs(List.of(List.of(Items.NETHER_WART.getDefaultInstance())))
-                    .withIntermediate(Blocks.SOUL_SAND)
-                    .build());
+                .withOutput(Items.NETHER_WART, 4)
+                .withInputs(List.of(List.of(Items.NETHER_WART.getDefaultInstance())))
+                .withIntermediate(Blocks.SOUL_SAND)
+                .build());
 
             return recipes;
         }

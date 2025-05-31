@@ -114,10 +114,11 @@ public class StaticLocation implements ILocation
     public static class Factory implements ILocationFactory<BlockPos, StaticLocation>
     {
 
-        ////// --------------------------- NBTConstants --------------------------- \\\\\\
+        /// /// --------------------------- NBTConstants --------------------------- \\\\\\
         private static final String NBT_POS = "Pos";
         private static final String NBT_DIM = "Dim";
-        ////// --------------------------- NBTConstants --------------------------- \\\\\\
+
+        /// /// --------------------------- NBTConstants --------------------------- \\\\\\
 
         @NotNull
         @Override

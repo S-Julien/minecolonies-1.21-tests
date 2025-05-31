@@ -143,7 +143,7 @@ public class CitizenSkillHandler implements ICitizenSkillHandler
         {
             final CompoundTag levelExperienceAtJob = levelTagList.getCompound(i);
             skillMap.put(Skill.values()[levelExperienceAtJob.getInt(TAG_SKILL)],
-              new SkillData(Math.max(1, Math.min(levelExperienceAtJob.getInt(TAG_LEVEL), MAX_CITIZEN_LEVEL)), levelExperienceAtJob.getDouble(TAG_EXPERIENCE)));
+                new SkillData(Math.max(1, Math.min(levelExperienceAtJob.getInt(TAG_LEVEL), MAX_CITIZEN_LEVEL)), levelExperienceAtJob.getDouble(TAG_EXPERIENCE)));
         }
     }
 
@@ -187,7 +187,7 @@ public class CitizenSkillHandler implements ICitizenSkillHandler
         final double citizenHutMaxLevel = home == null ? MAX_BUILDING_LEVEL : home.getMaxBuildingLevel();
 
         if (((citizenHutLevel < citizenHutMaxLevel || citizenHutMaxLevel < MAX_BUILDING_LEVEL) && (citizenHutLevel + 1) * 10 <= skillData.level)
-              || skillData.level >= MAX_CITIZEN_LEVEL)
+            || skillData.level >= MAX_CITIZEN_LEVEL)
         {
             return;
         }
@@ -248,8 +248,8 @@ public class CitizenSkillHandler implements ICitizenSkillHandler
             final AbstractEntityCitizen citizen = data.getEntity().get();
             playSoundAtCitizenWith(citizen.level, citizen.blockPosition(), SUCCESS, data);
             Network.getNetwork()
-              .sendToTrackingEntity(new VanillaParticleMessage(citizen.getX(), citizen.getY(), citizen.getZ(), ParticleTypes.HAPPY_VILLAGER),
-                data.getEntity().get());
+                .sendToTrackingEntity(new VanillaParticleMessage(citizen.getX(), citizen.getY(), citizen.getZ(), ParticleTypes.HAPPY_VILLAGER),
+                    data.getEntity().get());
         }
 
         if (data.getJob() != null)

@@ -73,8 +73,9 @@ public class MinimumStockModule extends AbstractBuildingModule implements IMinim
 
     /**
      * Get the request from the list that matches this stack.
+     *
      * @param stack the stack to search for in the requests.
-     * @param list the list of requests.
+     * @param list  the list of requests.
      * @return the token of the matching request or null.
      */
     private IToken<?> getMatchingRequest(final ItemStack stack, final Collection<IToken<?>> list)
@@ -152,11 +153,13 @@ public class MinimumStockModule extends AbstractBuildingModule implements IMinim
     @Override
     public void alterItemsToBeKept(final TriConsumer<Predicate<ItemStack>, Integer, Boolean> consumer)
     {
-        if(!minimumStock.isEmpty())
+        if (!minimumStock.isEmpty())
         {
-            for(ItemStorage item:minimumStock.keySet())
+            for (ItemStorage item : minimumStock.keySet())
             {
-                consumer.accept(stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(stack, item.getItemStack(), false, true), minimumStock.get(item).intValue() * item.getItemStack().getMaxStackSize(), false);
+                consumer.accept(stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(stack, item.getItemStack(), false, true),
+                    minimumStock.get(item).intValue() * item.getItemStack().getMaxStackSize(),
+                    false);
             }
         }
     }

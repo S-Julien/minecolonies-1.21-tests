@@ -72,8 +72,8 @@ public class HappinessRegistry
     public static IHappinessModifier loadFrom(@NotNull final CompoundTag compound, final boolean persist)
     {
         final ResourceLocation modifierType = compound.contains(NbtTagConstants.TAG_MODIFIER_TYPE)
-                                                ? new ResourceLocation(compound.getString(NbtTagConstants.TAG_MODIFIER_TYPE))
-                                                : new ResourceLocation(Constants.MOD_ID, "null");
+            ? new ResourceLocation(compound.getString(NbtTagConstants.TAG_MODIFIER_TYPE))
+            : new ResourceLocation(Constants.MOD_ID, "null");
         final IHappinessModifier modifier = getHappinessTypeRegistry().getValue(modifierType).create();
 
         if (modifier != null)
@@ -85,8 +85,8 @@ public class HappinessRegistry
             catch (final RuntimeException ex)
             {
                 Log.getLogger()
-                  .error(String.format("A Happiness Modifier %s has thrown an exception during loading, its state cannot be restored. Report this to the mod author",
-                    modifierType), ex);
+                    .error(String.format("A Happiness Modifier %s has thrown an exception during loading, its state cannot be restored. Report this to the mod author",
+                        modifierType), ex);
                 return null;
             }
         }
@@ -158,5 +158,4 @@ public class HappinessRegistry
     public static RegistryObject<HappinessFunctionEntry> sleptTonightFunction;
     public static RegistryObject<HappinessFunctionEntry> foodFunction;
     public static RegistryObject<HappinessFunctionEntry> greatFoodFunction;
-
 }

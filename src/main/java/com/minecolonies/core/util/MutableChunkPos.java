@@ -66,8 +66,9 @@ public class MutableChunkPos extends ChunkPos
     }
 
     @Override
-    public int getMinBlockX() {
-       return SectionPos.sectionToBlockCoord(this.mutableX);
+    public int getMinBlockX()
+    {
+        return SectionPos.sectionToBlockCoord(this.mutableX);
     }
 
     @Override

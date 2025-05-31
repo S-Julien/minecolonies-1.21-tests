@@ -20,7 +20,6 @@ public class JobCombatTraining extends AbstractJob<EntityAICombatTraining, JobCo
         super(entity);
     }
 
-
     @Override
     public ResourceLocation getModel()
     {

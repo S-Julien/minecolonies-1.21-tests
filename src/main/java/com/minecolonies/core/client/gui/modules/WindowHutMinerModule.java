@@ -110,11 +110,11 @@ public class WindowHutMinerModule extends AbstractModuleWindow
 
                 // Extra 1 is for Y depth fix
                 rowPane.findPaneOfTypeByID(TEXT_DEPTH, Text.class)
-                  .setText(Component.translatable(MINER_LEVEL_DEPTH)
-                             .append(Component.literal(": "))
-                             .append(Component.literal(String.valueOf(miner.levelsInfo.get(index).getB() + 1))));
+                    .setText(Component.translatable(MINER_LEVEL_DEPTH)
+                        .append(Component.literal(": "))
+                        .append(Component.literal(String.valueOf(miner.levelsInfo.get(index).getB() + 1))));
                 rowPane.findPaneOfTypeByID(TEXT_NODE_COUNT, Text.class)
-                  .setText(Component.translatable(MINER_NODES).append(": ").append(String.valueOf(miner.levelsInfo.get(index).getA())));
+                    .setText(Component.translatable(MINER_NODES).append(": ").append(String.valueOf(miner.levelsInfo.get(index).getA())));
             }
         });
     }

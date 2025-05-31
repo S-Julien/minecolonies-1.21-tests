@@ -318,9 +318,9 @@ public abstract class AbstractSchematicProvider implements ISchematicProvider, I
     public Set<BlockPos> getChildren()
     {
         return colony.getBuildingManager().getBuildings().values().stream()
-          .filter(f -> f.getParent().equals(getID()))
-          .map(ISchematicProvider::getID)
-          .collect(Collectors.toUnmodifiableSet());
+            .filter(f -> f.getParent().equals(getID()))
+            .map(ISchematicProvider::getID)
+            .collect(Collectors.toUnmodifiableSet());
     }
 
     @Override
@@ -494,8 +494,8 @@ public abstract class AbstractSchematicProvider implements ISchematicProvider, I
         }
 
         return positionVec.getX() >= cornerA.getX() - 1 && positionVec.getX() <= cornerB.getX() + 1
-                 && positionVec.getY() >= cornerA.getY() - 1 && positionVec.getY() <= cornerB.getY() + 1
-                 && positionVec.getZ() >= cornerA.getZ() - 1 && positionVec.getZ() <= cornerB.getZ() + 1;
+            && positionVec.getY() >= cornerA.getY() - 1 && positionVec.getY() <= cornerB.getY() + 1
+            && positionVec.getZ() >= cornerA.getZ() - 1 && positionVec.getZ() <= cornerB.getZ() + 1;
     }
 
     @Override

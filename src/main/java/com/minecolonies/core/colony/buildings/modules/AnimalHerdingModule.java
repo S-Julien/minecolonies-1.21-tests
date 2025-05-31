@@ -21,13 +21,14 @@ import java.util.function.Predicate;
  */
 public class AnimalHerdingModule extends AbstractBuildingModule
 {
-    private final JobEntry jobEntry;
+    private final JobEntry          jobEntry;
     private final Predicate<Animal> animalPredicate;
-    private final ItemStack breedingItem;
+    private final ItemStack         breedingItem;
 
-    public AnimalHerdingModule(@NotNull final JobEntry jobEntry,
-                               @NotNull final Predicate<Animal> animalPredicate,
-                               @NotNull final ItemStack breedingItem)
+    public AnimalHerdingModule(
+        @NotNull final JobEntry jobEntry,
+        @NotNull final Predicate<Animal> animalPredicate,
+        @NotNull final ItemStack breedingItem)
     {
         this.jobEntry = jobEntry;
         this.animalPredicate = animalPredicate;
@@ -84,7 +85,7 @@ public class AnimalHerdingModule extends AbstractBuildingModule
     /**
      * Get a list of "recipes" for items obtainable by herding the given animal.  This can include loot drops
      * for killing the animal as well as anything else acquired through other means.
-     *
+     * <p>
      * These are purely for JEI display purposes and don't have to represent actual crafting recipes.
      *
      * @param animal An example animal. (Don't use specific properties of this; it's only for checking type.)
@@ -94,11 +95,11 @@ public class AnimalHerdingModule extends AbstractBuildingModule
     public List<IGenericRecipe> getRecipesForDisplayPurposesOnly(@NotNull final Animal animal)
     {
         return List.of(GenericRecipe.builder()
-                .withRecipeId(ForgeRegistries.ENTITY_TYPES.getKey(animal.getType()))
-                .withInputs(List.of(getBreedingItems()))
-                .withLootTable(animal.getLootTable())
-                .withRequiredTool(ModEquipmentTypes.axe.get())
-                .withRequiredEntity(animal.getType())
-                .build());
+            .withRecipeId(ForgeRegistries.ENTITY_TYPES.getKey(animal.getType()))
+            .withInputs(List.of(getBreedingItems()))
+            .withLootTable(animal.getLootTable())
+            .withRequiredTool(ModEquipmentTypes.axe.get())
+            .withRequiredEntity(animal.getType())
+            .build());
     }
 }

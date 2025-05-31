@@ -134,9 +134,9 @@ public class BlockStateUtils
      * @return true if states are equal without the property
      */
     public static <T extends Comparable<T>> boolean stateEqualsStateWithoutProp(
-      @NotNull final BlockState state1,
-      @NotNull final BlockState state2,
-      @NotNull final Property<T> prop)
+        @NotNull final BlockState state1,
+        @NotNull final BlockState state2,
+        @NotNull final Property<T> prop)
     {
         if (!state1.hasProperty(prop) || !state2.hasProperty(prop))
         {

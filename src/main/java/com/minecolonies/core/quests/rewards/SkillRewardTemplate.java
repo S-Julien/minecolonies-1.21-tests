@@ -42,6 +42,7 @@ public class SkillRewardTemplate implements IQuestRewardTemplate
 
     /**
      * Create the reward.
+     *
      * @param jsonObject the json to read from.
      * @return the reward object.
      */
@@ -54,6 +55,7 @@ public class SkillRewardTemplate implements IQuestRewardTemplate
 
         return new SkillRewardTemplate(skill, target, qty);
     }
+
     @Override
     public void applyReward(final IColony colony, final Player player, final IQuestInstance colonyQuest)
     {

@@ -37,7 +37,7 @@ public class CitizenFoodHandler implements ICitizenFoodHandler
     /**
      * Assigned citizen data.
      */
-    private final ICitizenData  citizenData;
+    private final ICitizenData citizenData;
 
     /**
      * Collection of last food items a citizen has eaten.
@@ -56,6 +56,7 @@ public class CitizenFoodHandler implements ICitizenFoodHandler
 
     /**
      * Create the food handler.
+     *
      * @param citizenData of it.
      */
     public CitizenFoodHandler(final ICitizenData citizenData)
@@ -160,6 +161,6 @@ public class CitizenFoodHandler implements ICitizenFoodHandler
         {
             return baseModifier;
         }
-        return baseModifier * 0.5 * Math.min(2.5, 5.0/getFoodHappinessStats().diversity());
+        return baseModifier * 0.5 * Math.min(2.5, 5.0 / getFoodHappinessStats().diversity());
     }
 }

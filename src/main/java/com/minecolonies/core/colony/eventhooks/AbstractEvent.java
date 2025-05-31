@@ -12,7 +12,7 @@ import static com.minecolonies.api.util.constant.NbtTagConstants.*;
 public abstract class AbstractEvent implements IColonyEventDescription
 {
     private boolean includeInSummary;
-    private int day;
+    private int     day;
 
     /**
      * Creates a new building event.
@@ -23,6 +23,7 @@ public abstract class AbstractEvent implements IColonyEventDescription
 
     /**
      * Creates a new abstract event.
+     *
      * @param includeInSummary
      */
     public AbstractEvent(final boolean includeInSummary)

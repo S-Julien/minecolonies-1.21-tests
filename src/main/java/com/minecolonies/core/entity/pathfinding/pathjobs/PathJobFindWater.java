@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class PathJobFindWater extends AbstractPathJob implements ISearchPathJob
 {
-    private static final int MAX_RANGE = 100;
+    private static final int                             MAX_RANGE = 100;
     private final        BlockPos                        hutLocation;
     @NotNull
     private final        List<Tuple<BlockPos, BlockPos>> ponds;

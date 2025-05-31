@@ -28,7 +28,7 @@ public class BuildingDeconstructedEvent extends AbstractBuildingEvent
 
     /**
      * Creates a new building deconstructed event.
-     * 
+     *
      * @param eventPos      the position of the hut block of the building.
      * @param buildingName  the name of the building.
      * @param buildingLevel the level of the building before this event.

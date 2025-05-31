@@ -16,7 +16,7 @@ import java.util.*;
 /**
  * Client side representation of the minimum stock module.
  */
-public class MinimumStockModuleView extends AbstractBuildingModuleView  implements IMinimumStockModuleView
+public class MinimumStockModuleView extends AbstractBuildingModuleView implements IMinimumStockModuleView
 {
     /**
      * The minimum stock.

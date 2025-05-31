@@ -23,7 +23,8 @@ public class TinkersToolProxy
 
     /**
      * Check if a certain item stack is a tinkers tool of the given tool type.
-     * @param stack the stack to check for.
+     *
+     * @param stack    the stack to check for.
      * @param toolType the tool type.
      * @return true if so.
      */
@@ -60,5 +61,5 @@ public class TinkersToolProxy
      * @param stack the item in question.
      * @return boolean whether the stack is broken or not.
      */
-    public boolean checkTinkersBroken(@Nullable final ItemStack stack) { return false; }
+    public boolean checkTinkersBroken(@Nullable final ItemStack stack) {return false;}
 }

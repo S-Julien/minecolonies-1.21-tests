@@ -28,13 +28,14 @@ import static com.minecolonies.api.util.constant.Constants.MOD_ID;
  */
 public class SupplyLoot extends LootModifier
 {
-    public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> GLM = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, MOD_ID);
-    public static final Supplier<Codec<SupplyLoot>> SHIP_CODEC = Suppliers.memoize(() -> RecordCodecBuilder.create(inst -> codecStart(inst).apply(inst, (co) -> new SupplyLoot(co, false))));
-    public static final Supplier<Codec<SupplyLoot>> CAMP_CODEC = Suppliers.memoize(() -> RecordCodecBuilder.create(inst -> codecStart(inst).apply(inst, (co) -> new SupplyLoot(co, true))));
+    public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> GLM        = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, MOD_ID);
+    public static final Supplier<Codec<SupplyLoot>>                            SHIP_CODEC =
+        Suppliers.memoize(() -> RecordCodecBuilder.create(inst -> codecStart(inst).apply(inst, (co) -> new SupplyLoot(co, false))));
+    public static final Supplier<Codec<SupplyLoot>>                            CAMP_CODEC =
+        Suppliers.memoize(() -> RecordCodecBuilder.create(inst -> codecStart(inst).apply(inst, (co) -> new SupplyLoot(co, true))));
 
     public static final RegistryObject<Codec<SupplyLoot>> SUPPLYSHIP_LOOT = GLM.register("supplyship_loot", SupplyLoot.SHIP_CODEC);
     public static final RegistryObject<Codec<SupplyLoot>> SUPPLYCAMP_LOOT = GLM.register("supplycamp_loot", SupplyLoot.CAMP_CODEC);
-
 
     /**
      * Resource locations, path and names must fit the existing json file.

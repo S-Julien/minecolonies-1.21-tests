@@ -27,6 +27,7 @@ public class QuestReputationTriggerTemplate implements IQuestTriggerTemplate
 
     /**
      * Create a new trigger directly from json.
+     *
      * @param jsonObj the json associated to this trigger.
      */
     public static QuestReputationTriggerTemplate createQuestReputationTrigger(final JsonObject jsonObj)

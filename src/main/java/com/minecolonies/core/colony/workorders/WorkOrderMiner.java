@@ -48,13 +48,13 @@ public class WorkOrderMiner extends AbstractWorkOrder
      * @param minerBuilding The id of the building of the miner.
      */
     public WorkOrderMiner(
-      final String packName,
-      final String structureName,
-      final String workOrderName,
-      final int rotation,
-      final BlockPos location,
-      final boolean mirror,
-      final BlockPos minerBuilding)
+        final String packName,
+        final String structureName,
+        final String workOrderName,
+        final int rotation,
+        final BlockPos location,
+        final boolean mirror,
+        final BlockPos minerBuilding)
     {
         super(packName, structureName, workOrderName, WorkOrderType.BUILD, location, rotation, mirror, 0, 1);
         this.minerBuilding = minerBuilding;

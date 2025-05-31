@@ -17,7 +17,7 @@
     },
     {
       "type": "minecolonies:citizen",
-      "state": { }
+      "state": {}
     }
   ],
   "triggerOrder": "1 || 2",
@@ -123,7 +123,10 @@
       }
     },
     {
-      "unlocks-rewards": [0,1],
+      "unlocks-rewards": [
+        0,
+        1
+      ],
       "type": "minecolonies:dialogue",
       "target": 0,
       "text": "Awesome. I feel much better now knowing there is a hospital in the colony! Here, take this for an initial stock of medicine in the hospital!",

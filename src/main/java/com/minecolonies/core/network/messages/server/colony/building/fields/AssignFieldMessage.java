@@ -20,7 +20,7 @@ public class AssignFieldMessage extends AbstractBuildingServerMessage<IBuilding>
     /**
      * The modules ID
      */
-    private int       moduleID = 0;
+    private int moduleID = 0;
 
     /**
      * The field to (un)assign.
@@ -75,7 +75,7 @@ public class AssignFieldMessage extends AbstractBuildingServerMessage<IBuilding>
 
     @Override
     public void onExecute(
-      final NetworkEvent.Context ctxIn, final boolean isLogicalServer, final IColony colony, final IBuilding building)
+        final NetworkEvent.Context ctxIn, final boolean isLogicalServer, final IColony colony, final IBuilding building)
     {
         final IBuildingExtension parsedField = BuildingExtensionDataManager.bufferToExtension(fieldData);
         colony.getBuildingManager().getMatchingBuildingExtension(otherField -> otherField.equals(parsedField)).ifPresent(field -> {

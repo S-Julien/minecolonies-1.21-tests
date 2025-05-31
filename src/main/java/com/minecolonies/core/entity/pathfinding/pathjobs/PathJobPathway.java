@@ -38,10 +38,10 @@ public class PathJobPathway extends AbstractPathJob implements IDestinationPathJ
     private final BlockPos end;
 
     public PathJobPathway(
-      final int colonyID,
-      final List<IBuilding> buildings,
-      final Level world,
-      @NotNull final BlockPos start, final BlockPos end, final EntityCitizen citizen)
+        final int colonyID,
+        final List<IBuilding> buildings,
+        final Level world,
+        @NotNull final BlockPos start, final BlockPos end, final EntityCitizen citizen)
     {
         super(world, start, end, new PathResult<PathJobPathway>(), citizen);
         this.colonyid = colonyID;
@@ -89,8 +89,8 @@ public class PathJobPathway extends AbstractPathJob implements IDestinationPathJ
             for (final IBuilding building : buildings)
             {
                 if (BlockPosUtil.isInArea(building.getCorners().getA(), building.getCorners().getB(), tempWorldPos.set(x, y, z))
-                      && !BlockPosUtil.isInArea(building.getCorners().getA(), building.getCorners().getB(), end)
-                      && !BlockPosUtil.isInArea(building.getCorners().getA(), building.getCorners().getB(), start))
+                    && !BlockPosUtil.isInArea(building.getCorners().getA(), building.getCorners().getB(), end)
+                    && !BlockPosUtil.isInArea(building.getCorners().getA(), building.getCorners().getB(), start))
                 {
                     return false;
                 }
@@ -104,14 +104,14 @@ public class PathJobPathway extends AbstractPathJob implements IDestinationPathJ
 
     @Override
     protected double modifyCost(
-      final double stepCost,
-      final MNode parent,
-      final boolean swimstart,
-      final boolean swimming,
-      final int x,
-      final int y,
-      final int z,
-      final BlockState state, final BlockState below)
+        final double stepCost,
+        final MNode parent,
+        final boolean swimstart,
+        final boolean swimming,
+        final int x,
+        final int y,
+        final int z,
+        final BlockState state, final BlockState below)
     {
         if (parent.parent != null && parent.x == parent.parent.x && x != parent.x)
         {

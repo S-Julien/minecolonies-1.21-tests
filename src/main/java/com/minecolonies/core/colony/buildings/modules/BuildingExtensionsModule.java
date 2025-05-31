@@ -26,7 +26,7 @@ public abstract class BuildingExtensionsModule extends AbstractBuildingModule im
     /**
      * NBT tag to store assign manually.
      */
-    private static final String TAG_ASSIGN_MANUALLY = "assign";
+    private static final String TAG_ASSIGN_MANUALLY   = "assign";
     private static final String TAG_CURRENT_EXTENSION = "currex";
 
     /**
@@ -172,7 +172,7 @@ public abstract class BuildingExtensionsModule extends AbstractBuildingModule im
      * @return a list of building extension objects.
      */
     @NotNull
-    public abstract List<IBuildingExtension> getMatchingExtension(final Predicate<IBuildingExtension>  predicateToMatch);
+    public abstract List<IBuildingExtension> getMatchingExtension(final Predicate<IBuildingExtension> predicateToMatch);
 
     /**
      * Attempt to automatically claim free building extensions, if possible and if any building extensions are available.

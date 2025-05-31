@@ -44,17 +44,18 @@ public final class LootTableAnalyzer
 {
     private static final Gson GSON = Deserializers.createLootTableSerializer().create();
 
-    private LootTableAnalyzer() { }
+    private LootTableAnalyzer() {}
 
     /**
      * Evaluate a loot table and report possible drops.
      *
      * @param lootTableManager the {@link LootDataManager}
-     * @param lootTableId the loot table id
+     * @param lootTableId      the loot table id
      * @return the list of possible drops
      */
-    public static List<LootDrop> toDrops(@NotNull final LootDataManager lootTableManager,
-                                         @NotNull final ResourceLocation lootTableId)
+    public static List<LootDrop> toDrops(
+        @NotNull final LootDataManager lootTableManager,
+        @NotNull final ResourceLocation lootTableId)
     {
         return toDrops(lootTableManager, lootTableManager.getLootTable(lootTableId));
     }
@@ -63,11 +64,12 @@ public final class LootTableAnalyzer
      * Evaluate a loot table and report possible drops.
      *
      * @param lootTableManager the {@link LootDataManager}
-     * @param lootTable the loot table
+     * @param lootTable        the loot table
      * @return the list of possible drops
      */
-    public static List<LootDrop> toDrops(@Nullable final LootDataManager lootTableManager,
-                                         @NotNull final LootTable lootTable)
+    public static List<LootDrop> toDrops(
+        @Nullable final LootDataManager lootTableManager,
+        @NotNull final LootTable lootTable)
     {
         try
         {
@@ -77,21 +79,21 @@ public final class LootTableAnalyzer
         catch (final JsonParseException ex)
         {
             Log.getLogger().error(String.format("Failed to parse loot table from %s",
-                    lootTable.getLootTableId()), ex);
+                lootTable.getLootTableId()), ex);
             return Collections.emptyList();
         }
     }
-
 
     /**
      * Evaluate a loot table and report possible drops.
      *
      * @param lootTableManager the {@link LootDataManager}
-     * @param lootTableJson the loot table json
+     * @param lootTableJson    the loot table json
      * @return the list of possible drops
      */
-    public static List<LootDrop> toDrops(@Nullable final LootDataManager lootTableManager,
-                                         @NotNull final JsonObject lootTableJson)
+    public static List<LootDrop> toDrops(
+        @Nullable final LootDataManager lootTableManager,
+        @NotNull final JsonObject lootTableJson)
     {
         final List<LootDrop> drops = new ArrayList<>();
 
@@ -106,16 +108,20 @@ public final class LootTableAnalyzer
             final float rolls = processNumber(pool.getAsJsonObject().get("rolls"), 1.0f);
             final JsonArray entries = GsonHelper.getAsJsonArray(pool.getAsJsonObject(), "entries", new JsonArray());
             final float totalWeight = StreamSupport.stream(entries.spliterator(), false)
-                    .filter(entry ->
-                    {
-                        final String type = GsonHelper.getAsString(entry.getAsJsonObject(), "type");
-                        return type.equals("minecraft:empty") || type.equals("minecraft:item") || type.equals("minecraft:tag") || type.equals("minecraft:loot_table") || type.equals("minecraft:alternatives");
-                    })
-                    .mapToInt(entry -> GsonHelper.getAsInt(entry.getAsJsonObject(), "weight", 1))
-                    .sum();
+                .filter(entry ->
+                {
+                    final String type = GsonHelper.getAsString(entry.getAsJsonObject(), "type");
+                    return type.equals("minecraft:empty") || type.equals("minecraft:item") || type.equals("minecraft:tag") || type.equals("minecraft:loot_table") || type.equals(
+                        "minecraft:alternatives");
+                })
+                .mapToInt(entry -> GsonHelper.getAsInt(entry.getAsJsonObject(), "weight", 1))
+                .sum();
             final JsonArray conditions = GsonHelper.getAsJsonArray(pool.getAsJsonObject(), "conditions", new JsonArray());
             final boolean conditional = !conditions.isEmpty();
-            if (conditionsSeemImpossible(conditions)) { continue; }
+            if (conditionsSeemImpossible(conditions))
+            {
+                continue;
+            }
             final float modifier = adjustModifier(1f, conditions);
 
             for (final JsonElement ej : entries)
@@ -125,7 +131,10 @@ public final class LootTableAnalyzer
                 final List<LootDrop> entryDrops = entryToDrops(lootTableManager, entryJson);
                 for (final LootDrop drop : entryDrops)
                 {
-                    drops.add(new LootDrop(drop.getItemStacks(), drop.getProbability() * (weight / totalWeight) * rolls * modifier, drop.getQuality() * rolls, conditional || drop.getConditional()));
+                    drops.add(new LootDrop(drop.getItemStacks(),
+                        drop.getProbability() * (weight / totalWeight) * rolls * modifier,
+                        drop.getQuality() * rolls,
+                        conditional || drop.getConditional()));
                 }
             }
         }
@@ -138,24 +147,29 @@ public final class LootTableAnalyzer
      * Parse a specific entry and try to determine the possible drops.
      *
      * @param lootTableManager the {@link LootDataManager}
-     * @param entryJson the entry json
+     * @param entryJson        the entry json
      * @return the list of possible drops
      */
     @NotNull
-    private static List<LootDrop> entryToDrops(@Nullable final LootDataManager lootTableManager,
-                                               @NotNull final JsonObject entryJson)
+    private static List<LootDrop> entryToDrops(
+        @Nullable final LootDataManager lootTableManager,
+        @NotNull final JsonObject entryJson)
     {
         final List<LootDrop> drops = new ArrayList<>();
         final String type = GsonHelper.getAsString(entryJson, "type");
         switch (type)
         {
-            case "minecraft:item" -> {
+            case "minecraft:item" ->
+            {
                 final Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(GsonHelper.getAsString(entryJson, "name")));
                 final float quality = GsonHelper.getAsFloat(entryJson, "quality", 0);
                 float modifier = 1.0F;
                 final JsonArray conditions = GsonHelper.getAsJsonArray(entryJson, "conditions", new JsonArray());
                 final boolean conditional = !conditions.isEmpty();
-                if (conditionsSeemImpossible(conditions)) { break; }
+                if (conditionsSeemImpossible(conditions))
+                {
+                    break;
+                }
                 ItemStack stack = new ItemStack(item);
                 if (entryJson.has("functions"))
                 {
@@ -177,27 +191,32 @@ public final class LootTableAnalyzer
                     drops.add(new LootDrop(Collections.singletonList(stack), modifier, quality, conditional));
                 }
             }
-            case "minecraft:loot_table" -> {
+            case "minecraft:loot_table" ->
+            {
                 final ResourceLocation table = new ResourceLocation(GsonHelper.getAsString(entryJson, "name"));
                 final List<LootDrop> tableDrops = toDrops(lootTableManager, table);
                 final float quality = GsonHelper.getAsFloat(entryJson, "quality", 0);
                 final JsonArray conditions = GsonHelper.getAsJsonArray(entryJson, "conditions", new JsonArray());
                 final boolean conditional = !conditions.isEmpty();
-                if (conditionsSeemImpossible(conditions)) { break; }
+                if (conditionsSeemImpossible(conditions))
+                {
+                    break;
+                }
                 for (final LootDrop drop : tableDrops)
                 {
                     drops.add(new LootDrop(drop.getItemStacks(), drop.getProbability(), drop.getQuality() + quality, drop.getConditional() || conditional));
                 }
             }
-            case "minecraft:alternatives" -> {
+            case "minecraft:alternatives" ->
+            {
                 final JsonArray children = GsonHelper.getAsJsonArray(entryJson, "children", new JsonArray());
                 // currently, the only one of these we're dealing with is "silk touch or not", so we'll just find the
                 // first one that doesn't have conditions and call it a day, at least for now... (or failing that, just the last)
                 final JsonObject childJson = StreamSupport.stream(children.spliterator(), false)
-                        .map(JsonElement::getAsJsonObject)
-                        .filter(j -> !j.has("conditions"))
-                        .findFirst()
-                        .orElse(children.get(children.size() - 1).getAsJsonObject());
+                    .map(JsonElement::getAsJsonObject)
+                    .filter(j -> !j.has("conditions"))
+                    .findFirst()
+                    .orElse(children.get(children.size() - 1).getAsJsonObject());
                 drops.addAll(entryToDrops(lootTableManager, childJson));
             }
         }
@@ -228,6 +247,7 @@ public final class LootTableAnalyzer
 
     /**
      * Attempts to adjust the drop probability according to conditions present on the loot pool and/or entry.
+     *
      * @param modifier   the current probability modifier.
      * @param conditions The conditions JSON array.
      * @return the new probability modifier.
@@ -254,12 +274,13 @@ public final class LootTableAnalyzer
      * Replaces an {@link ModItems#adventureToken} with the drops from defeating the corresponding monster.
      *
      * @param lootTableManager the {@link LootDataManager}
-     * @param token the adventure token
+     * @param token            the adventure token
      * @return the list of possible drops
      */
     @NotNull
-    private static List<LootDrop> expandAdventureToken(@NotNull final LootDataManager lootTableManager,
-                                                       @NotNull final ItemStack token)
+    private static List<LootDrop> expandAdventureToken(
+        @NotNull final LootDataManager lootTableManager,
+        @NotNull final ItemStack token)
     {
         if (token.hasTag())
         {
@@ -288,18 +309,18 @@ public final class LootTableAnalyzer
     public static List<LootDrop> consolidate(@NotNull final List<LootDrop> input)
     {
         return input.stream()
-                .collect(Collectors.groupingBy(LootDrop::hashCode))
-                .values().stream()
-                .map(LootDrop::new)
-                .sorted(Comparator.comparing(LootDrop::getProbability).reversed())
-                .collect(Collectors.toList());
+            .collect(Collectors.groupingBy(LootDrop::hashCode))
+            .values().stream()
+            .map(LootDrop::new)
+            .sorted(Comparator.comparing(LootDrop::getProbability).reversed())
+            .collect(Collectors.toList());
     }
 
     /**
      * Rudimentary parsing of loot table functions, primarily focusing on just the ones that are most commonly present
      * in the loot tables that we care about and have a visible effect in the JEI display.
      *
-     * @param stack the original {@link ItemStack} to operate on
+     * @param stack     the original {@link ItemStack} to operate on
      * @param functions the functions array json
      * @return the modified stack and 'quality' modifier
      */
@@ -388,7 +409,10 @@ public final class LootTableAnalyzer
      */
     private static Tuple<Integer, Float> processCount(@Nullable final JsonElement json)
     {
-        if (json == null) return new Tuple<>(1, 1.0F);
+        if (json == null)
+        {
+            return new Tuple<>(1, 1.0F);
+        }
 
         if (json.isJsonObject() && GsonHelper.getAsString(json.getAsJsonObject(), "type", "").equals("minecraft:uniform"))
         {
@@ -410,7 +434,10 @@ public final class LootTableAnalyzer
      */
     private static int processNumber(@Nullable final JsonElement json, final int defaultValue)
     {
-        if (json == null) return defaultValue;
+        if (json == null)
+        {
+            return defaultValue;
+        }
 
         if (json.isJsonObject())
         {
@@ -440,7 +467,10 @@ public final class LootTableAnalyzer
      */
     private static float processNumber(@Nullable final JsonElement json, final float defaultValue)
     {
-        if (json == null) return defaultValue;
+        if (json == null)
+        {
+            return defaultValue;
+        }
 
         if (json.isJsonObject())
         {
@@ -468,9 +498,9 @@ public final class LootTableAnalyzer
     public static class LootDrop
     {
         private final List<ItemStack> stacks;
-        private final float probability;
-        private final float quality;
-        private final boolean conditional;
+        private final float           probability;
+        private final float           quality;
+        private final boolean         conditional;
 
         public LootDrop(@NotNull final List<ItemStack> stacks, final float probability, final float quality, final boolean conditional)
         {
@@ -488,23 +518,39 @@ public final class LootTableAnalyzer
             this.conditional = drops.get(0).getConditional();
         }
 
-        /** The loot item for this drop (as alternatives). */
-        @NotNull public List<ItemStack> getItemStacks() { return this.stacks; }
-        /** The approximate probability that this item will drop. */
-        public float getProbability() { return this.probability; }
-        /** If non-zero, the probability is affected by the citizen's skills (positively or negatively). */
-        public float getQuality() { return this.quality; }
-        /** If true, there are special conditions on whether this will drop or not. */
-        public boolean getConditional() { return this.conditional; }
+        /**
+         * The loot item for this drop (as alternatives).
+         */
+        @NotNull
+        public List<ItemStack> getItemStacks() {return this.stacks;}
 
-        /** This should be unique, covering all the properties except for the stacks */
+        /**
+         * The approximate probability that this item will drop.
+         */
+        public float getProbability() {return this.probability;}
+
+        /**
+         * If non-zero, the probability is affected by the citizen's skills (positively or negatively).
+         */
+        public float getQuality() {return this.quality;}
+
+        /**
+         * If true, there are special conditions on whether this will drop or not.
+         */
+        public boolean getConditional() {return this.conditional;}
+
+        /**
+         * This should be unique, covering all the properties except for the stacks
+         */
         @Override
         public int hashCode()
         {
             return Objects.hash(probability, quality, conditional);
         }
 
-        /** Copy a LootDrop to a packet buffer */
+        /**
+         * Copy a LootDrop to a packet buffer
+         */
         public void serialize(@NotNull final FriendlyByteBuf buffer)
         {
             buffer.writeVarInt(stacks.size());
@@ -517,7 +563,9 @@ public final class LootTableAnalyzer
             buffer.writeBoolean(conditional);
         }
 
-        /** Recover a LootDrop from a packet buffer */
+        /**
+         * Recover a LootDrop from a packet buffer
+         */
         public static LootDrop deserialize(@NotNull final FriendlyByteBuf buffer)
         {
             final int size = buffer.readVarInt();

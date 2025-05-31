@@ -9,9 +9,9 @@ public final class ModModelTypes
     public static final ResourceLocation CITIZEN_ID        = new ResourceLocation(Constants.MOD_ID, "citizen");
     public static final ResourceLocation NOBLE_ID          = new ResourceLocation(Constants.MOD_ID, "noble");
     public static final ResourceLocation ARISTOCRAT_ID     = new ResourceLocation(Constants.MOD_ID, "aristocrat");
-    public static final ResourceLocation BUILDER_ID = new ResourceLocation(Constants.MOD_ID, "builder");
-    public static final ResourceLocation COURIER_ID = new ResourceLocation(Constants.MOD_ID, "courier");
-    public static final ResourceLocation MINER_ID   = new ResourceLocation(Constants.MOD_ID, "miner");
+    public static final ResourceLocation BUILDER_ID        = new ResourceLocation(Constants.MOD_ID, "builder");
+    public static final ResourceLocation COURIER_ID        = new ResourceLocation(Constants.MOD_ID, "courier");
+    public static final ResourceLocation MINER_ID          = new ResourceLocation(Constants.MOD_ID, "miner");
     public static final ResourceLocation LUMBERJACK_ID     = new ResourceLocation(Constants.MOD_ID, "forester");
     public static final ResourceLocation FARMER_ID         = new ResourceLocation(Constants.MOD_ID, "farmer");
     public static final ResourceLocation FISHERMAN_ID      = new ResourceLocation(Constants.MOD_ID, "fisherman");

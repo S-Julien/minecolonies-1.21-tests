@@ -10,8 +10,8 @@ import net.minecraftforge.registries.RegistryObject;
  */
 public class ModRecipeSerializer
 {
-    public static RegistryObject<CompostRecipe.Serializer> CompostRecipeSerializer;
-    public static RegistryObject<RecipeType<CompostRecipe>>   CompostRecipeType;
+    public static RegistryObject<CompostRecipe.Serializer>  CompostRecipeSerializer;
+    public static RegistryObject<RecipeType<CompostRecipe>> CompostRecipeType;
 
     public static RegistryObject<ZeroWasteRecipe.Serializer> ZeroWasteRecipeSerializer;
 }

@@ -30,6 +30,7 @@ public class CitizenQuestTriggerTemplate implements IQuestTriggerTemplate
 
     /**
      * Create a new state quest trigger.
+     *
      * @param tag the state to match.
      */
     public CitizenQuestTriggerTemplate(final JsonObject tag)
@@ -47,6 +48,7 @@ public class CitizenQuestTriggerTemplate implements IQuestTriggerTemplate
 
     /**
      * Create a new trigger directly from json.
+     *
      * @param questTriggerJson the json associated to this trigger.
      */
     public static CitizenQuestTriggerTemplate createStateTrigger(final JsonObject questTriggerJson)
@@ -85,7 +87,6 @@ public class CitizenQuestTriggerTemplate implements IQuestTriggerTemplate
                 continue;
             }
             return new CitizenTriggerReturnData(data);
-
         }
         return new CitizenTriggerReturnData(null);
     }

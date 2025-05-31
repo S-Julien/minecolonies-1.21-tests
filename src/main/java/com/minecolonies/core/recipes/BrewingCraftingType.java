@@ -39,11 +39,11 @@ public class BrewingCraftingType extends CraftingType
         for (final IBrewingRecipe recipe : BrewingRecipeRegistry.getRecipes())
         {
             final List<ItemStack> inputs = compatibilityManager.getListOfAllItems().stream()
-                    .filter(recipe::isInput)
-                    .collect(Collectors.toList());
+                .filter(recipe::isInput)
+                .collect(Collectors.toList());
             final List<ItemStack> ingredients = compatibilityManager.getListOfAllItems().stream()
-                    .filter(recipe::isIngredient)
-                    .collect(Collectors.toList());
+                .filter(recipe::isIngredient)
+                .collect(Collectors.toList());
 
             for (final ItemStack input : inputs)
             {
@@ -58,10 +58,10 @@ public class BrewingCraftingType extends CraftingType
                         actualOutput.setCount(3);
 
                         recipes.add(GenericRecipe.builder()
-                                .withOutput(actualOutput)
-                                .withInputs(List.of(List.of(ingredient), List.of(actualInput)))
-                                .withIntermediate(Blocks.BREWING_STAND)
-                                .build());
+                            .withOutput(actualOutput)
+                            .withInputs(List.of(List.of(ingredient), List.of(actualInput)))
+                            .withIntermediate(Blocks.BREWING_STAND)
+                            .build());
                     }
                 }
             }

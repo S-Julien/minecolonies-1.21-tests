@@ -40,7 +40,8 @@ public class ColonyViewResearchManagerViewMessage implements IMessage
 
     /**
      * Creates a message to send the research manager to the client.
-     * @param colony the colony.
+     *
+     * @param colony          the colony.
      * @param researchManager the research manager.
      */
     public ColonyViewResearchManagerViewMessage(final IColony colony, @NotNull final IResearchManager researchManager)

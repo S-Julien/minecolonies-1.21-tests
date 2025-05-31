@@ -40,6 +40,7 @@ public interface IItemListModule
 
     /**
      * Get the string identifier of the list.
+     *
      * @return the string.
      */
     String getListIdentifier();
@@ -56,6 +57,7 @@ public interface IItemListModule
 
     /**
      * Get the unique id of this module.
+     *
      * @return the id.
      */
     String getId();

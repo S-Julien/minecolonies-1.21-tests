@@ -14,10 +14,11 @@ import java.util.UUID;
  */
 public abstract class AbstractTokenFactory<I> implements ITokenFactory<I, StandardToken>
 {
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
     public static final String NBT_MSB = "Id_MSB";
     public static final String NBT_LSB = "Id_LSB";
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
+
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
 
     @NotNull
     @Override

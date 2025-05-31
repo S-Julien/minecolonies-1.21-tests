@@ -301,9 +301,9 @@ public class Tree
         for (int i = 1; i < 100; i++)
         {
             list.addAll(state.getDrops(new LootParams.Builder(world)
-                                         .withParameter(LootContextParams.TOOL,
-                                           new ItemStack(Items.WOODEN_AXE)).withLuck(100)
-                                         .withParameter(LootContextParams.ORIGIN, new Vec3(position.getX(), position.getY(), position.getZ()))));
+                .withParameter(LootContextParams.TOOL,
+                    new ItemStack(Items.WOODEN_AXE)).withLuck(100)
+                .withParameter(LootContextParams.ORIGIN, new Vec3(position.getX(), position.getY(), position.getZ()))));
             if (!list.isEmpty())
             {
                 for (ItemStack stack : list)
@@ -359,8 +359,8 @@ public class Tree
 
         // Only harvest nearly fully grown dynamic trees(8 max)
         if (Compatibility.isDynamicBlock(block)
-              && BlockStateUtils.getPropertyByNameFromState(state, DYNAMICTREERADIUS) != null
-              && ((Integer) state.getValue(BlockStateUtils.getPropertyByNameFromState(state, DYNAMICTREERADIUS)) < dyntreesize))
+            && BlockStateUtils.getPropertyByNameFromState(state, DYNAMICTREERADIUS) != null
+            && ((Integer) state.getValue(BlockStateUtils.getPropertyByNameFromState(state, DYNAMICTREERADIUS)) < dyntreesize))
         {
             return false;
         }
@@ -372,8 +372,8 @@ public class Tree
 
         //Make sure tree is on solid ground and tree is not build above cobblestone.
         return BlockUtils.isAnySolid(world.getBlockState(basePos.below()))
-                 && world.getBlockState(basePos.below()).getBlock() != Blocks.COBBLESTONE
-                 && hasEnoughLeavesAndIsSupposedToCut(world, baseAndTOp.getB(), treesToNotCut);
+            && world.getBlockState(basePos.below()).getBlock() != Blocks.COBBLESTONE
+            && hasEnoughLeavesAndIsSupposedToCut(world, baseAndTOp.getB(), treesToNotCut);
     }
 
     /**
@@ -388,11 +388,11 @@ public class Tree
      */
     @NotNull
     private static Tuple<BlockPos, BlockPos> getBottomAndTopLog(
-      @NotNull final LevelReader world,
-      @NotNull final BlockPos log,
-      @NotNull final LinkedList<BlockPos> woodenBlocks,
-      final BlockPos bottomLog,
-      final BlockPos topLog)
+        @NotNull final LevelReader world,
+        @NotNull final BlockPos log,
+        @NotNull final LinkedList<BlockPos> woodenBlocks,
+        final BlockPos bottomLog,
+        final BlockPos topLog)
     {
         BlockPos bottom = bottomLog == null ? log : bottomLog;
         BlockPos top = topLog == null ? log : topLog;
@@ -661,7 +661,7 @@ public class Tree
             }
 
             final BlockPos mean = new BlockPos(acc.getX() / stumpLocations.size(),
-              acc.getY() / stumpLocations.size(), acc.getZ() / stumpLocations.size());
+                acc.getY() / stumpLocations.size(), acc.getZ() / stumpLocations.size());
             stumpLocations.clear();
             stumpLocations.add(mean);
         }
@@ -747,8 +747,8 @@ public class Tree
      * @return true if this is the same type of tree; false if it's something different.
      */
     private boolean isBlockPartOfSameTree(
-      @NotNull final BlockState existingBlock,
-      @NotNull final BlockState newBlock)
+        @NotNull final BlockState existingBlock,
+        @NotNull final BlockState newBlock)
     {
         if (existingBlock.is(ModTags.mangroveTree))
         {
@@ -792,7 +792,7 @@ public class Tree
                     final BlockPos leaf = new BlockPos(locX, locY, locZ);
                     final BlockState block = world.getBlockState(leaf);
                     if (block.is(BlockTags.LEAVES) || block.is(ModTags.hugeMushroomBlocks) ||
-                            block.is(BlockTags.WART_BLOCKS) || block.is(Blocks.SHROOMLIGHT))
+                        block.is(BlockTags.WART_BLOCKS) || block.is(Blocks.SHROOMLIGHT))
                     {
                         if (!block.getOptionalValue(LeavesBlock.PERSISTENT).orElse(false))
                         {

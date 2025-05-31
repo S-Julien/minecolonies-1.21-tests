@@ -113,13 +113,16 @@ public class BuildingBaker extends AbstractBuilding
         public OptionalPredicate<ItemStack> getIngredientValidator()
         {
             return CraftingUtils.getIngredientValidatorBasedOnTags(CRAFTING_BAKER)
-                    .combine(super.getIngredientValidator());
+                .combine(super.getIngredientValidator());
         }
 
         @Override
         public boolean isRecipeCompatible(@NotNull final IGenericRecipe recipe)
         {
-            if (!super.isRecipeCompatible(recipe)) return false;
+            if (!super.isRecipeCompatible(recipe))
+            {
+                return false;
+            }
             final Optional<Boolean> isRecipeAllowed = CraftingUtils.isRecipeCompatibleBasedOnTags(recipe, CRAFTING_BAKER);
             return isRecipeAllowed.orElse(false);
         }
@@ -128,8 +131,8 @@ public class BuildingBaker extends AbstractBuilding
         public Set<CraftingType> getSupportedCraftingTypes()
         {
             return (building == null || building.getBuildingLevel() >= 3)
-                    ? super.getSupportedCraftingTypes()
-                    : ImmutableSet.of();
+                ? super.getSupportedCraftingTypes()
+                : ImmutableSet.of();
         }
 
         @Override
@@ -167,7 +170,7 @@ public class BuildingBaker extends AbstractBuilding
         public OptionalPredicate<ItemStack> getIngredientValidator()
         {
             return CraftingUtils.getIngredientValidatorBasedOnTags(CRAFTING_BAKER)
-                    .combine(super.getIngredientValidator());
+                .combine(super.getIngredientValidator());
         }
 
         @Override
@@ -184,8 +187,8 @@ public class BuildingBaker extends AbstractBuilding
         public Set<CraftingType> getSupportedCraftingTypes()
         {
             return (building == null || building.getBuildingLevel() >= 3)
-                    ? super.getSupportedCraftingTypes()
-                    : ImmutableSet.of();
+                ? super.getSupportedCraftingTypes()
+                : ImmutableSet.of();
         }
     }
 }

@@ -34,17 +34,17 @@ public class BlockMinecoloniesNamedGrave extends AbstractBlockMinecoloniesNamedG
     /**
      * The hardness this block has.
      */
-    private static final float  BLOCK_HARDNESS = 5F;
+    private static final float BLOCK_HARDNESS = 5F;
 
     /**
      * This blocks name.
      */
-    private static final String BLOCK_NAME     = "blockminecoloniesnamedgrave";
+    private static final String BLOCK_NAME = "blockminecoloniesnamedgrave";
 
     /**
      * The resistance this block has.
      */
-    private static final float  RESISTANCE     = 1F;
+    private static final float RESISTANCE = 1F;
 
     public BlockMinecoloniesNamedGrave()
     {
@@ -149,6 +149,6 @@ public class BlockMinecoloniesNamedGrave extends AbstractBlockMinecoloniesNamedG
     public boolean canSurvive(final BlockState state, final LevelReader worldIn, final BlockPos pos)
     {
         return !worldIn.isEmptyBlock(pos.below())
-                 && worldIn.getBlockState(pos.below()).getBlock() != ModBlocks.blockNamedGrave;
+            && worldIn.getBlockState(pos.below()).getBlock() != ModBlocks.blockNamedGrave;
     }
 }

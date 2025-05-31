@@ -217,7 +217,7 @@ public class GlobalResearch implements IGlobalResearch
     }
 
     @Override
-    public TranslatableContents getName() { return this.name; }
+    public TranslatableContents getName() {return this.name;}
 
     @Override
     public TranslatableContents getSubtitle()

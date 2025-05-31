@@ -97,7 +97,8 @@ public class ItemPharaoScepter extends BowItem
                         abstractarrowentity.setSecondsOnFire(100);
                     }
 
-                    stack.hurtAndBreak(1, playerentity, new Consumer<Player>() {
+                    stack.hurtAndBreak(1, playerentity, new Consumer<Player>()
+                    {
                         @Override
                         public void accept(final Player player)
                         {
@@ -111,13 +112,13 @@ public class ItemPharaoScepter extends BowItem
                 }
 
                 worldIn.playSound(null,
-                  playerentity.getX(),
-                  playerentity.getY(),
-                  playerentity.getZ(),
-                  SoundEvents.ARROW_SHOOT,
-                  SoundSource.PLAYERS,
-                  1.0F,
-                  1.0F / (entityLiving.getRandom().nextFloat() * 0.4F + 1.2F) + speed * 0.5F);
+                    playerentity.getX(),
+                    playerentity.getY(),
+                    playerentity.getZ(),
+                    SoundEvents.ARROW_SHOOT,
+                    SoundSource.PLAYERS,
+                    1.0F,
+                    1.0F / (entityLiving.getRandom().nextFloat() * 0.4F + 1.2F) + speed * 0.5F);
                 playerentity.awardStat(Stats.ITEM_USED.get(this));
             }
         }

@@ -79,9 +79,9 @@ public class WindowPlantationField extends AbstractWindowSkeleton
         super(Constants.MOD_ID + WINDOW_RESOURCE);
         this.tileEntityPlantationField = tileEntityPlantationField;
         this.plants = tileEntityPlantationField.getPlantationFieldTypes().stream()
-                        .flatMap(f -> f.getExtensionModuleProducers().stream().map(m -> m.apply(null)).filter(IPlantationModule.class::isInstance).map(m -> (IPlantationModule) m))
-                        .map(fieldType -> new ItemStack(fieldType.getItem()))
-                        .toList();
+            .flatMap(f -> f.getExtensionModuleProducers().stream().map(m -> m.apply(null)).filter(IPlantationModule.class::isInstance).map(m -> (IPlantationModule) m))
+            .map(fieldType -> new ItemStack(fieldType.getItem()))
+            .toList();
 
         registerButton(BUTTON_REPAIR_ID, this::repairField);
 
@@ -92,18 +92,18 @@ public class WindowPlantationField extends AbstractWindowSkeleton
     {
         close();
         new WindowBuildDecoration(tileEntityPlantationField.getBlockPos(),
-          tileEntityPlantationField.getPackName(),
-          tileEntityPlantationField.getBlueprintPath(),
-          tileEntityPlantationField.getRotation(),
-          tileEntityPlantationField.getMirror(),
-          builder -> new PlantationFieldBuildRequestMessage(WorkOrderType.REPAIR,
-            tileEntityPlantationField.getBlockPos(),
             tileEntityPlantationField.getPackName(),
             tileEntityPlantationField.getBlueprintPath(),
-            Minecraft.getInstance().level.dimension(),
             tileEntityPlantationField.getRotation(),
             tileEntityPlantationField.getMirror(),
-            builder)).open();
+            builder -> new PlantationFieldBuildRequestMessage(WorkOrderType.REPAIR,
+                tileEntityPlantationField.getBlockPos(),
+                tileEntityPlantationField.getPackName(),
+                tileEntityPlantationField.getBlueprintPath(),
+                Minecraft.getInstance().level.dimension(),
+                tileEntityPlantationField.getRotation(),
+                tileEntityPlantationField.getMirror(),
+                builder)).open();
     }
 
     /**

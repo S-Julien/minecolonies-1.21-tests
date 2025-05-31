@@ -24,11 +24,11 @@ public class LoadOnlyStructureHandler extends CreativeStructureHandler
     /**
      * The minecolonies specific creative structure placer.
      *
-     * @param world          the world.
-     * @param pos            the pos it is placed at.
-     * @param blueprintFuture  the future of the structure.
-     * @param settings       the placement settings.
-     * @param fancyPlacement if fancy or complete.
+     * @param world           the world.
+     * @param pos             the pos it is placed at.
+     * @param blueprintFuture the future of the structure.
+     * @param settings        the placement settings.
+     * @param fancyPlacement  if fancy or complete.
      */
     public LoadOnlyStructureHandler(final Level world, final BlockPos pos, final Future<Blueprint> blueprintFuture, final PlacementSettings settings, final boolean fancyPlacement)
     {
@@ -85,8 +85,8 @@ public class LoadOnlyStructureHandler extends CreativeStructureHandler
     public boolean isStackFree(@Nullable final ItemStack itemStack)
     {
         return itemStack == null
-                 || itemStack.isEmpty()
-                 || itemStack.is(ItemTags.LEAVES)
-                 || itemStack.getItem() == new ItemStack(ModBlocks.blockDecorationPlaceholder, 1).getItem();
+            || itemStack.isEmpty()
+            || itemStack.is(ItemTags.LEAVES)
+            || itemStack.getItem() == new ItemStack(ModBlocks.blockDecorationPlaceholder, 1).getItem();
     }
 }

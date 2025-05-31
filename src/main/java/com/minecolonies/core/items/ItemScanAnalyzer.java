@@ -55,8 +55,8 @@ public class ItemScanAnalyzer extends AbstractItemWithPosSelector
     public static  Blueprint blueprint = null;
 
     public ItemScanAnalyzer(
-      @NotNull final String name,
-      final Item.Properties properties)
+        @NotNull final String name,
+        final Item.Properties properties)
     {
         super(properties.durability(0).setNoRepair().rarity(Rarity.UNCOMMON));
     }
@@ -114,13 +114,13 @@ public class ItemScanAnalyzer extends AbstractItemWithPosSelector
         }
 
         return new InteractionResultHolder<>(
-          onAirRightClick(
-            firstPos,
-            secondPos,
-            worldIn,
-            playerIn,
-            itemstack),
-          itemstack);
+            onAirRightClick(
+                firstPos,
+                secondPos,
+                worldIn,
+                playerIn,
+                itemstack),
+            itemstack);
     }
 
     @Override
@@ -160,7 +160,7 @@ public class ItemScanAnalyzer extends AbstractItemWithPosSelector
             final BlockPos start = NbtUtils.readBlockPos(tag.getCompound(FIRST_POS_STRING));
             final BlockPos end = NbtUtils.readBlockPos(tag.getCompound(SECOND_POS_STRING));
             RenderingCache.queue("analyzer",
-              new BoxPreviewData(start, end, Optional.empty()));
+                new BoxPreviewData(start, end, Optional.empty()));
         }
     }
 
@@ -204,7 +204,7 @@ public class ItemScanAnalyzer extends AbstractItemWithPosSelector
         final String fileName = TEMP_SCAN;
         final BlockPos zero = new BlockPos((int) box.minX, (int) box.minY, (int) box.minZ);
         final Blueprint bp =
-          BlueprintUtil.createBlueprint(world, zero, false, (short) (box.getXsize() + 1), (short) (box.getYsize() + 1), (short) (box.getZsize() + 1), fileName, Optional.empty());
+            BlueprintUtil.createBlueprint(world, zero, false, (short) (box.getXsize() + 1), (short) (box.getYsize() + 1), (short) (box.getZsize() + 1), fileName, Optional.empty());
 
         return bp;
     }

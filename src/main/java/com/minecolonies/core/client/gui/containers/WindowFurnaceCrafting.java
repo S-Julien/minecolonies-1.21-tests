@@ -80,7 +80,7 @@ public class WindowFurnaceCrafting extends AbstractContainerScreen<ContainerCraf
         super(container, playerInventory, iTextComponent);
         this.container = container;
         this.building = (AbstractBuildingView) IColonyManager.getInstance().getBuildingView(playerInventory.player.level.dimension(), container.getPos());
-        this.module =(CraftingModuleView) building.getModuleView(container.getModuleId());
+        this.module = (CraftingModuleView) building.getModuleView(container.getModuleId());
     }
 
     @NotNull
@@ -97,7 +97,8 @@ public class WindowFurnaceCrafting extends AbstractContainerScreen<ContainerCraf
         /*
          * The button to click done after finishing the recipe.
          */
-        final Button doneButton = new Button.Builder(buttonDisplay, new OnButtonPress()).pos(leftPos + BUTTON_X_OFFSET, topPos + BUTTON_Y_POS).size(BUTTON_WIDTH, BUTTON_HEIGHT).build();
+        final Button doneButton =
+            new Button.Builder(buttonDisplay, new OnButtonPress()).pos(leftPos + BUTTON_X_OFFSET, topPos + BUTTON_Y_POS).size(BUTTON_WIDTH, BUTTON_HEIGHT).build();
         this.addRenderableWidget(doneButton);
         if (!module.canLearn(ModCraftingTypes.SMELTING.get()))
         {

@@ -47,9 +47,9 @@ public class StandardRequestSystemCrafterJobDataStore implements IRequestSystemC
      * @param tasks the task.
      */
     public StandardRequestSystemCrafterJobDataStore(
-      final IToken<?> id,
-      final LinkedList<IToken<?>> queue,
-      final List<IToken<?>> tasks)
+        final IToken<?> id,
+        final LinkedList<IToken<?>> queue,
+        final List<IToken<?>> tasks)
     {
         this.id = id;
         this.queue = queue;
@@ -110,7 +110,7 @@ public class StandardRequestSystemCrafterJobDataStore implements IRequestSystemC
         @NotNull
         @Override
         public StandardRequestSystemCrafterJobDataStore getNewInstance(
-          @NotNull final IFactoryController factoryController, @NotNull final FactoryVoidInput factoryVoidInput, @NotNull final Object... context) throws IllegalArgumentException
+            @NotNull final IFactoryController factoryController, @NotNull final FactoryVoidInput factoryVoidInput, @NotNull final Object... context) throws IllegalArgumentException
         {
             return new StandardRequestSystemCrafterJobDataStore();
         }
@@ -118,7 +118,7 @@ public class StandardRequestSystemCrafterJobDataStore implements IRequestSystemC
         @NotNull
         @Override
         public CompoundTag serialize(
-          @NotNull final IFactoryController controller, @NotNull final StandardRequestSystemCrafterJobDataStore standardRequestSystemCrafterJobDataStore)
+            @NotNull final IFactoryController controller, @NotNull final StandardRequestSystemCrafterJobDataStore standardRequestSystemCrafterJobDataStore)
         {
             final CompoundTag compound = new CompoundTag();
 
@@ -135,19 +135,19 @@ public class StandardRequestSystemCrafterJobDataStore implements IRequestSystemC
         {
             final IToken<?> token = controller.deserialize(nbt.getCompound(TAG_TOKEN));
             final LinkedList<IToken<?>> queue = NBTUtils.streamCompound(nbt.getList(TAG_LIST, Tag.TAG_COMPOUND))
-                                                  .map(CompoundTag -> (IToken<?>) controller.deserialize(CompoundTag))
-                                                  .collect(Collectors.toCollection(LinkedList::new));
+                .map(CompoundTag -> (IToken<?>) controller.deserialize(CompoundTag))
+                .collect(Collectors.toCollection(LinkedList::new));
             final List<IToken<?>> taskList = NBTUtils.streamCompound(nbt.getList(TAG_ASSIGNED_LIST, Tag.TAG_COMPOUND))
-                                               .map(CompoundTag -> (IToken<?>) controller.deserialize(CompoundTag))
-                                               .collect(Collectors.toList());
+                .map(CompoundTag -> (IToken<?>) controller.deserialize(CompoundTag))
+                .collect(Collectors.toList());
 
             return new StandardRequestSystemCrafterJobDataStore(token, queue, taskList);
         }
 
         @Override
         public void serialize(
-          IFactoryController controller, StandardRequestSystemCrafterJobDataStore input,
-          FriendlyByteBuf packetBuffer)
+            IFactoryController controller, StandardRequestSystemCrafterJobDataStore input,
+            FriendlyByteBuf packetBuffer)
         {
             controller.serialize(packetBuffer, input.id);
             packetBuffer.writeInt(input.queue.size());
@@ -158,7 +158,7 @@ public class StandardRequestSystemCrafterJobDataStore implements IRequestSystemC
 
         @Override
         public StandardRequestSystemCrafterJobDataStore deserialize(IFactoryController controller, FriendlyByteBuf buffer)
-          throws Throwable
+            throws Throwable
         {
             final IToken<?> id = controller.deserialize(buffer);
             final LinkedList<IToken<?>> queue = new LinkedList<>();

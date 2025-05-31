@@ -100,10 +100,10 @@ public class TileEntityPlantationField extends AbstractTileEntityPlantationField
         if (plantationFieldTypes == null)
         {
             plantationFieldTypes = tagPosMap.values().stream()
-                                     .flatMap(Collection::stream)
-                                     .map(this::getPlantationFieldEntryFromFieldTag)
-                                     .filter(Objects::nonNull)
-                                     .collect(Collectors.toSet());
+                .flatMap(Collection::stream)
+                .map(this::getPlantationFieldEntryFromFieldTag)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toSet());
         }
         return plantationFieldTypes;
     }
@@ -112,11 +112,11 @@ public class TileEntityPlantationField extends AbstractTileEntityPlantationField
     public List<BlockPos> getWorkingPositions(final String tag)
     {
         workingPositions.computeIfAbsent(tag, newTag -> tagPosMap.entrySet().stream()
-                                                          .filter(f -> f.getValue().contains(newTag))
-                                                          .distinct()
-                                                          .map(Map.Entry::getKey)
-                                                          .map(worldPosition::offset)
-                                                          .toList());
+            .filter(f -> f.getValue().contains(newTag))
+            .distinct()
+            .map(Map.Entry::getKey)
+            .map(worldPosition::offset)
+            .toList());
         return workingPositions.get(tag);
     }
 
@@ -172,16 +172,16 @@ public class TileEntityPlantationField extends AbstractTileEntityPlantationField
     private BuildingExtensionEntry getPlantationFieldEntryFromFieldTag(String fieldTag)
     {
         return BuildingExtensionRegistries.getBuildingExtensionRegistry().getValues().stream()
-                 .filter(fieldEntry -> {
-                     List<IPlantationModule> modules = fieldEntry.getExtensionModuleProducers().stream().map(m -> m.apply(null))
-                                                         .filter(IPlantationModule.class::isInstance)
-                                                         .map(m -> (IPlantationModule) m)
-                                                         .toList();
+            .filter(fieldEntry -> {
+                List<IPlantationModule> modules = fieldEntry.getExtensionModuleProducers().stream().map(m -> m.apply(null))
+                    .filter(IPlantationModule.class::isInstance)
+                    .map(m -> (IPlantationModule) m)
+                    .toList();
 
-                     return modules.stream().anyMatch(module -> module.getFieldTag().equals(fieldTag));
-                 })
-                 .findFirst()
-                 .orElse(null);
+                return modules.stream().anyMatch(module -> module.getFieldTag().equals(fieldTag));
+            })
+            .findFirst()
+            .orElse(null);
     }
 
     @Override
@@ -324,7 +324,7 @@ public class TileEntityPlantationField extends AbstractTileEntityPlantationField
         super.load(compound);
         super.readSchematicDataFromNBT(compound);
         this.rotMir = RotationMirror.of(Rotation.values()[compound.getInt(TAG_ROTATION)],
-                compound.getBoolean(TAG_MIRROR) ? Mirror.FRONT_BACK : Mirror.NONE);
+            compound.getBoolean(TAG_MIRROR) ? Mirror.FRONT_BACK : Mirror.NONE);
         if (compound.contains(TAG_PATH))
         {
             this.schematicPath = compound.getString(TAG_PATH);

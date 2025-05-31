@@ -29,10 +29,10 @@ public class PosBasedInteraction extends ServerCitizenInteraction
 
     @SuppressWarnings("unchecked")
     private static final Tuple<Component, Component>[] responses = (Tuple<Component, Component>[]) new Tuple[] {
-      new Tuple<>(Component.translatable(INTERACTION_R_OKAY), null),
-      new Tuple<>(Component.translatable(INTERACTION_R_IGNORE), null),
-      new Tuple<>(Component.translatable(INTERACTION_R_REMIND), null),
-      new Tuple<>(Component.translatable(INTERACTION_R_SKIP), null)};
+        new Tuple<>(Component.translatable(INTERACTION_R_OKAY), null),
+        new Tuple<>(Component.translatable(INTERACTION_R_IGNORE), null),
+        new Tuple<>(Component.translatable(INTERACTION_R_REMIND), null),
+        new Tuple<>(Component.translatable(INTERACTION_R_SKIP), null)};
 
     /**
      * The position this is related to.
@@ -53,10 +53,10 @@ public class PosBasedInteraction extends ServerCitizenInteraction
      * @param validator the validator id.
      */
     public PosBasedInteraction(
-      final Component inquiry,
-      final IChatPriority priority,
-      final Component validator,
-      final BlockPos pos)
+        final Component inquiry,
+        final IChatPriority priority,
+        final Component validator,
+        final BlockPos pos)
     {
         super(inquiry, true, priority, null, validator, responses);
         this.validator = InteractionValidatorRegistry.getPosBasedInteractionValidatorPredicate(validator);
@@ -71,9 +71,9 @@ public class PosBasedInteraction extends ServerCitizenInteraction
      * @param pos      the pos this is related to.
      */
     public PosBasedInteraction(
-      final Component inquiry,
-      final IChatPriority priority,
-      final BlockPos pos)
+        final Component inquiry,
+        final IChatPriority priority,
+        final BlockPos pos)
     {
         super(inquiry, true, priority, null, inquiry, responses);
         this.validator = InteractionValidatorRegistry.getPosBasedInteractionValidatorPredicate(inquiry);

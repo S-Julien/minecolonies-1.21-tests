@@ -102,7 +102,7 @@ public class WindowCitizenInventory extends AbstractContainerScreen<ContainerCit
         int j = (this.height - this.imageHeight) / 2;
 
 
-        stack.blit(TEXT, i, j, 0, 0, this.imageWidth,  10 + this.inventoryRows * SLOT_OFFSET + 12, TEXTURE_SIZE, TEXTURE_SIZE);
+        stack.blit(TEXT, i, j, 0, 0, this.imageWidth, 10 + this.inventoryRows * SLOT_OFFSET + 12, TEXTURE_SIZE, TEXTURE_SIZE);
 
 
         stack.blit(TEXT, i, j + 10 + this.inventoryRows * SLOT_OFFSET + 12, 0, TEXTURE_OFFSET, this.imageWidth, TEXTURE_HEIGHT, TEXTURE_SIZE, TEXTURE_SIZE);
@@ -118,23 +118,24 @@ public class WindowCitizenInventory extends AbstractContainerScreen<ContainerCit
             stack.blit(TEXT, i + 222, j + 22 + index * 18, 0, 300, 18, 18, TEXTURE_SIZE, TEXTURE_SIZE);
         }
 
-        renderEntityInInventoryFollowsMouse(stack, i + 197, j + 88, 30, (float)(i + 51) - mouseX, (float)(j + 75 - 50) - mouseY, this.menu.getEntity());
+        renderEntityInInventoryFollowsMouse(stack, i + 197, j + 88, 30, (float) (i + 51) - mouseX, (float) (j + 75 - 50) - mouseY, this.menu.getEntity());
     }
 
-
-    public static void renderEntityInInventoryFollowsMouse(GuiGraphics stack, int x, int y, int scale, float mouseX, float mouseY, Optional<? extends Entity> optionalEntity) {
+    public static void renderEntityInInventoryFollowsMouse(GuiGraphics stack, int x, int y, int scale, float mouseX, float mouseY, Optional<? extends Entity> optionalEntity)
+    {
         optionalEntity.ifPresent(entity -> {
-            float relativeMouseX = (float)Math.atan(mouseX / 40.0F);
-            float relativeMouseY = (float)Math.atan(mouseY / 40.0F);
+            float relativeMouseX = (float) Math.atan(mouseX / 40.0F);
+            float relativeMouseY = (float) Math.atan(mouseY / 40.0F);
             renderEntityInInventoryFollowsAngle(stack, x, y, scale, relativeMouseX, relativeMouseY, (LivingEntity) entity);
         });
     }
 
-    public static void renderEntityInInventoryFollowsAngle(GuiGraphics stack, int x, int y, int scale, float angleXComponent, float angleYComponent, LivingEntity entity) {
+    public static void renderEntityInInventoryFollowsAngle(GuiGraphics stack, int x, int y, int scale, float angleXComponent, float angleYComponent, LivingEntity entity)
+    {
         float f = angleXComponent;
         float f1 = angleYComponent;
-        Quaternionf quaternionf = (new Quaternionf()).rotateZ((float)Math.PI);
-        Quaternionf quaternionf1 = (new Quaternionf()).rotateX(f1 * 20.0F * ((float)Math.PI / 180F));
+        Quaternionf quaternionf = (new Quaternionf()).rotateZ((float) Math.PI);
+        Quaternionf quaternionf1 = (new Quaternionf()).rotateX(f1 * 20.0F * ((float) Math.PI / 180F));
         quaternionf.mul(quaternionf1);
         float f2 = entity.yBodyRot;
         float f3 = entity.getYRot();
@@ -154,14 +155,16 @@ public class WindowCitizenInventory extends AbstractContainerScreen<ContainerCit
         entity.yHeadRot = f6;
     }
 
-    public static void renderEntityInInventory(GuiGraphics stack, int x, int y, int scale, Quaternionf quaternionf, @Nullable Quaternionf quaternionf1, LivingEntity entity) {
+    public static void renderEntityInInventory(GuiGraphics stack, int x, int y, int scale, Quaternionf quaternionf, @Nullable Quaternionf quaternionf1, LivingEntity entity)
+    {
         stack.pose().pushPose();
         stack.pose().translate(x, y, 50.0D);
-        stack.pose().mulPoseMatrix((new Matrix4f()).scaling((float)scale, (float)scale, (float)(-scale)));
+        stack.pose().mulPoseMatrix((new Matrix4f()).scaling((float) scale, (float) scale, (float) (-scale)));
         stack.pose().mulPose(quaternionf);
         Lighting.setupForEntityInInventory();
         EntityRenderDispatcher entityrenderdispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
-        if (quaternionf1 != null) {
+        if (quaternionf1 != null)
+        {
             quaternionf1.conjugate();
             entityrenderdispatcher.overrideCameraOrientation(quaternionf1);
         }

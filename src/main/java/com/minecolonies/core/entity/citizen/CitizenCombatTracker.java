@@ -18,8 +18,8 @@ import java.util.Objects;
 public class CitizenCombatTracker extends CombatTracker
 {
     private static final Style         INTENTIONAL_GAME_DESIGN_STYLE =
-      Style.EMPTY.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://bugs.mojang.com/browse/MCPE-28723"))
-        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("MCPE-28723")));
+        Style.EMPTY.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://bugs.mojang.com/browse/MCPE-28723"))
+            .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("MCPE-28723")));
     private final        EntityCitizen citizen;
 
     public CitizenCombatTracker(EntityCitizen citizen)
@@ -37,15 +37,15 @@ public class CitizenCombatTracker extends CombatTracker
         if (job != null)
         {
             nameComponent = Component.translatable(
-              TranslationConstants.WORKER_DESC,
-              Component.translatable(job.getJobRegistryEntry().getTranslationKey()),
-              citizen.getCitizenData().getName());
+                TranslationConstants.WORKER_DESC,
+                Component.translatable(job.getJobRegistryEntry().getTranslationKey()),
+                citizen.getCitizenData().getName());
         }
         else
         {
             nameComponent = Component.translatable(
-              TranslationConstants.CITIZEN_DEATH_DESC,
-              citizen.getCitizenData().getName());
+                TranslationConstants.CITIZEN_DEATH_DESC,
+                citizen.getCitizenData().getName());
         }
         //CombatTracker#getDeathMessage
         if (entries.isEmpty())
@@ -72,8 +72,8 @@ public class CitizenCombatTracker extends CombatTracker
                         //CombatTracker#getMessageForAssistedFall
                         ItemStack stack = fallEntity instanceof LivingEntity living ? living.getMainHandItem() : ItemStack.EMPTY;
                         return !stack.isEmpty() && stack.hasCustomHoverName()
-                                 ? Component.translatable("death.fell.assist.item", nameComponent, fallMessage, stack.getDisplayName())
-                                 : Component.translatable("death.fell.assist", nameComponent, fallMessage);
+                            ? Component.translatable("death.fell.assist.item", nameComponent, fallMessage, stack.getDisplayName())
+                            : Component.translatable("death.fell.assist", nameComponent, fallMessage);
                     }
                     else
                     {
@@ -82,9 +82,9 @@ public class CitizenCombatTracker extends CombatTracker
                             //CombatTracker#getMessageForAssistedFall
                             ItemStack stack = lastEntity instanceof LivingEntity livingentity ? livingentity.getMainHandItem() : ItemStack.EMPTY;
                             return !stack.isEmpty() && stack.hasCustomHoverName() ? Component.translatable("death.fell.finish.item",
-                              nameComponent,
-                              lastMessage,
-                              stack.getDisplayName()) : Component.translatable("death.fell.finish", nameComponent, lastMessage);
+                                nameComponent,
+                                lastMessage,
+                                stack.getDisplayName()) : Component.translatable("death.fell.finish", nameComponent, lastMessage);
                         }
                         return Component.translatable("death.fell.killer", nameComponent);
                     }
@@ -97,7 +97,9 @@ public class CitizenCombatTracker extends CombatTracker
             else if (messageType == DeathMessageType.INTENTIONAL_GAME_DESIGN)
             {
                 String s = "death.attack." + lastSource.getMsgId();
-                return Component.translatable(s + ".message", nameComponent, ComponentUtils.wrapInSquareBrackets(Component.translatable(s + ".link")).withStyle(INTENTIONAL_GAME_DESIGN_STYLE));
+                return Component.translatable(s + ".message",
+                    nameComponent,
+                    ComponentUtils.wrapInSquareBrackets(Component.translatable(s + ".link")).withStyle(INTENTIONAL_GAME_DESIGN_STYLE));
             }
             else
             {
@@ -115,8 +117,8 @@ public class CitizenCombatTracker extends CombatTracker
                     Component component = entity == null ? directEntity.getDisplayName() : entity.getDisplayName();
                     ItemStack stack = entity instanceof LivingEntity living ? living.getMainHandItem() : ItemStack.EMPTY;
                     return !stack.isEmpty() && stack.hasCustomHoverName()
-                             ? Component.translatable(s + ".item", nameComponent, component, stack.getDisplayName())
-                             : Component.translatable(s, nameComponent, component);
+                        ? Component.translatable(s + ".item", nameComponent, component, stack.getDisplayName())
+                        : Component.translatable(s, nameComponent, component);
                 }
             }
         }

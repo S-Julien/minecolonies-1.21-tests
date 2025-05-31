@@ -18,13 +18,15 @@ import static com.minecolonies.api.util.constant.CitizenConstants.SKILL_BONUS_AD
 /**
  * Assignment module for couriers
  */
-public class HospitalAssignmentModule extends WorkerBuildingModule implements IBuildingEventsModule, ITickingModule, IPersistentModule, IBuildingWorkerModule, ICreatesResolversModule
+public class HospitalAssignmentModule extends WorkerBuildingModule
+    implements IBuildingEventsModule, ITickingModule, IPersistentModule, IBuildingWorkerModule, ICreatesResolversModule
 {
-    public HospitalAssignmentModule(final JobEntry entry,
-      final Skill primary,
-      final Skill secondary,
-      final boolean canWorkingDuringRain,
-      final Function<IBuilding, Integer> sizeLimit)
+    public HospitalAssignmentModule(
+        final JobEntry entry,
+        final Skill primary,
+        final Skill secondary,
+        final boolean canWorkingDuringRain,
+        final Function<IBuilding, Integer> sizeLimit)
     {
         super(entry, primary, secondary, canWorkingDuringRain, sizeLimit);
     }

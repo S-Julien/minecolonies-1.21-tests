@@ -198,7 +198,7 @@ public abstract class HordeRaidEvent implements IColonyRaidEvent, IColonyCampFir
     public void unregisterEntity(final Entity entity)
     {
         if (!(archers.containsKey(entity) || boss.containsKey(entity) || normal.containsKey(entity)) || status != EventStatus.PROGRESSING
-              || colony.getState() != ColonyState.ACTIVE)
+            || colony.getState() != ColonyState.ACTIVE)
         {
             return;
         }
@@ -356,9 +356,9 @@ public abstract class HordeRaidEvent implements IColonyRaidEvent, IColonyCampFir
         updateRaidBar();
 
         MessageUtils.format(RAID_EVENT_MESSAGE + horde.getMessageID(), BlockPosUtil.calcDirection(colony.getCenter(), spawnPoint).getLongText(), colony.getName())
-          .withPriority(MessagePriority.DANGER)
-          .sendTo(colony)
-          .forManagers();
+            .withPriority(MessagePriority.DANGER)
+            .sendTo(colony)
+            .forManagers();
         Log.getLogger().debug("Raiders coming from: " + spawnPoint.toShortString() + " towards colony: " + colony.getName());
 
         PlayAudioMessage audio = new PlayAudioMessage(horde.initialSize <= SMALL_HORDE_SIZE ? RaidSounds.WARNING_EARLY : RaidSounds.WARNING, SoundSource.HOSTILE);
@@ -465,7 +465,7 @@ public abstract class HordeRaidEvent implements IColonyRaidEvent, IColonyCampFir
     private void announceWin()
     {
         MessageUtils.format(INDIVIDUAL_RAID_FINISH + "." + this.getEventTypeID().getPath() + ColonyConstants.rand.nextInt(3),
-          BlockPosUtil.calcDirection(colony.getCenter(), spawnPoint).getLongText()).sendTo(colony, true).forManagers();
+            BlockPosUtil.calcDirection(colony.getCenter(), spawnPoint).getLongText()).sendTo(colony, true).forManagers();
     }
 
     /**

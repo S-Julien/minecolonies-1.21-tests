@@ -58,7 +58,7 @@ public abstract class AbstractWorkOrder implements IBuilderWorkOrder
     private static final String TAG_ITERATOR            = "iterator";
     private static final String TAG_IS_CLEARED          = "cleared";
     private static final String TAG_IS_REQUESTED        = "requested";
-    private static final String TAG_BB = "bb";
+    private static final String TAG_BB                  = "bb";
 
     /**
      * Bimap of workOrder from string to class.
@@ -193,9 +193,9 @@ public abstract class AbstractWorkOrder implements IBuilderWorkOrder
      * @param orderClass class of work order
      */
     private static void addMapping(
-      final String name,
-      @NotNull final Class<? extends IWorkOrder> orderClass,
-      @NotNull final Class<? extends IWorkOrderView> viewClass)
+        final String name,
+        @NotNull final Class<? extends IWorkOrder> orderClass,
+        @NotNull final Class<? extends IWorkOrderView> viewClass)
     {
         if (nameToClassBiMap.containsKey(name))
         {
@@ -757,9 +757,9 @@ public abstract class AbstractWorkOrder implements IBuilderWorkOrder
     private String getMappingName()
     {
         final Optional<String> s = nameToClassBiMap.entrySet().stream()
-          .filter(f -> this.getClass().equals(f.getValue().getA()))
-          .map(Map.Entry::getKey)
-          .findFirst();
+            .filter(f -> this.getClass().equals(f.getValue().getA()))
+            .map(Map.Entry::getKey)
+            .findFirst();
 
         if (!s.isPresent())
         {
@@ -827,10 +827,10 @@ public abstract class AbstractWorkOrder implements IBuilderWorkOrder
     public boolean canBeResolved(final IColony colony, final int level)
     {
         return colony.getBuildingManager()
-          .getBuildings()
-          .values()
-          .stream()
-          .anyMatch(building -> building instanceof BuildingBuilder && !building.getAllAssignedCitizen().isEmpty() && building.getBuildingLevel() >= level);
+            .getBuildings()
+            .values()
+            .stream()
+            .anyMatch(building -> building instanceof BuildingBuilder && !building.getAllAssignedCitizen().isEmpty() && building.getBuildingLevel() >= level);
     }
 
     /**

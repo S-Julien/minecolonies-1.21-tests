@@ -64,7 +64,7 @@ public class EntityAIWorkSifter extends AbstractEntityAICrafting<JobSifter, Buil
     {
         super(job);
         super.registerTargets(
-          new AITarget(SIFT, this::sift, TICK_DELAY)
+            new AITarget(SIFT, this::sift, TICK_DELAY)
         );
         worker.setCanPickUpLoot(true);
     }
@@ -149,9 +149,9 @@ public class EntityAIWorkSifter extends AbstractEntityAICrafting<JobSifter, Buil
 
         final ItemStack meshItem = currentRecipeStorage.getCraftingTools().get(0);
         final ItemStack inputItem = currentRecipeStorage.getCleanedInput().stream()
-                                      .map(ItemStorage::getItemStack)
-                                      .filter(item -> !ItemStackUtils.compareItemStacksIgnoreStackSize(item, meshItem, false, true))
-                                      .findFirst().orElse(ItemStack.EMPTY);
+            .map(ItemStorage::getItemStack)
+            .filter(item -> !ItemStackUtils.compareItemStacksIgnoreStackSize(item, meshItem, false, true))
+            .findFirst().orElse(ItemStack.EMPTY);
 
         if (meshItem.isEmpty() || inputItem.isEmpty())
         {
@@ -164,9 +164,9 @@ public class EntityAIWorkSifter extends AbstractEntityAICrafting<JobSifter, Buil
             worker.setItemInHand(InteractionHand.MAIN_HAND, inputItem);
         }
         if (!meshItem.isEmpty() && (ItemStackUtils.isEmpty(worker.getOffhandItem()) || ItemStackUtils.compareItemStacksIgnoreStackSize(worker.getOffhandItem(),
-          meshItem,
-          false,
-          true)))
+            meshItem,
+            false,
+            true)))
         {
             worker.setItemInHand(InteractionHand.OFF_HAND, meshItem);
         }
@@ -194,9 +194,9 @@ public class EntityAIWorkSifter extends AbstractEntityAICrafting<JobSifter, Buil
         }
 
         Network.getNetwork()
-          .sendToTrackingEntity(new LocalizedParticleEffectMessage(meshItem, sifterBuilding.getID()), worker);
+            .sendToTrackingEntity(new LocalizedParticleEffectMessage(meshItem, sifterBuilding.getID()), worker);
         Network.getNetwork()
-          .sendToTrackingEntity(new LocalizedParticleEffectMessage(inputItem, sifterBuilding.getID().below()), worker);
+            .sendToTrackingEntity(new LocalizedParticleEffectMessage(inputItem, sifterBuilding.getID().below()), worker);
 
         worker.swing(InteractionHand.MAIN_HAND);
         SoundUtils.playSoundAtCitizen(world, building.getID(), SoundEvents.LEASH_KNOT_BREAK);

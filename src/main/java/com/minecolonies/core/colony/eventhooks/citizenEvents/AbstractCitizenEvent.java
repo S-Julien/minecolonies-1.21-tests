@@ -16,7 +16,7 @@ public abstract class AbstractCitizenEvent extends AbstractEvent implements ICit
 {
 
     private BlockPos eventPos;
-    private String citizenName;
+    private String   citizenName;
 
     /**
      * Creates a new citizen event.
@@ -28,7 +28,7 @@ public abstract class AbstractCitizenEvent extends AbstractEvent implements ICit
 
     /**
      * Creates a new citizen event.
-     * 
+     *
      * @param eventPos    the position of the hut block of the building.
      * @param citizenName the name of the building.
      */

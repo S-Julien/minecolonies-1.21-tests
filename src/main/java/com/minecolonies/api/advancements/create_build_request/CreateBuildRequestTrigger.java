@@ -19,9 +19,10 @@ public class CreateBuildRequestTrigger extends AbstractCriterionTrigger<CreateBu
 
     /**
      * Triggers the listener checks if there are any listening in
-     * @param player the player the check regards
+     *
+     * @param player        the player the check regards
      * @param structureName the structure that is to be created
-     * @param level the level that the request will complete
+     * @param level         the level that the request will complete
      */
     public void trigger(final ServerPlayer player, final String structureName, final int level)
     {

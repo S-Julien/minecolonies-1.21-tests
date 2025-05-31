@@ -40,12 +40,14 @@ public interface IEntityListModule
 
     /**
      * Get the string identifier of the list.
+     *
      * @return the string.
      */
     String getListIdentifier();
 
     /**
      * Get the unique id of this module.
+     *
      * @return the id.
      */
     String getId();

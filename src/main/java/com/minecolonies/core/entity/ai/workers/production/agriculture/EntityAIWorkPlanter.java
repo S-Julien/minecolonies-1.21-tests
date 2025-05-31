@@ -75,12 +75,12 @@ public class EntityAIWorkPlanter extends AbstractEntityAICrafting<JobPlanter, Bu
     {
         super(job);
         super.registerTargets(
-          new AITarget(PREPARING, this::prepare, STANDARD_DELAY),
-          new AITarget(PLANTATION_PICK_FIELD, this::pickField, TICKS_20),
-          new AITarget(PLANTATION_MOVE_TO_FIELD, this::moveToField, TICKS_20),
-          new AITarget(PLANTATION_DECIDE_FIELD_WORK, this::decideFieldWork, TICKS_20),
-          new AITarget(PLANTATION_WORK_FIELD, this::workField, TICKS_20),
-          new AITarget(PLANTATION_RETURN_TO_BUILDING, this::returnToBuilding, TICKS_20));
+            new AITarget(PREPARING, this::prepare, STANDARD_DELAY),
+            new AITarget(PLANTATION_PICK_FIELD, this::pickField, TICKS_20),
+            new AITarget(PLANTATION_MOVE_TO_FIELD, this::moveToField, TICKS_20),
+            new AITarget(PLANTATION_DECIDE_FIELD_WORK, this::decideFieldWork, TICKS_20),
+            new AITarget(PLANTATION_WORK_FIELD, this::workField, TICKS_20),
+            new AITarget(PLANTATION_RETURN_TO_BUILDING, this::returnToBuilding, TICKS_20));
         worker.setCanPickUpLoot(true);
     }
 
@@ -213,13 +213,13 @@ public class EntityAIWorkPlanter extends AbstractEntityAICrafting<JobPlanter, Bu
         }
 
         ActionHandlerResult handlerResult = switch (activeModuleResult.getAction())
-                                              {
-                                                  case NONE -> ActionHandlerResult.FINISHED;
-                                                  case PLANT -> handlePlantingAction();
-                                                  case BONEMEAL -> handleBonemealAction();
-                                                  case HARVEST -> handleMiningAction(true);
-                                                  case CLEAR -> handleMiningAction(false);
-                                              };
+        {
+            case NONE -> ActionHandlerResult.FINISHED;
+            case PLANT -> handlePlantingAction();
+            case BONEMEAL -> handleBonemealAction();
+            case HARVEST -> handleMiningAction(true);
+            case CLEAR -> handleMiningAction(false);
+        };
 
         if (handlerResult.equals(ActionHandlerResult.FINISHED))
         {
@@ -339,15 +339,15 @@ public class EntityAIWorkPlanter extends AbstractEntityAICrafting<JobPlanter, Bu
 
             List<ItemStack> bonemeal = planterModule.getValidBonemeal().stream().map(ItemStack::new).toList();
             if (checkIfItemsUnavailable(new StackList(bonemeal,
-              RequestSystemTranslationConstants.REQUEST_TYPE_FERTILIZER,
-              BONEMEAL_TO_KEEP,
-              1)))
+                RequestSystemTranslationConstants.REQUEST_TYPE_FERTILIZER,
+                BONEMEAL_TO_KEEP,
+                1)))
             {
                 return ActionHandlerResult.NEEDS_ITEM;
             }
 
             final int boneMealSlot =
-              InventoryUtils.findFirstSlotInItemHandlerWith(worker.getInventoryCitizen(), stack -> planterModule.getValidBonemeal().contains(stack.getItem()));
+                InventoryUtils.findFirstSlotInItemHandlerWith(worker.getInventoryCitizen(), stack -> planterModule.getValidBonemeal().contains(stack.getItem()));
             final ItemStack stackInSlot = worker.getInventoryCitizen().getStackInSlot(boneMealSlot);
             planterModule.applyBonemeal(worker, activeModuleResult.getActionPosition(), stackInSlot, getFakePlayer());
         }
@@ -393,7 +393,7 @@ public class EntityAIWorkPlanter extends AbstractEntityAICrafting<JobPlanter, Bu
     private boolean checkIfItemsUnavailable(final IConcreteDeliverable deliverable)
     {
         final int invCount =
-          InventoryUtils.getItemCountInItemHandler(worker.getInventoryCitizen(), deliverable::matches);
+            InventoryUtils.getItemCountInItemHandler(worker.getInventoryCitizen(), deliverable::matches);
         if (invCount >= deliverable.getMinimumCount())
         {
             return false;
@@ -408,8 +408,8 @@ public class EntityAIWorkPlanter extends AbstractEntityAICrafting<JobPlanter, Bu
     protected void updateRenderMetaData()
     {
         worker.setRenderMetadata(getState() == CRAFT
-                                   || getState() == PLANTATION_WORK_FIELD
-                                   || getState() == PLANTATION_DECIDE_FIELD_WORK ? RENDER_META_WORKING : "");
+            || getState() == PLANTATION_WORK_FIELD
+            || getState() == PLANTATION_DECIDE_FIELD_WORK ? RENDER_META_WORKING : "");
     }
 
     @Override
@@ -428,10 +428,10 @@ public class EntityAIWorkPlanter extends AbstractEntityAICrafting<JobPlanter, Bu
     public IAIState getStateAfterPickUp()
     {
         if (currentDeliverable != null && !InventoryUtils.hasItemInItemHandler(worker.getInventoryCitizen(), currentDeliverable.getResult().getItem())
-              && building.getOpenRequestsOfTypeFiltered(worker.getCitizenData(), TypeConstants.DELIVERABLE,
-          (IRequest<? extends IDeliverable> r) -> currentDeliverable.getRequestedItems().stream().anyMatch(r.getRequest()::matches)).isEmpty()
-              && building.getCompletedRequestsOfTypeFiltered(worker.getCitizenData(), TypeConstants.DELIVERABLE,
-          (IRequest<? extends IDeliverable> r) -> currentDeliverable.getRequestedItems().stream().anyMatch(r.getRequest()::matches)).isEmpty())
+            && building.getOpenRequestsOfTypeFiltered(worker.getCitizenData(), TypeConstants.DELIVERABLE,
+            (IRequest<? extends IDeliverable> r) -> currentDeliverable.getRequestedItems().stream().anyMatch(r.getRequest()::matches)).isEmpty()
+            && building.getCompletedRequestsOfTypeFiltered(worker.getCitizenData(), TypeConstants.DELIVERABLE,
+            (IRequest<? extends IDeliverable> r) -> currentDeliverable.getRequestedItems().stream().anyMatch(r.getRequest()::matches)).isEmpty())
         {
             worker.getCitizenData().createRequestAsync(currentDeliverable);
         }

@@ -60,13 +60,13 @@ public class BuildBuildingObjectiveTemplate extends DialogueObjectiveTemplateTem
      * @param rewards       the rewards this unlocks.
      */
     public BuildBuildingObjectiveTemplate(
-      final int target,
-      final BuildingEntry buildingEntry,
-      final int lvl,
-      final int qty,
-      final boolean countExisting,
-      final int nextObjective,
-      final List<Integer> rewards)
+        final int target,
+        final BuildingEntry buildingEntry,
+        final int lvl,
+        final int qty,
+        final boolean countExisting,
+        final int nextObjective,
+        final List<Integer> rewards)
     {
         super(target, buildDialogueTree(buildingEntry, qty, lvl, countExisting), rewards);
         this.lvl = lvl;
@@ -85,13 +85,13 @@ public class BuildBuildingObjectiveTemplate extends DialogueObjectiveTemplateTem
             if (qty > 0)
             {
                 text =
-                  Component.translatable("com.minecolonies.coremod.questobjectives.buildbuilding.existing", lvl, qty, Component.translatable(buildingEntry.getTranslationKey()));
+                    Component.translatable("com.minecolonies.coremod.questobjectives.buildbuilding.existing", lvl, qty, Component.translatable(buildingEntry.getTranslationKey()));
             }
             else
             {
                 text = Component.translatable("com.minecolonies.coremod.questobjectives.buildbuilding.cumulative.existing",
-                  lvl,
-                  Component.translatable(buildingEntry.getTranslationKey()));
+                    lvl,
+                    Component.translatable(buildingEntry.getTranslationKey()));
             }
         }
         else
@@ -107,9 +107,9 @@ public class BuildBuildingObjectiveTemplate extends DialogueObjectiveTemplateTem
         }
 
         final AnswerElement answer1 = new AnswerElement(Component.translatable("com.minecolonies.coremod.questobjectives.answer.later"),
-          new IQuestDialogueAnswer.CloseUIDialogueAnswer());
+            new IQuestDialogueAnswer.CloseUIDialogueAnswer());
         final AnswerElement answer2 = new AnswerElement(Component.translatable("com.minecolonies.coremod.questobjectives.answer.cancel"),
-          new IQuestDialogueAnswer.QuestCancellationDialogueAnswer());
+            new IQuestDialogueAnswer.QuestCancellationDialogueAnswer());
         return new DialogueElement(text, List.of(answer1, answer2));
     }
 
@@ -160,7 +160,7 @@ public class BuildBuildingObjectiveTemplate extends DialogueObjectiveTemplateTem
     /**
      * Upon start, we want to check if the necessary buildings already exist.
      *
-     * @param colonyQuest the quest instance.
+     * @param colonyQuest   the quest instance.
      * @param localInstance the local instance to adjust if necessary.
      */
     private void checkInitialObjectiveProgress(final IQuestInstance colonyQuest, final IObjectiveInstance localInstance)
@@ -230,16 +230,16 @@ public class BuildBuildingObjectiveTemplate extends DialogueObjectiveTemplateTem
             if (qty > 0)
             {
                 return Component.translatable("com.minecolonies.coremod.questobjectives.buildbuilding.progress",
-                  Math.min(progress.currentProgress, qty),
-                  qty,
-                  Component.translatable(buildingEntry.getTranslationKey()).setStyle(style));
+                    Math.min(progress.currentProgress, qty),
+                    qty,
+                    Component.translatable(buildingEntry.getTranslationKey()).setStyle(style));
             }
             else
             {
                 return Component.translatable("com.minecolonies.coremod.questobjectives.buildbuilding.progress.cumulative",
-                  Math.min(progress.currentProgress, lvl),
-                  lvl,
-                  Component.translatable(buildingEntry.getTranslationKey()).setStyle(style));
+                    Math.min(progress.currentProgress, lvl),
+                    lvl,
+                    Component.translatable(buildingEntry.getTranslationKey()).setStyle(style));
             }
         }
         return Component.empty();

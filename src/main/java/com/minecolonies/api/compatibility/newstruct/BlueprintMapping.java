@@ -19,7 +19,6 @@ public class BlueprintMapping
      * Maps the old blueprint path to the new path. Query it with style:blueprintName and receive the pack specific path.
      */
     private static Map<String, String> pathMapping = new HashMap<>();
-
     static
     {
         styleMapping.put("medievaloak", "Medieval Oak");
@@ -120,9 +119,9 @@ public class BlueprintMapping
         pathMapping.put("caledoniaalternative:farmer", "agriculture/horticulture/farmeralt");
         pathMapping.put("caledoniaalternative:guardtower", "military/guardtoweralt");
     }
-
     /**
      * Get the style mapping for a style.
+     *
      * @param key the old style name.
      * @return the new stylename if mapping exists, else the same key again.
      */
@@ -133,8 +132,9 @@ public class BlueprintMapping
 
     /**
      * Get the path mapping for a hut for a given style. Or the default mapping if no special handling is setup.
+     *
      * @param style the style to query it for.
-     * @param hut the hut to query it for.
+     * @param hut   the hut to query it for.
      * @return the mapping.
      */
     public static String getPathMapping(final String style, final String hut)
@@ -144,8 +144,9 @@ public class BlueprintMapping
 
     /**
      * Generate backwards compat for alternative styles with many buildings.
+     *
      * @param foldersToHuts the folder mapping.
-     * @param style the pack name.
+     * @param style         the pack name.
      */
     private static void runForAlt(final Map<String, List<String>> foldersToHuts, final String style)
     {
@@ -153,15 +154,16 @@ public class BlueprintMapping
         {
             for (final String hut : entry.getValue())
             {
-                pathMapping.put(style + ":" + hut, entry.getKey() + "/" +  "alt" + hut);
+                pathMapping.put(style + ":" + hut, entry.getKey() + "/" + "alt" + hut);
             }
         }
     }
 
     /**
      * Generate backwards compat for all the default huts.
+     *
      * @param foldersToHuts the folder mapping.
-     * @param style the pack name.
+     * @param style         the pack name.
      */
     private static void runForStyle(final Map<String, List<String>> foldersToHuts, final String style)
     {
@@ -169,7 +171,7 @@ public class BlueprintMapping
         {
             for (final String hut : entry.getValue())
             {
-                pathMapping.put(style + ":" + hut, entry.getKey() + "/" +  hut);
+                pathMapping.put(style + ":" + hut, entry.getKey() + "/" + hut);
             }
         }
     }

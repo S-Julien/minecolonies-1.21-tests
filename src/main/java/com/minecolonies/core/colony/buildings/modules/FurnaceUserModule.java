@@ -65,11 +65,11 @@ public class FurnaceUserModule extends AbstractBuildingModule implements IPersis
         final ListTag furnaceTagList = compound.getList(TAG_FURNACES, Tag.TAG_COMPOUND);
         for (int i = 0; i < furnaceTagList.size(); ++i)
         {
-            if(furnaceTagList.getCompound(i).contains(TAG_POS))
+            if (furnaceTagList.getCompound(i).contains(TAG_POS))
             {
                 furnaces.add(NbtUtils.readBlockPos(furnaceTagList.getCompound(i).getCompound(TAG_POS)));
             }
-            if(furnaceTagList.getCompound(i).contains(TAG_POS_COMPAT))
+            if (furnaceTagList.getCompound(i).contains(TAG_POS_COMPAT))
             {
                 furnaces.add(NbtUtils.readBlockPos(furnaceTagList.getCompound(i).getCompound(TAG_POS_COMPAT)));
             }

@@ -70,7 +70,7 @@ public class TryResearchMessage extends AbstractBuildingServerMessage<BuildingUn
 
     @Override
     protected void onExecute(
-      final NetworkEvent.Context ctxIn, final boolean isLogicalServer, final IColony colony, final BuildingUniversity building)
+        final NetworkEvent.Context ctxIn, final boolean isLogicalServer, final IColony colony, final BuildingUniversity building)
     {
         final Player player = ctxIn.getSender();
         if (player == null)
@@ -79,17 +79,18 @@ public class TryResearchMessage extends AbstractBuildingServerMessage<BuildingUn
         }
 
         final IGlobalResearch research = IGlobalResearchTree.getInstance().getResearch(branch, researchId);
-        if(reset)
+        if (reset)
         {
-            if(colony.getResearchManager().getResearchTree().getResearch(branch, researchId) != null)
+            if (colony.getResearchManager().getResearchTree().getResearch(branch, researchId) != null)
             {
                 colony.getResearchManager().getResearchTree().attemptResetResearch(player, colony, colony.getResearchManager().getResearchTree().getResearch(branch, researchId));
             }
         }
         else
         {
-            if((research.canResearch(building.getBuildingLevel() == building.getMaxBuildingLevel() ? Integer.MAX_VALUE : building.getBuildingLevel(), colony.getResearchManager().getResearchTree()))
-                 || player.isCreative())
+            if ((research.canResearch(building.getBuildingLevel() == building.getMaxBuildingLevel() ? Integer.MAX_VALUE : building.getBuildingLevel(),
+                colony.getResearchManager().getResearchTree()))
+                || player.isCreative())
             {
                 colony.getResearchManager().getResearchTree().attemptBeginResearch(player, colony, research);
             }

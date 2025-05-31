@@ -41,7 +41,7 @@ public class WorkOrderBuildingView extends AbstractWorkOrderView
         else
         {
             Component parentComponent =
-              customParentBuildingName.isEmpty() ? Component.translatable(parentTranslationKey) : Component.literal(customParentBuildingName);
+                customParentBuildingName.isEmpty() ? Component.translatable(parentTranslationKey) : Component.literal(customParentBuildingName);
             nameComponent = Component.translatable("%s / %s", parentComponent, buildingComponent);
         }
         return getOrderTypePrefix(nameComponent);

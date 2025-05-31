@@ -9,6 +9,7 @@ public interface IResearchObjectiveTemplate
 {
     /**
      * Callback for research completion event.
+     *
      * @param questInstance the quest instance.
      */
     void onResearchCompletion(final IQuestInstance questInstance);

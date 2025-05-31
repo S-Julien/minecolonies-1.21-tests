@@ -316,7 +316,7 @@ public interface IColonyTagCapability
 
             // Fill colonies list
             NBTUtils.streamCompound(compound.getList(TAG_COLONIES, Tag.TAG_COMPOUND))
-              .map(c -> c.getInt(TAG_ID)).forEach(colonies::add);
+                .map(c -> c.getInt(TAG_ID)).forEach(colonies::add);
 
             // Fill claim buildings list
             NBTUtils.streamCompound(compound.getList(TAG_BUILDINGS_CLAIM, Tag.TAG_COMPOUND)).forEach(this::readClaims);
@@ -335,19 +335,19 @@ public interface IColonyTagCapability
         {
             final int id = compound.getInt(TAG_ID);
             NBTUtils.streamCompound(compound.getList(TAG_BUILDINGS, Tag.TAG_COMPOUND)).forEach(
-              tag -> {
-                  final BlockPos pos = BlockPosUtil.read((tag), TAG_BUILDING);
-                  if (claimingBuildings.containsKey(id))
-                  {
-                      claimingBuildings.get(id).add(pos);
-                  }
-                  else
-                  {
-                      final Set<BlockPos> newList = new HashSet<>();
-                      newList.add(pos);
-                      claimingBuildings.put(id, newList);
-                  }
-              });
+                tag -> {
+                    final BlockPos pos = BlockPosUtil.read((tag), TAG_BUILDING);
+                    if (claimingBuildings.containsKey(id))
+                    {
+                        claimingBuildings.get(id).add(pos);
+                    }
+                    else
+                    {
+                        final Set<BlockPos> newList = new HashSet<>();
+                        newList.add(pos);
+                        claimingBuildings.put(id, newList);
+                    }
+                });
         }
     }
 
@@ -368,8 +368,8 @@ public interface IColonyTagCapability
         }
 
         public static void readNBT(
-          @NotNull final Capability<IColonyTagCapability> capability, @NotNull final IColonyTagCapability instance,
-          @Nullable final Direction side, @NotNull final Tag nbt)
+            @NotNull final Capability<IColonyTagCapability> capability, @NotNull final IColonyTagCapability instance,
+            @Nullable final Direction side, @NotNull final Tag nbt)
         {
             if (nbt instanceof CompoundTag && ((CompoundTag) nbt).contains(TAG_ID))
             {

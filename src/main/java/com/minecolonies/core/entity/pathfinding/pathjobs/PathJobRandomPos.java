@@ -36,7 +36,7 @@ public class PathJobRandomPos extends AbstractPathJob implements IDestinationPat
     /**
      * Box restriction area
      */
-    private AABB     restrictionBox = null;
+    private AABB     restrictionBox       = null;
     private BlockPos restrictionBoxCenter = null;
 
     /**
@@ -49,11 +49,11 @@ public class PathJobRandomPos extends AbstractPathJob implements IDestinationPat
      * @param entity           the entity.
      */
     public PathJobRandomPos(
-      final Level world,
-      @NotNull final BlockPos start,
-      final int minDistFromStart,
-      final int range,
-      final Mob entity)
+        final Level world,
+        @NotNull final BlockPos start,
+        final int minDistFromStart,
+        final int range,
+        final Mob entity)
     {
         super(world, start, range, new PathResult<PathJobRandomPos>(), entity);
         this.minDistFromStart = minDistFromStart;
@@ -72,13 +72,13 @@ public class PathJobRandomPos extends AbstractPathJob implements IDestinationPat
      * @param entity           the entity.
      */
     public PathJobRandomPos(
-      final Level world,
-      @NotNull final BlockPos start,
-      final int minDistFromStart,
-      final int searchRange,
-      final int maxDistToDest,
-      final Mob entity,
-      @NotNull final BlockPos dest)
+        final Level world,
+        @NotNull final BlockPos start,
+        final int minDistFromStart,
+        final int searchRange,
+        final int maxDistToDest,
+        final Mob entity,
+        @NotNull final BlockPos dest)
     {
         super(world, start, searchRange, new PathResult<PathJobRandomPos>(), entity);
         this.minDistFromStart = minDistFromStart;
@@ -96,22 +96,22 @@ public class PathJobRandomPos extends AbstractPathJob implements IDestinationPat
      * @param entity           the entity.
      */
     public PathJobRandomPos(
-      final Level world,
-      @NotNull final BlockPos start,
-      final int minDistFromStart,
-      final int range,
-      final Mob entity,
-      final BlockPos startRestriction,
-      final BlockPos endRestriction)
+        final Level world,
+        @NotNull final BlockPos start,
+        final int minDistFromStart,
+        final int range,
+        final Mob entity,
+        final BlockPos startRestriction,
+        final BlockPos endRestriction)
     {
         super(world, start, range, new PathResult<PathJobRandomPos>(), entity);
 
         restrictionBox = new AABB(Math.min(startRestriction.getX(), endRestriction.getX()),
-          Math.min(startRestriction.getY(), endRestriction.getY()),
-          Math.min(startRestriction.getZ(), endRestriction.getZ()),
-          Math.max(startRestriction.getX(), endRestriction.getX()),
-          Math.max(startRestriction.getY(), endRestriction.getY()),
-          Math.max(startRestriction.getZ(), endRestriction.getZ()));
+            Math.min(startRestriction.getY(), endRestriction.getY()),
+            Math.min(startRestriction.getZ(), endRestriction.getZ()),
+            Math.max(startRestriction.getX(), endRestriction.getX()),
+            Math.max(startRestriction.getY(), endRestriction.getY()),
+            Math.max(startRestriction.getZ(), endRestriction.getZ()));
         restrictionBoxCenter = BlockPos.containing(restrictionBox.getCenter());
         this.minDistFromStart = minDistFromStart;
         this.maxDistToDest = -1;
@@ -134,11 +134,11 @@ public class PathJobRandomPos extends AbstractPathJob implements IDestinationPat
     protected boolean isAtDestination(@NotNull final MNode n)
     {
         if ((restrictionBox == null || restrictionBox.contains(n.x, n.y, n.z))
-              && BlockPosUtil.distSqr(start, n.x, n.y, n.z) > minDistFromStart * minDistFromStart
-              && (maxDistToDest == -1 || BlockPosUtil.distSqr(destination, n.x, n.y, n.z) < this.maxDistToDest * this.maxDistToDest)
-              && (getPathingOptions().canWalkUnderWater() || !PathfindingUtils.isWater(cachedBlockLookup, tempWorldPos.set(n.x, n.y - 1, n.z)))
-              && SurfaceType.getSurfaceType(cachedBlockLookup, cachedBlockLookup.getBlockState(n.x, n.y - 1, n.z), tempWorldPos.set(n.x, n.y - 1, n.z), getPathingOptions())
-                   == SurfaceType.WALKABLE)
+            && BlockPosUtil.distSqr(start, n.x, n.y, n.z) > minDistFromStart * minDistFromStart
+            && (maxDistToDest == -1 || BlockPosUtil.distSqr(destination, n.x, n.y, n.z) < this.maxDistToDest * this.maxDistToDest)
+            && (getPathingOptions().canWalkUnderWater() || !PathfindingUtils.isWater(cachedBlockLookup, tempWorldPos.set(n.x, n.y - 1, n.z)))
+            && SurfaceType.getSurfaceType(cachedBlockLookup, cachedBlockLookup.getBlockState(n.x, n.y - 1, n.z), tempWorldPos.set(n.x, n.y - 1, n.z), getPathingOptions())
+            == SurfaceType.WALKABLE)
         {
             return true;
         }

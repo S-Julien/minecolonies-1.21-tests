@@ -42,6 +42,7 @@ public class RecipeSetting implements ICraftingSetting
 
     /**
      * Create a new crafting setting.
+     *
      * @param craftingModuleId the crafting module id.
      */
     public RecipeSetting(final String craftingModuleId)
@@ -52,7 +53,7 @@ public class RecipeSetting implements ICraftingSetting
     /**
      * Create a new string list setting.
      *
-     * @param selectedRecipe the current selected recipe.
+     * @param selectedRecipe   the current selected recipe.
      * @param craftingModuleId the crafting module id.
      */
     public RecipeSetting(final IToken<?> selectedRecipe, final String craftingModuleId)
@@ -125,11 +126,11 @@ public class RecipeSetting implements ICraftingSetting
     @OnlyIn(Dist.CLIENT)
     @Override
     public void setupHandler(
-      final ISettingKey<?> key,
-      final Pane pane,
-      final ISettingsModuleView settingsModuleView,
-      final IBuildingView building,
-      final BOWindow window)
+        final ISettingKey<?> key,
+        final Pane pane,
+        final ISettingsModuleView settingsModuleView,
+        final IBuildingView building,
+        final BOWindow window)
     {
         pane.findPaneOfTypeByID("trigger", ButtonImage.class).setHandler(input -> {
             final List<IRecipeStorage> list = building.getModuleViewByType(CraftingModuleView.class).getRecipes();
@@ -158,11 +159,11 @@ public class RecipeSetting implements ICraftingSetting
 
     @Override
     public void render(
-      final ISettingKey<?> key,
-      final Pane pane,
-      final ISettingsModuleView settingsModuleView,
-      final IBuildingView building,
-      final BOWindow window)
+        final ISettingKey<?> key,
+        final Pane pane,
+        final ISettingsModuleView settingsModuleView,
+        final IBuildingView building,
+        final BOWindow window)
     {
         final IRecipeStorage stack = getValue(building);
         ButtonImage triggerButton = pane.findPaneOfTypeByID("trigger", ButtonImage.class);

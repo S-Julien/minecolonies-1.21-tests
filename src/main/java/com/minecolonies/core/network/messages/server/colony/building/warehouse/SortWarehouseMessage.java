@@ -47,7 +47,7 @@ public class SortWarehouseMessage extends AbstractBuildingServerMessage<Building
 
     @Override
     protected void onExecute(
-      final NetworkEvent.Context ctxIn, final boolean isLogicalServer, final IColony colony, final BuildingWareHouse building)
+        final NetworkEvent.Context ctxIn, final boolean isLogicalServer, final IColony colony, final BuildingWareHouse building)
     {
         if (building.getBuildingLevel() >= REQUIRED_LEVEL_TO_SORT_WAREHOUSE)
         {

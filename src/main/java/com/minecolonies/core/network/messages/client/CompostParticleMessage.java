@@ -84,12 +84,12 @@ public class CompostParticleMessage implements IMessage
                 d1 = random.nextGaussian() * 0.02D;
                 d2 = random.nextGaussian() * 0.02D;
                 world.addParticle(ParticleTypes.HAPPY_VILLAGER,
-                  (double) ((float) pos.getX() + random.nextFloat()),
-                  (double) pos.getY() + (double) random.nextFloat() * state.getShape(world, pos).bounds().maxY,
-                  (double) ((float) pos.getZ() + random.nextFloat()),
-                  d0,
-                  d1,
-                  d2
+                    (double) ((float) pos.getX() + random.nextFloat()),
+                    (double) pos.getY() + (double) random.nextFloat() * state.getShape(world, pos).bounds().maxY,
+                    (double) ((float) pos.getZ() + random.nextFloat()),
+                    d0,
+                    d1,
+                    d2
                 );
             }
         }
@@ -101,12 +101,12 @@ public class CompostParticleMessage implements IMessage
                 d1 = random.nextGaussian() * 0.02D;
                 d2 = random.nextGaussian() * 0.02D;
                 world.addParticle(ParticleTypes.HAPPY_VILLAGER,
-                  (double) ((float) pos.getX() + random.nextFloat()),
-                  (double) pos.getY() + (double) random.nextFloat() * 1.0D,
-                  (double) ((float) pos.getZ() + random.nextFloat()),
-                  d0,
-                  d1,
-                  d2
+                    (double) ((float) pos.getX() + random.nextFloat()),
+                    (double) pos.getY() + (double) random.nextFloat() * 1.0D,
+                    (double) ((float) pos.getZ() + random.nextFloat()),
+                    d0,
+                    d1,
+                    d2
                 );
             }
         }

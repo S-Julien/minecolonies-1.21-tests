@@ -153,12 +153,12 @@ public class BlockMinecoloniesRack extends AbstractBlockMinecoloniesRack<BlockMi
     @Override
     @NotNull
     public BlockState updateShape(
-      @NotNull final BlockState state,
-      @NotNull final Direction dir,
-      final BlockState neighbourState,
-      @NotNull final LevelAccessor level,
-      @NotNull final BlockPos pos,
-      @NotNull final BlockPos neighbourPos)
+        @NotNull final BlockState state,
+        @NotNull final Direction dir,
+        final BlockState neighbourState,
+        @NotNull final LevelAccessor level,
+        @NotNull final BlockPos pos,
+        @NotNull final BlockPos neighbourPos)
     {
         if (state.getBlock() != this || pos.subtract(neighbourPos).getY() != 0)
         {
@@ -197,10 +197,10 @@ public class BlockMinecoloniesRack extends AbstractBlockMinecoloniesRack<BlockMi
             boolean isEmpty = hereRack.isEmpty() && neighborRack.isEmpty();
 
             level.setBlock(neighbourPos,
-              neighbourState.setValue(FACING, BY_NORMAL.get(neighbourPos.subtract(pos).asLong()).getOpposite()).setValue(VARIANT, RackType.NO_RENDER),
-              1);
+                neighbourState.setValue(FACING, BY_NORMAL.get(neighbourPos.subtract(pos).asLong()).getOpposite()).setValue(VARIANT, RackType.NO_RENDER),
+                1);
             return state.setValue(VARIANT, isEmpty ? RackType.EMPTY_DOUBLE : RackType.FULL_DOUBLE)
-                     .setValue(FACING, BY_NORMAL.get(neighbourPos.subtract(pos).asLong()));
+                .setValue(FACING, BY_NORMAL.get(neighbourPos.subtract(pos).asLong()));
         }
 
         // Validate double variant
@@ -234,25 +234,25 @@ public class BlockMinecoloniesRack extends AbstractBlockMinecoloniesRack<BlockMi
 
     @Override
     public InteractionResult use(
-      final BlockState state,
-      final Level worldIn,
-      final BlockPos pos,
-      final Player player,
-      final InteractionHand hand,
-      final BlockHitResult ray)
+        final BlockState state,
+        final Level worldIn,
+        final BlockPos pos,
+        final Player player,
+        final InteractionHand hand,
+        final BlockHitResult ray)
     {
         final IColony colony = IColonyManager.getInstance().getColonyByPosFromWorld(worldIn, pos);
         final BlockEntity tileEntity = worldIn.getBlockEntity(pos);
 
         if ((colony == null || colony.getPermissions().hasPermission(player, Action.ACCESS_HUTS))
-              && tileEntity instanceof TileEntityRack)
+            && tileEntity instanceof TileEntityRack)
         {
             final TileEntityRack rack = (TileEntityRack) tileEntity;
             if (!worldIn.isClientSide)
             {
                 NetworkHooks.openScreen((ServerPlayer) player,
-                  rack,
-                  buf -> buf.writeBlockPos(rack.getBlockPos()).writeBlockPos(rack.getOtherChest() == null ? BlockPos.ZERO : rack.getOtherChest().getBlockPos()));
+                    rack,
+                    buf -> buf.writeBlockPos(rack.getBlockPos()).writeBlockPos(rack.getOtherChest() == null ? BlockPos.ZERO : rack.getOtherChest().getBlockPos()));
             }
             return InteractionResult.SUCCESS;
         }
@@ -290,10 +290,10 @@ public class BlockMinecoloniesRack extends AbstractBlockMinecoloniesRack<BlockMi
             {
                 TileEntityRack tileEntityRack = (TileEntityRack) tileEntity;
                 InventoryUtils.dropItemHandler(tileEntityRack.getInventory(),
-                  worldIn,
-                  tileEntityRack.getBlockPos().getX(),
-                  tileEntityRack.getBlockPos().getY(),
-                  tileEntityRack.getBlockPos().getZ());
+                    worldIn,
+                    tileEntityRack.getBlockPos().getX(),
+                    tileEntityRack.getBlockPos().getY(),
+                    tileEntityRack.getBlockPos().getZ());
                 worldIn.updateNeighbourForOutputSignal(pos, this);
             }
 

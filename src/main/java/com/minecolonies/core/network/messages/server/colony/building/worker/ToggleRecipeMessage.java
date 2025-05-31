@@ -34,9 +34,10 @@ public class ToggleRecipeMessage extends AbstractBuildingServerMessage<IBuilding
 
     /**
      * Creates message for player to enable/disable a recipe.
-     *  @param building view of the building to read data from
+     *
+     * @param building view of the building to read data from
      * @param location the recipeLocation.
-     * @param id the unique id of the crafting module.
+     * @param id       the unique id of the crafting module.
      */
     public ToggleRecipeMessage(@NotNull final IBuildingView building, final int location, final int id)
     {
@@ -62,7 +63,7 @@ public class ToggleRecipeMessage extends AbstractBuildingServerMessage<IBuilding
     @Override
     protected void onExecute(final NetworkEvent.Context ctxIn, final boolean isLogicalServer, final IColony colony, final IBuilding building)
     {
-        if (building.getModule(id)!= null)
+        if (building.getModule(id) != null)
         {
             final AbstractCraftingBuildingModule module = (AbstractCraftingBuildingModule) building.getModule(id);
             module.toggle(recipeLocation);

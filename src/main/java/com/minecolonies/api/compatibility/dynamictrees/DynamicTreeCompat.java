@@ -94,11 +94,11 @@ public final class DynamicTreeCompat extends DynamicTreeProxy
      */
     @Override
     public NonNullList<ItemStack> getDropsForLeaf(
-      final LevelAccessor world,
-      final BlockPos pos,
-      final BlockState blockstate,
-      final int fortune,
-      final Block leaf)
+        final LevelAccessor world,
+        final BlockPos pos,
+        final BlockState blockstate,
+        final int fortune,
+        final Block leaf)
     {
         if (leaf instanceof final DynamicLeavesBlock leaves)
         {
@@ -151,7 +151,7 @@ public final class DynamicTreeCompat extends DynamicTreeProxy
             if (fake == null)
             {
                 fakePlayers.put(dim, new FakePlayer((ServerLevel) world,
-                  new GameProfile(UUID.randomUUID(), "minecolonies_LumberjackFake")));
+                    new GameProfile(UUID.randomUUID(), "minecolonies_LumberjackFake")));
                 fake = fakePlayers.get(dim);
             }
 

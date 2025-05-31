@@ -27,7 +27,7 @@ public class JobNetherWorker extends AbstractJobCrafter<EntityAIWorkNether, JobN
     /**
      * Queue of items produced from the initial crafting, containing tokens to be processed
      */
-    private Queue<ItemStack> craftedResults =new LinkedList<>();
+    private Queue<ItemStack> craftedResults = new LinkedList<>();
 
     /**
      * Post processed queue, no longer contains tokens, or items that were unable to be 'mined' due to tool breakage
@@ -119,7 +119,7 @@ public class JobNetherWorker extends AbstractJobCrafter<EntityAIWorkNether, JobN
     @Override
     public double getDiseaseModifier()
     {
-        if(this.getCitizen().getEntity().isPresent() && this.getCitizen().getEntity().get().isInvisible())
+        if (this.getCitizen().getEntity().isPresent() && this.getCitizen().getEntity().get().isInvisible())
         {
             return 0;
         }
@@ -129,7 +129,7 @@ public class JobNetherWorker extends AbstractJobCrafter<EntityAIWorkNether, JobN
     @Override
     public int getIdleSeverity(boolean isDemand)
     {
-        if(isDemand)
+        if (isDemand)
         {
             return super.getIdleSeverity(isDemand);
         }
@@ -142,6 +142,7 @@ public class JobNetherWorker extends AbstractJobCrafter<EntityAIWorkNether, JobN
 
     /**
      * Mark the worker as in the nether or not.
+     *
      * @param away true if in the nether
      */
     public void setInNether(boolean away)
@@ -168,6 +169,7 @@ public class JobNetherWorker extends AbstractJobCrafter<EntityAIWorkNether, JobN
 
     /**
      * Add a list of items to the crafted results list
+     *
      * @param newResults items to add
      * @return true if success
      */
@@ -187,6 +189,7 @@ public class JobNetherWorker extends AbstractJobCrafter<EntityAIWorkNether, JobN
 
     /**
      * Add a list of items to the processed results list
+     *
      * @param newResults items to add
      * @return true if success
      */

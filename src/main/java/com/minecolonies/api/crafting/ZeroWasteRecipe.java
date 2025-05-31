@@ -37,9 +37,10 @@ import java.util.function.Consumer;
  */
 public class ZeroWasteRecipe extends ShapelessRecipe
 {
-    public ZeroWasteRecipe(@NotNull final ResourceLocation id,
-                           @NotNull final ItemStack output,
-                           @NotNull final NonNullList<Ingredient> inputs)
+    public ZeroWasteRecipe(
+        @NotNull final ResourceLocation id,
+        @NotNull final ItemStack output,
+        @NotNull final NonNullList<Ingredient> inputs)
     {
         super(id, "", CraftingBookCategory.MISC, output, inputs);
     }
@@ -64,8 +65,9 @@ public class ZeroWasteRecipe extends ShapelessRecipe
     {
         @NotNull
         @Override
-        public ZeroWasteRecipe fromJson(@NotNull final ResourceLocation id,
-                                        @NotNull final JsonObject json)
+        public ZeroWasteRecipe fromJson(
+            @NotNull final ResourceLocation id,
+            @NotNull final JsonObject json)
         {
             final ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
             final JsonArray array = GsonHelper.getAsJsonArray(json, "ingredients");
@@ -80,8 +82,9 @@ public class ZeroWasteRecipe extends ShapelessRecipe
 
         @Nullable
         @Override
-        public ZeroWasteRecipe fromNetwork(@NotNull final ResourceLocation id,
-                                           @NotNull final FriendlyByteBuf buf)
+        public ZeroWasteRecipe fromNetwork(
+            @NotNull final ResourceLocation id,
+            @NotNull final FriendlyByteBuf buf)
         {
             final int count = buf.readVarInt();
             final NonNullList<Ingredient> inputs = NonNullList.withSize(count, Ingredient.EMPTY);
@@ -95,8 +98,9 @@ public class ZeroWasteRecipe extends ShapelessRecipe
         }
 
         @Override
-        public void toNetwork(@NotNull final FriendlyByteBuf buf,
-                              @NotNull final ZeroWasteRecipe recipe)
+        public void toNetwork(
+            @NotNull final FriendlyByteBuf buf,
+            @NotNull final ZeroWasteRecipe recipe)
         {
             buf.writeVarInt(recipe.getIngredients().size());
             for (final Ingredient input : recipe.getIngredients())
@@ -107,24 +111,26 @@ public class ZeroWasteRecipe extends ShapelessRecipe
         }
     }
 
-    public static Builder build(@NotNull final RecipeCategory category,
-                                @NotNull final ItemLike output,
-                                final int count)
+    public static Builder build(
+        @NotNull final RecipeCategory category,
+        @NotNull final ItemLike output,
+        final int count)
     {
         return new Builder(category, output, count);
     }
 
     public static class Builder extends CraftingRecipeBuilder implements RecipeBuilder
     {
-        private final RecipeCategory category;
-        private final Item output;
-        private final int count;
-        private final List<Ingredient> ingredients = Lists.newArrayList();
+        private final RecipeCategory      category;
+        private final Item                output;
+        private final int                 count;
+        private final List<Ingredient>    ingredients = Lists.newArrayList();
         private final Advancement.Builder advancement = Advancement.Builder.recipeAdvancement();
 
-        public Builder(@NotNull final RecipeCategory category,
-                       @NotNull final ItemLike output,
-                       final int count)
+        public Builder(
+            @NotNull final RecipeCategory category,
+            @NotNull final ItemLike output,
+            final int count)
         {
             this.category = category;
             this.output = output.asItem();
@@ -188,7 +194,7 @@ public class ZeroWasteRecipe extends ShapelessRecipe
         {
             this.ensureValid(id);
             this.advancement.parent(ROOT_RECIPE_ADVANCEMENT).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
-                    .rewards(AdvancementRewards.Builder.recipe(id)).requirements(RequirementsStrategy.OR);
+                .rewards(AdvancementRewards.Builder.recipe(id)).requirements(RequirementsStrategy.OR);
             consumer.accept(new Result(id, this.output, this.count, this.ingredients, this.advancement, id.withPrefix("recipes/" + this.category.getFolderName() + "/")));
         }
 
@@ -202,19 +208,20 @@ public class ZeroWasteRecipe extends ShapelessRecipe
 
         public static class Result implements FinishedRecipe
         {
-            private final ResourceLocation id;
-            private final Item output;
-            private final int count;
-            private final List<Ingredient> inputs;
+            private final ResourceLocation    id;
+            private final Item                output;
+            private final int                 count;
+            private final List<Ingredient>    inputs;
             private final Advancement.Builder advancement;
-            private final ResourceLocation advancementId;
+            private final ResourceLocation    advancementId;
 
-            public Result(@NotNull final ResourceLocation id,
-                          @NotNull final Item output,
-                          final int count,
-                          @NotNull final List<Ingredient> inputs,
-                          @NotNull final Advancement.Builder advancement,
-                          @NotNull final ResourceLocation advancementId)
+            public Result(
+                @NotNull final ResourceLocation id,
+                @NotNull final Item output,
+                final int count,
+                @NotNull final List<Ingredient> inputs,
+                @NotNull final Advancement.Builder advancement,
+                @NotNull final ResourceLocation advancementId)
             {
                 this.id = id;
                 this.output = output;

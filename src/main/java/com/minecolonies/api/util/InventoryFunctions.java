@@ -45,9 +45,9 @@ public final class InventoryFunctions
      * @return true if it found a stack
      */
     private static boolean matchInProvider(
-      @Nullable final ICapabilityProvider provider,
-      @NotNull final Function<ICapabilityProvider, Function<Integer, Predicate<ItemStack>>> tester,
-      final boolean stopAfterFirst)
+        @Nullable final ICapabilityProvider provider,
+        @NotNull final Function<ICapabilityProvider, Function<Integer, Predicate<ItemStack>>> tester,
+        final boolean stopAfterFirst)
     {
         if (provider == null)
         {
@@ -102,22 +102,22 @@ public final class InventoryFunctions
      * @return true if it found a stack
      */
     public static boolean matchFirstInProviderWithAction(
-      final ICapabilityProvider provider,
-      @NotNull final Predicate<ItemStack> tester,
-      @NotNull final IMatchActionResult action)
+        final ICapabilityProvider provider,
+        @NotNull final Predicate<ItemStack> tester,
+        @NotNull final IMatchActionResult action)
     {
         return matchInProvider(
-          provider,
-          inv -> slot -> stack ->
-          {
-              if (tester.test(stack))
-              {
-                  action.accept(provider, slot);
-                  return true;
-              }
-              return false;
-          },
-          true);
+            provider,
+            inv -> slot -> stack ->
+            {
+                if (tester.test(stack))
+                {
+                    action.accept(provider, slot);
+                    return true;
+                }
+                return false;
+            },
+            true);
     }
 
     /**
@@ -129,21 +129,21 @@ public final class InventoryFunctions
      * @return true if it found a stack
      */
     public static boolean matchFirstInHandlerWithAction(
-      @NotNull final IItemHandler itemHandler,
-      @NotNull final Predicate<ItemStack> tester,
-      @NotNull final IMatchActionResultHandler action)
+        @NotNull final IItemHandler itemHandler,
+        @NotNull final Predicate<ItemStack> tester,
+        @NotNull final IMatchActionResultHandler action)
     {
         return matchInHandler(
-          itemHandler,
-          inv -> slot -> stack ->
-          {
-              if (tester.test(stack))
-              {
-                  action.accept(itemHandler, slot);
-                  return true;
-              }
-              return false;
-          });
+            itemHandler,
+            inv -> slot -> stack ->
+            {
+                if (tester.test(stack))
+                {
+                    action.accept(itemHandler, slot);
+                    return true;
+                }
+                return false;
+            });
     }
 
     /**
@@ -154,8 +154,8 @@ public final class InventoryFunctions
      * @return true if it found a stack
      */
     private static boolean matchInHandler(
-      @Nullable final IItemHandler handler,
-      @NotNull final Function<IItemHandler, Function<Integer, Predicate<ItemStack>>> tester)
+        @Nullable final IItemHandler handler,
+        @NotNull final Function<IItemHandler, Function<Integer, Predicate<ItemStack>>> tester)
     {
         if (handler == null)
         {
@@ -185,22 +185,22 @@ public final class InventoryFunctions
      * @return true if it found a stack
      */
     public static boolean matchFirstInProviderWithSimpleAction(
-      final ICapabilityProvider provider,
-      @NotNull final Predicate<ItemStack> tester,
-      @NotNull final Consumer<Integer> action)
+        final ICapabilityProvider provider,
+        @NotNull final Predicate<ItemStack> tester,
+        @NotNull final Consumer<Integer> action)
     {
         return matchInProvider(
-          provider,
-          inv -> slot -> stack ->
-          {
-              if (tester.test(stack))
-              {
-                  action.accept(slot);
-                  return true;
-              }
-              return false;
-          },
-          true);
+            provider,
+            inv -> slot -> stack ->
+            {
+                if (tester.test(stack))
+                {
+                    action.accept(slot);
+                    return true;
+                }
+                return false;
+            },
+            true);
     }
 
     /**

@@ -65,8 +65,8 @@ public interface IRaiderManager
      *
      * @param willRaid true or false.
      * @param raidType string containing the name of the raider group.
-     *               Accepted names include "pirate", "egyptian", "norsemen", "barbarian", and "amazon".
-     *               Defaults to "barbarian" if unsupported type is attempted.
+     *                 Accepted names include "pirate", "egyptian", "norsemen", "barbarian", and "amazon".
+     *                 Defaults to "barbarian" if unsupported type is attempted.
      */
     default void setRaidNextNight(final boolean willRaid, final String raidType)
     {
@@ -94,7 +94,8 @@ public interface IRaiderManager
 
     /**
      * Trigger a specific type of raid on a colony.
-     * @param raidType the type of raid (or empty).
+     *
+     * @param raidType       the type of raid (or empty).
      * @param overrideConfig if it should override the config to allow raiders.
      */
     default RaidSpawnResult raiderEvent(String raidType, final boolean overrideConfig)
@@ -104,8 +105,9 @@ public interface IRaiderManager
 
     /**
      * Trigger a specific type of raid on a colony.
-     * @param raidType the type of raid (or empty).
-     * @param forced if it is forced to spawn.
+     *
+     * @param raidType   the type of raid (or empty).
+     * @param forced     if it is forced to spawn.
      * @param allowShips if ship spawns are allowed.
      */
     RaidSpawnResult raiderEvent(String raidType, final boolean forced, final boolean allowShips);
@@ -188,18 +190,21 @@ public interface IRaiderManager
 
     /**
      * Called on loosing a citizen, to record deaths during raids
+     *
      * @param citizen that died
      */
     void onLostCitizen(ICitizenData citizen);
 
     /**
      * Writes the raid manager to nbt
+     *
      * @param compound to write to
      */
     void write(CompoundTag compound);
 
     /**
      * Reads the raid manager form nbt
+     *
      * @param compound to read from
      */
     void read(CompoundTag compound);

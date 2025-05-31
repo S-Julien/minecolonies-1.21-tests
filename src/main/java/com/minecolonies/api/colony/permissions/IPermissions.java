@@ -19,9 +19,9 @@ public interface IPermissions
     /**
      * IDs of the initial ranks according to their old enum values
      */
-    int OWNER_RANK_ID = 0;
+    int OWNER_RANK_ID   = 0;
     int OFFICER_RANK_ID = 1;
-    int FRIEND_RANK_ID = 2;
+    int FRIEND_RANK_ID  = 2;
     int NEUTRAL_RANK_ID = 3;
     int HOSTILE_RANK_ID = 4;
 
@@ -33,12 +33,14 @@ public interface IPermissions
 
     /**
      * Returns a map of all ranks present in the colony, identified by their ID
+     *
      * @return the map
      */
     Map<Integer, Rank> getRanks();
 
     /**
      * Returns the rank with the given ID
+     *
      * @param id the id
      * @return the rank
      */
@@ -46,30 +48,35 @@ public interface IPermissions
 
     /**
      * Returns the owner rank
+     *
      * @return the rank
      */
     Rank getRankOwner();
 
     /**
      * Returns the officer rank
+     *
      * @return the rank
      */
     Rank getRankOfficer();
 
     /**
      * Returns the hostile rank
+     *
      * @return the rank
      */
     Rank getRankHostile();
 
     /**
      * Returns the neutral rank
+     *
      * @return the rank
      */
     Rank getRankNeutral();
 
     /**
      * Returns the friend rank
+     *
      * @return the rank
      */
     Rank getRankFriend();
@@ -124,12 +131,15 @@ public interface IPermissions
 
     /**
      * Check if a specific permission can be altered.
-     * @param actor acting rank.
-     * @param rank the rank to check it for.
+     *
+     * @param actor  acting rank.
+     * @param rank   the rank to check it for.
      * @param action the action to check.
      * @return true if so.
      */
-    boolean canAlterPermission(Rank actor, Rank rank, @NotNull Action action);;
+    boolean canAlterPermission(Rank actor, Rank rank, @NotNull Action action);
+
+    ;
 
     /**
      * Sets the owner to abandoned
@@ -191,6 +201,7 @@ public interface IPermissions
 
     /**
      * Removes the given rank from the colony
+     *
      * @param rank the rank
      */
     void removeRank(Rank rank);

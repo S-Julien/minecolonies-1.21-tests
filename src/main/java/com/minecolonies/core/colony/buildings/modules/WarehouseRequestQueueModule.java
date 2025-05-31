@@ -63,6 +63,7 @@ public class WarehouseRequestQueueModule extends AbstractBuildingModule implemen
 
     /**
      * Add request to warehouse queue.
+     *
      * @param requestToken request to add.
      */
     public void addRequest(IToken<?> requestToken)
@@ -73,6 +74,7 @@ public class WarehouseRequestQueueModule extends AbstractBuildingModule implemen
 
     /**
      * Get a mutable version of the request list.
+     *
      * @return the mutable request list.
      */
     public List<IToken<?>> getMutableRequestList()

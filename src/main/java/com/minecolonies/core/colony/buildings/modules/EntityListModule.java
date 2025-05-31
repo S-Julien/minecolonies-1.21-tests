@@ -40,6 +40,7 @@ public class EntityListModule extends AbstractBuildingModule implements IEntityL
 
     /**
      * Construct a new grouped itemlist module with the unique list identifier.
+     *
      * @param id the list id.
      */
     public EntityListModule(final String id)

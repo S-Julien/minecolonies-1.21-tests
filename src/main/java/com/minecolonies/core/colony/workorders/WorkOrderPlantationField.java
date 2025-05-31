@@ -25,21 +25,21 @@ public class WorkOrderPlantationField extends AbstractWorkOrder
     }
 
     private WorkOrderPlantationField(
-      String packName, String path, final String translationKey, WorkOrderType workOrderType, BlockPos location, int rotation, boolean isMirrored, int currentLevel,
-      int targetLevel)
+        String packName, String path, final String translationKey, WorkOrderType workOrderType, BlockPos location, int rotation, boolean isMirrored, int currentLevel,
+        int targetLevel)
     {
         super(packName, path, translationKey, workOrderType, location, rotation, isMirrored, currentLevel, targetLevel);
     }
 
     public static WorkOrderPlantationField create(
-      @NotNull final WorkOrderType type,
-      final String packName,
-      final String path,
-      final String translationKey,
-      final BlockPos location,
-      final int rotation,
-      final boolean mirror,
-      final int currentLevel)
+        @NotNull final WorkOrderType type,
+        final String packName,
+        final String path,
+        final String translationKey,
+        final BlockPos location,
+        final int rotation,
+        final boolean mirror,
+        final int currentLevel)
     {
         int targetLevel = 1;
         if (type == WorkOrderType.REMOVE)
@@ -48,15 +48,15 @@ public class WorkOrderPlantationField extends AbstractWorkOrder
         }
 
         return new WorkOrderPlantationField(
-          packName,
-          path,
-          translationKey,
-          type,
-          location,
-          rotation,
-          mirror,
-          currentLevel,
-          targetLevel);
+            packName,
+            path,
+            translationKey,
+            type,
+            location,
+            rotation,
+            mirror,
+            currentLevel,
+            targetLevel);
     }
 
     @Override

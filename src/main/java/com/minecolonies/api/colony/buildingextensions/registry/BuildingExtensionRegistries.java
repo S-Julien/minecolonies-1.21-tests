@@ -78,9 +78,9 @@ public class BuildingExtensionRegistries
          * Default internal constructor.
          */
         private BuildingExtensionEntry(
-          final ResourceLocation registryName,
-          final BiFunction<BuildingExtensionEntry, BlockPos, IBuildingExtension> extensionProducer,
-          final List<Function<IBuildingExtension, IBuildingExtensionModule>> extensionModuleProducers)
+            final ResourceLocation registryName,
+            final BiFunction<BuildingExtensionEntry, BlockPos, IBuildingExtension> extensionProducer,
+            final List<Function<IBuildingExtension, IBuildingExtensionModule>> extensionModuleProducers)
         {
             this.registryName = registryName;
             this.extensionProducer = extensionProducer;

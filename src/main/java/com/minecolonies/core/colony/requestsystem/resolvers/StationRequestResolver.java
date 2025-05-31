@@ -39,9 +39,9 @@ public class StationRequestResolver extends BuildingRequestResolver
             {
                 final AbstractBuilding theBuilding = building.get();
                 if (theBuilding instanceof BuildingWareHouse
-                      || theBuilding.getCitizenForRequest(request.getId()).isPresent()
-                      || theBuilding.hasModule(WorkerBuildingModule.class)
-                      || !theBuilding.hasModule(IAssignsCitizen.class))
+                    || theBuilding.getCitizenForRequest(request.getId()).isPresent()
+                    || theBuilding.hasModule(WorkerBuildingModule.class)
+                    || !theBuilding.hasModule(IAssignsCitizen.class))
                 {
                     return false;
                 }
@@ -65,9 +65,9 @@ public class StationRequestResolver extends BuildingRequestResolver
     public boolean canResolveForBuilding(@NotNull final IRequestManager manager, @NotNull final IRequest<? extends IDeliverable> request, @NotNull final AbstractBuilding building)
     {
         if (building instanceof BuildingWareHouse
-              || building.getCitizenForRequest(request.getId()).isPresent()
-              || building.hasModule(WorkerBuildingModule.class)
-              || !building.hasModule(AbstractAssignedCitizenModule.class))
+            || building.getCitizenForRequest(request.getId()).isPresent()
+            || building.hasModule(WorkerBuildingModule.class)
+            || !building.hasModule(AbstractAssignedCitizenModule.class))
         {
             return false;
         }

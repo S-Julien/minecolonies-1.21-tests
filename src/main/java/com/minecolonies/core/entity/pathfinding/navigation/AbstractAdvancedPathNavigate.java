@@ -22,10 +22,10 @@ import java.util.List;
 public abstract class AbstractAdvancedPathNavigate extends GroundPathNavigation
 {
     //  Parent class private members
-    protected final Mob    ourEntity;
-    protected       double       walkSpeedFactor = 1.0D;
+    protected final Mob      ourEntity;
+    protected       double   walkSpeedFactor = 1.0D;
     @Nullable
-    protected       BlockPos     originalDestination;
+    protected       BlockPos originalDestination;
 
     /**
      * The navigators node costs
@@ -33,8 +33,8 @@ public abstract class AbstractAdvancedPathNavigate extends GroundPathNavigation
     private PathingOptions pathingOptions = new PathingOptions();
 
     public AbstractAdvancedPathNavigate(
-      final Mob entityLiving,
-      final Level worldIn)
+        final Mob entityLiving,
+        final Level worldIn)
     {
         super(entityLiving, worldIn);
         this.ourEntity = mob;
@@ -44,8 +44,8 @@ public abstract class AbstractAdvancedPathNavigate extends GroundPathNavigation
      * Used to path away from a position.
      *
      * @param currentPosition the position to avoid.
-     * @param range the range he should move out of.
-     * @param speed the speed to run at.
+     * @param range           the range he should move out of.
+     * @param speed           the speed to run at.
      * @param safeDestination if the destination is save and should be set.
      * @return the result of the pathing.
      */
@@ -65,9 +65,9 @@ public abstract class AbstractAdvancedPathNavigate extends GroundPathNavigation
     /**
      * Used to path away from a ourEntity.
      *
-     * @param target        the ourEntity.
-     * @param distance the distance to move to.
-     * @param combatMovementSpeed    the speed to run at.
+     * @param target              the ourEntity.
+     * @param distance            the distance to move to.
+     * @param combatMovementSpeed the speed to run at.
      * @return the result of the pathing.
      */
     protected abstract PathResult<? extends IPathJob> moveAwayFromLivingEntity(final Entity target, final double distance, final double combatMovementSpeed);
@@ -106,7 +106,7 @@ public abstract class AbstractAdvancedPathNavigate extends GroundPathNavigation
      *
      * @param range the range he should move out of.
      * @param speed the speed to run at.
-     * @param pos the pos to circle around.
+     * @param pos   the pos to circle around.
      * @return the result of the pathing.
      */
     protected abstract PathResult<? extends IPathJob> walkToRandomPosAround(final int range, final double speed, final BlockPos pos);
@@ -137,9 +137,9 @@ public abstract class AbstractAdvancedPathNavigate extends GroundPathNavigation
      * @return the result of the pathing.
      */
     protected abstract PathResult<? extends IPathJob> walkToRandomPos(
-      final int range,
-      final double speed,
-      final net.minecraft.util.Tuple<BlockPos, BlockPos> corners);
+        final int range,
+        final double speed,
+        final net.minecraft.util.Tuple<BlockPos, BlockPos> corners);
 
     /**
      * Used to find a tree.
@@ -147,22 +147,22 @@ public abstract class AbstractAdvancedPathNavigate extends GroundPathNavigation
      * @param startRestriction the start of the restricted area.
      * @param endRestriction   the end of the restricted area.
      * @param speed            walking speed.
-     * @param excludedTrees       the trees which should be cut.
+     * @param excludedTrees    the trees which should be cut.
      * @return the result of the search.
      */
     public abstract TreePathResult walkToTree(
-      final BlockPos startRestriction,
-      final BlockPos endRestriction,
-      final double speed,
-      final List<ItemStorage> excludedTrees,
-      final int dyntreesize,
-      final IColony colony);
+        final BlockPos startRestriction,
+        final BlockPos endRestriction,
+        final double speed,
+        final List<ItemStorage> excludedTrees,
+        final int dyntreesize,
+        final IColony colony);
 
     /**
      * Used to find a tree.
      *
-     * @param range      in the range.
-     * @param speed      walking speed.
+     * @param range         in the range.
+     * @param speed         walking speed.
      * @param excludedTrees the trees which should be cut.
      * @return the result of the search.
      */

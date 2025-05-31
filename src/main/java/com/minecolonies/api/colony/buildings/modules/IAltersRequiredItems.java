@@ -12,6 +12,7 @@ public interface IAltersRequiredItems extends IBuildingModule
 {
     /**
      * Check if additional items have to be kept and add to map if necessary.
+     *
      * @param consumer consumer that adds items to it.
      */
     void alterItemsToBeKept(final TriConsumer<Predicate<ItemStack>, Integer, Boolean> consumer);

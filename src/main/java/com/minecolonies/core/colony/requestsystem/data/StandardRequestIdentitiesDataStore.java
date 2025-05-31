@@ -38,8 +38,8 @@ public class StandardRequestIdentitiesDataStore implements IRequestIdentitiesDat
     private final BiMap<IToken<?>, IRequest<?>> map;
 
     public StandardRequestIdentitiesDataStore(
-      final IToken<?> id,
-      final BiMap<IToken<?>, IRequest<?>> map)
+        final IToken<?> id,
+        final BiMap<IToken<?>, IRequest<?>> map)
     {
         this.id = id;
         this.map = map;
@@ -89,7 +89,7 @@ public class StandardRequestIdentitiesDataStore implements IRequestIdentitiesDat
         @NotNull
         @Override
         public StandardRequestIdentitiesDataStore getNewInstance(
-          @NotNull final IFactoryController factoryController, @NotNull final FactoryVoidInput factoryVoidInput, @NotNull final Object... context) throws IllegalArgumentException
+            @NotNull final IFactoryController factoryController, @NotNull final FactoryVoidInput factoryVoidInput, @NotNull final Object... context) throws IllegalArgumentException
         {
             return new StandardRequestIdentitiesDataStore();
         }
@@ -160,7 +160,7 @@ public class StandardRequestIdentitiesDataStore implements IRequestIdentitiesDat
 
         @Override
         public StandardRequestIdentitiesDataStore deserialize(IFactoryController controller, FriendlyByteBuf buffer)
-          throws Throwable
+            throws Throwable
         {
             final IToken<?> token = controller.deserialize(buffer);
             final Map<IToken<?>, IRequest<?>> identities = new HashMap<>();

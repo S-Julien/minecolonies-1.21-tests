@@ -44,10 +44,10 @@ public interface ICompatibilityManager
 
     /**
      * Receive and update lists based on incoming server discovery data.
-     *
+     * <p>
      * Note: anything based purely on the registries and configs can be safely recalculated here.
-     *       But anything based on tags or recipes must be updated purely via the packet,
-     *       because this can be called before the client has the latest tags/recipes.
+     * But anything based on tags or recipes must be updated purely via the packet,
+     * because this can be called before the client has the latest tags/recipes.
      *
      * @param buf deserialization buffer
      */
@@ -84,6 +84,7 @@ public interface ICompatibilityManager
 
     /**
      * Get a set of all edibles for citizens.
+     *
      * @param minNutrition the min nutrition of the food.
      * @return list of edible food.
      */
@@ -134,6 +135,7 @@ public interface ICompatibilityManager
 
     /**
      * Get the set of all monsters.
+     *
      * @return the set.
      */
     ImmutableSet<ResourceLocation> getAllMonsters();
@@ -208,12 +210,14 @@ public interface ICompatibilityManager
 
     /**
      * Get the creative tab for a stack.
+     *
      * @param checkItem the storage wrapper.
      */
     CreativeModeTab getCreativeTab(ItemStorage checkItem);
 
     /**
      * Get the creative tab key as int associated.
+     *
      * @param checkItem the item to check.
      * @return the number or default.
      */

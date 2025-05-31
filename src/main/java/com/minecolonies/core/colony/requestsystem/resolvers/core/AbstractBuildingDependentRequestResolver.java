@@ -52,9 +52,9 @@ public abstract class AbstractBuildingDependentRequestResolver<R extends IReques
 
     @Nullable
     public abstract List<IToken<?>> attemptResolveForBuilding(
-      @NotNull final IRequestManager manager,
-      @NotNull final IRequest<? extends R> request,
-      @NotNull final AbstractBuilding building);
+        @NotNull final IRequestManager manager,
+        @NotNull final IRequest<? extends R> request,
+        @NotNull final AbstractBuilding building);
 
     @Override
     public void resolveRequest(@NotNull final IRequestManager manager, @NotNull final IRequest<? extends R> request)

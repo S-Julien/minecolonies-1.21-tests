@@ -33,7 +33,7 @@ public abstract class AbstractTeachingGuiHandler<W extends AbstractContainerScre
     protected AbstractTeachingGuiHandler(@NotNull final List<JobBasedRecipeCategory<?>> categories)
     {
         this.categories = categories.stream()
-                .collect(Collectors.toMap(category -> category.getRecipeType().getUid(), Function.identity()));
+            .collect(Collectors.toMap(category -> category.getRecipeType().getUid(), Function.identity()));
     }
 
     public void register(@NotNull final IGuiHandlerRegistration registration)
@@ -42,9 +42,13 @@ public abstract class AbstractTeachingGuiHandler<W extends AbstractContainerScre
         registration.addGhostIngredientHandler(getWindowClass(), this);
     }
 
-    @NotNull protected abstract Class<W> getWindowClass();
+    @NotNull
+    protected abstract Class<W> getWindowClass();
+
     protected abstract boolean isSupportedCraftingModule(@NotNull CraftingModuleView moduleView);
+
     protected abstract boolean isSupportedSlot(@NotNull Slot slot);
+
     protected abstract void updateServer(@NotNull W gui);
 
     @Nullable
@@ -52,7 +56,10 @@ public abstract class AbstractTeachingGuiHandler<W extends AbstractContainerScre
     {
         for (final CraftingModuleView moduleView : view.getModuleViews(CraftingModuleView.class))
         {
-            if (!isSupportedCraftingModule(moduleView)) continue;
+            if (!isSupportedCraftingModule(moduleView))
+            {
+                continue;
+            }
 
             final JobEntry jobEntry = moduleView.getJobEntry();
             if (jobEntry != null)
@@ -70,16 +77,20 @@ public abstract class AbstractTeachingGuiHandler<W extends AbstractContainerScre
 
     @NotNull
     @Override
-    public <I> List<Target<I>> getTargetsTyped(@NotNull final W gui,
-                                               @NotNull final ITypedIngredient<I> ingredient,
-                                               final boolean doStart)
+    public <I> List<Target<I>> getTargetsTyped(
+        @NotNull final W gui,
+        @NotNull final ITypedIngredient<I> ingredient,
+        final boolean doStart)
     {
         final List<Target<I>> targets = new ArrayList<>();
         if (ingredient.getType().getIngredientClass() == ItemStack.class)
         {
             for (final Slot slot : gui.getMenu().slots)
             {
-                if (!slot.isActive() || !isSupportedSlot(slot)) continue;
+                if (!slot.isActive() || !isSupportedSlot(slot))
+                {
+                    continue;
+                }
 
                 final Rect2i bounds = new Rect2i(gui.getGuiLeft() + slot.x, gui.getGuiTop() + slot.y, 17, 17);
 

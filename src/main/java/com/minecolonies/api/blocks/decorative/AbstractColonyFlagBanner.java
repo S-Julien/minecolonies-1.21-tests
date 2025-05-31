@@ -29,7 +29,7 @@ import javax.annotation.Nullable;
  */
 public abstract class AbstractColonyFlagBanner<B extends AbstractColonyFlagBanner<B>> extends AbstractBannerBlock implements IBlockMinecolonies<AbstractColonyFlagBanner<B>>
 {
-    public static final String REGISTRY_NAME = "colony_banner";
+    public static final String REGISTRY_NAME      = "colony_banner";
     public static final String REGISTRY_NAME_WALL = "colony_wall_banner";
 
     public AbstractColonyFlagBanner()
@@ -37,7 +37,7 @@ public abstract class AbstractColonyFlagBanner<B extends AbstractColonyFlagBanne
         super(
             DyeColor.WHITE,
             Properties.of().mapColor(MapColor.WOOD)
-              .sound(SoundType.WOOD)
+                .sound(SoundType.WOOD)
                 .noCollission()
                 .strength(1F)
                 .sound(SoundType.WOOD)
@@ -85,11 +85,11 @@ public abstract class AbstractColonyFlagBanner<B extends AbstractColonyFlagBanne
         {
             if (worldIn instanceof ClientLevel)
             {
-                ((TileEntityColonyFlag)tileentity).getItemClient();
+                ((TileEntityColonyFlag) tileentity).getItemClient();
             }
             else
             {
-                ((TileEntityColonyFlag)tileentity).getItemServer();
+                ((TileEntityColonyFlag) tileentity).getItemServer();
             }
         }
         return super.getCloneItemStack(worldIn, pos, state);

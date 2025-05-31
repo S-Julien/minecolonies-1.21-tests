@@ -16,8 +16,10 @@ public class ExpeditionLogModule extends AbstractBuildingModule implements IPers
 {
     private static final String TAG_LOG = "expedition";
 
-    @NotNull private final ExpeditionLog log = new ExpeditionLog();
-    @Nullable private final ResourceLocation research;
+    @NotNull
+    private final ExpeditionLog    log = new ExpeditionLog();
+    @Nullable
+    private final ResourceLocation research;
 
     public ExpeditionLogModule(@Nullable ResourceLocation research)
     {
@@ -54,5 +56,4 @@ public class ExpeditionLogModule extends AbstractBuildingModule implements IPers
             this.log.serialize(buf);
         }
     }
-
 }

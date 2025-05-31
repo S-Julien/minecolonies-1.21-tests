@@ -33,7 +33,8 @@ public class BuildingComposter extends AbstractBuilding
     /**
      * Settings key for the composting mode.
      */
-    public static final ISettingKey<BoolSetting> PRODUCE_DIRT = new SettingKey<>(BoolSetting.class, new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, "producedirt"));
+    public static final ISettingKey<BoolSetting> PRODUCE_DIRT =
+        new SettingKey<>(BoolSetting.class, new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, "producedirt"));
 
     /**
      * Key for min remainder at warehouse.
@@ -74,7 +75,8 @@ public class BuildingComposter extends AbstractBuilding
     public BuildingComposter(@NotNull final IColony c, final BlockPos l)
     {
         super(c, l);
-        keepX.put((stack) -> this.getModuleMatching(ItemListModule.class, m -> m.getId().equals(COMPOSTABLE_LIST)).isItemInList(new ItemStorage(stack)), new Tuple<>(Integer.MAX_VALUE, true));
+        keepX.put((stack) -> this.getModuleMatching(ItemListModule.class, m -> m.getId().equals(COMPOSTABLE_LIST)).isItemInList(new ItemStorage(stack)),
+            new Tuple<>(Integer.MAX_VALUE, true));
     }
 
     /**

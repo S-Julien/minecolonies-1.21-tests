@@ -56,12 +56,14 @@ public interface ICitizenDiseaseHandler
 
     /**
      * True when the citizen needs to go to a hospital because its hurt
+     *
      * @return
      */
     boolean isHurt();
 
     /**
      * Whether the citizen sleeps at a hospital
+     *
      * @return
      */
     boolean sleepsAtHospital();

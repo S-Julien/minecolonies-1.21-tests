@@ -96,18 +96,27 @@ public class GraveData implements IGraveData
     @Override
     public void read(CompoundTag compound)
     {
-        citizenDataNBT  = compound.contains(TAG_CITIZEN_NBT) ? compound.getCompound(TAG_CITIZEN_NBT) : null;
-        citizenName     = compound.contains(TAG_CITIZEN_NAME) ? compound.getString(TAG_CITIZEN_NAME) : null;
-        citizenJobName  = compound.contains(TAG_CITIZEN_JOB_NAME) ? compound.getString(TAG_CITIZEN_JOB_NAME) : null;
+        citizenDataNBT = compound.contains(TAG_CITIZEN_NBT) ? compound.getCompound(TAG_CITIZEN_NBT) : null;
+        citizenName = compound.contains(TAG_CITIZEN_NAME) ? compound.getString(TAG_CITIZEN_NAME) : null;
+        citizenJobName = compound.contains(TAG_CITIZEN_JOB_NAME) ? compound.getString(TAG_CITIZEN_JOB_NAME) : null;
     }
 
     @Override
     public CompoundTag write()
     {
         final CompoundTag compound = new CompoundTag();
-        if (citizenDataNBT != null) { compound.put(TAG_CITIZEN_NBT, citizenDataNBT); }
-        if (citizenName != null)    { compound.put(TAG_CITIZEN_NAME, StringTag.valueOf(citizenName)); }
-        if (citizenJobName != null) { compound.put(TAG_CITIZEN_JOB_NAME,StringTag.valueOf(citizenJobName)); }
+        if (citizenDataNBT != null)
+        {
+            compound.put(TAG_CITIZEN_NBT, citizenDataNBT);
+        }
+        if (citizenName != null)
+        {
+            compound.put(TAG_CITIZEN_NAME, StringTag.valueOf(citizenName));
+        }
+        if (citizenJobName != null)
+        {
+            compound.put(TAG_CITIZEN_JOB_NAME, StringTag.valueOf(citizenJobName));
+        }
 
         return compound;
     }

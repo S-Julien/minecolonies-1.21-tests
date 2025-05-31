@@ -23,7 +23,7 @@ import static com.minecolonies.api.util.constant.Suppression.UNCHECKED;
 public class CombinedItemHandler implements IItemHandlerModifiable, INBTSerializable<CompoundTag>, IWorldNameableModifiable
 {
 
-    ///NBT Constants
+    /// NBT Constants
     private static final String NBT_KEY_HANDLERS           = "Handlers";
     private static final String NBT_KEY_HANDLERS_INDEXLIST = "Index";
     private static final String NBT_KEY_NAME               = "Name";

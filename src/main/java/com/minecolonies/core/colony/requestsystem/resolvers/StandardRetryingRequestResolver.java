@@ -28,8 +28,8 @@ public class StandardRetryingRequestResolver implements IRetryingRequestResolver
 {
 
     private static final Integer CONST_RETRYING_ID_SCALE = -20000;
-    private static final int MAX_RETRIES = 3;
-    private static final int RETRY_DELAY = 1200;
+    private static final int     MAX_RETRIES             = 3;
+    private static final int     RETRY_DELAY             = 1200;
 
     private       IRequestManager             manager;
     private final ILocation                   location;
@@ -93,7 +93,7 @@ public class StandardRetryingRequestResolver implements IRetryingRequestResolver
     public boolean canResolveRequest(@NotNull final IRequestManager manager, final IRequest<? extends IRetryable> requestToCheck)
     {
         return getCurrentlyBeingReassignedRequest() == null || requestToCheck.getId() != getCurrentlyBeingReassignedRequest()
-                 || getCurrentReassignmentAttempt() < getMaximalTries();
+            || getCurrentReassignmentAttempt() < getMaximalTries();
     }
 
     @Nullable
@@ -131,7 +131,7 @@ public class StandardRetryingRequestResolver implements IRetryingRequestResolver
 
     @Override
     public void onAssignedRequestCancelled(
-      @NotNull final IRequestManager manager, @NotNull final IRequest<? extends IRetryable> request)
+        @NotNull final IRequestManager manager, @NotNull final IRequest<? extends IRetryable> request)
     {
 
     }
@@ -267,44 +267,44 @@ public class StandardRetryingRequestResolver implements IRetryingRequestResolver
     public void onColonyUpdate(@NotNull final IRequestManager manager, @NotNull final Predicate<IRequest<?>> shouldTriggerReassign)
     {
         new ArrayList<>(assignedRequests.keySet()).stream()
-          .map(manager::getRequestForToken)
-          .forEach(request ->
-          {
-              if (request != null)
-              {
-                  if (shouldTriggerReassign.test(request))
-                  {
-                      final IToken<?> newResolverToken = manager.reassignRequest(request.getId(), ImmutableList.of(getId()));
-                      if (newResolverToken != null && !newResolverToken.equals(getId()))
-                      {
-                          assignedRequests.remove(request.getId());
-                      }
-                  }
-                  else
-                  {
-                      IRequest<?> req = request;
-                      while (req.hasParent())
-                      {
-                          req = manager.getRequestForToken(req.getParent());
-                          if (req != null && shouldTriggerReassign.test(req))
-                          {
-                              if (req.hasChildren())
-                              {
-                                  final ImmutableCollection<IToken<?>> currentChildren = req.getChildren();
-                                  currentChildren.forEach(((IStandardRequestManager) manager).getRequestHandler()::onRequestCancelledDirectly);
-                              }
+            .map(manager::getRequestForToken)
+            .forEach(request ->
+            {
+                if (request != null)
+                {
+                    if (shouldTriggerReassign.test(request))
+                    {
+                        final IToken<?> newResolverToken = manager.reassignRequest(request.getId(), ImmutableList.of(getId()));
+                        if (newResolverToken != null && !newResolverToken.equals(getId()))
+                        {
+                            assignedRequests.remove(request.getId());
+                        }
+                    }
+                    else
+                    {
+                        IRequest<?> req = request;
+                        while (req.hasParent())
+                        {
+                            req = manager.getRequestForToken(req.getParent());
+                            if (req != null && shouldTriggerReassign.test(req))
+                            {
+                                if (req.hasChildren())
+                                {
+                                    final ImmutableCollection<IToken<?>> currentChildren = req.getChildren();
+                                    currentChildren.forEach(((IStandardRequestManager) manager).getRequestHandler()::onRequestCancelledDirectly);
+                                }
 
-                              IToken<?> newResolverToken = manager.reassignRequest(req.getId(), ImmutableList.of(getId()));
-                              if (newResolverToken != getId())
-                              {
-                                  assignedRequests.remove(request.getId());
-                                  break;
-                              }
-                          }
-                      }
-                  }
-              }
-          });
+                                IToken<?> newResolverToken = manager.reassignRequest(req.getId(), ImmutableList.of(getId()));
+                                if (newResolverToken != getId())
+                                {
+                                    assignedRequests.remove(request.getId());
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
     }
 
     @Override

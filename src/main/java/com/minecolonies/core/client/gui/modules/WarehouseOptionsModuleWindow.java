@@ -53,7 +53,8 @@ public class WarehouseOptionsModuleWindow extends AbstractModuleWindow
 
     /**
      * Constructor for window warehouse hut.
-     * @param module the module belonging to it.
+     *
+     * @param module   the module belonging to it.
      * @param building {@link BuildingWareHouse.View}.
      */
     public WarehouseOptionsModuleWindow(final IBuildingView building, final WarehouseOptionsModuleView module)
@@ -118,8 +119,8 @@ public class WarehouseOptionsModuleWindow extends AbstractModuleWindow
         }
 
         findPaneOfTypeByID(UPGRADE_PROGRESS_LABEL, Text.class).setText(Component.translatable(LABEL_X_OF_Z,
-          module.getStorageUpgradeLevel(),
-          BuildingWareHouse.MAX_STORAGE_UPGRADE));
+            module.getStorageUpgradeLevel(),
+            BuildingWareHouse.MAX_STORAGE_UPGRADE));
 
         switch (availability)
         {
@@ -176,7 +177,7 @@ public class WarehouseOptionsModuleWindow extends AbstractModuleWindow
         neededLabel.setText(Component.literal(resource.getAvailable() + " / " + resource.getAmount()));
         findPaneOfTypeByID(RESOURCE_QUANTITY_MISSING, Text.class).setText(Component.literal(Integer.toString(resource.getAmount() - resource.getAvailable())));
 
-        if(buildingView.getBuildingLevel() >= buildingView.getBuildingMaxLevel())
+        if (buildingView.getBuildingLevel() >= buildingView.getBuildingMaxLevel())
         {
             final ItemStack resourceStackOfOne = new ItemStack(resource.getItem(), 1);
             resourceStackOfOne.setTag(resource.getItemStack().getTag());

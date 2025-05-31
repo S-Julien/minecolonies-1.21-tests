@@ -55,9 +55,9 @@ public class RecruitmentInteraction extends ServerCitizenInteraction
 
     @SuppressWarnings("unchecked")
     private static final Tuple<Component, Component>[] responses = (Tuple<Component, Component>[]) new Tuple[] {
-      new Tuple<>(Component.translatable("com.minecolonies.coremod.gui.chat.showstats"), null),
-      recruitAnswer,
-      new Tuple<>(Component.translatable("com.minecolonies.coremod.gui.chat.notnow"), null)};
+        new Tuple<>(Component.translatable("com.minecolonies.coremod.gui.chat.showstats"), null),
+        recruitAnswer,
+        new Tuple<>(Component.translatable("com.minecolonies.coremod.gui.chat.notnow"), null)};
 
     /**
      * Chance for a bad visitor
@@ -70,8 +70,8 @@ public class RecruitmentInteraction extends ServerCitizenInteraction
     }
 
     public RecruitmentInteraction(
-      final Component inquiry,
-      final IChatPriority priority)
+        final Component inquiry,
+        final IChatPriority priority)
     {
         super(inquiry, true, priority, d -> true, null, responses);
     }
@@ -133,7 +133,7 @@ public class RecruitmentInteraction extends ServerCitizenInteraction
         if (response.equals(recruitAnswer.getA()) && data instanceof IVisitorViewData)
         {
             if (player.isCreative() || InventoryUtils.getItemCountInItemHandler(new InvWrapper(player.getInventory()), ((IVisitorViewData) data).getRecruitCost().getItem())
-                  >= ((IVisitorViewData) data).getRecruitCost().getCount())
+                >= ((IVisitorViewData) data).getRecruitCost().getCount())
             {
                 return super.onClientResponseTriggered(responseId, player, data, window);
             }
@@ -155,8 +155,8 @@ public class RecruitmentInteraction extends ServerCitizenInteraction
             if (colony.getCitizenManager().getCurrentCitizenCount() < colony.getCitizenManager().getPotentialMaxCitizens())
             {
                 if (player.isCreative() || InventoryUtils.attemptReduceStackInItemHandler(new InvWrapper(player.getInventory()),
-                  ((IVisitorData) data).getRecruitCost(),
-                  ((IVisitorData) data).getRecruitCost().getCount(), true, true))
+                    ((IVisitorData) data).getRecruitCost(),
+                    ((IVisitorData) data).getRecruitCost().getCount(), true, true))
                 {
                     // Recruits visitor as new citizen and respawns entity
                     colony.getVisitorManager().removeCivilian(data);
@@ -189,8 +189,8 @@ public class RecruitmentInteraction extends ServerCitizenInteraction
                     }
 
                     IMinecoloniesAPI.getInstance()
-                      .getEventBus()
-                      .post(new CitizenAddedModEvent(newCitizen, CitizenAddedModEvent.CitizenAddedSource.HIRED));
+                        .getEventBus()
+                        .post(new CitizenAddedModEvent(newCitizen, CitizenAddedModEvent.CitizenAddedSource.HIRED));
                 }
             }
             else

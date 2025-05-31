@@ -16,10 +16,10 @@ public class UpdateHandler implements IUpdateHandler
 {
     @VisibleForTesting
     private static final List<IUpdateStep> UPDATE_STEPS = Lists.newArrayList(
-      new InitialUpdate(),
-      new ResetRSToStoreJobInResolvers(),
-      new ResetRSToUpdateRestaurantResolver(),
-      new ResetRSToRemoveAssistantCookResolver()
+        new InitialUpdate(),
+        new ResetRSToStoreJobInResolvers(),
+        new ResetRSToUpdateRestaurantResolver(),
+        new ResetRSToRemoveAssistantCookResolver()
     );
 
     private final IStandardRequestManager manager;
@@ -41,13 +41,13 @@ public class UpdateHandler implements IUpdateHandler
         }
 
         UPDATE_STEPS.stream()
-          .filter(s -> s.updatesToVersion() > manager.getCurrentVersion())
-          .sorted(Comparator.comparing(IUpdateStep::updatesToVersion))
-          .forEachOrdered(s ->
-          {
-              manager.setCurrentVersion(s.updatesToVersion());
-              s.update(type, manager);
-          });
+            .filter(s -> s.updatesToVersion() > manager.getCurrentVersion())
+            .sorted(Comparator.comparing(IUpdateStep::updatesToVersion))
+            .forEachOrdered(s ->
+            {
+                manager.setCurrentVersion(s.updatesToVersion());
+                s.update(type, manager);
+            });
     }
 
     @Override

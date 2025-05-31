@@ -125,7 +125,7 @@ public class BuildingTownHall extends AbstractBuilding implements ITownHall
     {
         if (module.getProducer() == BuildingModules.TOWNHALL_SETTINGS)
         {
-            super.registerModule(((Colony)colony).getSettings());
+            super.registerModule(((Colony) colony).getSettings());
         }
         else
         {
@@ -321,6 +321,7 @@ public class BuildingTownHall extends AbstractBuilding implements ITownHall
 
         /**
          * Getter for the mapdata.
+         *
          * @return the original list.
          */
         public List<MapItemSavedData> getMapDataList()

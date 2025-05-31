@@ -38,13 +38,13 @@ public class DoDoorBlockPlacementHandler implements IPlacementHandler
 
     @Override
     public ActionProcessingResult handle(
-      @NotNull final Level world,
-      @NotNull final BlockPos pos,
-      @NotNull final BlockState blockState,
-      @Nullable final CompoundTag tileEntityData,
-      final boolean complete,
-      final BlockPos centerPos,
-      final PlacementSettings settings)
+        @NotNull final Level world,
+        @NotNull final BlockPos pos,
+        @NotNull final BlockState blockState,
+        @Nullable final CompoundTag tileEntityData,
+        final boolean complete,
+        final BlockPos centerPos,
+        final PlacementSettings settings)
     {
         if (blockState.getValue(net.minecraft.world.level.block.DoorBlock.HALF).equals(DoubleBlockHalf.LOWER))
         {
@@ -92,11 +92,11 @@ public class DoDoorBlockPlacementHandler implements IPlacementHandler
 
     @Override
     public List<ItemStack> getRequiredItems(
-      @NotNull final Level world,
-      @NotNull final BlockPos pos,
-      @NotNull final BlockState blockState,
-      @Nullable final CompoundTag tileEntityData,
-      final boolean complete)
+        @NotNull final Level world,
+        @NotNull final BlockPos pos,
+        @NotNull final BlockState blockState,
+        @Nullable final CompoundTag tileEntityData,
+        final boolean complete)
     {
         final List<ItemStack> itemList = new ArrayList<>();
         if (tileEntityData != null && blockState.getValue(net.minecraft.world.level.block.DoorBlock.HALF).equals(DoubleBlockHalf.LOWER))

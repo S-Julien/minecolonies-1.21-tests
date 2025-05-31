@@ -7,7 +7,7 @@
       "element": {
         "location": "minecolonies:desertoasis/builder1",
         "processors": "minecolonies:desertoasis/placeholder_replacement",
-		    "projection": "rigid",
+        "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
     },
@@ -134,5 +134,5 @@
         "element_type": "minecraft:empty_pool_element"
       }
     }
- ]
+  ]
 }

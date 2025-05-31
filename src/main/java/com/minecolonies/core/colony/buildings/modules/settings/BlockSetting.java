@@ -111,34 +111,34 @@ public class BlockSetting implements ISetting<BlockItem>
     @OnlyIn(Dist.CLIENT)
     @Override
     public void setupHandler(
-      final ISettingKey<?> key,
-      final Pane pane,
-      final ISettingsModuleView settingsModuleView,
-      final IBuildingView building,
-      final BOWindow window)
+        final ISettingKey<?> key,
+        final Pane pane,
+        final ISettingsModuleView settingsModuleView,
+        final IBuildingView building,
+        final BOWindow window)
     {
         pane.findPaneOfTypeByID("trigger", ButtonImage.class).setHandler(button -> new WindowSelectRes(
-          window,
-          stack -> {
-              final Item item = stack.getItem();
-              if (!( item instanceof BlockItem ))
-              {
-                  return false;
-              }
+            window,
+            stack -> {
+                final Item item = stack.getItem();
+                if (!(item instanceof BlockItem))
+                {
+                    return false;
+                }
 
-              final Block block = ((BlockItem) item).getBlock();
-              final BlockState state = block.defaultBlockState();
-              if (block instanceof EntityBlock || block instanceof FallingBlock || state.is(BlockTags.LEAVES))
-              {
-                  return false;
-              }
+                final Block block = ((BlockItem) item).getBlock();
+                final BlockState state = block.defaultBlockState();
+                if (block instanceof EntityBlock || block instanceof FallingBlock || state.is(BlockTags.LEAVES))
+                {
+                    return false;
+                }
 
-              return block.getShape(state, new SingleStateBlockGetter(state), BlockPos.ZERO, CollisionContext.empty()).equals(Shapes.block()) && state.blocksMotion();
-          }, (stack, qty) -> {
-              if (stack.isEmpty())
-              {
-                  return;
-              }
+                return block.getShape(state, new SingleStateBlockGetter(state), BlockPos.ZERO, CollisionContext.empty()).equals(Shapes.block()) && state.blocksMotion();
+            }, (stack, qty) -> {
+            if (stack.isEmpty())
+            {
+                return;
+            }
             value = (BlockItem) stack.getItem();
             settingsModuleView.getSetting(new SettingKey(key.getType(), key.getUniqueId())).updateSetting(this);
             settingsModuleView.trigger(key);
@@ -147,11 +147,11 @@ public class BlockSetting implements ISetting<BlockItem>
 
     @Override
     public void render(
-      final ISettingKey<?> key,
-      final Pane pane,
-      final ISettingsModuleView settingsModuleView,
-      final IBuildingView building,
-      final BOWindow window)
+        final ISettingKey<?> key,
+        final Pane pane,
+        final ISettingsModuleView settingsModuleView,
+        final IBuildingView building,
+        final BOWindow window)
     {
         pane.findPaneOfTypeByID("icon", ItemIcon.class).setItem(new ItemStack(value));
         ButtonImage triggerButton = pane.findPaneOfTypeByID("trigger", ButtonImage.class);
@@ -193,7 +193,9 @@ public class BlockSetting implements ISetting<BlockItem>
         public BlockState getBlockState(@NotNull BlockPos pos)
         {
             if (pos == BlockPos.ZERO)
+            {
                 return state;
+            }
             return Blocks.AIR.defaultBlockState();
         }
 

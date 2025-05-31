@@ -30,9 +30,9 @@ import static com.minecolonies.api.util.constant.Constants.MAX_BUILDING_LEVEL;
  */
 public class ToolRecipeCategory implements IRecipeCategory<ToolUsage>
 {
-    private static final int WIDTH = 180;
+    private static final int WIDTH  = 180;
     private static final int HEIGHT = 44;
-    private static final int SLOT_X = WIDTH - 2 - ((MAX_BUILDING_LEVEL+1) * 18);
+    private static final int SLOT_X = WIDTH - 2 - ((MAX_BUILDING_LEVEL + 1) * 18);
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -86,9 +86,10 @@ public class ToolRecipeCategory implements IRecipeCategory<ToolUsage>
     }
 
     @Override
-    public void setRecipe(@NotNull final IRecipeLayoutBuilder builder,
-                          @NotNull final ToolUsage recipe,
-                          @NotNull final IFocusGroup focuses)
+    public void setRecipe(
+        @NotNull final IRecipeLayoutBuilder builder,
+        @NotNull final ToolUsage recipe,
+        @NotNull final IFocusGroup focuses)
     {
         int x = SLOT_X;
         int y = HEIGHT - 36;
@@ -96,24 +97,25 @@ public class ToolRecipeCategory implements IRecipeCategory<ToolUsage>
         for (int i = 0; i <= MAX_BUILDING_LEVEL; ++i)
         {
             builder.addSlot(RecipeIngredientRole.INPUT, x, y)
-                    .setSlotName("L" + i)
-                    .addItemStacks(recipe.toolLevels().get(i))
-                    .setBackground(this.slot, -1, -1);
+                .setSlotName("L" + i)
+                .addItemStacks(recipe.toolLevels().get(i))
+                .setBackground(this.slot, -1, -1);
 
             builder.addSlot(RecipeIngredientRole.INPUT, x, y + 18)
-                    .setSlotName("L" + i + "e")
-                    .addItemStacks(recipe.enchantedToolLevels().get(i))
-                    .setBackground(this.slot, -1, -1);
+                .setSlotName("L" + i + "e")
+                .addItemStacks(recipe.enchantedToolLevels().get(i))
+                .setBackground(this.slot, -1, -1);
 
             x += 18;
         }
     }
 
     @Override
-    public void draw(@NotNull final ToolUsage recipe,
-                     @NotNull final IRecipeSlotsView recipeSlotsView,
-                     @NotNull final GuiGraphics stack,
-                     final double mouseX, final double mouseY)
+    public void draw(
+        @NotNull final ToolUsage recipe,
+        @NotNull final IRecipeSlotsView recipeSlotsView,
+        @NotNull final GuiGraphics stack,
+        final double mouseX, final double mouseY)
     {
         final Minecraft mc = Minecraft.getInstance();
 
@@ -131,7 +133,7 @@ public class ToolRecipeCategory implements IRecipeCategory<ToolUsage>
         for (int i = 0; i <= MAX_BUILDING_LEVEL; ++i)
         {
             final Component text = Component.translatable(TranslationConstants.PARTIAL_JEI_INFO + "onelevelrestriction", i);
-            stack.drawString(mc.font, text, (x + (18 - mc.font.width(text)/scale) / 2) * scale, scale, 0, false);
+            stack.drawString(mc.font, text, (x + (18 - mc.font.width(text) / scale) / 2) * scale, scale, 0, false);
             x += 18;
         }
         stack.pose().popPose();

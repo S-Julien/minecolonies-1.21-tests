@@ -125,7 +125,10 @@
     },
     {
       "type": "minecolonies:killentity",
-      "unlocks-rewards": [0, 1],
+      "unlocks-rewards": [
+        0,
+        1
+      ],
       "details": {
         "target": 0,
         "entity-type": "minecraft:zombie",
@@ -232,7 +235,9 @@
     },
     {
       "type": "minecolonies:dialogue",
-      "unlocks-rewards": [0],
+      "unlocks-rewards": [
+        0
+      ],
       "target": 0,
       "text": "*Laughs Maniacally* I have done it. I have done it! I have created a potion of eternal life! Here try it!",
       "options": [

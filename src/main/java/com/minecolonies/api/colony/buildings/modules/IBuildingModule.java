@@ -12,12 +12,14 @@ public interface IBuildingModule extends IHasDirty
 {
     /**
      * Get the building of the module.
+     *
      * @return the building.
      */
     IBuilding getBuilding();
 
     /**
      * Set the building of the module.
+     *
      * @param building the building to set.
      * @return the module itself.
      */
@@ -25,6 +27,7 @@ public interface IBuildingModule extends IHasDirty
 
     /**
      * Set the producer of this module
+     *
      * @param moduleSet
      * @return
      */

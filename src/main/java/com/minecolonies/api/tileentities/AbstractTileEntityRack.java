@@ -40,9 +40,10 @@ public abstract class AbstractTileEntityRack extends BlockEntity implements Menu
 
     /**
      * Create a new rack.
+     *
      * @param tileEntityTypeIn the specific block entity type.
-     * @param pos the position.
-     * @param state its state.
+     * @param pos              the position.
+     * @param state            its state.
      */
     public AbstractTileEntityRack(final BlockEntityType<?> tileEntityTypeIn, final BlockPos pos, final BlockState state)
     {
@@ -52,10 +53,11 @@ public abstract class AbstractTileEntityRack extends BlockEntity implements Menu
 
     /**
      * Create a rack with a specific inventory size.
+     *
      * @param tileEntityTypeIn the specific block entity type.
-     * @param pos the position.
-     * @param state its state.
-     * @param size the ack size.
+     * @param pos              the position.
+     * @param state            its state.
+     * @param size             the ack size.
      */
     public AbstractTileEntityRack(final BlockEntityType<?> tileEntityTypeIn, final BlockPos pos, final BlockState state, final int size)
     {
@@ -136,7 +138,7 @@ public abstract class AbstractTileEntityRack extends BlockEntity implements Menu
                     if (inWarehouse)
                     {
                         colony.getRequestManager().onColonyUpdate(request ->
-                                                                    request.getRequest() instanceof IDeliverable && ((IDeliverable) request.getRequest()).matches(stack));
+                            request.getRequest() instanceof IDeliverable && ((IDeliverable) request.getRequest()).matches(stack));
                     }
                     else
                     {
@@ -179,8 +181,8 @@ public abstract class AbstractTileEntityRack extends BlockEntity implements Menu
     /**
      * Check if the itemStorage exists in the inventory. This method checks the content list, it is therefore extremely fast.
      *
-     * @param storage           the storage to check.
-     * @param count             the min count it should have.
+     * @param storage the storage to check.
+     * @param count   the min count it should have.
      * @return true if so.
      */
     public abstract boolean hasItemStorage(final ItemStorage storage, final int count);

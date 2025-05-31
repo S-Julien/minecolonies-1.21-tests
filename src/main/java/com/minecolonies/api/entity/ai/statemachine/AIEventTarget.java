@@ -22,26 +22,26 @@ public class AIEventTarget<S extends IState> extends TickingEvent<S>
      * @param tickRate  tickRate at which this target should be called
      */
     public AIEventTarget(
-      @NotNull final AIBlockingEventType eventType,
-      @NotNull final BooleanSupplier predicate,
-      @NotNull final Supplier<S> action, final int tickRate)
+        @NotNull final AIBlockingEventType eventType,
+        @NotNull final BooleanSupplier predicate,
+        @NotNull final Supplier<S> action, final int tickRate)
     {
         super(eventType, predicate, action, tickRate);
     }
 
     public AIEventTarget(
-      @NotNull final AIBlockingEventType eventType,
-      @NotNull final BooleanSupplier predicate,
-      @NotNull final S IAIState,
-      final int tickRate)
+        @NotNull final AIBlockingEventType eventType,
+        @NotNull final BooleanSupplier predicate,
+        @NotNull final S IAIState,
+        final int tickRate)
     {
         super(eventType, predicate, () -> IAIState, tickRate);
     }
 
     public AIEventTarget(
-      @NotNull final AIBlockingEventType eventType,
-      @NotNull final Supplier<S> action,
-      final int tickRate)
+        @NotNull final AIBlockingEventType eventType,
+        @NotNull final Supplier<S> action,
+        final int tickRate)
     {
         super(eventType, () -> true, action, tickRate);
     }

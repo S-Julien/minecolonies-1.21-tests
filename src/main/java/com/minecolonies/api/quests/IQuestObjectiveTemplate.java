@@ -63,6 +63,7 @@ public interface IQuestObjectiveTemplate
 
     /**
      * Get the quest target.
+     *
      * @return the target id.
      */
     int getTarget();

@@ -142,15 +142,18 @@ public class TileEntityGrave extends AbstractTileEntityGrave
     {
         super.load(compound);
 
-        decay_timer         = compound.contains(TAG_DECAY_TIMER) ? compound.getInt(TAG_DECAY_TIMER) : DEFAULT_DECAY_TIMER;
-        decayed             = compound.contains(TAG_DECAYED) ? compound.getBoolean(TAG_DECAYED) :false;
+        decay_timer = compound.contains(TAG_DECAY_TIMER) ? compound.getInt(TAG_DECAY_TIMER) : DEFAULT_DECAY_TIMER;
+        decayed = compound.contains(TAG_DECAYED) ? compound.getBoolean(TAG_DECAYED) : false;
 
         if (compound.contains(TAG_GRAVE_DATA))
         {
             graveData = new GraveData();
             graveData.read(compound.getCompound(TAG_GRAVE_DATA));
         }
-        else graveData = null;
+        else
+        {
+            graveData = null;
+        }
     }
 
     @Override
@@ -161,7 +164,7 @@ public class TileEntityGrave extends AbstractTileEntityGrave
         compound.putInt(TAG_DECAY_TIMER, decay_timer);
         compound.putBoolean(TAG_DECAYED, decayed);
 
-        if(graveData != null)
+        if (graveData != null)
         {
             compound.put(TAG_GRAVE_DATA, graveData.write());
         }

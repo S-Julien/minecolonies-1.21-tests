@@ -147,7 +147,7 @@ public class BuildingCook extends AbstractBuilding
 
         final Predicate<ItemStack> allowedFuel = theStack -> getModuleMatching(ItemListModule.class, m -> m.getId().equals(FUEL_LIST)).isItemInList(new ItemStorage(theStack));
         if (allowedFuel.test(stack) && (localAlreadyKept.stream().filter(storage -> allowedFuel.test(storage.getItemStack())).mapToInt(ItemStorage::getAmount).sum() < STACKSIZE
-              || !inventory))
+            || !inventory))
         {
             final ItemStorage kept = new ItemStorage(stack);
             if (localAlreadyKept.contains(kept))

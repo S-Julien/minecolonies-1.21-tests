@@ -17,7 +17,7 @@
     },
     {
       "type": "minecolonies:citizen",
-      "state": { }
+      "state": {}
     }
   ],
   "triggerOrder": "1 || 2",
@@ -155,7 +155,9 @@
       }
     },
     {
-      "unlocks-rewards": [0],
+      "unlocks-rewards": [
+        0
+      ],
       "type": "minecolonies:dialogue",
       "target": 0,
       "text": "Awesome, I feel much safer already. Guards actually live in their guard towers and don't need housing spots. So just make sure they have armor and weapons and they will serve you well. Come back in a bit and I'll help you with the next steps!",

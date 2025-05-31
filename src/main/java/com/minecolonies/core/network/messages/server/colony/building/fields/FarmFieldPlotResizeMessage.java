@@ -59,9 +59,9 @@ public class FarmFieldPlotResizeMessage extends AbstractColonyServerMessage
         }
 
         colony.getBuildingManager()
-          .getMatchingBuildingExtension(f -> f.getBuildingExtensionType().equals(BuildingExtensionRegistries.farmField.get()) && f.getPosition().equals(position))
-          .map(m -> (FarmField) m)
-          .ifPresent(field -> field.setRadius(direction, size));
+            .getMatchingBuildingExtension(f -> f.getBuildingExtensionType().equals(BuildingExtensionRegistries.farmField.get()) && f.getPosition().equals(position))
+            .map(m -> (FarmField) m)
+            .ifPresent(field -> field.setRadius(direction, size));
     }
 
     @Override

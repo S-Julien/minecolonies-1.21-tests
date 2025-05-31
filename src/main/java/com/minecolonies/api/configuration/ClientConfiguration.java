@@ -9,8 +9,8 @@ public class ClientConfiguration extends AbstractConfiguration
 {
     public final ForgeConfigSpec.BooleanValue citizenVoices;
     public final ForgeConfigSpec.BooleanValue neighborbuildingrendering;
-    public final ForgeConfigSpec.IntValue neighborbuildingrange;
-    public final ForgeConfigSpec.IntValue buildgogglerange;
+    public final ForgeConfigSpec.IntValue     neighborbuildingrange;
+    public final ForgeConfigSpec.IntValue     buildgogglerange;
     public final ForgeConfigSpec.BooleanValue colonyteamborders;
     public final ForgeConfigSpec.BooleanValue holidayFeatures;
 

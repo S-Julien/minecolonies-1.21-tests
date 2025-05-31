@@ -42,15 +42,15 @@ public class WindowQuestLogInProgressQuestQuestModule implements WindowQuestLogQ
 
         final Component progressText = objectiveTemplate.getProgressText(quest, Style.EMPTY.withColor(ChatFormatting.GOLD));
         final Component mainComponent = Component.literal(" - ")
-                                          .append(progressText)
-                                          .withStyle(ChatFormatting.GOLD);
+            .append(progressText)
+            .withStyle(ChatFormatting.GOLD);
 
         questObjectiveText.setText(mainComponent);
 
         PaneBuilders.tooltipBuilder()
-          .append(objectiveTemplate.getProgressText(quest, Style.EMPTY.withColor(ChatFormatting.WHITE)))
-          .hoverPane(questObjectiveText)
-          .build();
+            .append(objectiveTemplate.getProgressText(quest, Style.EMPTY.withColor(ChatFormatting.WHITE)))
+            .hoverPane(questObjectiveText)
+            .build();
     }
 
     @Override
@@ -74,9 +74,9 @@ public class WindowQuestLogInProgressQuestQuestModule implements WindowQuestLogQ
         if (label.getRenderedTextWidth() > label.getWidth())
         {
             PaneBuilders.tooltipBuilder()
-              .append(component)
-              .hoverPane(label)
-              .build();
+                .append(component)
+                .hoverPane(label)
+                .build();
         }
     }
 

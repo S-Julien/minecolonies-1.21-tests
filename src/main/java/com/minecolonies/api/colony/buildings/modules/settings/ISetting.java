@@ -33,11 +33,11 @@ public interface ISetting<S>
      * @param window             the calling window.
      */
     void setupHandler(
-      final ISettingKey<?> key,
-      final Pane rowPane,
-      final ISettingsModuleView settingsModuleView,
-      final IBuildingView building,
-      final BOWindow window);
+        final ISettingKey<?> key,
+        final Pane rowPane,
+        final ISettingsModuleView settingsModuleView,
+        final IBuildingView building,
+        final BOWindow window);
 
     /**
      * Update the handling (e.g update settings text).
@@ -49,11 +49,11 @@ public interface ISetting<S>
      * @param window             the calling window.
      */
     void render(
-      final ISettingKey<?> key,
-      final Pane rowPane,
-      final ISettingsModuleView settingsModuleView,
-      final IBuildingView building,
-      final BOWindow window);
+        final ISettingKey<?> key,
+        final Pane rowPane,
+        final ISettingsModuleView settingsModuleView,
+        final IBuildingView building,
+        final BOWindow window);
 
     /**
      * Trigger a setting.
@@ -123,9 +123,9 @@ public interface ISetting<S>
         if (isActive && hasTooltip)
         {
             PaneBuilders.tooltipBuilder()
-              .append(tooltip)
-              .hoverPane(component)
-              .build();
+                .append(tooltip)
+                .hoverPane(component)
+                .build();
         }
         else if (isActive && getToolTipText() != null)
         {
@@ -134,9 +134,9 @@ public interface ISetting<S>
         else if (!isActive && (hasTooltip || inActiveReason != null))
         {
             PaneBuilders.tooltipBuilder()
-              .append(inActiveReason != null ? inActiveReason : tooltip)
-              .hoverPane(component)
-              .build();
+                .append(inActiveReason != null ? inActiveReason : tooltip)
+                .hoverPane(component)
+                .build();
         }
         else
         {
@@ -171,7 +171,7 @@ public interface ISetting<S>
      * @return the value.
      */
     S getValue();
-    
+
     /**
      * Get the tooltip text to render on the button, defaults to null.
      *

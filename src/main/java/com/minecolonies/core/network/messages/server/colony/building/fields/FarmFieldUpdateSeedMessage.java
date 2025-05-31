@@ -56,9 +56,9 @@ public class FarmFieldUpdateSeedMessage extends AbstractColonyServerMessage
         }
 
         colony.getBuildingManager()
-          .getMatchingBuildingExtension(f -> f.getBuildingExtensionType().equals(BuildingExtensionRegistries.farmField.get()) && f.getPosition().equals(position))
-          .map(m -> (FarmField) m)
-          .ifPresent(field -> field.setSeed(newSeed));
+            .getMatchingBuildingExtension(f -> f.getBuildingExtensionType().equals(BuildingExtensionRegistries.farmField.get()) && f.getPosition().equals(position))
+            .map(m -> (FarmField) m)
+            .ifPresent(field -> field.setSeed(newSeed));
     }
 
     @Override

@@ -81,7 +81,7 @@ public class SchemAnalyzerUtil
             score = Math.min(27, score);
         }
         else if (state.is(BlockTags.WOODEN_STAIRS) || state.is(BlockTags.WOODEN_BUTTONS) || state.is(BlockTags.WOODEN_DOORS) || state.is(BlockTags.WOODEN_SLABS) || state.is(
-          BlockTags.WOODEN_FENCES) || state.is(BlockTags.WOODEN_TRAPDOORS) || state.is(BlockTags.WOODEN_PRESSURE_PLATES))
+            BlockTags.WOODEN_FENCES) || state.is(BlockTags.WOODEN_TRAPDOORS) || state.is(BlockTags.WOODEN_PRESSURE_PLATES))
         {
             score = Math.min(27, score);
             score *= 1.0 / 4;

@@ -135,10 +135,11 @@ public class EntityLocation implements ILocation
      */
     public static class Factory implements ILocationFactory<Entity, EntityLocation>
     {
-        ////// --------------------------- NBTConstants --------------------------- \\\\\\
+        /// /// --------------------------- NBTConstants --------------------------- \\\\\\
         private static final String NBT_MSB = "Id_MSB";
         private static final String NBT_LSB = "Id_LSB";
-        ////// --------------------------- NBTConstants --------------------------- \\\\\\
+
+        /// /// --------------------------- NBTConstants --------------------------- \\\\\\
 
         @NotNull
         @Override

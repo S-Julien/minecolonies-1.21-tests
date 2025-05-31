@@ -25,17 +25,17 @@ public class Tool implements IDeliverable
      * Set of type tokens belonging to this class.
      */
     private final static Set<TypeToken<?>> TYPE_TOKENS =
-      ReflectionUtils.getSuperClasses(TypeToken.of(Tool.class)).stream().filter(type -> !type.equals(TypeConstants.OBJECT)).collect(Collectors.toSet());
+        ReflectionUtils.getSuperClasses(TypeToken.of(Tool.class)).stream().filter(type -> !type.equals(TypeConstants.OBJECT)).collect(Collectors.toSet());
 
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
-    private static final String NBT_TYPE      = "Type";
-    private static final String NBT_MIN_LEVEL = "MinLevel";
-    private static final String NBT_MAX_LEVEL = "MaxLevel";
-    private static final String NBT_RESULT    = "Result";
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
+    private static final String             NBT_TYPE      = "Type";
+    private static final String             NBT_MIN_LEVEL = "MinLevel";
+    private static final String             NBT_MAX_LEVEL = "MaxLevel";
+    private static final String             NBT_RESULT    = "Result";
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
 
     @NotNull
-    private final EquipmentTypeEntry equipmentType;
+    private final        EquipmentTypeEntry equipmentType;
 
     @NotNull
     private final Integer minLevel;
@@ -63,7 +63,7 @@ public class Tool implements IDeliverable
      * Serializes this equipment into NBT.
      *
      * @param controller The IFactoryController used to serialize sub types.
-     * @param equipment       the equipment to serialize.
+     * @param equipment  the equipment to serialize.
      * @return The CompoundTag containing the equipment data.
      */
     @NotNull
@@ -230,7 +230,7 @@ public class Tool implements IDeliverable
     public boolean isArmor()
     {
         return equipmentType == ModEquipmentTypes.helmet.get() || equipmentType == ModEquipmentTypes.leggings.get() || equipmentType == ModEquipmentTypes.chestplate.get()
-                 || equipmentType == ModEquipmentTypes.boots.get();
+            || equipmentType == ModEquipmentTypes.boots.get();
     }
 
     @Override

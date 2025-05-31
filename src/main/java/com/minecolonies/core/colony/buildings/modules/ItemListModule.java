@@ -43,6 +43,7 @@ public class ItemListModule extends AbstractBuildingModule implements IItemListM
 
     /**
      * Construct a new grouped itemlist module with the unique list identifier.
+     *
      * @param id the list id.
      */
     public ItemListModule(final String id)
@@ -53,10 +54,11 @@ public class ItemListModule extends AbstractBuildingModule implements IItemListM
 
     /**
      * Construct a new grouped itemlist module with the unique list identifier and default values.
-     * @param id the list id.
+     *
+     * @param id            the list id.
      * @param defaultStacks the default values.
      */
-    public ItemListModule(final String id, final ItemStorage...defaultStacks)
+    public ItemListModule(final String id, final ItemStorage... defaultStacks)
     {
         this(id);
         defaultValues = ImmutableList.copyOf(defaultStacks);
@@ -72,11 +74,11 @@ public class ItemListModule extends AbstractBuildingModule implements IItemListM
         }
 
         final List<ItemStorage> allowedItems = new ArrayList<>();
-            final ListTag filterableList = compound.getList(TAG_ITEMLIST, Tag.TAG_COMPOUND);
-            for (int i = 0; i < filterableList.size(); ++i)
-            {
-                allowedItems.add(new ItemStorage(ItemStack.of(filterableList.getCompound(i))));
-            }
+        final ListTag filterableList = compound.getList(TAG_ITEMLIST, Tag.TAG_COMPOUND);
+        for (int i = 0; i < filterableList.size(); ++i)
+        {
+            allowedItems.add(new ItemStorage(ItemStack.of(filterableList.getCompound(i))));
+        }
 
         this.itemsAllowed = ImmutableList.copyOf(allowedItems);
     }

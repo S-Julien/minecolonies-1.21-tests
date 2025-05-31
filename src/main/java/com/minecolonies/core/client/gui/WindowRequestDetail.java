@@ -143,7 +143,8 @@ public class WindowRequestDetail extends BOWindow implements ButtonHandler
         else
         {
             findPaneOfTypeByID("detailIcon", ItemIcon.class).setVisible(false);
-            findPaneOfTypeByID(REQUEST_SHORT_DETAIL, Text.class).setText(Component.literal(request.getLongDisplayString().getString().replace("§f", "")).withStyle(ChatFormatting.BLACK));
+            findPaneOfTypeByID(REQUEST_SHORT_DETAIL, Text.class).setText(Component.literal(request.getLongDisplayString().getString().replace("§f", ""))
+                .withStyle(ChatFormatting.BLACK));
         }
 
         final Image logo = findPaneOfTypeByID(DELIVERY_IMAGE, Image.class);

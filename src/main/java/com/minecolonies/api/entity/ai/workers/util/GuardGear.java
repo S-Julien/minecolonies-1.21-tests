@@ -67,10 +67,10 @@ public class GuardGear implements Predicate<ItemStack>
      * @param buildingLevelRange level range that the item will be required.
      */
     public GuardGear(
-      final EquipmentTypeEntry item, final EquipmentSlot type,
-      final int minArmorLevel,
-      final int maxArmorLevel, final Tuple<Integer, Integer> citizenLevelRange,
-      final Tuple<Integer, Integer> buildingLevelRange)
+        final EquipmentTypeEntry item, final EquipmentSlot type,
+        final int minArmorLevel,
+        final int maxArmorLevel, final Tuple<Integer, Integer> citizenLevelRange,
+        final Tuple<Integer, Integer> buildingLevelRange)
     {
         this.type = type;
         this.itemNeeded = item;
@@ -150,9 +150,9 @@ public class GuardGear implements Predicate<ItemStack>
     public boolean test(final ItemStack stack)
     {
         return
-          (ItemStackUtils.hasEquipmentLevel(stack, itemNeeded, minArmorLevel, maxArmorLevel) && stack.getItem() instanceof ArmorItem
-             && ((ArmorItem) stack.getItem()).getEquipmentSlot() == getType())
-            || (stack.getItem() instanceof SwordItem && getType() == EquipmentSlot.MAINHAND)
-            || (stack.getItem() instanceof ShieldItem && getType() == EquipmentSlot.OFFHAND);
+            (ItemStackUtils.hasEquipmentLevel(stack, itemNeeded, minArmorLevel, maxArmorLevel) && stack.getItem() instanceof ArmorItem
+                && ((ArmorItem) stack.getItem()).getEquipmentSlot() == getType())
+                || (stack.getItem() instanceof SwordItem && getType() == EquipmentSlot.MAINHAND)
+                || (stack.getItem() instanceof ShieldItem && getType() == EquipmentSlot.OFFHAND);
     }
 }

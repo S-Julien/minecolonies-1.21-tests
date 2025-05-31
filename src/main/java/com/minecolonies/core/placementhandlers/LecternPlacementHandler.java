@@ -22,19 +22,21 @@ import java.util.List;
 public class LecternPlacementHandler implements IPlacementHandler
 {
     @Override
-    public boolean canHandle(@NotNull final Level world,
-                             @NotNull final BlockPos pos,
-                             @NotNull final BlockState blockState)
+    public boolean canHandle(
+        @NotNull final Level world,
+        @NotNull final BlockPos pos,
+        @NotNull final BlockState blockState)
     {
         return blockState.getBlock() instanceof LecternBlock;
     }
 
     @Override
-    public List<ItemStack> getRequiredItems(@NotNull final Level world,
-                                            @NotNull final BlockPos pos,
-                                            @NotNull final BlockState blockState,
-                                            @Nullable final CompoundTag tileEntityData,
-                                            final boolean complete)
+    public List<ItemStack> getRequiredItems(
+        @NotNull final Level world,
+        @NotNull final BlockPos pos,
+        @NotNull final BlockState blockState,
+        @Nullable final CompoundTag tileEntityData,
+        final boolean complete)
     {
         final List<ItemStack> itemList = new ArrayList<>();
         itemList.add(BlockUtils.getItemStackFromBlockState(blockState));
@@ -49,12 +51,13 @@ public class LecternPlacementHandler implements IPlacementHandler
     }
 
     @Override
-    public ActionProcessingResult handle(@NotNull final Level world,
-                                         @NotNull final BlockPos pos,
-                                         @NotNull final BlockState blockState,
-                                         @Nullable CompoundTag tileEntityData,
-                                         final boolean complete,
-                                         final BlockPos centerPos)
+    public ActionProcessingResult handle(
+        @NotNull final Level world,
+        @NotNull final BlockPos pos,
+        @NotNull final BlockState blockState,
+        @Nullable CompoundTag tileEntityData,
+        final boolean complete,
+        final BlockPos centerPos)
     {
         if (!world.setBlock(pos, blockState, Block.UPDATE_ALL))
         {
@@ -70,9 +73,10 @@ public class LecternPlacementHandler implements IPlacementHandler
     }
 
     @Nullable
-    private static LecternBlockEntity getLectern(@NotNull final BlockPos pos,
-                                                 @NotNull final BlockState blockState,
-                                                 @Nullable final CompoundTag tileEntityData)
+    private static LecternBlockEntity getLectern(
+        @NotNull final BlockPos pos,
+        @NotNull final BlockState blockState,
+        @Nullable final CompoundTag tileEntityData)
     {
         if (tileEntityData != null)
         {

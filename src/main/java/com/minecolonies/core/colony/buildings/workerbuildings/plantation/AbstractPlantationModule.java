@@ -52,7 +52,7 @@ public abstract class AbstractPlantationModule extends AbstractBuildingExtension
      * @param item     the item which is harvested.
      */
     protected AbstractPlantationModule(
-      final IBuildingExtension field, final String fieldTag, final String workTag, final Item item)
+        final IBuildingExtension field, final String fieldTag, final String workTag, final Item item)
     {
         super(field);
         this.fieldTag = fieldTag;

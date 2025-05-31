@@ -71,13 +71,12 @@ public class CitizenDiseaseHandler implements ICitizenDiseaseHandler
      */
     private boolean sleepsAtHospital = false;
 
-
     /**
      * The initial citizen count
      */
     private static final int initialCitizenCount = IMinecoloniesAPI.getInstance()
-      .getConfig()
-      .getServer().initialCitizenAmount.get();
+        .getConfig()
+        .getServer().initialCitizenAmount.get();
 
     /**
      * Constructor for the experience handler.
@@ -136,7 +135,7 @@ public class CitizenDiseaseHandler implements ICitizenDiseaseHandler
             && citizenData.getEntity().isPresent()
             && citizenData.getColony().isActive()
             && !(citizenData.getJob() instanceof JobHealer)
-                 && immunityTicks <= 0
+            && immunityTicks <= 0
             && citizenData.getColony().getCitizenManager().getCurrentCitizenCount() > initialCitizenCount;
     }
 
@@ -144,8 +143,8 @@ public class CitizenDiseaseHandler implements ICitizenDiseaseHandler
     public void onCollission(final ICitizenData citizen)
     {
         if (citizen.getCitizenDiseaseHandler().isSick()
-              && canBecomeSick()
-              && citizen.getRandom().nextInt(ONE_HUNDRED_PERCENT) < 1)
+            && canBecomeSick()
+            && citizen.getRandom().nextInt(ONE_HUNDRED_PERCENT) < 1)
         {
             if (citizen.getColony().getResearchManager().getResearchEffects().getEffectStrength(MASKS) <= 0 || citizen.getRandom().nextBoolean())
             {

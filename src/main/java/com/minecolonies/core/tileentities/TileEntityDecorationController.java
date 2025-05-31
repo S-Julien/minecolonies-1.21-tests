@@ -56,8 +56,8 @@ public class TileEntityDecorationController extends BlockEntity implements IBlue
     /**
      * The used rotation/mirror.
      */
-    private int cachedRotation = -1;
-    private boolean isMirrored = false;
+    private int     cachedRotation = -1;
+    private boolean isMirrored     = false;
 
     /**
      * Map of block positions relative to TE pos and string tags
@@ -225,15 +225,15 @@ public class TileEntityDecorationController extends BlockEntity implements IBlue
         this.schematicPath = compound.getCompound(TAG_BLUEPRINTDATA).getString(TAG_PATH);
 
         // the rest of this is backwards compat code that can be removed at some point (maybe even now)
-        if(compound.contains(TAG_PATH) && StringUtils.isEmpty(this.schematicPath))
+        if (compound.contains(TAG_PATH) && StringUtils.isEmpty(this.schematicPath))
         {
             this.schematicPath = compound.getString(TAG_PATH);
         }
-        if(compound.contains(TAG_PACK) && StringUtils.isEmpty(this.packName))
+        if (compound.contains(TAG_PACK) && StringUtils.isEmpty(this.packName))
         {
             this.packName = compound.getString(TAG_PACK);
         }
-        if(compound.contains(TAG_NAME) && StringUtils.isEmpty(this.schematicName))
+        if (compound.contains(TAG_NAME) && StringUtils.isEmpty(this.schematicName))
         {
             this.schematicName = compound.getString(TAG_NAME);
             if (this.schematicPath == null || this.schematicPath.isEmpty())
@@ -318,6 +318,7 @@ public class TileEntityDecorationController extends BlockEntity implements IBlue
 
     /**
      * Get the rotation of the controller.
+     *
      * @return the placed rotation.
      */
     public Rotation getRotation()
@@ -331,6 +332,7 @@ public class TileEntityDecorationController extends BlockEntity implements IBlue
 
     /**
      * Get the mirroring setting of the controller.
+     *
      * @return true if mirrored.
      */
     public boolean getMirror()

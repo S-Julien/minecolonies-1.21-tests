@@ -34,9 +34,9 @@ public class EventManager implements IEventManager
     /**
      * NBT tags
      */
-    private static final String TAG_EVENT_ID        = "event_currentID";
-    private static final String TAG_EVENT_MANAGER   = "event_manager";
-    private static final String TAG_EVENT_LIST      = "events_list";
+    private static final String TAG_EVENT_ID      = "event_currentID";
+    private static final String TAG_EVENT_MANAGER = "event_manager";
+    private static final String TAG_EVENT_LIST    = "events_list";
 
     /**
      * The current event ID this colony is at, unique for each event

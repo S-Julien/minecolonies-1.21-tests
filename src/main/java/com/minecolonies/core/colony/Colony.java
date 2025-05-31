@@ -275,8 +275,8 @@ public class Colony implements IColony
      * The colony flag, as a list of patterns.
      */
     private ListTag colonyFlag = new BannerPattern.Builder()
-      .addPattern(BannerPatterns.BASE, DyeColor.WHITE)
-      .toListTag();
+        .addPattern(BannerPatterns.BASE, DyeColor.WHITE)
+        .toListTag();
 
     /**
      * The last time the mercenaries were used.
@@ -362,7 +362,7 @@ public class Colony implements IColony
         researchManager = new ResearchManager(this);
         colonyStateMachine = new TickRateStateMachine<>(INACTIVE, e ->
         {
-            Log.getLogger().warn("Exception triggered in colony:"+getID()+" in dimension:"+getDimension().location(), e);
+            Log.getLogger().warn("Exception triggered in colony:" + getID() + " in dimension:" + getDimension().location(), e);
             colonyStateMachine.setCurrentDelay(20 * 60 * 5);
         });
 
@@ -1155,8 +1155,9 @@ public class Colony implements IColony
                     {
                         final Block worldBlock = world.getBlockState(entry.getKey()).getBlock();
                         if (
-                          ((worldBlock != (entry.getValue().getBlock()) && entry.getValue().getBlock() != ModBlocks.blockWayPoint) && worldBlock != ModBlocks.blockConstructionTape)
-                            || (world.isEmptyBlock(entry.getKey().below()) && !BlockUtils.isAnySolid(entry.getValue())))
+                            ((worldBlock != (entry.getValue().getBlock()) && entry.getValue().getBlock() != ModBlocks.blockWayPoint)
+                                && worldBlock != ModBlocks.blockConstructionTape)
+                                || (world.isEmptyBlock(entry.getKey().below()) && !BlockUtils.isAnySolid(entry.getValue())))
                         {
                             wayPoints.remove(entry.getKey());
                             markDirty();
@@ -1686,8 +1687,8 @@ public class Colony implements IColony
                 if (attackingPlayer.addGuard(IEntityCitizen))
                 {
                     MessageUtils.format(COLONY_ATTACK_GUARD_GROUP_SIZE_MESSAGE, attackingPlayer.getPlayer().getName(), attackingPlayer.getGuards().size())
-                      .sendTo(this)
-                      .forManagers();
+                        .sendTo(this)
+                        .forManagers();
                 }
                 return;
             }
@@ -1798,7 +1799,7 @@ public class Colony implements IColony
     public void addLoadedChunk(final long chunkPos, final LevelChunk chunk)
     {
         if (world instanceof ServerLevel
-              && getConfig().getServer().forceLoadColony.get())
+            && getConfig().getServer().forceLoadColony.get())
         {
             if (this.forceLoadTimer > 0)
             {
@@ -1917,6 +1918,7 @@ public class Colony implements IColony
 
     /**
      * Gets the colonies settings
+     *
      * @return
      */
     public ISettingsModule getSettings()

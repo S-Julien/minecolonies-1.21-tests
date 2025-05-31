@@ -22,15 +22,15 @@ import java.util.stream.Collectors;
 /**
  * BOWindow for the miner hut.
  */
-public class WindowMineGuardModule  extends AbstractModuleWindow
+public class WindowMineGuardModule extends AbstractModuleWindow
 {
-    private static final String                        LIST_GUARDS               = "guards";
-    private static final String                        BUTTON_ASSIGNGUARD        = "assignGuard";
-    private static final String                        HUT_MINER_RESOURCE_SUFFIX = ":gui/layouthuts/layoutguardlist.xml";
+    private static final String LIST_GUARDS               = "guards";
+    private static final String BUTTON_ASSIGNGUARD        = "assignGuard";
+    private static final String HUT_MINER_RESOURCE_SUFFIX = ":gui/layouthuts/layoutguardlist.xml";
 
-    private              ScrollingList                 guardsList;
-    private              List<ICitizenDataView>        guardsInfo = new ArrayList<>();
-    private int assignedGuards;
+    private ScrollingList          guardsList;
+    private List<ICitizenDataView> guardsInfo = new ArrayList<>();
+    private int                    assignedGuards;
 
     /**
      * Constructor for the window of the miner hut.
@@ -82,9 +82,10 @@ public class WindowMineGuardModule  extends AbstractModuleWindow
         {
             guardsInfo.clear();
             assignedGuards = 0;
-            final List<IBuildingView> buildings = buildingView.getColony().getBuildings().stream().filter(entry -> entry instanceof AbstractBuildingGuards.View && entry.getModuleViewByType(
-              SettingsModuleView.class).getSetting(AbstractBuildingGuards.GUARD_TASK).getValue().equals(
-              GuardTaskSetting.PATROL_MINE)).collect(Collectors.toList());
+            final List<IBuildingView> buildings =
+                buildingView.getColony().getBuildings().stream().filter(entry -> entry instanceof AbstractBuildingGuards.View && entry.getModuleViewByType(
+                    SettingsModuleView.class).getSetting(AbstractBuildingGuards.GUARD_TASK).getValue().equals(
+                    GuardTaskSetting.PATROL_MINE)).collect(Collectors.toList());
             for (final IBuildingView building : buildings)
             {
                 final AbstractBuildingGuards.View guardbuilding = (AbstractBuildingGuards.View) building;
@@ -114,6 +115,7 @@ public class WindowMineGuardModule  extends AbstractModuleWindow
      * 1 guard for mine level 1 and 2
      * 2 guards for mine level 3 and 4
      * 3 guards for mine level 5
+     *
      * @return maximum number of guards
      */
     public int getMaxGuards()
@@ -138,7 +140,8 @@ public class WindowMineGuardModule  extends AbstractModuleWindow
     {
         super.onOpened();
         guardsList = findPaneOfTypeByID(LIST_GUARDS, ScrollingList.class);
-        guardsList.setDataProvider(new ScrollingList.DataProvider() {
+        guardsList.setDataProvider(new ScrollingList.DataProvider()
+        {
             @Override
             public int getElementCount()
             {

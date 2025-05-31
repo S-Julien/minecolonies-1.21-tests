@@ -44,7 +44,7 @@ public class SaveStructureNBTMessage implements IMessage
      * Send a scan compound to the client.
      *
      * @param CompoundNBT the stream.
-     * @param fileName  String with the name of the file.
+     * @param fileName    String with the name of the file.
      */
     public SaveStructureNBTMessage(final CompoundTag CompoundNBT, final String fileName)
     {
@@ -104,10 +104,10 @@ public class SaveStructureNBTMessage implements IMessage
         {
             final String packName = Minecraft.getInstance().getUser().getName().toLowerCase(Locale.US);
             RenderingCache.getOrCreateBlueprintPreviewData("blueprint").setBlueprintFuture(
-              StructurePacks.storeBlueprint(packName, compoundNBT, Minecraft.getInstance().gameDirectory.toPath()
-                                                                  .resolve(BLUEPRINT_FOLDER)
-                                                                  .resolve(Minecraft.getInstance().getUser().getName().toLowerCase(Locale.US))
-                                                                  .resolve(SCANS_FOLDER).resolve(fileName)));
+                StructurePacks.storeBlueprint(packName, compoundNBT, Minecraft.getInstance().gameDirectory.toPath()
+                    .resolve(BLUEPRINT_FOLDER)
+                    .resolve(Minecraft.getInstance().getUser().getName().toLowerCase(Locale.US))
+                    .resolve(SCANS_FOLDER).resolve(fileName)));
             Minecraft.getInstance().player.displayClientMessage(Component.translatable("Scan successfully saved as %s", fileName), false);
         }
     }

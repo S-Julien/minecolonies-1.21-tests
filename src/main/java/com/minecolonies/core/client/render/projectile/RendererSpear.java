@@ -25,10 +25,11 @@ import org.jetbrains.annotations.NotNull;
 public class RendererSpear extends EntityRenderer<ThrownTrident>
 {
     private final ResourceLocation texture = new ResourceLocation(Constants.MOD_ID, "textures/entity/spear.png");
-    private final SpearModel       model ;
+    private final SpearModel       model;
 
     /**
      * Create a new spear renderer.
+     *
      * @param context the context.
      */
     public RendererSpear(final EntityRendererProvider.Context context)
@@ -38,7 +39,13 @@ public class RendererSpear extends EntityRenderer<ThrownTrident>
     }
 
     @Override
-    public void render(@NotNull final ThrownTrident entity, final float entityYaw, final float partialTicks, @NotNull final PoseStack stack, @NotNull final MultiBufferSource buffer, final int light)
+    public void render(
+        @NotNull final ThrownTrident entity,
+        final float entityYaw,
+        final float partialTicks,
+        @NotNull final PoseStack stack,
+        @NotNull final MultiBufferSource buffer,
+        final int light)
     {
         super.render(entity, entityYaw, partialTicks, stack, buffer, light);
 

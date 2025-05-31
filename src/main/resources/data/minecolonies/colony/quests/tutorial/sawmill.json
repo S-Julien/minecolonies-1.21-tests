@@ -17,7 +17,7 @@
     },
     {
       "type": "minecolonies:citizen",
-      "state": { }
+      "state": {}
     }
   ],
   "triggerOrder": "1 || 2",
@@ -123,7 +123,10 @@
       }
     },
     {
-      "unlocks-rewards": [0,1],
+      "unlocks-rewards": [
+        0,
+        1
+      ],
       "type": "minecolonies:dialogue",
       "target": 0,
       "text": "Great, the sawmill has a recipe page where you can teach all the recipes you want the sawmill to handle automatically. You can upgrade the hut to unlock more recipe slots, and research and build the other Crafters in a similar fashion.",

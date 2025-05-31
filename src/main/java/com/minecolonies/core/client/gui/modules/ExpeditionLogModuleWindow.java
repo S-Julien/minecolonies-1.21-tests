@@ -70,7 +70,8 @@ public class ExpeditionLogModuleWindow extends AbstractModuleWindow
         final ExpeditionLog expeditionLog = module.getLog();
 
         findPaneOfTypeByID(WINDOW_ID_NAME, Text.class).setText(Component.literal(Objects.requireNonNullElse(expeditionLog.getName(), "")));
-        findPaneOfTypeByID("status", Text.class).setText(Component.translatable(TranslationConstants.PARTIAL_EXPEDITION_STATUS + expeditionLog.getStatus().name().toLowerCase(Locale.US)));
+        findPaneOfTypeByID("status", Text.class).setText(Component.translatable(
+            TranslationConstants.PARTIAL_EXPEDITION_STATUS + expeditionLog.getStatus().name().toLowerCase(Locale.US)));
 
         final Gradient bg = findPaneOfTypeByID("resourcesbg", Gradient.class);
         if (expeditionLog.getStatus().equals(ExpeditionLog.Status.KILLED))
@@ -110,8 +111,9 @@ public class ExpeditionLogModuleWindow extends AbstractModuleWindow
         }
     }
 
-    private void createEquipmentList(@NotNull final View equipmentView,
-                                     @NotNull final List<ItemStack> equipment)
+    private void createEquipmentList(
+        @NotNull final View equipmentView,
+        @NotNull final List<ItemStack> equipment)
     {
         final int ITEM_SIZE = 16;
         final int ITEM_GRID = 18;
@@ -165,8 +167,9 @@ public class ExpeditionLogModuleWindow extends AbstractModuleWindow
         clearChildren(mobsView, size);
     }
 
-    private void createLootList(@NotNull final View lootView,
-                                @NotNull final List<ItemStorage> loot)
+    private void createLootList(
+        @NotNull final View lootView,
+        @NotNull final List<ItemStorage> loot)
     {
         final int LOOT_SIZE = 16;
         final int LOOT_GRID = 18;

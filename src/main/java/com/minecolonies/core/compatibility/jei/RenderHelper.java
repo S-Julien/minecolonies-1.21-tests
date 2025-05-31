@@ -21,15 +21,23 @@ public class RenderHelper
      * Render a block model on a GUI.
      *
      * @param matrixStack matrix
-     * @param block the blockstate to render
-     * @param x horizontal center position
-     * @param y vertical bottom position
-     * @param z distance from camera
-     * @param pitch rotation forwards
-     * @param yaw rotation sideways
-     * @param scale scaling factor
+     * @param block       the blockstate to render
+     * @param x           horizontal center position
+     * @param y           vertical bottom position
+     * @param z           distance from camera
+     * @param pitch       rotation forwards
+     * @param yaw         rotation sideways
+     * @param scale       scaling factor
      */
-    public static void renderBlock(final PoseStack matrixStack, final BlockState block, final float x, final float y, final float z, final float pitch, final float yaw, final float scale)
+    public static void renderBlock(
+        final PoseStack matrixStack,
+        final BlockState block,
+        final float x,
+        final float y,
+        final float z,
+        final float pitch,
+        final float yaw,
+        final float scale)
     {
         final Minecraft mc = Minecraft.getInstance();
 

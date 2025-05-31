@@ -9,15 +9,15 @@ public enum ShipSize
 {
     SMALL(ColonyConstants.SMALL_HORDE_SIZE, ColonyConstants.SMALL_SHIP, ColonyConstants.SMALL_HORDE_MESSAGE_ID, 1, 2, 0, 0),
     MEDIUM(ColonyConstants.MEDIUM_HORDE_SIZE,
-      ColonyConstants.MEDIUM_SHIP,
-      ColonyConstants.MEDIUM_HORDE_MESSAGE_ID,
-      4,
-      1, 1, 1),
+        ColonyConstants.MEDIUM_SHIP,
+        ColonyConstants.MEDIUM_HORDE_MESSAGE_ID,
+        4,
+        1, 1, 1),
     BIG(ColonyConstants.BIG_HORDE_SIZE,
-      ColonyConstants.BIG_SHIP,
-      ColonyConstants.BIG_HORDE_MESSAGE_ID,
-      10,
-      2, 2, 1);
+        ColonyConstants.BIG_SHIP,
+        ColonyConstants.BIG_HORDE_MESSAGE_ID,
+        10,
+        2, 2, 1);
 
     /**
      * The ships raidlevel

@@ -18,14 +18,14 @@ import static com.minecolonies.api.util.constant.TranslationConstants.MESSAGE_NE
 public class WorkOrderDecoration extends AbstractWorkOrder
 {
     public static WorkOrderDecoration create(
-      @NotNull final WorkOrderType type,
-      final String packName,
-      final String path,
-      final String translationKey,
-      final BlockPos location,
-      final int rotation,
-      final boolean mirror,
-      final int currentLevel)
+        @NotNull final WorkOrderType type,
+        final String packName,
+        final String path,
+        final String translationKey,
+        final BlockPos location,
+        final int rotation,
+        final boolean mirror,
+        final int currentLevel)
     {
         int targetLevel = currentLevel;
         switch (type)
@@ -42,15 +42,15 @@ public class WorkOrderDecoration extends AbstractWorkOrder
         }
 
         return new WorkOrderDecoration(
-          packName,
-          path,
-          translationKey,
-          type,
-          location,
-          rotation,
-          mirror,
-          currentLevel,
-          targetLevel);
+            packName,
+            path,
+            translationKey,
+            type,
+            location,
+            rotation,
+            mirror,
+            currentLevel,
+            targetLevel);
     }
 
     /**
@@ -62,8 +62,8 @@ public class WorkOrderDecoration extends AbstractWorkOrder
     }
 
     private WorkOrderDecoration(
-      String packName, String path, final String translationKey, WorkOrderType workOrderType, BlockPos location, int rotation, boolean isMirrored, int currentLevel,
-      int targetLevel)
+        String packName, String path, final String translationKey, WorkOrderType workOrderType, BlockPos location, int rotation, boolean isMirrored, int currentLevel,
+        int targetLevel)
     {
         super(packName, path, translationKey, workOrderType, location, rotation, isMirrored, currentLevel, targetLevel);
     }

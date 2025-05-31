@@ -30,10 +30,10 @@ public class ItemChorusBread extends AbstractItemMinecolonies
      * Setup the food definition
      */
     private static FoodProperties chorusBread = (new FoodProperties.Builder())
-                                        .nutrition(5)
-                                        .saturationMod(2.0F)
-                                        .alwaysEat()
-                                        .build(); 
+        .nutrition(5)
+        .saturationMod(2.0F)
+        .alwaysEat()
+        .build();
 
     /**
      * Sets the name, creative tab, and registers the Chorus Bread item.
@@ -45,15 +45,15 @@ public class ItemChorusBread extends AbstractItemMinecolonies
         super("chorus_bread", properties.stacksTo(STACKSIZE).food(chorusBread));
     }
 
-   /**
-    * Teleport to the surface. 
-    */
+    /**
+     * Teleport to the surface.
+     */
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving)
     {
         if (!worldIn.isClientSide && entityLiving instanceof ServerPlayer && WorldUtil.isOverworldType(worldIn))
         {
-            TeleportHelper.surfaceTeleport((ServerPlayer)entityLiving);
+            TeleportHelper.surfaceTeleport((ServerPlayer) entityLiving);
         }
 
         return super.finishUsingItem(stack, worldIn, entityLiving);
@@ -61,7 +61,7 @@ public class ItemChorusBread extends AbstractItemMinecolonies
 
     @Override
     public void appendHoverText(
-    @NotNull final ItemStack stack, @Nullable final Level worldIn, @NotNull final List<Component> tooltip, @NotNull final TooltipFlag flagIn)
+        @NotNull final ItemStack stack, @Nullable final Level worldIn, @NotNull final List<Component> tooltip, @NotNull final TooltipFlag flagIn)
     {
         final MutableComponent guiHint = Component.translatable(TranslationConstants.COM_MINECOLONIES_COREMOD_CHORUS_BREAD_TOOLTIP_GUI);
         guiHint.setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY));

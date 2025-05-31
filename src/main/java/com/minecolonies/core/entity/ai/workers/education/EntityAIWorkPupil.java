@@ -67,11 +67,11 @@ public class EntityAIWorkPupil extends AbstractEntityAIInteract<JobPupil, Buildi
     {
         super(job);
         super.registerTargets(
-          new AITarget(IDLE, START_WORKING, 1),
-          new AITarget(START_WORKING, this::startWorkingAtOwnBuilding, TICKS_SECOND),
-          new AITarget(DECIDE, this::decide, TICKS_SECOND),
-          new AITarget(STUDY, this::study, TICKS_SECOND),
-          new AITarget(RECESS, this::recess, TICKS_SECOND)
+            new AITarget(IDLE, START_WORKING, 1),
+            new AITarget(START_WORKING, this::startWorkingAtOwnBuilding, TICKS_SECOND),
+            new AITarget(DECIDE, this::decide, TICKS_SECOND),
+            new AITarget(STUDY, this::study, TICKS_SECOND),
+            new AITarget(RECESS, this::recess, TICKS_SECOND)
         );
         worker.setCanPickUpLoot(true);
     }
@@ -134,7 +134,7 @@ public class EntityAIWorkPupil extends AbstractEntityAIInteract<JobPupil, Buildi
         }
 
         if (!world.getEntitiesOfClass(EntityCitizen.class,
-          new AABB(studyPos.getX(), studyPos.getY(), studyPos.getZ(), studyPos.getX(), studyPos.getY(), studyPos.getZ())).isEmpty())
+            new AABB(studyPos.getX(), studyPos.getY(), studyPos.getZ(), studyPos.getX(), studyPos.getY(), studyPos.getZ())).isEmpty())
         {
             studyPos = null;
             return DECIDE;

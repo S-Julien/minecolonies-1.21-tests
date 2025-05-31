@@ -21,6 +21,7 @@ public class RaidAdjustmentRewardTemplate implements IQuestRewardTemplate
 
     /**
      * Setup the research reward.
+     *
      * @param qty the research.
      */
     public RaidAdjustmentRewardTemplate(final int qty)
@@ -30,6 +31,7 @@ public class RaidAdjustmentRewardTemplate implements IQuestRewardTemplate
 
     /**
      * Create the reward.
+     *
      * @param jsonObject the json to read from.
      * @return the reward object.
      */
@@ -39,6 +41,7 @@ public class RaidAdjustmentRewardTemplate implements IQuestRewardTemplate
         final int change = details.get(CHANGE_KEY).getAsInt();
         return new RaidAdjustmentRewardTemplate(change);
     }
+
     @Override
     public void applyReward(final IColony colony, final Player player, final IQuestInstance colonyQuest)
     {

@@ -31,10 +31,10 @@ public class ItemPlateArmor extends ArmorItem
      * @param name            the name.
      */
     public ItemPlateArmor(
-      @NotNull final String name,
-      @NotNull final ArmorMaterial materialIn,
-      @NotNull final ArmorItem.Type equipmentSlotIn,
-      final Properties properties)
+        @NotNull final String name,
+        @NotNull final ArmorMaterial materialIn,
+        @NotNull final ArmorItem.Type equipmentSlotIn,
+        final Properties properties)
     {
         super(materialIn, equipmentSlotIn, properties);
     }

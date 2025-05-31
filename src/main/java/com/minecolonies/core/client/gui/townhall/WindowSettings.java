@@ -28,15 +28,15 @@ public class WindowSettings extends AbstractWindowTownHall
         this.moduleView = building.getModuleView(BuildingModules.TOWNHALL_SETTINGS);
 
         moduleView.getSetting(BuildingTownHall.AUTO_HIRING_MODE)
-          .setupHandler(BuildingTownHall.AUTO_HIRING_MODE, window.findPaneByID("job"), moduleView, moduleView.getBuildingView(), WindowSettings.this);
+            .setupHandler(BuildingTownHall.AUTO_HIRING_MODE, window.findPaneByID("job"), moduleView, moduleView.getBuildingView(), WindowSettings.this);
         moduleView.getSetting(BuildingTownHall.MOVE_IN)
-          .setupHandler(BuildingTownHall.MOVE_IN, window.findPaneByID("movein"), moduleView, moduleView.getBuildingView(), WindowSettings.this);
+            .setupHandler(BuildingTownHall.MOVE_IN, window.findPaneByID("movein"), moduleView, moduleView.getBuildingView(), WindowSettings.this);
         moduleView.getSetting(BuildingTownHall.AUTO_HOUSING_MODE)
-          .setupHandler(BuildingTownHall.AUTO_HOUSING_MODE, window.findPaneByID("housing"), moduleView, moduleView.getBuildingView(), WindowSettings.this);
+            .setupHandler(BuildingTownHall.AUTO_HOUSING_MODE, window.findPaneByID("housing"), moduleView, moduleView.getBuildingView(), WindowSettings.this);
         moduleView.getSetting(BuildingTownHall.ENTER_LEAVE_MESSAGES)
-          .setupHandler(BuildingTownHall.ENTER_LEAVE_MESSAGES, window.findPaneByID("entermessages"), moduleView, moduleView.getBuildingView(), WindowSettings.this);
+            .setupHandler(BuildingTownHall.ENTER_LEAVE_MESSAGES, window.findPaneByID("entermessages"), moduleView, moduleView.getBuildingView(), WindowSettings.this);
         moduleView.getSetting(BuildingTownHall.CONSTRUCTION_TAPE)
-          .setupHandler(BuildingTownHall.CONSTRUCTION_TAPE, window.findPaneByID("tape"), moduleView, moduleView.getBuildingView(), WindowSettings.this);
+            .setupHandler(BuildingTownHall.CONSTRUCTION_TAPE, window.findPaneByID("tape"), moduleView, moduleView.getBuildingView(), WindowSettings.this);
     }
 
     /**
@@ -52,15 +52,15 @@ public class WindowSettings extends AbstractWindowTownHall
     public void onUpdate()
     {
         moduleView.getSetting(BuildingTownHall.AUTO_HIRING_MODE)
-          .render(BuildingTownHall.AUTO_HIRING_MODE, window.findPaneByID("job"), moduleView, moduleView.getBuildingView(), WindowSettings.this);
+            .render(BuildingTownHall.AUTO_HIRING_MODE, window.findPaneByID("job"), moduleView, moduleView.getBuildingView(), WindowSettings.this);
         moduleView.getSetting(BuildingTownHall.MOVE_IN)
-          .render(BuildingTownHall.MOVE_IN, window.findPaneByID("movein"), moduleView, moduleView.getBuildingView(), WindowSettings.this);
+            .render(BuildingTownHall.MOVE_IN, window.findPaneByID("movein"), moduleView, moduleView.getBuildingView(), WindowSettings.this);
         moduleView.getSetting(BuildingTownHall.AUTO_HOUSING_MODE)
-          .render(BuildingTownHall.AUTO_HOUSING_MODE, window.findPaneByID("housing"), moduleView, moduleView.getBuildingView(), WindowSettings.this);
+            .render(BuildingTownHall.AUTO_HOUSING_MODE, window.findPaneByID("housing"), moduleView, moduleView.getBuildingView(), WindowSettings.this);
         moduleView.getSetting(BuildingTownHall.ENTER_LEAVE_MESSAGES)
-          .render(BuildingTownHall.ENTER_LEAVE_MESSAGES, window.findPaneByID("entermessages"), moduleView, moduleView.getBuildingView(), WindowSettings.this);
+            .render(BuildingTownHall.ENTER_LEAVE_MESSAGES, window.findPaneByID("entermessages"), moduleView, moduleView.getBuildingView(), WindowSettings.this);
         moduleView.getSetting(BuildingTownHall.CONSTRUCTION_TAPE)
-          .render(BuildingTownHall.CONSTRUCTION_TAPE, window.findPaneByID("tape"), moduleView, moduleView.getBuildingView(), WindowSettings.this);
+            .render(BuildingTownHall.CONSTRUCTION_TAPE, window.findPaneByID("tape"), moduleView, moduleView.getBuildingView(), WindowSettings.this);
     }
 
     @Override

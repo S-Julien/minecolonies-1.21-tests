@@ -67,7 +67,7 @@ public final class WorkerUtil
     /**
      * Placeholder text in a level sign.
      */
-    private static final String LEVEL_SIGN_TEXT      = "level_placeholder";
+    private static final String LEVEL_SIGN_TEXT = "level_placeholder";
 
     /**
      * List of tools to test blocks against, used for finding right tool.
@@ -123,11 +123,11 @@ public final class WorkerUtil
         }
 
         citizen.moveTo(
-          spawnPoint.getX() + MIDDLE_BLOCK_OFFSET,
-          spawnPoint.getY(),
-          spawnPoint.getZ() + MIDDLE_BLOCK_OFFSET,
-          citizen.getRotationYaw(),
-          citizen.getRotationPitch());
+            spawnPoint.getX() + MIDDLE_BLOCK_OFFSET,
+            spawnPoint.getY(),
+            spawnPoint.getZ() + MIDDLE_BLOCK_OFFSET,
+            citizen.getRotationYaw(),
+            citizen.getRotationPitch());
         citizen.getNavigation().stop();
         return true;
     }
@@ -141,7 +141,8 @@ public final class WorkerUtil
      */
     public static EquipmentTypeEntry getBestToolForBlock(final BlockState state, float blockHardness, final AbstractBuilding building, final BlockGetter level, final BlockPos pos)
     {
-        if (state.getBlock() instanceof IForgeShearable && building.hasModule(SettingsModule.class) && building.getFirstModuleOccurance(SettingsModule.class).getSettingValueOrDefault(USE_SHEARS, true))
+        if (state.getBlock() instanceof IForgeShearable && building.hasModule(SettingsModule.class) && building.getFirstModuleOccurance(SettingsModule.class)
+            .getSettingValueOrDefault(USE_SHEARS, true))
         {
             return ModEquipmentTypes.shears.get();
         }
@@ -180,7 +181,8 @@ public final class WorkerUtil
     {
         int required = 0;
         final List<Tier> tiers = TierSortingRegistry.getSortedTiers();
-        for (final Tier tier : tiers) {
+        for (final Tier tier : tiers)
+        {
             TagKey<Block> tag = tier.getTag();
             if (tag != null && target.is(tag))
             {
@@ -190,7 +192,7 @@ public final class WorkerUtil
         }
 
         if (required < 0
-              || target.getBlock() instanceof GlazedTerracottaBlock)
+            || target.getBlock() instanceof GlazedTerracottaBlock)
         {
             return 0;
         }
@@ -218,7 +220,7 @@ public final class WorkerUtil
         final double intendedRotationYaw = (Math.atan2(zDifference, xDifference) * 180.0D / Math.PI) - 90.0;
         final double intendedRotationPitch = -(Math.atan2(yDifference, squareDifference) * 180.0D / Math.PI);
         citizen.setOwnRotation((float) EntityUtils.updateRotation(citizen.getRotationYaw(), intendedRotationYaw, ROTATION_MOVEMENT),
-          (float) EntityUtils.updateRotation(citizen.getRotationPitch(), intendedRotationPitch, ROTATION_MOVEMENT));
+            (float) EntityUtils.updateRotation(citizen.getRotationPitch(), intendedRotationPitch, ROTATION_MOVEMENT));
 
         final double goToX = xDifference > 0 ? MOVE_MINIMAL : -MOVE_MINIMAL;
         final double goToZ = zDifference > 0 ? MOVE_MINIMAL : -MOVE_MINIMAL;
@@ -349,12 +351,11 @@ public final class WorkerUtil
         }
     }
 
-
     /**
      * Check if there are too many items (i.e. more than 3) unrelated to the current recipe.
      *
      * @param currentRecipeStorage the reciep to compare it to.
-     * @param inv the inventory to check in.
+     * @param inv                  the inventory to check in.
      * @return true if so.
      */
     public static boolean hasTooManyExternalItemsInInv(final IRecipeStorage currentRecipeStorage, final @NotNull InventoryCitizen inv)
@@ -377,7 +378,8 @@ public final class WorkerUtil
 
     /**
      * Check if stack is part of the recipe.
-     * @param stack the stack to check.
+     *
+     * @param stack                the stack to check.
      * @param currentRecipeStorage the recipe to compare.
      * @return true if so.
      */

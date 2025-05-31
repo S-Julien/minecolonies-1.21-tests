@@ -132,8 +132,8 @@ public abstract class AbstractEntityCitizen extends AbstractCivilianEntity imple
      * The AI for citizens, controlling different global states
      */
     protected ITickRateStateMachine<IState> entityStateController = new TickRateStateMachine<>(EntityState.INIT,
-      e -> Log.getLogger()
-        .warn("Citizen " + getDisplayName().getString() + " id:" + (getCitizenData() != null ? getCitizenData().getId() : -1) + "from colony: "
+        e -> Log.getLogger()
+            .warn("Citizen " + getDisplayName().getString() + " id:" + (getCitizenData() != null ? getCitizenData().getId() : -1) + "from colony: "
                 + getCitizenColonyHandler().getColonyId() + " state controller exception", e), ENTITY_AI_TICKRATE);
 
     /**
@@ -155,9 +155,9 @@ public abstract class AbstractEntityCitizen extends AbstractCivilianEntity imple
     public static AttributeSupplier.Builder getDefaultAttributes()
     {
         return LivingEntity.createLivingAttributes()
-          .add(Attributes.MAX_HEALTH, BASE_MAX_HEALTH)
-          .add(Attributes.MOVEMENT_SPEED, BASE_MOVEMENT_SPEED)
-          .add(Attributes.FOLLOW_RANGE, BASE_PATHFINDING_RANGE);
+            .add(Attributes.MAX_HEALTH, BASE_MAX_HEALTH)
+            .add(Attributes.MOVEMENT_SPEED, BASE_MOVEMENT_SPEED)
+            .add(Attributes.FOLLOW_RANGE, BASE_PATHFINDING_RANGE);
     }
 
     public GoalSelector getTasks()
@@ -272,9 +272,9 @@ public abstract class AbstractEntityCitizen extends AbstractCivilianEntity imple
     public ResourceLocation getTexture()
     {
         if (texture == null
-              || textureDirty
-              || !texture.getPath().contains(getEntityData().get(DATA_STYLE))
-              || !texture.getPath().contains(getEntityData().get(DATA_TEXTURE_SUFFIX)))
+            || textureDirty
+            || !texture.getPath().contains(getEntityData().get(DATA_STYLE))
+            || !texture.getPath().contains(getEntityData().get(DATA_TEXTURE_SUFFIX)))
         {
             setTexture();
         }
@@ -686,6 +686,7 @@ public abstract class AbstractEntityCitizen extends AbstractCivilianEntity imple
 
     /**
      * On armor removal.
+     *
      * @param stack the removed armor.
      */
     public void onArmorRemove(final ItemStack stack, final EquipmentSlot equipmentSlot)
@@ -695,6 +696,7 @@ public abstract class AbstractEntityCitizen extends AbstractCivilianEntity imple
 
     /**
      * On armor equip.
+     *
      * @param stack the added armor.
      */
     public void onArmorAdd(final ItemStack stack, final EquipmentSlot equipmentSlot)
@@ -756,7 +758,8 @@ public abstract class AbstractEntityCitizen extends AbstractCivilianEntity imple
         }
         if (getName() instanceof MutableComponent mutableComponent)
         {
-            return mutableComponent.withStyle(getCitizenColonyHandler().getColony().getTeamColonyColor()).withStyle((style) -> style.withHoverEvent(this.createHoverEvent()).withInsertion(this.getStringUUID()));
+            return mutableComponent.withStyle(getCitizenColonyHandler().getColony().getTeamColonyColor())
+                .withStyle((style) -> style.withHoverEvent(this.createHoverEvent()).withInsertion(this.getStringUUID()));
         }
         return super.getDisplayName();
     }

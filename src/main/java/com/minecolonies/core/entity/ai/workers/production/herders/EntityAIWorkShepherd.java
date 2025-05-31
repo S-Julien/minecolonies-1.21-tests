@@ -47,7 +47,7 @@ public class EntityAIWorkShepherd extends AbstractEntityAIHerder<JobShepherd, Bu
     {
         super(job);
         super.registerTargets(
-          new AITarget(SHEPHERD_SHEAR, this::shearSheep, TICKS_SECOND)
+            new AITarget(SHEPHERD_SHEAR, this::shearSheep, TICKS_SECOND)
         );
     }
 
@@ -99,7 +99,7 @@ public class EntityAIWorkShepherd extends AbstractEntityAIHerder<JobShepherd, Bu
     private Sheep findShearableSheep()
     {
         return searchForAnimals(a -> a instanceof Sheep sheepie && !sheepie.isSheared() && !sheepie.isBaby())
-                 .stream().map(a -> (Sheep) a).findAny().orElse(null);
+            .stream().map(a -> (Sheep) a).findAny().orElse(null);
     }
 
     /**

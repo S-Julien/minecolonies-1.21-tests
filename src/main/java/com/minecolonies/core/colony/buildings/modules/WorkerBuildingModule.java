@@ -35,7 +35,7 @@ import static com.minecolonies.api.util.constant.NbtTagConstants.*;
  * The worker module for citizen where they are assigned to if they work at it.
  */
 public class WorkerBuildingModule extends AbstractAssignedCitizenModule
-  implements IAssignsJob, IBuildingEventsModule, ITickingModule, IPersistentModule, IBuildingWorkerModule, ICreatesResolversModule
+    implements IAssignsJob, IBuildingEventsModule, ITickingModule, IPersistentModule, IBuildingWorkerModule, ICreatesResolversModule
 {
     /**
      * Module specific skills.
@@ -59,11 +59,11 @@ public class WorkerBuildingModule extends AbstractAssignedCitizenModule
     private final Function<IBuilding, Integer> sizeLimit;
 
     public WorkerBuildingModule(
-      final JobEntry entry,
-      final Skill primary,
-      final Skill secondary,
-      final boolean canWorkingDuringRain,
-      final Function<IBuilding, Integer> sizeLimit)
+        final JobEntry entry,
+        final Skill primary,
+        final Skill secondary,
+        final boolean canWorkingDuringRain,
+        final Function<IBuilding, Integer> sizeLimit)
     {
         this.jobEntry = entry;
         this.primary = primary;
@@ -256,11 +256,11 @@ public class WorkerBuildingModule extends AbstractAssignedCitizenModule
     {
         final ImmutableList.Builder<IRequestResolver<?>> builder = ImmutableList.builder();
         builder.add(new BuildingRequestResolver(building.getRequester().getLocation(), building.getColony().getRequestManager()
-            .getFactoryController().getNewInstance(TypeConstants.ITOKEN)),
-          new PrivateWorkerCraftingRequestResolver(building.getRequester().getLocation(), building.getColony().getRequestManager()
-            .getFactoryController().getNewInstance(TypeConstants.ITOKEN), jobEntry),
-          new PrivateWorkerCraftingProductionResolver(building.getRequester().getLocation(), building.getColony().getRequestManager()
-            .getFactoryController().getNewInstance(TypeConstants.ITOKEN), jobEntry));
+                .getFactoryController().getNewInstance(TypeConstants.ITOKEN)),
+            new PrivateWorkerCraftingRequestResolver(building.getRequester().getLocation(), building.getColony().getRequestManager()
+                .getFactoryController().getNewInstance(TypeConstants.ITOKEN), jobEntry),
+            new PrivateWorkerCraftingProductionResolver(building.getRequester().getLocation(), building.getColony().getRequestManager()
+                .getFactoryController().getNewInstance(TypeConstants.ITOKEN), jobEntry));
         return builder.build();
     }
 

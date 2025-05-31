@@ -130,7 +130,7 @@ public class ItemBannerRallyGuards extends AbstractItemMinecolonies
                 compound.putBoolean(TAG_IS_ACTIVE, true);
 
                 final int numGuards =
-                  broadcastPlayerToRally(banner, context.getPlayer().getCommandSenderWorld(), new StaticLocation(context.getClickedPos(), context.getLevel().dimension()));
+                    broadcastPlayerToRally(banner, context.getPlayer().getCommandSenderWorld(), new StaticLocation(context.getClickedPos(), context.getLevel().dimension()));
                 if (numGuards > 0)
                 {
                     MessageUtils.format(TOOL_RALLY_BANNER_ACTIVATED, numGuards).sendTo(context.getPlayer());
@@ -151,6 +151,7 @@ public class ItemBannerRallyGuards extends AbstractItemMinecolonies
 
     /**
      * Get the colony from the compound data.
+     *
      * @param compound the compound to get it from.
      * @return the colony or null if not found.
      */
@@ -263,27 +264,27 @@ public class ItemBannerRallyGuards extends AbstractItemMinecolonies
         {
             compound.putBoolean(TAG_IS_ACTIVE, true);
 
-           final IColony colony = getColony(compound, playerIn.level);
-           if (colony != null && colony.getPermissions().hasPermission(playerIn, Action.RALLY_GUARDS))
-           {
-               final int numGuards = broadcastPlayerToRally(banner, playerIn.getCommandSenderWorld(), playerIn == null ? null : new EntityLocation(playerIn.getUUID()));
+            final IColony colony = getColony(compound, playerIn.level);
+            if (colony != null && colony.getPermissions().hasPermission(playerIn, Action.RALLY_GUARDS))
+            {
+                final int numGuards = broadcastPlayerToRally(banner, playerIn.getCommandSenderWorld(), playerIn == null ? null : new EntityLocation(playerIn.getUUID()));
 
-               if (numGuards > 0)
-               {
-                   MessageUtils.format(TOOL_RALLY_BANNER_ACTIVATED, numGuards).sendTo(playerIn);
-               }
-               else
-               {
-                   MessageUtils.format(TOOL_RALLY_BANNER_NO_GUARDS).sendTo(playerIn);
-               }
-           }
+                if (numGuards > 0)
+                {
+                    MessageUtils.format(TOOL_RALLY_BANNER_ACTIVATED, numGuards).sendTo(playerIn);
+                }
+                else
+                {
+                    MessageUtils.format(TOOL_RALLY_BANNER_NO_GUARDS).sendTo(playerIn);
+                }
+            }
         }
     }
 
     /**
      * Broadcasts the player all the guardtowers rallied by the item are supposed to follow.
      *
-     * @param banner   The banner that should broadcast
+     * @param banner The banner that should broadcast
      * @return The number of guards rallied
      */
     public static int broadcastPlayerToRally(final ItemStack banner, final Level worldIn, @Nullable final ILocation rallyLocation)
@@ -310,8 +311,8 @@ public class ItemBannerRallyGuards extends AbstractItemMinecolonies
             // Note: getCurrentServer().getWorld() must be used here because MineColonies.proxy.getWorld() fails on single player worlds
             // We are sure we are on the server-side in this function though, so it's fine.
             final IGuardBuilding building =
-              getGuardBuilding(ServerLifecycleHooks.getCurrentServer().getLevel(guardTowerLocation.getDimension()),
-                guardTowerLocation.getInDimensionLocation());
+                getGuardBuilding(ServerLifecycleHooks.getCurrentServer().getLevel(guardTowerLocation.getDimension()),
+                    guardTowerLocation.getInDimensionLocation());
 
             // If the building is null, it means that guardtower has been moved/destroyed since being added.
             // Safely ignore this case, the player must remove the tower from the rallying list manually.
@@ -384,8 +385,8 @@ public class ItemBannerRallyGuards extends AbstractItemMinecolonies
         }
 
         return isGuardBuilding(worldIn, position)
-                 ? (AbstractBuildingGuards.View) IColonyManager.getInstance().getBuildingView(worldIn.dimension(), position)
-                 : null;
+            ? (AbstractBuildingGuards.View) IColonyManager.getInstance().getBuildingView(worldIn.dimension(), position)
+            : null;
     }
 
     /**
@@ -419,7 +420,7 @@ public class ItemBannerRallyGuards extends AbstractItemMinecolonies
         for (final ILocation guardTowerLocation : getGuardTowerLocations(banner))
         {
             result.add(new Pair<>(guardTowerLocation,
-              getGuardBuildingView(level, guardTowerLocation.getInDimensionLocation())));
+                getGuardBuildingView(level, guardTowerLocation.getInDimensionLocation())));
         }
         return ImmutableList.copyOf(result);
     }
@@ -523,7 +524,7 @@ public class ItemBannerRallyGuards extends AbstractItemMinecolonies
 
     @Override
     public void appendHoverText(
-      @NotNull final ItemStack stack, @Nullable final Level worldIn, @NotNull final List<Component> tooltip, @NotNull final TooltipFlag flagIn)
+        @NotNull final ItemStack stack, @Nullable final Level worldIn, @NotNull final List<Component> tooltip, @NotNull final TooltipFlag flagIn)
     {
         final MutableComponent guiHint = Component.translatable(TranslationConstants.COM_MINECOLONIES_BANNER_RALLY_GUARDS_TOOLTIP_GUI);
         guiHint.setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY));

@@ -31,13 +31,13 @@ public class FieldPlacementHandler implements IPlacementHandler
 
     @Override
     public ActionProcessingResult handle(
-      @NotNull Level world,
-      @NotNull BlockPos pos,
-      @NotNull BlockState blockState,
-      @Nullable CompoundTag tileEntityData,
-      boolean complete,
-      BlockPos centerPos,
-      final PlacementSettings settings)
+        @NotNull Level world,
+        @NotNull BlockPos pos,
+        @NotNull BlockState blockState,
+        @Nullable CompoundTag tileEntityData,
+        boolean complete,
+        BlockPos centerPos,
+        final PlacementSettings settings)
     {
         if (world.getBlockState(pos).getBlock() == ModBlocks.blockScarecrow)
         {

@@ -55,22 +55,22 @@ public final class CreativeRaiderStructureHandler extends CreativeStructureHandl
     /**
      * The minecolonies specific creative structure placer.
      *
-     * @param world          the world.
-     * @param pos            the pos it is placed at.
-     * @param blueprintFuture  the blueprint future of the structure.
-     * @param settings       the placement settings.
-     * @param fancyPlacement if fancy or complete.
-     * @param event          the raid event.
-     * @param colonyId       the colony id.
+     * @param world           the world.
+     * @param pos             the pos it is placed at.
+     * @param blueprintFuture the blueprint future of the structure.
+     * @param settings        the placement settings.
+     * @param fancyPlacement  if fancy or complete.
+     * @param event           the raid event.
+     * @param colonyId        the colony id.
      */
     public CreativeRaiderStructureHandler(
-      final Level world,
-      final BlockPos pos,
-      final Future<Blueprint> blueprintFuture,
-      final PlacementSettings settings,
-      final boolean fancyPlacement,
-      final IColonyRaidEvent event,
-      final int colonyId)
+        final Level world,
+        final BlockPos pos,
+        final Future<Blueprint> blueprintFuture,
+        final PlacementSettings settings,
+        final boolean fancyPlacement,
+        final IColonyRaidEvent event,
+        final int colonyId)
     {
         super(world, pos, blueprintFuture, settings, fancyPlacement);
 
@@ -108,13 +108,13 @@ public final class CreativeRaiderStructureHandler extends CreativeStructureHandl
      * @param colonyId       the colony id.
      */
     public CreativeRaiderStructureHandler(
-      final Level world,
-      final BlockPos pos,
-      final Blueprint blueprint,
-      final PlacementSettings settings,
-      final boolean fancyPlacement,
-      final IColonyRaidEvent event,
-      final int colonyId)
+        final Level world,
+        final BlockPos pos,
+        final Blueprint blueprint,
+        final PlacementSettings settings,
+        final boolean fancyPlacement,
+        final IColonyRaidEvent event,
+        final int colonyId)
     {
         super(world, pos, blueprint, settings, fancyPlacement);
 
@@ -169,23 +169,24 @@ public final class CreativeRaiderStructureHandler extends CreativeStructureHandl
     /**
      * Load a structure into this world and place it in the right position and rotation.
      *
-     * @param worldObj       the world to load it in
+     * @param worldObj        the world to load it in
      * @param blueprintFuture the blueprint future
-     * @param pos            coordinates
-     * @param fancyPlacement if fancy or complete.
-     * @param colonyId       the colony id.
-     * @param event          the raid event.
-     * @param player         the placing player.
+     * @param pos             coordinates
+     * @param fancyPlacement  if fancy or complete.
+     * @param colonyId        the colony id.
+     * @param event           the raid event.
+     * @param player          the placing player.
      */
     public static void loadAndPlaceStructure(
-      final Level worldObj, @NotNull final Future<Blueprint> blueprintFuture,
-      @NotNull final BlockPos pos,
-      final boolean fancyPlacement, final int colonyId, final IColonyRaidEvent event,
-      @Nullable final ServerPlayer player)
+        final Level worldObj, @NotNull final Future<Blueprint> blueprintFuture,
+        @NotNull final BlockPos pos,
+        final boolean fancyPlacement, final int colonyId, final IColonyRaidEvent event,
+        @Nullable final ServerPlayer player)
     {
         try
         {
-            @NotNull final IStructureHandler structure = new CreativeRaiderStructureHandler(worldObj, pos, blueprintFuture, new PlacementSettings(Mirror.NONE, Rotation.NONE), fancyPlacement, event, colonyId);
+            @NotNull final IStructureHandler structure =
+                new CreativeRaiderStructureHandler(worldObj, pos, blueprintFuture, new PlacementSettings(Mirror.NONE, Rotation.NONE), fancyPlacement, event, colonyId);
             Manager.addToQueue(new PlaceStructureOperation(new StructurePlacer(structure), player));
         }
         catch (final IllegalStateException e)
@@ -198,7 +199,7 @@ public final class CreativeRaiderStructureHandler extends CreativeStructureHandl
      * Load a structure into this world and place it in the right position and rotation.
      *
      * @param worldObj       the world to load it in
-     * @param blueprint the blueprint
+     * @param blueprint      the blueprint
      * @param pos            coordinates
      * @param fancyPlacement if fancy or complete.
      * @param colonyId       the colony id.
@@ -206,14 +207,15 @@ public final class CreativeRaiderStructureHandler extends CreativeStructureHandl
      * @param player         the placing player.
      */
     public static void loadAndPlaceStructure(
-      final Level worldObj, @NotNull final Blueprint blueprint,
-      @NotNull final BlockPos pos,
-      final boolean fancyPlacement, final int colonyId, final IColonyRaidEvent event,
-      @Nullable final ServerPlayer player)
+        final Level worldObj, @NotNull final Blueprint blueprint,
+        @NotNull final BlockPos pos,
+        final boolean fancyPlacement, final int colonyId, final IColonyRaidEvent event,
+        @Nullable final ServerPlayer player)
     {
         try
         {
-            @NotNull final IStructureHandler structure = new CreativeRaiderStructureHandler(worldObj, pos, blueprint, new PlacementSettings(Mirror.NONE, Rotation.NONE), fancyPlacement, event, colonyId);
+            @NotNull final IStructureHandler structure =
+                new CreativeRaiderStructureHandler(worldObj, pos, blueprint, new PlacementSettings(Mirror.NONE, Rotation.NONE), fancyPlacement, event, colonyId);
             Manager.addToQueue(new PlaceStructureOperation(new StructurePlacer(structure), player));
         }
         catch (final IllegalStateException e)

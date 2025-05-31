@@ -33,13 +33,13 @@ public class BuilderIgnorePlacementHandler implements IPlacementHandler
 
     @Override
     public ActionProcessingResult handle(
-      @NotNull final Level world,
-      @NotNull final BlockPos pos,
-      @NotNull final BlockState blockState,
-      @Nullable final CompoundTag tileEntityData,
-      final boolean complete,
-      final BlockPos centerPos,
-      final PlacementSettings settings)
+        @NotNull final Level world,
+        @NotNull final BlockPos pos,
+        @NotNull final BlockState blockState,
+        @Nullable final CompoundTag tileEntityData,
+        final boolean complete,
+        final BlockPos centerPos,
+        final PlacementSettings settings)
     {
         if (complete)
         {
@@ -64,11 +64,11 @@ public class BuilderIgnorePlacementHandler implements IPlacementHandler
 
     @Override
     public List<ItemStack> getRequiredItems(
-      @NotNull final Level world,
-      @NotNull final BlockPos pos,
-      @NotNull final BlockState blockState,
-      @Nullable final CompoundTag tileEntityData,
-      final boolean complete)
+        @NotNull final Level world,
+        @NotNull final BlockPos pos,
+        @NotNull final BlockState blockState,
+        @Nullable final CompoundTag tileEntityData,
+        final boolean complete)
     {
         return Collections.emptyList();
     }

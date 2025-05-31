@@ -93,9 +93,9 @@ public class DruidCombatAI extends AttackMoveAI<EntityCitizen>
     private boolean instantEffect;
 
     public DruidCombatAI(
-      final EntityCitizen owner,
-      final ITickRateStateMachine stateMachine,
-      final AbstractEntityAIGuard parentAI)
+        final EntityCitizen owner,
+        final ITickRateStateMachine stateMachine,
+        final AbstractEntityAIGuard parentAI)
     {
         super(owner, stateMachine);
 
@@ -115,7 +115,7 @@ public class DruidCombatAI extends AttackMoveAI<EntityCitizen>
         if (user.distanceToSqr(target) < RANGED_FLEE_SQDIST)
         {
             if (user.getRandom().nextInt(FLEE_CHANCE) == 0 &&
-                  !((AbstractBuildingGuards) user.getCitizenData().getWorkBuilding()).getTask().equals(GuardTaskSetting.GUARD))
+                !((AbstractBuildingGuards) user.getCitizenData().getWorkBuilding()).getTask().equals(GuardTaskSetting.GUARD))
             {
                 EntityNavigationUtils.walkAwayFrom(user, target.blockPosition(), (int) (getAttackDistance() / 2.0), getCombatMovementSpeed());
             }
@@ -136,7 +136,7 @@ public class DruidCombatAI extends AttackMoveAI<EntityCitizen>
         boolean gotMaterial = false;
         BiPredicate<LivingEntity, MobEffect> predicate;
         if (user.getCitizenColonyHandler().getColonyOrRegister().getResearchManager().getResearchEffects().getEffectStrength(DRUID_USE_POTIONS) > 0
-              && InventoryUtils.hasItemInItemHandler(user.getInventoryCitizen(), item -> item.getItem() == ModItems.magicpotion))
+            && InventoryUtils.hasItemInItemHandler(user.getInventoryCitizen(), item -> item.getItem() == ModItems.magicpotion))
         {
             gotMaterial = true;
         }
@@ -199,11 +199,11 @@ public class DruidCombatAI extends AttackMoveAI<EntityCitizen>
         if (BlockPosUtil.getDistanceSquared(target.blockPosition(), user.blockPosition()) <= 4.0)
         {
             final PathJobMoveAwayFromLocation job = new PathJobMoveAwayFromLocation(user.level,
-              PathfindingUtils.prepareStart(target),
-              target.blockPosition(),
-              12,
-              (int) user.getAttribute(Attributes.FOLLOW_RANGE).getValue(),
-              user);
+                PathfindingUtils.prepareStart(target),
+                target.blockPosition(),
+                12,
+                (int) user.getAttribute(Attributes.FOLLOW_RANGE).getValue(),
+                user);
             final PathResult pathResult = ((MinecoloniesAdvancedPathNavigate) user.getNavigation()).setPathJob(job, null, getCombatMovementSpeed(), true);
             job.setPathingOptions(combatPathingOptions);
             return pathResult;
@@ -239,10 +239,10 @@ public class DruidCombatAI extends AttackMoveAI<EntityCitizen>
     protected boolean isAttackableTarget(final LivingEntity entity)
     {
         return (AbstractEntityAIGuard.isAttackableTarget(user, entity)
-                  || (entity instanceof IThreatTableEntity && ((IThreatTableEntity) entity).getThreatTable().getTarget() != null)
-                  || (entity instanceof Player && entity.getLastHurtByMobTimestamp() != 0 && entity.tickCount > entity.getLastHurtByMobTimestamp()
-                        && entity.tickCount - entity.getLastHurtByMobTimestamp() < 20 * 30))
-                 && !wasAffectedByDruid(entity);
+            || (entity instanceof IThreatTableEntity && ((IThreatTableEntity) entity).getThreatTable().getTarget() != null)
+            || (entity instanceof Player && entity.getLastHurtByMobTimestamp() != 0 && entity.tickCount > entity.getLastHurtByMobTimestamp()
+            && entity.tickCount - entity.getLastHurtByMobTimestamp() < 20 * 30))
+            && !wasAffectedByDruid(entity);
     }
 
     @Override
@@ -300,7 +300,7 @@ public class DruidCombatAI extends AttackMoveAI<EntityCitizen>
     private boolean wasAffectedByDruid(final LivingEntity entity)
     {
         return entity.hasEffect(MobEffects.MOVEMENT_SLOWDOWN) || entity.hasEffect(MobEffects.SATURATION) || entity.hasEffect(MobEffects.DAMAGE_BOOST)
-                 || entity.hasEffect(MobEffects.WEAKNESS) || entity.hasEffect(MobEffects.DAMAGE_RESISTANCE) || entity.hasEffect(MobEffects.HEAL);
+            || entity.hasEffect(MobEffects.WEAKNESS) || entity.hasEffect(MobEffects.DAMAGE_RESISTANCE) || entity.hasEffect(MobEffects.HEAL);
     }
 
     @Override
@@ -317,7 +317,7 @@ public class DruidCombatAI extends AttackMoveAI<EntityCitizen>
         {
             final EntityCitizen citizen = (EntityCitizen) entity;
             if (citizen.getCitizenJobHandler().getColonyJob() instanceof AbstractJobGuard && ((AbstractJobGuard<?>) citizen.getCitizenJobHandler().getColonyJob()).isAsleep()
-                  && user.getSensing().hasLineOfSight(citizen))
+                && user.getSensing().hasLineOfSight(citizen))
             {
                 parentAI.setWakeCitizen(citizen);
                 return true;

@@ -80,10 +80,10 @@ public class EnchanterStationModuleWindow extends AbstractModuleWindow
         super.onOpened();
         selectedBuildings = module.getBuildingsToGatherFrom();
         allBuildings = buildingView.getColony().getBuildings().stream()
-                         .filter(b -> b instanceof AbstractBuildingView && !b.getModuleViews(WorkerBuildingModuleView.class).isEmpty() && b.getBuildingType() != ModBuildings.enchanter.get())
-                         .sorted((b1, b2) -> (int) (BlockPosUtil.getDistance2D(buildingView.getPosition(), b1.getPosition()) - BlockPosUtil.getDistance2D(buildingView.getPosition(),
-                           b2.getPosition())))
-                         .collect(Collectors.toList());
+            .filter(b -> b instanceof AbstractBuildingView && !b.getModuleViews(WorkerBuildingModuleView.class).isEmpty() && b.getBuildingType() != ModBuildings.enchanter.get())
+            .sorted((b1, b2) -> (int) (BlockPosUtil.getDistance2D(buildingView.getPosition(), b1.getPosition()) - BlockPosUtil.getDistance2D(buildingView.getPosition(),
+                b2.getPosition())))
+            .collect(Collectors.toList());
         workerList = findPaneOfTypeByID(LIST_WORKERS, ScrollingList.class);
         workerList.setDataProvider(new ScrollingList.DataProvider()
         {
@@ -125,7 +125,8 @@ public class EnchanterStationModuleWindow extends AbstractModuleWindow
     private void switchClicked(@NotNull final Button button)
     {
         final int row = workerList.getListElementIndexByPane(button);
-        String buttonText = button.getText().getContents() instanceof TranslatableContents ? ((TranslatableContents) button.getText().getContents()).getKey() : button.getTextAsString();
+        String buttonText =
+            button.getText().getContents() instanceof TranslatableContents ? ((TranslatableContents) button.getText().getContents()).getKey() : button.getTextAsString();
 
         if (buttonText.equals(OFF))
         {

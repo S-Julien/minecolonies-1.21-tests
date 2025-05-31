@@ -114,12 +114,12 @@ public class TransferItemsRequestMessage extends AbstractBuildingServerMessage<I
             }
 
             amountToTake = Math.min(quantity, InventoryUtils.getItemCountInItemHandler(new InvWrapper(player.getInventory()),
-              stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(stack, itemStack, true, true)));
+                stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(stack, itemStack, true, true)));
         }
 
         ItemStack remainingItemStack = ItemStack.EMPTY;
         int tempAmount = amountToTake;
-        for (int i = 0; i < Math.max(1, Math.ceil((double) amountToTake/itemStack.getMaxStackSize())); i++)
+        for (int i = 0; i < Math.max(1, Math.ceil((double) amountToTake / itemStack.getMaxStackSize())); i++)
         {
             final ItemStack itemStackToTake = itemStack.copy();
             int insertAmount = Math.min(itemStack.getMaxStackSize(), tempAmount);
@@ -153,8 +153,8 @@ public class TransferItemsRequestMessage extends AbstractBuildingServerMessage<I
                 while (amountToRemoveFromPlayer > 0)
                 {
                     final int slot =
-                      InventoryUtils.findFirstSlotInItemHandlerWith(new InvWrapper(player.getInventory()),
-                        stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(stack, itemStack, true, true));
+                        InventoryUtils.findFirstSlotInItemHandlerWith(new InvWrapper(player.getInventory()),
+                            stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(stack, itemStack, true, true));
                     final ItemStack itemsTaken = player.getInventory().removeItem(slot, amountToRemoveFromPlayer);
                     amountToRemoveFromPlayer -= ItemStackUtils.getSize(itemsTaken);
                 }

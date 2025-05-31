@@ -17,7 +17,7 @@ public interface ITownHallView extends IBuildingView
 
     /**
      * Gets a list if colony events.
-     * 
+     *
      * @return a copy of the list of events.
      */
     List<IColonyEventDescription> getColonyEvents();

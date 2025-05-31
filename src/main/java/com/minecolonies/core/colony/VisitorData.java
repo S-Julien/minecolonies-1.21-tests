@@ -22,7 +22,7 @@ public class VisitorData extends CitizenData implements IVisitorData
     /**
      * Recruit nbt tag
      */
-    private static final String TAG_RECRUIT_COST = "rcost";
+    private static final String TAG_RECRUIT_COST     = "rcost";
     private static final String TAG_RECRUIT_COST_QTY = "rcostqty";
 
     /**
@@ -126,7 +126,7 @@ public class VisitorData extends CitizenData implements IVisitorData
         }
 
         if (getLastPosition() != BlockPos.ZERO && (getLastPosition().getX() != 0 && getLastPosition().getZ() != 0) && WorldUtil.isEntityBlockLoaded(getColony().getWorld(),
-          getLastPosition()))
+            getLastPosition()))
         {
             getColony().getVisitorManager().spawnOrCreateCivilian(this, getColony().getWorld(), getLastPosition(), true);
         }

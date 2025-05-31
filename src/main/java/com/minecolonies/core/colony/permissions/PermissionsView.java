@@ -22,13 +22,15 @@ import java.util.stream.Collectors;
  */
 public class PermissionsView implements IPermissions
 {
-    /** this rank is used if something asks for permissions before they have been synched from server */
+    /**
+     * this rank is used if something asks for permissions before they have been synched from server
+     */
     private static final Rank MISSINGNO_RANK = new Rank(-1, "missingno", false, true);
 
     @NotNull
-    private final Map<UUID, ColonyPlayer>  players     = new HashMap<>();
-    private       Rank               userRank;
-    private final Map<Integer, Rank> ranks = new LinkedHashMap<>();
+    private final Map<UUID, ColonyPlayer> players = new HashMap<>();
+    private       Rank                    userRank;
+    private final Map<Integer, Rank>      ranks   = new LinkedHashMap<>();
 
     private UUID   colonyOwner;
     private String ownerName = "";
@@ -53,10 +55,10 @@ public class PermissionsView implements IPermissions
     public Set<ColonyPlayer> getPlayersByRank(final Rank rank)
     {
         return Collections.unmodifiableSet(
-          this.players.values()
-            .stream()
-            .filter(player -> player.getRank() == rank)
-            .collect(Collectors.toSet()));
+            this.players.values()
+                .stream()
+                .filter(player -> player.getRank() == rank)
+                .collect(Collectors.toSet()));
     }
 
     @NotNull
@@ -87,19 +89,19 @@ public class PermissionsView implements IPermissions
     public Set<ColonyPlayer> getPlayersByRank(@NotNull final Set<Rank> ranks)
     {
         return Collections.unmodifiableSet(
-          this.players.values()
-            .stream()
-            .filter(player -> ranks.contains(player.getRank()))
-            .collect(Collectors.toSet()));
+            this.players.values()
+                .stream()
+                .filter(player -> ranks.contains(player.getRank()))
+                .collect(Collectors.toSet()));
     }
 
     @Override
     public Set<ColonyPlayer> getFilteredPlayers(@NotNull final Predicate<Rank> predicate)
     {
         return Collections.unmodifiableSet(
-          this.players.values().stream()
-          .filter(player -> predicate.test(player.getRank()))
-          .collect(Collectors.toSet()));
+            this.players.values().stream()
+                .filter(player -> predicate.test(player.getRank()))
+                .collect(Collectors.toSet()));
     }
 
     /**
@@ -174,7 +176,7 @@ public class PermissionsView implements IPermissions
         }
 
         return hasPermission(actor, Action.EDIT_PERMISSIONS) && (actor != rank
-                                                                   || action != Action.EDIT_PERMISSIONS && action != Action.MANAGE_HUTS && action != Action.ACCESS_HUTS);
+            || action != Action.EDIT_PERMISSIONS && action != Action.MANAGE_HUTS && action != Action.ACCESS_HUTS);
     }
 
     @Nullable
@@ -326,7 +328,7 @@ public class PermissionsView implements IPermissions
     }
 
     @Override
-    public Map<Integer, Rank> getRanks() { return ranks; }
+    public Map<Integer, Rank> getRanks() {return ranks;}
 
     @Override
     public Rank getRankOwner()

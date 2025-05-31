@@ -26,11 +26,11 @@ import java.util.function.Predicate;
  * some entirely custom process.  It also supports (within some
  * restrictions) automatic JEI integration to let the player look
  * up which items can be produced at each building.
- *
+ * <p>
  * A single building may have more than one of these, but in that
  * case they must be linked to different jobs (or to no job) and
  * you have to more carefully manage the learned recipe list.
- *
+ * <p>
  * Note that (somewhat uniquely among modules) while there is a
  * "real" one of these attached to the building on the server
  * side that can hold state, additional instances can also be
@@ -45,16 +45,16 @@ public interface ICraftingBuildingModule extends IBuildingModule
     /**
      * Gets the crafting job associated with this building type.
      * This might not be the primary job of the building.
-     *
+     * <p>
      * Note that this must either always return null or always
      * return a valid job, even if this module is not currently
      * associated with a specific colony or building.  (Note that
      * if it returns null, there will be no JEI integration.)
-     *
+     * <p>
      * It may either return the actual job associated with a
      * citizen working at the current building, or an abstract
      * job not yet associated with any particular citizen.
-     *
+     * <p>
      * It is permitted for two crafting module types to return
      * the same job but in that case {@link #getId()} must return
      * different ids.
@@ -68,6 +68,7 @@ public interface ICraftingBuildingModule extends IBuildingModule
      * Gets an id *suffix* for this particular crafting module, to
      * disambiguate between multiple modules with the same job.
      * This is not unique by itself.
+     *
      * @return The disambiguating id suffix.
      */
     @NotNull
@@ -78,6 +79,7 @@ public interface ICraftingBuildingModule extends IBuildingModule
      * Gets the unique key for recipes intended for this crafting
      * module in the CustomRecipeManager.
      * Precondition: getCraftingJob() returns non-null.
+     *
      * @return The unique key.
      */
     @NotNull
@@ -85,6 +87,7 @@ public interface ICraftingBuildingModule extends IBuildingModule
 
     /**
      * Check if the worker can learn a certain type of recipe.
+     *
      * @param type the type to check for.
      * @return true if so.
      */
@@ -95,6 +98,7 @@ public interface ICraftingBuildingModule extends IBuildingModule
 
     /**
      * Get the supported crafting types.
+     *
      * @return a set of types.
      */
     Set<CraftingType> getSupportedCraftingTypes();
@@ -102,7 +106,7 @@ public interface ICraftingBuildingModule extends IBuildingModule
     /**
      * Checks if this particular recipe is *possible* to be learned by
      * this building (or otherwise possible to be crafted there).
-     *
+     * <p>
      * This is checked without regard to specific colony or level of
      * building, or whether there are spare recipe slots or not.
      *
@@ -118,32 +122,36 @@ public interface ICraftingBuildingModule extends IBuildingModule
      * alternatives are available.
      *
      * @return A predicate that returns true when the ingredient
-     *         is definitely allowed, false when definitely banned,
-     *         or empty when undecided.
+     * is definitely allowed, false when definitely banned,
+     * or empty when undecided.
      */
     @NotNull
     OptionalPredicate<ItemStack> getIngredientValidator();
 
     /**
      * Check if the module should have a large limit for learnable recipes.
+     *
      * @return true if so.
      */
     boolean canLearnManyRecipes();
 
     /**
      * Check if the module on the client side should be displayed.
+     *
      * @return true if so.
      */
     boolean isVisible();
 
     /**
      * Get a list of all recipes of this module.
+     *
      * @return the list of recipes.
      */
     List<IToken<?>> getRecipes();
 
     /**
      * Get the first recipe where the output matches this stack.
+     *
      * @param stack the output stack to match.
      * @return the recipe or null.
      */
@@ -162,8 +170,8 @@ public interface ICraftingBuildingModule extends IBuildingModule
     /**
      * Get a fullfillable recipe to execute.
      *
-     * @param stackPredicate the predicate to check for fullfillment.
-     * @param count          the count to produce.
+     * @param stackPredicate      the predicate to check for fullfillment.
+     * @param count               the count to produce.
      * @param considerReservation if reservations should be considered.
      * @return the recipe or null.
      */
@@ -171,6 +179,7 @@ public interface ICraftingBuildingModule extends IBuildingModule
 
     /**
      * Fulfill the recipe.
+     *
      * @param storage the recipe storage to fulfill.
      * @return true if successful.
      */
@@ -178,15 +187,14 @@ public interface ICraftingBuildingModule extends IBuildingModule
 
     /**
      * Get tool to use during fulFillRecipe
-     * 
+     *
      * @param worker the worker to query for tool
      */
     ItemStack getCraftingTool(final AbstractEntityCitizen worker);
 
-
     /**
      * Get luck to use during fulFillRecipe
-     * 
+     *
      * @param worker the worker to calculate luck for
      */
     float getCraftingLuck(final AbstractEntityCitizen worker);
@@ -198,6 +206,7 @@ public interface ICraftingBuildingModule extends IBuildingModule
 
     /**
      * Replace one current recipe with a new one
+     *
      * @param oldRecipe the recipe to replace
      * @param newRecipe the new version
      */
@@ -220,8 +229,9 @@ public interface ICraftingBuildingModule extends IBuildingModule
 
     /**
      * Switch the order of two recipes.
-     * @param i the first recipe.
-     * @param j the second recipe.
+     *
+     * @param i        the first recipe.
+     * @param j        the second recipe.
      * @param fullMove move it fully up/down.
      */
     void switchOrder(int i, int j, final boolean fullMove);
@@ -231,7 +241,7 @@ public interface ICraftingBuildingModule extends IBuildingModule
      * crafter.  Unlike the above, these are not added to the
      * building's learned recipe list; they are only used for
      * display purposes such as the JEI lookup.
-     *
+     * <p>
      * This is intended for things that the worker AI can do by
      * itself without any explicit recipe (neither taught nor loaded).
      *
@@ -281,9 +291,10 @@ public interface ICraftingBuildingModule extends IBuildingModule
 
     /**
      * Randomly improve a certain recipe.
+     *
      * @param currentRecipeStorage the recipe to improve.
-     * @param craftCounter the craft counter.
-     * @param citizenData the citizen running it.
+     * @param craftCounter         the craft counter.
+     * @param citizenData          the citizen running it.
      */
     void improveRecipe(IRecipeStorage currentRecipeStorage, int craftCounter, ICitizenData citizenData);
 
@@ -291,6 +302,7 @@ public interface ICraftingBuildingModule extends IBuildingModule
      * Gets a unique identifier for this crafting module, based on
      * the job and disambiguation suffix.  May be null where there
      * was no job.
+     *
      * @return The unique id or null.
      */
     @Nullable
@@ -298,7 +310,10 @@ public interface ICraftingBuildingModule extends IBuildingModule
     default ResourceLocation getUid()
     {
         final IJob<?> job = getCraftingJob();
-        if (job == null) return null;
+        if (job == null)
+        {
+            return null;
+        }
 
         final JobEntry entry = job.getJobRegistryEntry();
         return getUid(entry, getId());
@@ -306,6 +321,7 @@ public interface ICraftingBuildingModule extends IBuildingModule
 
     /**
      * Formats a crafting module unique identifier based on a job entry and disambiguation suffix.
+     *
      * @return The unique id.
      */
     @NotNull
@@ -317,6 +333,7 @@ public interface ICraftingBuildingModule extends IBuildingModule
 
     /**
      * Check if the recipe it part of this module.
+     *
      * @param token the recipe token to check.
      * @return true if so.
      */
@@ -324,12 +341,14 @@ public interface ICraftingBuildingModule extends IBuildingModule
 
     /**
      * Enable or disable a recipe at a location.
+     *
      * @param recipeLocation the location of the recipe.
      */
     void toggle(int recipeLocation);
 
     /**
      * Check if a recipe is disabled.
+     *
      * @param token the recipe id to check for.
      * @return true if so.
      */

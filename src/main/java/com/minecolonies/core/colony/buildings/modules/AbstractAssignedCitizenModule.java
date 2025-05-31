@@ -67,12 +67,14 @@ public abstract class AbstractAssignedCitizenModule extends AbstractBuildingModu
 
     /**
      * Action to do on assignment.
+     *
      * @param citizen the assigned citizen.
      */
     abstract void onAssignment(final ICitizenData citizen);
 
     /**
      * Action to do on un-assignment.
+     *
      * @param citizen the assigned citizen.
      */
     abstract void onRemoval(final ICitizenData citizen);
@@ -80,7 +82,7 @@ public abstract class AbstractAssignedCitizenModule extends AbstractBuildingModu
     @Override
     public void onDestroyed()
     {
-        for(final ICitizenData citizenData: new ArrayList<>(assignedCitizen))
+        for (final ICitizenData citizenData : new ArrayList<>(assignedCitizen))
         {
             removeCitizen(citizenData);
         }
@@ -94,6 +96,7 @@ public abstract class AbstractAssignedCitizenModule extends AbstractBuildingModu
 
     /**
      * Get the first citizen assigned to this module.
+     *
      * @return this citizen or null.
      */
     @Nullable

@@ -30,6 +30,7 @@ public interface IQuestSideEffect extends INBTSerializable<CompoundTag>
 
     /**
      * Deserialize the quest side effect.
+     *
      * @param nbt the nbt to deserialize it from.
      */
     default void deserializeNBT(final CompoundTag nbt)
@@ -39,6 +40,7 @@ public interface IQuestSideEffect extends INBTSerializable<CompoundTag>
 
     /**
      * Serialize the side effect to nbt.
+     *
      * @return the nbt to serialize it to.
      */
     default CompoundTag serializeNBT()

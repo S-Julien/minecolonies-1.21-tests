@@ -64,7 +64,7 @@ public interface IBuilding extends IBuildingContainer, IModuleContainer<IBuildin
     /**
      * Executed when a new day start.
      */
-    default void onWakeUp() { }
+    default void onWakeUp() {}
 
     /**
      * Executed every time when citizen finish inventory cleanup called after citizen got paused. Use for cleaning a state only.
@@ -116,6 +116,7 @@ public interface IBuilding extends IBuildingContainer, IModuleContainer<IBuildin
 
     /**
      * Get the colony from a building.
+     *
      * @return the colony it belongs to.
      */
     IColony getColony();
@@ -236,7 +237,7 @@ public interface IBuilding extends IBuildingContainer, IModuleContainer<IBuildin
      * @param stack            the stack to check it with.
      * @param localAlreadyKept already kept items.
      * @param inventory        if it should be in the inventory or in the building.
-     * @param jobEntry the job entry trying to dump.
+     * @param jobEntry         the job entry trying to dump.
      * @return the amount which can get dumped or 0 if not.
      */
     int buildingRequiresCertainAmountOfItem(ItemStack stack, List<ItemStorage> localAlreadyKept, boolean inventory, @Nullable final JobEntry jobEntry);
@@ -312,8 +313,8 @@ public interface IBuilding extends IBuildingContainer, IModuleContainer<IBuildin
 
     @SuppressWarnings(GENERIC_WILDCARD)
     <R> ImmutableList<IRequest<? extends R>> getOpenRequestsOfType(
-      final int citizenid,
-      TypeToken<R> requestType);
+        final int citizenid,
+        TypeToken<R> requestType);
 
     boolean hasCitizenCompletedRequests(@NotNull ICitizenData data);
 
@@ -326,9 +327,9 @@ public interface IBuilding extends IBuildingContainer, IModuleContainer<IBuildin
 
     @SuppressWarnings(GENERIC_WILDCARD)
     <R> ImmutableList<IRequest<? extends R>> getCompletedRequestsOfTypeFiltered(
-      @NotNull ICitizenData citizenData,
-      TypeToken<R> requestType,
-      Predicate<IRequest<? extends R>> filter);
+        @NotNull ICitizenData citizenData,
+        TypeToken<R> requestType,
+        Predicate<IRequest<? extends R>> filter);
 
     void markRequestAsAccepted(@NotNull ICitizenData data, @NotNull IToken<?> token);
 
@@ -346,9 +347,9 @@ public interface IBuilding extends IBuildingContainer, IModuleContainer<IBuildin
 
     @SuppressWarnings(GENERIC_WILDCARD)
     <R> ImmutableList<IRequest<? extends R>> getOpenRequestsOfTypeFiltered(
-      @NotNull ICitizenData citizenData,
-      TypeToken<R> requestType,
-      Predicate<IRequest<? extends R>> filter);
+        @NotNull ICitizenData citizenData,
+        TypeToken<R> requestType,
+        Predicate<IRequest<? extends R>> filter);
 
     boolean overruleNextOpenRequestOfCitizenWithStack(@NotNull ICitizenData citizenData, @NotNull ItemStack stack);
 
@@ -372,6 +373,7 @@ public interface IBuilding extends IBuildingContainer, IModuleContainer<IBuildin
 
     /**
      * Calculate the number of reserved stacks the resolver can't touch.
+     *
      * @param request ignore reservations that would exist for the current request.
      * @return a list of itemstorages.
      */
@@ -379,6 +381,7 @@ public interface IBuilding extends IBuildingContainer, IModuleContainer<IBuildin
 
     /**
      * Process time the colony was offline.
+     *
      * @param time the time in seconds.
      */
     void processOfflineTime(long time);
@@ -390,6 +393,7 @@ public interface IBuilding extends IBuildingContainer, IModuleContainer<IBuildin
 
     /**
      * Check if a certain vec is within this building.
+     *
      * @param pos the pos to check.
      * @return true if so.
      */
@@ -402,12 +406,14 @@ public interface IBuilding extends IBuildingContainer, IModuleContainer<IBuildin
 
     /**
      * Get a map of all open requests by type.
+     *
      * @return the map.
      */
     Map<TypeToken<?>, Collection<IToken<?>>> getOpenRequestsByRequestableType();
 
     /**
      * Pickup the building including the level and put it in the players inv.
+     *
      * @param player the player picking it up.
      */
     void pickUp(final Player player);
@@ -459,6 +465,7 @@ public interface IBuilding extends IBuildingContainer, IModuleContainer<IBuildin
 
     /**
      * Check if this building is sufficiently built to be able to assign workers.
+     *
      * @return true if so.
      */
     default boolean canAssignCitizens()
@@ -468,6 +475,7 @@ public interface IBuilding extends IBuildingContainer, IModuleContainer<IBuildin
 
     /**
      * Get the set of all assigned citizens in the colony.
+     *
      * @return the list
      */
     Set<ICitizenData> getAllAssignedCitizen();
@@ -481,6 +489,7 @@ public interface IBuilding extends IBuildingContainer, IModuleContainer<IBuildin
 
     /**
      * Get setting for key. Utility function.
+     *
      * @param key the key.
      * @param <T> the key type.
      * @return the setting.
@@ -489,6 +498,7 @@ public interface IBuilding extends IBuildingContainer, IModuleContainer<IBuildin
 
     /**
      * Get setting value for key or some default. Utility function.
+     *
      * @param key the key.
      * @param <T> the key type.
      * @param def the default.

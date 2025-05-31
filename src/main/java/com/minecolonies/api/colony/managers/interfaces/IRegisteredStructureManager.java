@@ -350,6 +350,7 @@ public interface IRegisteredStructureManager
 
     /**
      * Get a building extension by id.
+     *
      * @param extensionId the id of the extension.
      * @return the building extension or null.
      */

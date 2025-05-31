@@ -104,9 +104,9 @@ public class GraveyardManagementWindow extends AbstractModuleWindow
                 if (entity instanceof TileEntityGrave)
                 {
                     rowPane.findPaneOfTypeByID(TAG_NAME, Text.class).setText(Component.literal("Grave of " +
-                            ((((TileEntityGrave) entity).getGraveData() != null) ?
-                             ((TileEntityGrave) entity).getGraveData().getCitizenName() :
-                             "Unknown Citizen")));
+                        ((((TileEntityGrave) entity).getGraveData() != null) ?
+                            ((TileEntityGrave) entity).getGraveData().getCitizenName() :
+                            "Unknown Citizen")));
                     rowPane.findPaneOfTypeByID(TAG_DISTANCE, Text.class).setText(Component.literal(distance + "m"));
                     rowPane.findPaneOfTypeByID(TAG_DIRECTION, Text.class).setText(direction);
                 }

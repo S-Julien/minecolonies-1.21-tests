@@ -95,8 +95,8 @@ public class AttackMoveAI<T extends Mob & IThreatTableEntity> extends TargetAI<T
             }
 
             if (targetPath == null ||
-                  user.getNavigation().isDone() ||
-                  (targetPath.isDone() && targetPath.hasPath() && targetPath.getPath().getTarget().distSqr(target.blockPosition()) > Math.pow(getAttackDistance(), 2) - 1))
+                user.getNavigation().isDone() ||
+                (targetPath.isDone() && targetPath.hasPath() && targetPath.getPath().getTarget().distSqr(target.blockPosition()) > Math.pow(getAttackDistance(), 2) - 1))
             {
                 targetPath = moveInAttackPosition(target);
                 pathAttempts++;

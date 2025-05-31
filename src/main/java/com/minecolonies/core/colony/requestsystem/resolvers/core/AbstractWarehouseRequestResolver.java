@@ -45,8 +45,8 @@ import static com.minecolonies.api.util.constant.RSConstants.CONST_WAREHOUSE_RES
 public abstract class AbstractWarehouseRequestResolver extends AbstractRequestResolver<IDeliverable>
 {
     public AbstractWarehouseRequestResolver(
-      @NotNull final ILocation location,
-      @NotNull final IToken<?> token)
+        @NotNull final ILocation location,
+        @NotNull final IToken<?> token)
     {
         super(location, token);
     }
@@ -59,7 +59,8 @@ public abstract class AbstractWarehouseRequestResolver extends AbstractRequestRe
 
     /**
      * Override to implement specific warehouse counting rules.
-     * @param wareHouse the warehouse to check.
+     *
+     * @param wareHouse      the warehouse to check.
      * @param requestToCheck the requested item.
      * @return the available quantity.
      */
@@ -128,6 +129,7 @@ public abstract class AbstractWarehouseRequestResolver extends AbstractRequestRe
 
     /**
      * Use to verify that a request chain is valid, and doesn't contain recursive cycles.
+     *
      * @param manager
      * @param requestToCheck
      * @return
@@ -264,7 +266,7 @@ public abstract class AbstractWarehouseRequestResolver extends AbstractRequestRe
             final ILocation itemStackLocation = manager.getFactoryController().getNewInstance(TypeConstants.ILOCATION, tuple.getB(), wareHouse.getLevel().dimension());
 
             final Delivery delivery =
-              new Delivery(itemStackLocation, completedRequest.getRequester().getLocation(), matchingStack, getDefaultDeliveryPriority(true));
+                new Delivery(itemStackLocation, completedRequest.getRequester().getLocation(), matchingStack, getDefaultDeliveryPriority(true));
 
 
             final IToken<?> requestToken = manager.createRequest(this, delivery);
@@ -330,6 +332,6 @@ public abstract class AbstractWarehouseRequestResolver extends AbstractRequestRe
         {
             return distance;
         }
-        return Math.max(distance/10, 1) + wareHouse.getModule(BuildingModules.WAREHOUSE_REQUEST_QUEUE).getMutableRequestList().size();
+        return Math.max(distance / 10, 1) + wareHouse.getModule(BuildingModules.WAREHOUSE_REQUEST_QUEUE).getMutableRequestList().size();
     }
 }

@@ -115,7 +115,7 @@ public class RecipeStorageFactory implements IRecipeStorageFactory
         }
         compound.putInt(TAG_GRID, recipeStorage.getGridSize());
         compound.put(TAG_TOKEN, StandardFactoryController.getInstance().serialize(recipeStorage.getToken()));
-        if(recipeStorage.getRecipeSource() != null)
+        if (recipeStorage.getRecipeSource() != null)
         {
             compound.putString(SOURCE_TAG, recipeStorage.getRecipeSource().toString());
         }
@@ -139,7 +139,7 @@ public class RecipeStorageFactory implements IRecipeStorageFactory
         }
         compound.put(SECOUTPUT_TAG, secOutputTagList);
 
-        if(recipeStorage.getLootTable() != null)
+        if (recipeStorage.getLootTable() != null)
         {
             compound.putString(LOOT_TAG, recipeStorage.getLootTable().toString());
         }
@@ -158,7 +158,7 @@ public class RecipeStorageFactory implements IRecipeStorageFactory
         for (int i = 0; i < inputTagList.size(); ++i)
         {
             final CompoundTag inputTag = inputTagList.getCompound(i);
-            if(inputTag.contains(NEW_NBT_TYPE) || inputTag.contains(NBT_TYPE)) //Check to see if it's something the factorycontroller can handle
+            if (inputTag.contains(NEW_NBT_TYPE) || inputTag.contains(NBT_TYPE)) //Check to see if it's something the factorycontroller can handle
             {
                 input.add(StandardFactoryController.getInstance().deserialize(inputTag));
             }
@@ -176,9 +176,9 @@ public class RecipeStorageFactory implements IRecipeStorageFactory
         final int gridSize = nbt.getInt(TAG_GRID);
         final IToken<?> token = StandardFactoryController.getInstance().deserialize(nbt.getCompound(TAG_TOKEN));
 
-        final ResourceLocation source = nbt.contains(SOURCE_TAG) ? new ResourceLocation(nbt.getString(SOURCE_TAG)) : null; 
+        final ResourceLocation source = nbt.contains(SOURCE_TAG) ? new ResourceLocation(nbt.getString(SOURCE_TAG)) : null;
 
-        final ResourceLocation type = nbt.contains(TYPE_TAG) ? new ResourceLocation(nbt.getString(TYPE_TAG).toLowerCase()): ModRecipeTypes.CLASSIC_ID;
+        final ResourceLocation type = nbt.contains(TYPE_TAG) ? new ResourceLocation(nbt.getString(TYPE_TAG).toLowerCase()) : ModRecipeTypes.CLASSIC_ID;
 
         final ListTag altOutputTagList = nbt.getList(ALTOUTPUT_TAG, Tag.TAG_COMPOUND);
 
@@ -202,18 +202,18 @@ public class RecipeStorageFactory implements IRecipeStorageFactory
         final EquipmentTypeEntry requiredTool = ModEquipmentTypes.getRegistry().getValue(EquipmentTypeEntry.parseResourceLocation(nbt.getString(TOOL_TAG)));
 
         return RecipeStorage.builder()
-                .withToken(token)
-                .withInputs(input)
-                .withGridSize(gridSize)
-                .withPrimaryOutput(primaryOutput)
-                .withIntermediate(intermediate)
-                .withRecipeId(source)
-                .withRecipeType(type)
-                .withAlternateOutputs(altOutputs)
-                .withSecondaryOutputs(secOutputs)
-                .withLootTable(lootTable)
-                .withRequiredTool(requiredTool)
-                .build();
+            .withToken(token)
+            .withInputs(input)
+            .withGridSize(gridSize)
+            .withPrimaryOutput(primaryOutput)
+            .withIntermediate(intermediate)
+            .withRecipeId(source)
+            .withRecipeType(type)
+            .withAlternateOutputs(altOutputs)
+            .withSecondaryOutputs(secOutputs)
+            .withLootTable(lootTable)
+            .withRequiredTool(requiredTool)
+            .build();
     }
 
     @Override
@@ -242,7 +242,7 @@ public class RecipeStorageFactory implements IRecipeStorageFactory
         packetBuffer.writeResourceLocation(input.getRequiredTool().getRegistryName());
 
         packetBuffer.writeBoolean(input.getLootTable() != null);
-        if(input.getLootTable() != null)
+        if (input.getLootTable() != null)
         {
             packetBuffer.writeResourceLocation(input.getLootTable());
         }
@@ -290,31 +290,31 @@ public class RecipeStorageFactory implements IRecipeStorageFactory
         final EquipmentTypeEntry requiredTool = ModEquipmentTypes.getRegistry().getValue(resLoc);
 
         ResourceLocation lootTable = null;
-        if(buffer.readBoolean())
+        if (buffer.readBoolean())
         {
             lootTable = buffer.readResourceLocation();
         }
 
         ResourceLocation source = null;
-        if(buffer.readBoolean())
+        if (buffer.readBoolean())
         {
             source = buffer.readResourceLocation();
         }
 
         final IToken<?> token = controller.deserialize(buffer);
         return RecipeStorage.builder()
-                .withToken(token)
-                .withInputs(input)
-                .withGridSize(gridSize)
-                .withPrimaryOutput(primaryOutput)
-                .withIntermediate(intermediate)
-                .withRecipeId(source)
-                .withRecipeType(type)
-                .withAlternateOutputs(altOutputs)
-                .withSecondaryOutputs(secOutputs)
-                .withLootTable(lootTable)
-                .withRequiredTool(requiredTool)
-                .build();
+            .withToken(token)
+            .withInputs(input)
+            .withGridSize(gridSize)
+            .withPrimaryOutput(primaryOutput)
+            .withIntermediate(intermediate)
+            .withRecipeId(source)
+            .withRecipeType(type)
+            .withAlternateOutputs(altOutputs)
+            .withSecondaryOutputs(secOutputs)
+            .withLootTable(lootTable)
+            .withRequiredTool(requiredTool)
+            .build();
     }
 
     @Override

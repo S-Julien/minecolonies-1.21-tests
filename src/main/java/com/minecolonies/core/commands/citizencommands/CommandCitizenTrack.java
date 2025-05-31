@@ -77,7 +77,7 @@ public class CommandCitizenTrack implements IMCColonyOfficerCommand
             context.getSource().sendSuccess(() -> Component.translatable(CommandTranslationConstants.COMMAND_ENTITY_TRACK_DISABLED), true);
             PathfindingUtils.trackingMap.remove(sender.getUUID());
             Network.getNetwork()
-              .sendToPlayer(new SyncPathMessage(new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>()), (ServerPlayer) sender);
+                .sendToPlayer(new SyncPathMessage(new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>()), (ServerPlayer) sender);
         }
         else
         {
@@ -102,7 +102,7 @@ public class CommandCitizenTrack implements IMCColonyOfficerCommand
     public LiteralArgumentBuilder<CommandSourceStack> build()
     {
         return IMCCommand.newLiteral(getName())
-                 .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1))
-                         .then(IMCCommand.newArgument(CITIZENID_ARG, IntegerArgumentType.integer(1)).executes(this::checkPreConditionAndExecute)));
+            .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1))
+                .then(IMCCommand.newArgument(CITIZENID_ARG, IntegerArgumentType.integer(1)).executes(this::checkPreConditionAndExecute)));
     }
 }

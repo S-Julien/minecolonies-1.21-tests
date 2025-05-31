@@ -20,6 +20,7 @@ public class RandomQuestTriggerTemplate implements IQuestTriggerTemplate
 
     /**
      * Create a new instance of this trigger.
+     *
      * @param oneInChance the chance for this.
      */
     public RandomQuestTriggerTemplate(final int oneInChance)
@@ -29,6 +30,7 @@ public class RandomQuestTriggerTemplate implements IQuestTriggerTemplate
 
     /**
      * Create a new trigger directly from json.
+     *
      * @param randomQuestTriggerJson the json associated to this trigger.
      */
     public static RandomQuestTriggerTemplate createStateTrigger(final JsonObject randomQuestTriggerJson)

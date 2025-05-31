@@ -161,8 +161,8 @@ public class CitizenColonyHandler implements ICitizenColonyHandler
     public void onSyncDataUpdate(final EntityDataAccessor<?> data)
     {
         if (data.equals(DATA_COLONY_ID) || data.equals(DATA_CITIZEN_ID) || data.equals(DATA_IS_FEMALE) || data.equals(DATA_IS_CHILD) || data.equals(DATA_MODEL)
-              || data.equals(DATA_TEXTURE)
-              || data.equals(DATA_TEXTURE_SUFFIX) || data.equals(DATA_STYLE) || data.equals(DATA_RENDER_METADATA))
+            || data.equals(DATA_TEXTURE)
+            || data.equals(DATA_TEXTURE_SUFFIX) || data.equals(DATA_STYLE) || data.equals(DATA_RENDER_METADATA))
         {
             needsClientUpdate = true;
         }
@@ -183,7 +183,7 @@ public class CitizenColonyHandler implements ICitizenColonyHandler
     public double getPerBuildingFoodCost()
     {
         return getWorkBuilding() == null || getWorkBuilding().getBuildingLevel() == 0 ? 1
-                 : (SATURATION_DECREASE_FACTOR * Math.pow(2, getWorkBuilding().getBuildingLevel()));
+            : (SATURATION_DECREASE_FACTOR * Math.pow(2, getWorkBuilding().getBuildingLevel()));
     }
 
     /**

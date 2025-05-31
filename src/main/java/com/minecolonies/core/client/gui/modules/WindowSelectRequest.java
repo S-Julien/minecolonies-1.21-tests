@@ -40,21 +40,23 @@ public class WindowSelectRequest extends AbstractModuleWindow
     private static final String RESOURCE_STRING = ":gui/layouthuts/layoutselectrequest.xml";
 
     private final Predicate<IRequest<?>> predicate;
-    private final Consumer<IRequest<?>> reopenWithRequest;
+    private final Consumer<IRequest<?>>  reopenWithRequest;
 
     private final ScrollingList requestsList;
-    private int lifeCount = 0;
+    private       int           lifeCount = 0;
 
     /**
      * Construct window.
-     * @param building the building to check for requests
-     * @param predicate predicate returning true if this is a selectable request
+     *
+     * @param building          the building to check for requests
+     * @param predicate         predicate returning true if this is a selectable request
      * @param reopenWithRequest called after clicking select or cancel, with the request or null respectively.
      *                          not called if the player hits ESC or clicks a different tab
      */
-    public WindowSelectRequest(final IBuildingView building,
-                               final Predicate<IRequest<?>> predicate,
-                               final Consumer<@Nullable IRequest<?>> reopenWithRequest)
+    public WindowSelectRequest(
+        final IBuildingView building,
+        final Predicate<IRequest<?>> predicate,
+        final Consumer<@Nullable IRequest<?>> reopenWithRequest)
     {
         super(building, Constants.MOD_ID + RESOURCE_STRING);
         this.predicate = predicate;
@@ -127,6 +129,7 @@ public class WindowSelectRequest extends AbstractModuleWindow
 
     /**
      * When clicking the select button in the request list
+     *
      * @param button the button clicked
      */
     private void select(@NotNull final Button button)
@@ -179,7 +182,8 @@ public class WindowSelectRequest extends AbstractModuleWindow
                     logo.setVisible(false);
                     exampleStackDisplay.setVisible(true);
                     exampleStackDisplay.setItem(displayStacks.get((lifeCount / LIFE_COUNT_DIVIDER) % displayStacks.size()));
-                    rowPane.findPaneOfTypeByID(REQUESTER, Text.class).setText(request.getRequester().getRequesterDisplayName(buildingView.getColony().getRequestManager(), request));
+                    rowPane.findPaneOfTypeByID(REQUESTER, Text.class)
+                        .setText(request.getRequester().getRequesterDisplayName(buildingView.getColony().getRequestManager(), request));
                 }
                 else
                 {
@@ -197,7 +201,7 @@ public class WindowSelectRequest extends AbstractModuleWindow
                     if (!displayStacks.isEmpty())
                     {
                         rowPane.findPaneOfTypeByID(REQUEST_SHORT_DETAIL, Text.class).setText(
-                                request.getDisplayStacks().get((lifeCount / LIFE_COUNT_DIVIDER) % displayStacks.size()).getHoverName());
+                            request.getDisplayStacks().get((lifeCount / LIFE_COUNT_DIVIDER) % displayStacks.size()).getHoverName());
                     }
                 }
                 else

@@ -30,7 +30,7 @@ import static com.minecolonies.core.quests.QuestParsingConstants.*;
 /**
  * Magic translator for quests.  This parses the existing quest JSON files and moves the dialogue elements to
  * translation resources, so that translations can be provided for them.
- *
+ * <p>
  * This requires that the 'source' quests under src/main/resources/data/minecolonies/quests only contain en-US
  * text and do not already contain translation keys.
  */
@@ -94,7 +94,7 @@ public class QuestTranslationProvider implements DataProvider
                     if (json != null)
                     {
                         return DataProvider.saveStable(cache, json, questProvider.json(questPath))
-                                .thenApply(q -> langJson);
+                            .thenApply(q -> langJson);
                     }
                     return CompletableFuture.completedFuture(null);
                 }, Util.backgroundExecutor()));
@@ -102,12 +102,13 @@ public class QuestTranslationProvider implements DataProvider
         }
 
         return CompletableFuture.allOf(quests.toArray(CompletableFuture[]::new))
-                .thenComposeAsync(v -> saveLanguage(cache, quests.stream().map(q -> (JsonObject) q.join()).toList()), Util.backgroundExecutor());
+            .thenComposeAsync(v -> saveLanguage(cache, quests.stream().map(q -> (JsonObject) q.join()).toList()), Util.backgroundExecutor());
     }
 
     @NotNull
-    private CompletableFuture<?> saveLanguage(@NotNull final CachedOutput cache,
-                                              @NotNull final List<JsonObject> langJsons)
+    private CompletableFuture<?> saveLanguage(
+        @NotNull final CachedOutput cache,
+        @NotNull final List<JsonObject> langJsons)
     {
         final JsonObject langJson = new JsonObject();
         for (final JsonObject questLang : langJsons)
@@ -160,5 +161,4 @@ public class QuestTranslationProvider implements DataProvider
             }
         }
     }
-
 }

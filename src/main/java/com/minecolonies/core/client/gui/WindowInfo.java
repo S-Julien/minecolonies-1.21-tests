@@ -43,7 +43,7 @@ public class WindowInfo extends AbstractWindowSkeleton
             return ret;
         };
 
-        for (int i = 0;; i++)
+        for (int i = 0; ; i++)
         {
             if (!I18n.exists(translationPrefix + i))
             {

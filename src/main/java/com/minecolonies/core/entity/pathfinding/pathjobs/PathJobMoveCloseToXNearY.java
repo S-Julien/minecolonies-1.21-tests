@@ -32,11 +32,11 @@ public class PathJobMoveCloseToXNearY extends AbstractPathJob implements IDestin
     public final int distToDesired;
 
     public PathJobMoveCloseToXNearY(
-      final Level world,
-      final BlockPos desiredPosition,
-      final BlockPos nearbyPosition,
-      final int distToDesired,
-      final Mob entity)
+        final Level world,
+        final BlockPos desiredPosition,
+        final BlockPos nearbyPosition,
+        final int distToDesired,
+        final Mob entity)
     {
         super(world, PathfindingUtils.prepareStart(entity), desiredPosition, new PathResult<PathJobMoveCloseToXNearY>(), entity);
 
@@ -61,8 +61,8 @@ public class PathJobMoveCloseToXNearY extends AbstractPathJob implements IDestin
         }
 
         return BlockPosUtil.distManhattan(desiredPosition, n.x, n.y, n.z) <= distToDesired
-                 && SurfaceType.getSurfaceType(world, cachedBlockLookup.getBlockState(n.x, n.y - 1, n.z), tempWorldPos.set(n.x, n.y - 1, n.z), getPathingOptions())
-                      == SurfaceType.WALKABLE;
+            && SurfaceType.getSurfaceType(world, cachedBlockLookup.getBlockState(n.x, n.y - 1, n.z), tempWorldPos.set(n.x, n.y - 1, n.z), getPathingOptions())
+            == SurfaceType.WALKABLE;
     }
 
     @Override

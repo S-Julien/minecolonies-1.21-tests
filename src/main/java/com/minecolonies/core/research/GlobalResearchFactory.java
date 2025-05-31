@@ -128,7 +128,7 @@ public class GlobalResearchFactory implements IGlobalResearchFactory
         final TranslatableContents name = new TranslatableContents(nbt.getString(TAG_NAME), null, TranslatableContents.NO_ARGS);
         final TranslatableContents subtitle = new TranslatableContents(nbt.getString(TAG_SUBTITLE_NAME), null, TranslatableContents.NO_ARGS);
         final int depth = nbt.getInt(TAG_RESEARCH_LVL);
-        final int sortOrder =  nbt.getInt(TAG_RESEARCH_SORT);
+        final int sortOrder = nbt.getInt(TAG_RESEARCH_SORT);
         final boolean onlyChild = nbt.getBoolean(TAG_ONLY_CHILD);
         final boolean instant = nbt.getBoolean(TAG_INSTANT);
         final boolean autostart = nbt.getBoolean(TAG_AUTOSTART);
@@ -138,7 +138,8 @@ public class GlobalResearchFactory implements IGlobalResearchFactory
         final IGlobalResearch research = getNewInstance(id, parent, branch, name, subtitle, depth, sortOrder, onlyChild, hidden, autostart, instant, immutable);
 
         NBTUtils.streamCompound(nbt.getList(TAG_COSTS, Tag.TAG_COMPOUND)).forEach(compound -> {
-            final ModResearchCosts.ResearchCostEntry researchCostType = IMinecoloniesAPI.getInstance().getResearchCostRegistry().getValue(new ResourceLocation(compound.getString(TAG_COST_TYPE)));
+            final ModResearchCosts.ResearchCostEntry researchCostType =
+                IMinecoloniesAPI.getInstance().getResearchCostRegistry().getValue(new ResourceLocation(compound.getString(TAG_COST_TYPE)));
             research.addCost(researchCostType.readFromNBT(compound.getCompound(TAG_COST_NBT)));
         });
         NBTUtils.streamCompound(nbt.getList(TAG_REQS, Tag.TAG_COMPOUND))
@@ -218,28 +219,28 @@ public class GlobalResearchFactory implements IGlobalResearchFactory
         final IGlobalResearch research = getNewInstance(id, parent, branch, name, subtitle, depth, sortOrder, hasOnlyChild, hidden, autostart, instant, immutable);
 
         final int costSize = buffer.readVarInt();
-        for(int i = 0; i < costSize; i++)
+        for (int i = 0; i < costSize; i++)
         {
             final ModResearchCosts.ResearchCostEntry researchCostEntry = buffer.readRegistryIdSafe(ModResearchCosts.ResearchCostEntry.class);
             research.addCost(researchCostEntry.readFromNBT(buffer.readNbt()));
         }
 
         final int reqCount = buffer.readVarInt();
-        for(int i = 0; i < reqCount; i++)
+        for (int i = 0; i < reqCount; i++)
         {
             final ModResearchRequirements.ResearchRequirementEntry researchRequirementEntry = buffer.readRegistryIdSafe(ModResearchRequirements.ResearchRequirementEntry.class);
             research.addRequirement(researchRequirementEntry.readFromNBT(buffer.readNbt()));
         }
 
         final int effectCount = buffer.readVarInt();
-        for(int i = 0; i < effectCount; i++)
+        for (int i = 0; i < effectCount; i++)
         {
             final ModResearchEffects.ResearchEffectEntry researchEffectEntry = buffer.readRegistryIdSafe(ModResearchEffects.ResearchEffectEntry.class);
             research.addEffect(researchEffectEntry.readFromNBT(buffer.readNbt()));
         }
 
         final int childCount = buffer.readVarInt();
-        for(int i = 0; i < childCount; i++)
+        for (int i = 0; i < childCount; i++)
         {
             research.addChild(buffer.readResourceLocation());
         }

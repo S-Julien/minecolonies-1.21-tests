@@ -97,25 +97,25 @@ public class CommandSetRank implements IMCOPCommand
     public LiteralArgumentBuilder<CommandSourceStack> build()
     {
         return IMCCommand.newLiteral(getName())
-          .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1))
-            .then(IMCCommand.newArgument(PLAYERNAME_ARG, GameProfileArgument.gameProfile())
-              .then(IMCCommand.newArgument("rank", StringArgumentType.greedyString())
-                .suggests((context, builder) -> {
-                    final int colonyID = IntegerArgumentType.getInteger(context, COLONYID_ARG);
-                    final IColony colony = IColonyManager.getInstance().getColonyByDimension(colonyID, context.getSource().getLevel().dimension());
-                    if (colony == null)
-                    {
-                        context.getSource().sendSuccess(() -> Component.translatable(CommandTranslationConstants.COMMAND_COLONY_ID_NOT_FOUND, colonyID), true);
-                        return null;
-                    }
+            .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1))
+                .then(IMCCommand.newArgument(PLAYERNAME_ARG, GameProfileArgument.gameProfile())
+                    .then(IMCCommand.newArgument("rank", StringArgumentType.greedyString())
+                        .suggests((context, builder) -> {
+                            final int colonyID = IntegerArgumentType.getInteger(context, COLONYID_ARG);
+                            final IColony colony = IColonyManager.getInstance().getColonyByDimension(colonyID, context.getSource().getLevel().dimension());
+                            if (colony == null)
+                            {
+                                context.getSource().sendSuccess(() -> Component.translatable(CommandTranslationConstants.COMMAND_COLONY_ID_NOT_FOUND, colonyID), true);
+                                return null;
+                            }
 
-                    for (final Rank rank : colony.getPermissions().getRanks().values())
-                    {
-                        builder.suggest(rank.getId() + " " + rank.getName());
-                    }
+                            for (final Rank rank : colony.getPermissions().getRanks().values())
+                            {
+                                builder.suggest(rank.getId() + " " + rank.getName());
+                            }
 
-                    return builder.buildFuture();
-                })
-                .executes(this::checkPreConditionAndExecute))));
+                            return builder.buildFuture();
+                        })
+                        .executes(this::checkPreConditionAndExecute))));
     }
 }

@@ -55,13 +55,13 @@ public class ItemScrollBuff extends AbstractItemScroll
             addRegenerationWithParticles(player);
             // Send to player additionally, as players do not track themselves
             Network.getNetwork()
-              .sendToPlayer(new VanillaParticleMessage(player.getX(), player.getY(), player.getZ(), ParticleTypes.HEART), player);
+                .sendToPlayer(new VanillaParticleMessage(player.getX(), player.getY(), player.getZ(), ParticleTypes.HEART), player);
             SoundUtils.playSoundForPlayer(player, SoundEvents.PLAYER_LEVELUP, 0.2f, 1.0f);
         }
         else
         {
             player.displayClientMessage(Component.translatable("minecolonies.scroll.failed" + (world.random.nextInt(FAIL_RESPONSES_TOTAL) + 1)).setStyle(Style.EMPTY.withColor(
-              ChatFormatting.GOLD)), true);
+                ChatFormatting.GOLD)), true);
             player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, TICKS_SECOND * 10));
             SoundUtils.playSoundForPlayer(player, SoundEvents.TOTEM_USE, 0.04f, 1.0f);
         }
@@ -79,13 +79,13 @@ public class ItemScrollBuff extends AbstractItemScroll
     {
         entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, TICKS_SECOND * 60));
         Network.getNetwork()
-          .sendToTrackingEntity(new VanillaParticleMessage(entity.getX(), entity.getY(), entity.getZ(), ParticleTypes.HEART),
-            entity);
+            .sendToTrackingEntity(new VanillaParticleMessage(entity.getX(), entity.getY(), entity.getZ(), ParticleTypes.HEART),
+                entity);
     }
 
     @Override
     public void appendHoverText(
-      @NotNull final ItemStack stack, @Nullable final Level worldIn, @NotNull final List<Component> tooltip, @NotNull final TooltipFlag flagIn)
+        @NotNull final ItemStack stack, @Nullable final Level worldIn, @NotNull final List<Component> tooltip, @NotNull final TooltipFlag flagIn)
     {
         final MutableComponent guiHint = Component.translatable(TOOL_GENERIC_SCROLL_BUFF_DESCRIPTION);
         guiHint.setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GREEN));

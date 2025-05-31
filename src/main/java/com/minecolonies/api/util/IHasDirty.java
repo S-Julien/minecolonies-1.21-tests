@@ -12,6 +12,7 @@ public interface IHasDirty
 
     /**
      * Check if one of the modules is dirty.
+     *
      * @return true if so.
      */
     boolean checkDirty();

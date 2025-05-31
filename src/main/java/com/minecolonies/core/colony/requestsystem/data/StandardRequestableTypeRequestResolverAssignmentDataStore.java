@@ -28,8 +28,8 @@ public class StandardRequestableTypeRequestResolverAssignmentDataStore implement
     private final Map<TypeToken<?>, Collection<IToken<?>>> assignments;
 
     public StandardRequestableTypeRequestResolverAssignmentDataStore(
-      final IToken<?> id,
-      final Map<TypeToken<?>, Collection<IToken<?>>> assignments)
+        final IToken<?> id,
+        final Map<TypeToken<?>, Collection<IToken<?>>> assignments)
     {
         this.id = id;
         this.assignments = assignments;
@@ -79,7 +79,7 @@ public class StandardRequestableTypeRequestResolverAssignmentDataStore implement
         @NotNull
         @Override
         public StandardRequestableTypeRequestResolverAssignmentDataStore getNewInstance(
-          @NotNull final IFactoryController factoryController, @NotNull final FactoryVoidInput factoryVoidInput, @NotNull final Object... context) throws IllegalArgumentException
+            @NotNull final IFactoryController factoryController, @NotNull final FactoryVoidInput factoryVoidInput, @NotNull final Object... context) throws IllegalArgumentException
         {
             return new StandardRequestableTypeRequestResolverAssignmentDataStore();
         }
@@ -87,8 +87,8 @@ public class StandardRequestableTypeRequestResolverAssignmentDataStore implement
         @NotNull
         @Override
         public CompoundTag serialize(
-          @NotNull final IFactoryController controller,
-          @NotNull final StandardRequestableTypeRequestResolverAssignmentDataStore standardRequestableTypeRequestResolverAssignmentDataStore)
+            @NotNull final IFactoryController controller,
+            @NotNull final StandardRequestableTypeRequestResolverAssignmentDataStore standardRequestableTypeRequestResolverAssignmentDataStore)
         {
             CompoundTag compound = new CompoundTag();
 
@@ -98,8 +98,8 @@ public class StandardRequestableTypeRequestResolverAssignmentDataStore implement
 
                 entryCompound.put(NbtTagConstants.TAG_TOKEN, controller.serialize(t));
                 entryCompound.put(NbtTagConstants.TAG_LIST, standardRequestableTypeRequestResolverAssignmentDataStore.assignments.get(t).stream()
-                                                              .map(StandardFactoryController.getInstance()::serialize)
-                                                              .collect(NBTUtils.toListNBT()));
+                    .map(StandardFactoryController.getInstance()::serialize)
+                    .collect(NBTUtils.toListNBT()));
 
                 return entryCompound;
             }).collect(NBTUtils.toListNBT()));
@@ -110,26 +110,26 @@ public class StandardRequestableTypeRequestResolverAssignmentDataStore implement
         @NotNull
         @Override
         public StandardRequestableTypeRequestResolverAssignmentDataStore deserialize(@NotNull final IFactoryController controller, @NotNull final CompoundTag nbt)
-          throws Throwable
+            throws Throwable
         {
             IToken<?> token = controller.deserialize(nbt.getCompound(NbtTagConstants.TAG_TOKEN));
             Map<TypeToken<?>, Collection<IToken<?>>> map = NBTUtils.streamCompound(nbt.getList(NbtTagConstants.TAG_LIST, Tag.TAG_COMPOUND))
-                                                             .map(CompoundTag -> {
-                                                                 final TypeToken<?> elementToken = controller.deserialize(CompoundTag.getCompound(NbtTagConstants.TAG_TOKEN));
-                                                                 final Collection<IToken<?>> elements = NBTUtils.streamCompound(CompoundTag.getList(NbtTagConstants.TAG_LIST,
-                                                                   Tag.TAG_COMPOUND)).map(elementCompound -> (IToken<?>) controller.deserialize(elementCompound))
-                                                                                                          .collect(Collectors.toList());
+                .map(CompoundTag -> {
+                    final TypeToken<?> elementToken = controller.deserialize(CompoundTag.getCompound(NbtTagConstants.TAG_TOKEN));
+                    final Collection<IToken<?>> elements = NBTUtils.streamCompound(CompoundTag.getList(NbtTagConstants.TAG_LIST,
+                            Tag.TAG_COMPOUND)).map(elementCompound -> (IToken<?>) controller.deserialize(elementCompound))
+                        .collect(Collectors.toList());
 
-                                                                 return new Tuple<>(elementToken, elements);
-                                                             }).collect(Collectors.toMap(t -> t.getA(), t -> t.getB()));
+                    return new Tuple<>(elementToken, elements);
+                }).collect(Collectors.toMap(t -> t.getA(), t -> t.getB()));
 
             return new StandardRequestableTypeRequestResolverAssignmentDataStore(token, map);
         }
 
         @Override
         public void serialize(
-          IFactoryController controller, StandardRequestableTypeRequestResolverAssignmentDataStore input,
-          FriendlyByteBuf packetBuffer)
+            IFactoryController controller, StandardRequestableTypeRequestResolverAssignmentDataStore input,
+            FriendlyByteBuf packetBuffer)
         {
             controller.serialize(packetBuffer, input.id);
             packetBuffer.writeInt(input.assignments.size());
@@ -142,8 +142,8 @@ public class StandardRequestableTypeRequestResolverAssignmentDataStore implement
 
         @Override
         public StandardRequestableTypeRequestResolverAssignmentDataStore deserialize(
-          IFactoryController controller,
-          FriendlyByteBuf buffer) throws Throwable
+            IFactoryController controller,
+            FriendlyByteBuf buffer) throws Throwable
         {
             final IToken<?> token = controller.deserialize(buffer);
             final Map<TypeToken<?>, Collection<IToken<?>>> assignments = new HashMap<>();

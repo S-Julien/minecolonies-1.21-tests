@@ -59,6 +59,7 @@ public abstract class LivingBuildingView extends AbstractBuildingView
 
     /**
      * Get the max citizens.
+     *
      * @return the max.
      */
     public int getMax()
@@ -68,6 +69,7 @@ public abstract class LivingBuildingView extends AbstractBuildingView
 
     /**
      * Get the  hiring mode.
+     *
      * @return the mode.
      */
     public HiringMode getHiringMode()
@@ -77,6 +79,7 @@ public abstract class LivingBuildingView extends AbstractBuildingView
 
     /**
      * Adjust the hiring mode.
+     *
      * @param value the value to set it to.
      */
     public void setHiringMode(final HiringMode value)

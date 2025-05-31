@@ -14,10 +14,14 @@ import org.jetbrains.annotations.NotNull;
  */
 public class AllTowersTrigger extends AbstractCriterionTrigger<CriterionListeners<AllTowersCriterionInstance>, AllTowersCriterionInstance>
 {
-    /** How this trigger is referenced in JSON and identified in the registry */
+    /**
+     * How this trigger is referenced in JSON and identified in the registry
+     */
     private final static ResourceLocation ID = new ResourceLocation(Constants.MOD_ID, Constants.CRITERION_ALL_TOWERS);
 
-    /** Construct the trigger instance with the right ID */
+    /**
+     * Construct the trigger instance with the right ID
+     */
     public AllTowersTrigger()
     {
         super(ID, CriterionListeners::new);
@@ -25,6 +29,7 @@ public class AllTowersTrigger extends AbstractCriterionTrigger<CriterionListener
 
     /**
      * Triggers the listener checks if there is any listening in
+     *
      * @param player the player the check regards
      */
     public void trigger(final ServerPlayer player)

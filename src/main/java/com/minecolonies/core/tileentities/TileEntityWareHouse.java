@@ -20,6 +20,7 @@ import java.util.function.Predicate;
 import static com.minecolonies.api.util.constant.Constants.TICKS_FIVE_MIN;
 import static com.minecolonies.api.util.constant.TranslationConstants.*;
 import static com.minecolonies.core.colony.buildings.workerbuildings.BuildingWareHouse.MAX_STORAGE_UPGRADE;
+
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 
 /**
@@ -30,7 +31,7 @@ public class TileEntityWareHouse extends AbstractTileEntityWareHouse
     /**
      * Time of last sent notifications.
      */
-    private long lastNotification                   = 0;
+    private long lastNotification = 0;
 
     public TileEntityWareHouse(final BlockPos pos, final BlockState state)
     {
@@ -103,7 +104,7 @@ public class TileEntityWareHouse extends AbstractTileEntityWareHouse
     public List<Tuple<ItemStack, BlockPos>> getMatchingItemStacksInWarehouse(@NotNull final Predicate<ItemStack> itemStackSelectionPredicate)
     {
         List<Tuple<ItemStack, BlockPos>> found = new ArrayList<>();
-        
+
         if (getBuilding() != null)
         {
             for (@NotNull final BlockPos pos : getBuilding().getContainers())
@@ -138,7 +139,7 @@ public class TileEntityWareHouse extends AbstractTileEntityWareHouse
             @Nullable final BlockEntity chest = getRackForStack(stack);
             if (chest == null)
             {
-                if(level.getGameTime() - lastNotification > TICKS_FIVE_MIN)
+                if (level.getGameTime() - lastNotification > TICKS_FIVE_MIN)
                 {
                     lastNotification = level.getGameTime();
                     if (getBuilding().getBuildingLevel() == getBuilding().getMaxBuildingLevel())
@@ -161,12 +162,14 @@ public class TileEntityWareHouse extends AbstractTileEntityWareHouse
             }
 
             final int index = i;
-            chest.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(handler -> InventoryUtils.transferItemStackIntoNextBestSlotInItemHandler(inventoryCitizen, index, handler));
+            chest.getCapability(ForgeCapabilities.ITEM_HANDLER, null)
+                .ifPresent(handler -> InventoryUtils.transferItemStackIntoNextBestSlotInItemHandler(inventoryCitizen, index, handler));
         }
     }
 
     /**
      * Get a rack for a stack.
+     *
      * @param stack the stack to insert.
      * @return the matching rack.
      */

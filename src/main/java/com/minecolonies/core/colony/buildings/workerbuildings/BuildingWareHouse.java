@@ -142,15 +142,15 @@ public class BuildingWareHouse extends AbstractBuilding implements IWareHouse
 
         builder.addAll(supers);
         builder.add(new WarehouseRequestResolver(getRequester().getLocation(),
-          getColony().getRequestManager().getFactoryController().getNewInstance(TypeConstants.ITOKEN)),
-          new WarehouseConcreteRequestResolver(getRequester().getLocation(),
-          getColony().getRequestManager().getFactoryController().getNewInstance(TypeConstants.ITOKEN))
-          );
+                getColony().getRequestManager().getFactoryController().getNewInstance(TypeConstants.ITOKEN)),
+            new WarehouseConcreteRequestResolver(getRequester().getLocation(),
+                getColony().getRequestManager().getFactoryController().getNewInstance(TypeConstants.ITOKEN))
+        );
 
         builder.add(new DeliveryRequestResolver(getRequester().getLocation(),
-          getColony().getRequestManager().getFactoryController().getNewInstance(TypeConstants.ITOKEN)));
+            getColony().getRequestManager().getFactoryController().getNewInstance(TypeConstants.ITOKEN)));
         builder.add(new PickupRequestResolver(getRequester().getLocation(),
-          getColony().getRequestManager().getFactoryController().getNewInstance(TypeConstants.ITOKEN)));
+            getColony().getRequestManager().getFactoryController().getNewInstance(TypeConstants.ITOKEN)));
 
         return builder.build();
     }

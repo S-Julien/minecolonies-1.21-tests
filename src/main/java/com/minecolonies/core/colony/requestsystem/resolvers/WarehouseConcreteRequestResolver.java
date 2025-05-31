@@ -20,8 +20,8 @@ import org.jetbrains.annotations.NotNull;
 public class WarehouseConcreteRequestResolver extends AbstractWarehouseRequestResolver
 {
     public WarehouseConcreteRequestResolver(
-      @NotNull final ILocation location,
-      @NotNull final IToken<?> token)
+        @NotNull final ILocation location,
+        @NotNull final IToken<?> token)
     {
         super(location, token);
     }
@@ -48,12 +48,13 @@ public class WarehouseConcreteRequestResolver extends AbstractWarehouseRequestRe
             if (requestToCheck.getRequest() instanceof INonExhaustiveDeliverable neDeliverable)
             {
                 totalCount += Math.max(0, InventoryUtils.hasBuildingEnoughElseCount(wareHouse,
-                  new ItemStorage(possible, requestToCheck.getRequest().getMinimumCount(), ignoreDamage, ignoreNBT), requestToCheck.getRequest().getCount() + neDeliverable.getLeftOver()) - neDeliverable.getLeftOver());
+                    new ItemStorage(possible, requestToCheck.getRequest().getMinimumCount(), ignoreDamage, ignoreNBT),
+                    requestToCheck.getRequest().getCount() + neDeliverable.getLeftOver()) - neDeliverable.getLeftOver());
             }
             else
             {
                 totalCount += InventoryUtils.hasBuildingEnoughElseCount(wareHouse,
-                  new ItemStorage(possible, requestToCheck.getRequest().getMinimumCount(), ignoreDamage, ignoreNBT), requestToCheck.getRequest().getCount());
+                    new ItemStorage(possible, requestToCheck.getRequest().getMinimumCount(), ignoreDamage, ignoreNBT), requestToCheck.getRequest().getCount());
             }
 
             if (totalCount >= requestToCheck.getRequest().getCount())

@@ -33,7 +33,7 @@ public class GlobalResearchTreeMessage implements IMessage
     /**
      * Add or Update a GlobalResearchTree on the client.
      *
-     * @param buf               the bytebuffer.
+     * @param buf the bytebuffer.
      */
     public GlobalResearchTreeMessage(final FriendlyByteBuf buf)
     {

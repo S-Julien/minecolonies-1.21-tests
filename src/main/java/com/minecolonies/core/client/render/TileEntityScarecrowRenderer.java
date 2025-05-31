@@ -71,7 +71,7 @@ public class TileEntityScarecrowRenderer implements BlockEntityRenderer<Abstract
     private ScarecrowModel model;
 
     public static final Material SCARECROW_A;
-    public static final Material       SCARECROW_B;
+    public static final Material SCARECROW_B;
     static
     {
         SCARECROW_A = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation(Constants.MOD_ID, "block/blockscarecrowpumpkin"));
@@ -90,12 +90,12 @@ public class TileEntityScarecrowRenderer implements BlockEntityRenderer<Abstract
 
     @Override
     public void render(
-      final AbstractTileEntityScarecrow te,
-      final float partialTicks,
-      final PoseStack matrixStack,
-      @NotNull final MultiBufferSource iRenderTypeBuffer,
-      final int lightA,
-      final int lightB)
+        final AbstractTileEntityScarecrow te,
+        final float partialTicks,
+        final PoseStack matrixStack,
+        @NotNull final MultiBufferSource iRenderTypeBuffer,
+        final int lightA,
+        final int lightB)
     {
         if (te.getBlockState().getValue(BlockScarecrow.HALF) == DoubleBlockHalf.UPPER)
         {

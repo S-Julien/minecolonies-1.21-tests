@@ -24,12 +24,12 @@ public class NetherrackPlacementHandler implements IPlacementHandler
 
     @Override
     public ActionProcessingResult handle(
-      @NotNull Level world,
-      @NotNull BlockPos pos,
-      @NotNull BlockState blockState,
-      @Nullable CompoundTag tileEntityData,
-      boolean complete,
-      BlockPos centerPos)
+        @NotNull Level world,
+        @NotNull BlockPos pos,
+        @NotNull BlockState blockState,
+        @Nullable CompoundTag tileEntityData,
+        boolean complete,
+        BlockPos centerPos)
     {
         return !world.setBlock(pos, blockState, 3) ? ActionProcessingResult.DENY : ActionProcessingResult.SUCCESS;
     }

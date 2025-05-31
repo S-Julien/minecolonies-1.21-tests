@@ -35,9 +35,9 @@ public class PathJobMoveToWithPassable extends PathJobMoveToLocation
      * @param isPassable passable check
      */
     public PathJobMoveToWithPassable(
-      final Level world,
-      @NotNull final BlockPos start,
-      @NotNull final BlockPos end, final int range, final Mob entity, final Function<BlockState, Boolean> isPassable)
+        final Level world,
+        @NotNull final BlockPos start,
+        @NotNull final BlockPos end, final int range, final Mob entity, final Function<BlockState, Boolean> isPassable)
     {
         super(world, start, end, range, entity);
         this.isPassable = isPassable;
@@ -51,14 +51,14 @@ public class PathJobMoveToWithPassable extends PathJobMoveToLocation
 
     @Override
     protected double modifyCost(
-      final double cost,
-      final MNode parent,
-      final boolean swimstart,
-      final boolean swimming,
-      final int x,
-      final int y,
-      final int z,
-      final BlockState state, final BlockState below)
+        final double cost,
+        final MNode parent,
+        final boolean swimstart,
+        final boolean swimming,
+        final int x,
+        final int y,
+        final int z,
+        final BlockState state, final BlockState below)
     {
         if (!state.isAir() && isPassable.apply(state))
         {

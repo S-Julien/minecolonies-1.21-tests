@@ -5,7 +5,7 @@
   "triggers": [
     {
       "type": "minecolonies:citizen",
-      "state": { }
+      "state": {}
     }
   ],
   "objectives": [
@@ -224,7 +224,10 @@
       }
     },
     {
-      "unlocks-rewards": [0, 1],
+      "unlocks-rewards": [
+        0,
+        1
+      ],
       "type": "minecolonies:dialogue",
       "target": 0,
       "text": "Perfect! The building is placed, and a worker will start working there soon. Take this quest log and shift+right-click it on any of the hut blocks in the colony to stay updated with the next steps!",

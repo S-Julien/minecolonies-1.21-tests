@@ -27,7 +27,8 @@ import static com.minecolonies.api.util.constant.NbtTagConstants.*;
 /**
  * The main data module for the quarry.
  */
-public class QuarryModule extends AbstractAssignedCitizenModule implements IAssignsJob, IBuildingEventsModule, ITickingModule, IPersistentModule, ICreatesResolversModule, IAltersBuildingFootprint
+public class QuarryModule extends AbstractAssignedCitizenModule
+    implements IAssignsJob, IBuildingEventsModule, ITickingModule, IPersistentModule, ICreatesResolversModule, IAltersBuildingFootprint
 {
     /**
      * If the quarry was finished.
@@ -41,6 +42,7 @@ public class QuarryModule extends AbstractAssignedCitizenModule implements IAssi
 
     /**
      * Create a new quarry module.
+     *
      * @param height the height of the quarry.
      */
     public QuarryModule(final int height)
@@ -146,6 +148,7 @@ public class QuarryModule extends AbstractAssignedCitizenModule implements IAssi
 
     /**
      * Check if the quarry was completed already.
+     *
      * @return true if so.
      */
     public boolean isFinished()

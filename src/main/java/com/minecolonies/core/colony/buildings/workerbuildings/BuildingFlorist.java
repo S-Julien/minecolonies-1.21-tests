@@ -145,7 +145,7 @@ public class BuildingFlorist extends AbstractBuilding
     public ItemStack getFlowerToGrow()
     {
         final List<ItemStorage> stacks = getPlantablesForBuildingLevel(getBuildingLevel()).stream()
-          .filter(stack -> !getModuleMatching(ItemListModule.class, m -> m.getId().equals(BUILDING_FLOWER_LIST)).isItemInList(stack)).toList();
+            .filter(stack -> !getModuleMatching(ItemListModule.class, m -> m.getId().equals(BUILDING_FLOWER_LIST)).isItemInList(stack)).toList();
 
         if (stacks.isEmpty())
         {
@@ -168,12 +168,12 @@ public class BuildingFlorist extends AbstractBuilding
             case 0:
             case 1:
                 return IColonyManager.getInstance().getCompatibilityManager().getCopyOfPlantables().stream()
-                         .filter(storage -> storage.getItem() == Items.POPPY || storage.getItem() == Items.DANDELION)
-                         .collect(Collectors.toSet());
+                    .filter(storage -> storage.getItem() == Items.POPPY || storage.getItem() == Items.DANDELION)
+                    .collect(Collectors.toSet());
             case 2:
                 return IColonyManager.getInstance().getCompatibilityManager().getCopyOfPlantables().stream()
-                         .filter(itemStorage -> itemStorage.getItemStack().is(ItemTags.SMALL_FLOWERS))
-                         .collect(Collectors.toSet());
+                    .filter(itemStorage -> itemStorage.getItemStack().is(ItemTags.SMALL_FLOWERS))
+                    .collect(Collectors.toSet());
             case 3:
             case 4:
             case 5:

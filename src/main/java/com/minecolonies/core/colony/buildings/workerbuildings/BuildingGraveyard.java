@@ -81,7 +81,8 @@ public class BuildingGraveyard extends AbstractBuilding
     public BuildingGraveyard(final IColony c, final BlockPos l)
     {
         super(c, l);
-        keepX.put(itemStack -> ItemStackUtils.hasEquipmentLevel(itemStack, ModEquipmentTypes.shovel.get(), TOOL_LEVEL_WOOD_OR_GOLD, getMaxEquipmentLevel()), new net.minecraft.util.Tuple<>(1, true));
+        keepX.put(itemStack -> ItemStackUtils.hasEquipmentLevel(itemStack, ModEquipmentTypes.shovel.get(), TOOL_LEVEL_WOOD_OR_GOLD, getMaxEquipmentLevel()),
+            new net.minecraft.util.Tuple<>(1, true));
         keepX.put(itemStack -> itemStack.getItem() == Items.TOTEM_OF_UNDYING, new net.minecraft.util.Tuple<>(2, true));
     }
 
@@ -101,7 +102,7 @@ public class BuildingGraveyard extends AbstractBuilding
     @Nullable
     public BlockPos getGraveToWorkOn()
     {
-        if(currentGrave != null)
+        if (currentGrave != null)
         {
             if (WorldUtil.isBlockLoaded(colony.getWorld(), currentGrave))
             {
@@ -165,6 +166,7 @@ public class BuildingGraveyard extends AbstractBuilding
 
     /**
      * Get the set of grave positions.
+     *
      * @return the set of positions with their directions.
      */
     public Set<Tuple<BlockPos, Direction>> getGravePositions()
@@ -206,7 +208,7 @@ public class BuildingGraveyard extends AbstractBuilding
         }
 
         final List<Tuple<BlockPos, Direction>> availablePos = new ArrayList<Tuple<BlockPos, Direction>>();
-        for(final Tuple<BlockPos, Direction> tuple : visualGravePositions)
+        for (final Tuple<BlockPos, Direction> tuple : visualGravePositions)
         {
             if (getColony().getWorld().getBlockState(tuple.getA()).canBeReplaced())
             {

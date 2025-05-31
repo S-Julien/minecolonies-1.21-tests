@@ -256,8 +256,8 @@ public class CompatibilityManager implements ICompatibilityManager
     }
 
     private static void serializeItemStorageList(
-      @NotNull final FriendlyByteBuf buf,
-      @NotNull final Collection<ItemStorage> list)
+        @NotNull final FriendlyByteBuf buf,
+        @NotNull final Collection<ItemStorage> list)
     {
         buf.writeCollection(list, StandardFactoryController.getInstance()::serialize);
     }
@@ -269,8 +269,8 @@ public class CompatibilityManager implements ICompatibilityManager
     }
 
     private static void serializeBlockList(
-      @NotNull final FriendlyByteBuf buf,
-      @NotNull final Collection<Block> list)
+        @NotNull final FriendlyByteBuf buf,
+        @NotNull final Collection<Block> list)
     {
         buf.writeCollection(list.stream().map(ItemStack::new).toList(), FriendlyByteBuf::writeItem);
     }
@@ -280,15 +280,15 @@ public class CompatibilityManager implements ICompatibilityManager
     {
         final List<ItemStack> stacks = buf.readList(FriendlyByteBuf::readItem);
         return stacks.stream()
-          .flatMap(stack -> stack.getItem() instanceof BlockItem blockItem
-                              ? Stream.of(blockItem.getBlock()) : Stream.empty())
-          .toList();
+            .flatMap(stack -> stack.getItem() instanceof BlockItem blockItem
+                ? Stream.of(blockItem.getBlock()) : Stream.empty())
+            .toList();
     }
 
     private static void serializeRegistryIds(
-      @NotNull final FriendlyByteBuf buf,
-      @NotNull final IForgeRegistry<?> registry,
-      @NotNull final Collection<ResourceLocation> ids)
+        @NotNull final FriendlyByteBuf buf,
+        @NotNull final IForgeRegistry<?> registry,
+        @NotNull final Collection<ResourceLocation> ids)
     {
         buf.writeCollection(ids, (b, id) -> b.writeRegistryIdUnsafe(registry, id));
     }
@@ -296,17 +296,17 @@ public class CompatibilityManager implements ICompatibilityManager
     @NotNull
     private static <T> List<ResourceLocation>
     deserializeRegistryIds(
-      @NotNull final FriendlyByteBuf buf,
-      @NotNull final IForgeRegistry<T> registry)
+        @NotNull final FriendlyByteBuf buf,
+        @NotNull final IForgeRegistry<T> registry)
     {
         return buf.readList(b -> b.readRegistryIdUnsafe(registry)).stream()
-          .flatMap(item -> Stream.ofNullable(registry.getKey(item)))
-          .toList();
+            .flatMap(item -> Stream.ofNullable(registry.getKey(item)))
+            .toList();
     }
 
     private static void serializeCompostRecipes(
-      @NotNull final FriendlyByteBuf buf,
-      @NotNull final Map<Item, CompostRecipe> compostRecipes)
+        @NotNull final FriendlyByteBuf buf,
+        @NotNull final Map<Item, CompostRecipe> compostRecipes)
     {
         final List<CompostRecipe> recipes = compostRecipes.values().stream().distinct().toList();
         buf.writeCollection(recipes, ModRecipeSerializer.CompostRecipeSerializer.get()::toNetwork);
@@ -444,8 +444,8 @@ public class CompatibilityManager implements ICompatibilityManager
             Log.getLogger().error("getCompostInputs when empty");
         }
         return compostRecipes.keySet().stream()
-          .map(item -> new ItemStorage(new ItemStack(item)))
-          .collect(Collectors.toSet());
+            .map(item -> new ItemStorage(new ItemStack(item)))
+            .collect(Collectors.toSet());
     }
 
     @Override
@@ -501,11 +501,11 @@ public class CompatibilityManager implements ICompatibilityManager
     public void write(@NotNull final CompoundTag compound)
     {
         @NotNull final ListTag saplingsLeavesTagList =
-          leavesToSaplingMap.entrySet()
-            .stream()
-            .filter(entry -> entry.getKey() != null)
-            .map(entry -> writeLeafSaplingEntryToNBT(entry.getKey().defaultBlockState(), entry.getValue()))
-            .collect(NBTUtils.toListNBT());
+            leavesToSaplingMap.entrySet()
+                .stream()
+                .filter(entry -> entry.getKey() != null)
+                .map(entry -> writeLeafSaplingEntryToNBT(entry.getKey().defaultBlockState(), entry.getValue()))
+                .collect(NBTUtils.toListNBT());
         compound.put(TAG_SAP_LEAF, saplingsLeavesTagList);
     }
 
@@ -513,9 +513,9 @@ public class CompatibilityManager implements ICompatibilityManager
     public void read(@NotNull final CompoundTag compound)
     {
         NBTUtils.streamCompound(compound.getList(TAG_SAP_LEAF, Tag.TAG_COMPOUND))
-          .map(CompatibilityManager::readLeafSaplingEntryFromNBT)
-          .filter(key -> !key.getA().isAir() && !leavesToSaplingMap.containsKey(key.getA().getBlock()) && !leavesToSaplingMap.containsValue(key.getB()))
-          .forEach(key -> leavesToSaplingMap.put(key.getA().getBlock(), key.getB()));
+            .map(CompatibilityManager::readLeafSaplingEntryFromNBT)
+            .filter(key -> !key.getA().isAir() && !leavesToSaplingMap.containsKey(key.getA().getBlock()) && !leavesToSaplingMap.containsValue(key.getB()))
+            .forEach(key -> leavesToSaplingMap.put(key.getA().getBlock(), key.getB()));
     }
 
     @Override
@@ -691,7 +691,7 @@ public class CompatibilityManager implements ICompatibilityManager
         if (compostRecipes.isEmpty())
         {
             discoverCompostRecipes(recipeManager.byType(ModRecipeSerializer.CompostRecipeType.get()).values().stream()
-              .map(r -> (CompostRecipe) r).toList());
+                .map(r -> (CompostRecipe) r).toList());
             Log.getLogger().info("Finished discovering compostables " + compostRecipes.size());
         }
     }
@@ -704,7 +704,7 @@ public class CompatibilityManager implements ICompatibilityManager
             {
                 // there can be duplicates due to overlapping tags.  weakest one wins.
                 compostRecipes.merge(stack.getItem(), recipe,
-                  (r1, r2) -> r1.getStrength() < r2.getStrength() ? r1 : r2);
+                    (r1, r2) -> r1.getStrength() < r2.getStrength() ? r1 : r2);
             }
         }
     }

@@ -192,9 +192,9 @@ public class EntityAISickTask implements IStateAI
                     final Level world = citizen.level;
                     BlockState state = world.getBlockState(pos);
                     if (state.is(BlockTags.BEDS)
-                          && !state.getValue(BedBlock.OCCUPIED)
-                          && state.getValue(BedBlock.PART).equals(BedPart.HEAD)
-                          && world.isEmptyBlock(pos.above()))
+                        && !state.getValue(BedBlock.OCCUPIED)
+                        && state.getValue(BedBlock.PART).equals(BedPart.HEAD)
+                        && world.isEmptyBlock(pos.above()))
                     {
                         citizen.getCitizenData().getCitizenDiseaseHandler().setSleepsAtHospital(true);
                         usedBed = pos;
@@ -256,10 +256,10 @@ public class EntityAISickTask implements IStateAI
         citizen.swing(InteractionHand.MAIN_HAND);
         citizen.playSound(SoundEvents.NOTE_BLOCK_HARP.get(), (float) BASIC_VOLUME, (float) SoundUtils.getRandomPentatonic(citizen.getRandom()));
         Network.getNetwork().sendToTrackingEntity(
-          new CircleParticleEffectMessage(
-            citizen.position().add(0, 2, 0),
-            ParticleTypes.HAPPY_VILLAGER,
-            waitingTicks), citizen);
+            new CircleParticleEffectMessage(
+                citizen.position().add(0, 2, 0),
+                ParticleTypes.HAPPY_VILLAGER,
+                waitingTicks), citizen);
 
 
         waitingTicks++;
@@ -331,7 +331,7 @@ public class EntityAISickTask implements IStateAI
             return CitizenAIState.IDLE;
         }
 
-        if (citizen.getRandom().nextInt(60*60*2) < 1)
+        if (citizen.getRandom().nextInt(60 * 60 * 2) < 1)
         {
             cure();
             return CitizenAIState.IDLE;
@@ -423,15 +423,15 @@ public class EntityAISickTask implements IStateAI
                 return CitizenAIState.IDLE;
             }
             citizenData.triggerInteraction(new StandardInteraction(Component.translatable(NO_HOSPITAL, disease.name(), disease.getCureString()),
-              Component.translatable(NO_HOSPITAL),
-              ChatPriority.BLOCKING));
+                Component.translatable(NO_HOSPITAL),
+                ChatPriority.BLOCKING));
             return WANDER;
         }
         else if (disease != null)
         {
             citizenData.triggerInteraction(new StandardInteraction(Component.translatable(WAITING_FOR_CURE, disease.name(), disease.getCureString()),
-              Component.translatable(WAITING_FOR_CURE),
-              ChatPriority.BLOCKING));
+                Component.translatable(WAITING_FOR_CURE),
+                ChatPriority.BLOCKING));
         }
 
         return GO_TO_HOSPITAL;

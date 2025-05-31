@@ -53,10 +53,10 @@ public abstract class AbstractInteractionResponseHandler implements IInteraction
      */
     @SafeVarargs
     public AbstractInteractionResponseHandler(
-      @NotNull final Component inquiry,
-      final boolean primary,
-      final IChatPriority priority,
-      final Tuple<Component, Component>... responseTuples)
+        @NotNull final Component inquiry,
+        final boolean primary,
+        final IChatPriority priority,
+        final Tuple<Component, Component>... responseTuples)
     {
         this.inquiry = inquiry;
         this.primary = primary;

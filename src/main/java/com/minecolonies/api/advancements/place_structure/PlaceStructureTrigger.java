@@ -20,7 +20,8 @@ public class PlaceStructureTrigger extends AbstractCriterionTrigger<PlaceStructu
 
     /**
      * Triggers the listener checks if there are any listening in
-     * @param player the player the check regards
+     *
+     * @param player        the player the check regards
      * @param structureName the structure id of what was just placed
      */
     public void trigger(final ServerPlayer player, final String structureName)

@@ -21,7 +21,9 @@ import java.util.function.Consumer;
 
 import static com.minecolonies.api.util.constant.BuildingConstants.MODULE_CUSTOM;
 
-/** Datagen for concrete mixer crafterrecipes */
+/**
+ * Datagen for concrete mixer crafterrecipes
+ */
 public class DefaultConcreteMixerCraftingProvider extends CustomRecipeProvider
 {
     public DefaultConcreteMixerCraftingProvider(@NotNull final PackOutput packOutput)
@@ -58,16 +60,16 @@ public class DefaultConcreteMixerCraftingProvider extends CustomRecipeProvider
             final List<ItemStorage> customInput = new ArrayList<>(input);
             customInput.add(new ItemStorage(new ItemStack(dye)));
 
-            CustomRecipeBuilder.create(ModJobs.CONCRETE_ID.getPath(),  MODULE_CUSTOM, ForgeRegistries.ITEMS.getKey(powder).getPath())
-                    .inputs(customInput)
-                    .result(new ItemStack(powder, 8))
-                    .build(consumer);
+            CustomRecipeBuilder.create(ModJobs.CONCRETE_ID.getPath(), MODULE_CUSTOM, ForgeRegistries.ITEMS.getKey(powder).getPath())
+                .inputs(customInput)
+                .result(new ItemStack(powder, 8))
+                .build(consumer);
 
             CustomRecipeBuilder.create(ModJobs.CONCRETE_ID.getPath(), MODULE_CUSTOM, ForgeRegistries.ITEMS.getKey(concrete).getPath())
-                    .inputs(Collections.singletonList(new ItemStorage(new ItemStack(powder))))
-                    .result(new ItemStack(concrete))
-                    //.intermediate(Blocks.WATER)
-                    .build(consumer);
+                .inputs(Collections.singletonList(new ItemStorage(new ItemStack(powder))))
+                .result(new ItemStack(concrete))
+                //.intermediate(Blocks.WATER)
+                .build(consumer);
             // TODO: it makes sense for this to have WATER as an intermediate, but the RS logic
             //       and JEI rendering don't currently support that.  Previous versions just used
             //       air, so we'll do the same for now.

@@ -10,22 +10,24 @@ public interface IBuildingEventsModule extends IBuildingModule
     /**
      * On destruction hook of the building, calling into the modules.
      */
-    default void onDestroyed() { }
+    default void onDestroyed() {}
 
     /**
      * Upgrade complete module hook.
+     *
      * @param newLevel the new level.
      */
-    default void onUpgradeComplete(int newLevel) { }
+    default void onUpgradeComplete(int newLevel) {}
 
     /**
      * Specific wakeup hook in modules.
      */
-    default void onWakeUp() { }
+    default void onWakeUp() {}
 
     /**
      * On player entering hook.
+     *
      * @param player the player that entered the building.
      */
-    default void onPlayerEnterBuilding(Player player) { }
+    default void onPlayerEnterBuilding(Player player) {}
 }

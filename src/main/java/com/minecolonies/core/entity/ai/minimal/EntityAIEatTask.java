@@ -192,13 +192,13 @@ public class EntityAIEatTask implements IStateAI
         citizen.swing(InteractionHand.MAIN_HAND);
         citizen.playSound(SoundEvents.GENERIC_EAT, (float) BASIC_VOLUME, (float) SoundUtils.getRandomPitch(citizen.getRandom()));
         Network.getNetwork()
-          .sendToTrackingEntity(new ItemParticleEffectMessage(citizen.getMainHandItem(),
-            citizen.getX(),
-            citizen.getY(),
-            citizen.getZ(),
-            citizen.getXRot(),
-            citizen.getYRot(),
-            citizen.getEyeHeight()), citizen);
+            .sendToTrackingEntity(new ItemParticleEffectMessage(citizen.getMainHandItem(),
+                citizen.getX(),
+                citizen.getY(),
+                citizen.getZ(),
+                citizen.getXRot(),
+                citizen.getYRot(),
+                citizen.getEyeHeight()), citizen);
 
         waitingTicks++;
         if (waitingTicks < REQUIRED_TIME_TO_EAT)
@@ -292,7 +292,7 @@ public class EntityAIEatTask implements IStateAI
             {
                 waitingTicks++;
                 if (waitingTicks > SECONDS_A_MINUTE * MINUTES_WAITING_TIME || (citizen.getCitizenData().getJob() instanceof AbstractJobGuard<?>
-                                                                                 && !WorldUtil.isDayTime(citizen.level)))
+                    && !WorldUtil.isDayTime(citizen.level)))
                 {
                     waitingTicks = 0;
                     return GET_FOOD_YOURSELF;
@@ -481,7 +481,8 @@ public class EntityAIEatTask implements IStateAI
      */
     private boolean hasFood()
     {
-        final int slot = FoodUtils.getBestFoodForCitizen(citizen.getInventoryCitizen(), citizen.getCitizenData(), restaurant == null ? null : restaurant.getModule(RESTAURANT_MENU).getMenu());
+        final int slot =
+            FoodUtils.getBestFoodForCitizen(citizen.getInventoryCitizen(), citizen.getCitizenData(), restaurant == null ? null : restaurant.getModule(RESTAURANT_MENU).getMenu());
         if (slot != -1)
         {
             foodSlot = slot;

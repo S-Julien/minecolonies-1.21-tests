@@ -96,7 +96,8 @@ public interface IBuildingWorker extends IBuilding
     Skill getSecondarySkill();
 
     /**
-     *  Recipe Improvement skill getter
+     * Recipe Improvement skill getter
+     *
      * @return the recipe improvement skill
      */
     @NotNull

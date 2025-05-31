@@ -16,8 +16,8 @@ import org.jetbrains.annotations.NotNull;
 public class WarehouseRequestResolver extends AbstractWarehouseRequestResolver
 {
     public WarehouseRequestResolver(
-      @NotNull final ILocation location,
-      @NotNull final IToken<?> token)
+        @NotNull final ILocation location,
+        @NotNull final IToken<?> token)
     {
         super(location, token);
     }

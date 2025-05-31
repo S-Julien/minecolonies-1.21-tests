@@ -46,9 +46,9 @@ public class PlaceBlockObjectiveTemplate extends DialogueObjectiveTemplateTempla
      * Create a new objective of this type.
      *
      * @param target       the target citizen.
-     * @param qty the number of blocks to place.
-     * @param blockToPlace  the block to place.
-     * @param rewards the rewards this unlocks.
+     * @param qty          the number of blocks to place.
+     * @param blockToPlace the block to place.
+     * @param rewards      the rewards this unlocks.
      */
     public PlaceBlockObjectiveTemplate(final int target, final int qty, final Block blockToPlace, final int nextObjective, final List<Integer> rewards)
     {
@@ -63,14 +63,15 @@ public class PlaceBlockObjectiveTemplate extends DialogueObjectiveTemplateTempla
     {
         final Component text = Component.translatable("com.minecolonies.coremod.questobjectives.placeblock", blockToMine.getName());
         final AnswerElement answer1 = new AnswerElement(Component.translatable("com.minecolonies.coremod.questobjectives.answer.later"),
-                new IQuestDialogueAnswer.CloseUIDialogueAnswer());
+            new IQuestDialogueAnswer.CloseUIDialogueAnswer());
         final AnswerElement answer2 = new AnswerElement(Component.translatable("com.minecolonies.coremod.questobjectives.answer.cancel"),
-                new IQuestDialogueAnswer.QuestCancellationDialogueAnswer());
+            new IQuestDialogueAnswer.QuestCancellationDialogueAnswer());
         return new DialogueElement(text, List.of(answer1, answer2));
     }
 
     /**
      * Parse the mine block objective from json.
+     *
      * @param jsonObject the json to parse it from.
      * @return a new objective object.
      */
@@ -103,9 +104,9 @@ public class PlaceBlockObjectiveTemplate extends DialogueObjectiveTemplateTempla
         if (quest.getCurrentObjectiveInstance() instanceof BlockPlacementProgressInstance progress)
         {
             return Component.translatable("com.minecolonies.coremod.questobjectives.placeblock.progress",
-              progress.currentProgress,
-              blockToPlace,
-              blockToPlace.getName().setStyle(style));
+                progress.currentProgress,
+                blockToPlace,
+                blockToPlace.getName().setStyle(style));
         }
         return Component.empty();
     }
@@ -124,6 +125,7 @@ public class PlaceBlockObjectiveTemplate extends DialogueObjectiveTemplateTempla
 
     /**
      * Cleanup the listener of this objective,
+     *
      * @param colonyQuest the listener.
      */
     private void cleanupListener(final IQuestInstance colonyQuest)

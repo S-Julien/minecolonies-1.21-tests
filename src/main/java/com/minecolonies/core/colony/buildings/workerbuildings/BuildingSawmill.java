@@ -79,23 +79,32 @@ public class BuildingSawmill extends AbstractBuilding
         public OptionalPredicate<ItemStack> getIngredientValidator()
         {
             return CraftingUtils.getIngredientValidatorBasedOnTags(CRAFTING_SAWMILL)
-                    .combine(super.getIngredientValidator());
+                .combine(super.getIngredientValidator());
         }
 
         @Override
         public boolean isRecipeCompatible(@NotNull final IGenericRecipe recipe)
         {
-            if (!super.isRecipeCompatible(recipe)) return false;
+            if (!super.isRecipeCompatible(recipe))
+            {
+                return false;
+            }
 
             final Optional<Boolean> isRecipeAllowed = CraftingUtils.isRecipeCompatibleBasedOnTags(recipe, CRAFTING_SAWMILL);
-            if (isRecipeAllowed.isPresent()) return isRecipeAllowed.get();
+            if (isRecipeAllowed.isPresent())
+            {
+                return isRecipeAllowed.get();
+            }
 
             double amountOfValidBlocks = 0;
             double blocks = 0;
             for (final List<ItemStack> stacks : recipe.getInputs())
             {
                 // just check the first alternative for now
-                if (stacks.isEmpty()) continue;
+                if (stacks.isEmpty())
+                {
+                    continue;
+                }
                 final ItemStack stack = stacks.get(0);
                 if (!ItemStackUtils.isEmpty(stack))
                 {
@@ -134,12 +143,14 @@ public class BuildingSawmill extends AbstractBuilding
 
         /**
          * See {@link ICraftingBuildingModule#getIngredientValidator}.
+         *
          * @return the validator
          */
-        public @NotNull static OptionalPredicate<ItemStack> getStaticIngredientValidator()
+        public @NotNull
+        static OptionalPredicate<ItemStack> getStaticIngredientValidator()
         {
             return CraftingUtils.getIngredientValidatorBasedOnTags(CRAFTING_SAWMILL, true)
-                    .combine(stack -> Optional.of(stack.is(ItemTags.PLANKS) || stack.is(ItemTags.LOGS)));
+                .combine(stack -> Optional.of(stack.is(ItemTags.PLANKS) || stack.is(ItemTags.LOGS)));
         }
 
         @Override

@@ -61,11 +61,11 @@ public class TileEntityDecoControllerRenderer implements BlockEntityRenderer<Blo
                 final Vec3 translateVec = switch (direction)
                 {
                     case UP -> new Vec3(0, shape.min(Direction.Axis.Y), 0);
-                    case DOWN -> new Vec3(0, shape.max(Direction.Axis.Y)-1, 0);
-                    case NORTH -> new Vec3(0, 0, shape.max(Direction.Axis.Z)-1);
+                    case DOWN -> new Vec3(0, shape.max(Direction.Axis.Y) - 1, 0);
+                    case NORTH -> new Vec3(0, 0, shape.max(Direction.Axis.Z) - 1);
                     case SOUTH -> new Vec3(0, 0, shape.min(Direction.Axis.Z));
-                    case EAST -> new Vec3( shape.min(Direction.Axis.X), 0, 0);
-                    case WEST -> new Vec3(shape.max(Direction.Axis.X)-1, 0, 0);
+                    case EAST -> new Vec3(shape.min(Direction.Axis.X), 0, 0);
+                    case WEST -> new Vec3(shape.max(Direction.Axis.X) - 1, 0, 0);
                 };
 
                 if (!decoController.isAir())
@@ -87,6 +87,6 @@ public class TileEntityDecoControllerRenderer implements BlockEntityRenderer<Blo
     {
         VertexConsumer vertexconsumer = buffer.getBuffer(RenderType.cutout());
         this.blockRenderer.getModelRenderer()
-          .tesselateBlock(level, this.blockRenderer.getBlockModel(state), state, pos, poseStack, vertexconsumer, false, RandomSource.create(), state.getSeed(pos), light);
+            .tesselateBlock(level, this.blockRenderer.getBlockModel(state), state, pos, poseStack, vertexconsumer, false, RandomSource.create(), state.getSeed(pos), light);
     }
 }

@@ -56,9 +56,9 @@ public class ItemScepterPermission extends AbstractItemMinecolonies implements I
      */
     private static final String TAG_VALUE_MODE_LOCATION = "modeLocation";
 
-    private static final int GREEN_OVERLAY = 0xFF00FF00;
+    private static final int GREEN_OVERLAY          = 0xFF00FF00;
     private static final int BLOCK_OVERLAY_RANGE_XZ = 32;
-    private static final int BLOCK_OVERLAY_RANGE_Y = 6;
+    private static final int BLOCK_OVERLAY_RANGE_Y  = 6;
 
     /**
      * constructor.
@@ -74,21 +74,21 @@ public class ItemScepterPermission extends AbstractItemMinecolonies implements I
 
     @NotNull
     private static InteractionResult handleAddBlockType(
-      final Player playerIn,
-      final Level worldIn,
-      final BlockPos pos,
-      final IColonyView iColonyView)
+        final Player playerIn,
+        final Level worldIn,
+        final BlockPos pos,
+        final IColonyView iColonyView)
     {
         final BlockState blockState = iColonyView.getWorld().getBlockState(pos);
         final Block block = blockState.getBlock();
 
         final ChangeFreeToInteractBlockMessage.MessageType type = Screen.hasControlDown()
-                ? ChangeFreeToInteractBlockMessage.MessageType.REMOVE_BLOCK
-                : ChangeFreeToInteractBlockMessage.MessageType.ADD_BLOCK;
+            ? ChangeFreeToInteractBlockMessage.MessageType.REMOVE_BLOCK
+            : ChangeFreeToInteractBlockMessage.MessageType.ADD_BLOCK;
         final ChangeFreeToInteractBlockMessage message = new ChangeFreeToInteractBlockMessage(
-          iColonyView,
-          block,
-          type);
+            iColonyView,
+            block,
+            type);
         Network.getNetwork().sendToServer(message);
 
         return InteractionResult.SUCCESS;
@@ -96,14 +96,14 @@ public class ItemScepterPermission extends AbstractItemMinecolonies implements I
 
     @NotNull
     private static InteractionResult handleAddLocation(
-      final Player playerIn,
-      final Level worldIn,
-      final BlockPos pos,
-      final IColonyView iColonyView)
+        final Player playerIn,
+        final Level worldIn,
+        final BlockPos pos,
+        final IColonyView iColonyView)
     {
         final ChangeFreeToInteractBlockMessage.MessageType type = Screen.hasControlDown()
-                ? ChangeFreeToInteractBlockMessage.MessageType.REMOVE_BLOCK
-                : ChangeFreeToInteractBlockMessage.MessageType.ADD_BLOCK;
+            ? ChangeFreeToInteractBlockMessage.MessageType.REMOVE_BLOCK
+            : ChangeFreeToInteractBlockMessage.MessageType.ADD_BLOCK;
         final ChangeFreeToInteractBlockMessage message = new ChangeFreeToInteractBlockMessage(iColonyView, pos, type);
         Network.getNetwork().sendToServer(message);
 
@@ -149,9 +149,9 @@ public class ItemScepterPermission extends AbstractItemMinecolonies implements I
     @Override
     @NotNull
     public InteractionResultHolder<ItemStack> use(
-      final Level worldIn,
-      final Player playerIn,
-      final InteractionHand hand)
+        final Level worldIn,
+        final Player playerIn,
+        final InteractionHand hand)
     {
         final ItemStack scepter = playerIn.getItemInHand(hand);
         if (worldIn.isClientSide)
@@ -224,8 +224,9 @@ public class ItemScepterPermission extends AbstractItemMinecolonies implements I
     }
 
     @Override
-    public void appendHoverText(@NotNull final ItemStack stack, @Nullable final Level level,
-                                @NotNull final List<Component> tooltip, @NotNull final TooltipFlag flags)
+    public void appendHoverText(
+        @NotNull final ItemStack stack, @Nullable final Level level,
+        @NotNull final List<Component> tooltip, @NotNull final TooltipFlag flags)
     {
         final String itemMode = stack.getOrCreateTag().getString(TAG_ITEM_MODE);
         final MutableComponent mode;
@@ -246,11 +247,11 @@ public class ItemScepterPermission extends AbstractItemMinecolonies implements I
 
     @NotNull
     private static InteractionResult handleItemAction(
-      final CompoundTag compound,
-      final Player playerIn,
-      final Level worldIn,
-      final BlockPos pos,
-      final IColonyView iColonyView)
+        final CompoundTag compound,
+        final Player playerIn,
+        final Level worldIn,
+        final BlockPos pos,
+        final IColonyView iColonyView)
     {
         final String tagItemMode = compound.getString(TAG_ITEM_MODE);
 

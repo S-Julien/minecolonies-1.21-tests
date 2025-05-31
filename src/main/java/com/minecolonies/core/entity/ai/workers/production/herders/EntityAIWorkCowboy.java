@@ -43,7 +43,7 @@ public class EntityAIWorkCowboy extends AbstractEntityAIHerder<JobCowboy, Buildi
      * Herd cow icon
      */
     private final static VisibleCitizenStatus HERD_COW =
-      new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/work/cowboy.png"), "com.minecolonies.gui.visiblestatus.cowboy");
+        new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/work/cowboy.png"), "com.minecolonies.gui.visiblestatus.cowboy");
 
     /**
      * Min wait between failed milking attempts.
@@ -62,8 +62,8 @@ public class EntityAIWorkCowboy extends AbstractEntityAIHerder<JobCowboy, Buildi
     {
         super(job);
         super.registerTargets(
-          new AITarget(COWBOY_MILK, this::milkCows, 1),
-          new AITarget(COWBOY_STEW, this::milkMooshrooms, 1)
+            new AITarget(COWBOY_MILK, this::milkCows, 1),
+            new AITarget(COWBOY_STEW, this::milkMooshrooms, 1)
         );
     }
 
@@ -120,14 +120,14 @@ public class EntityAIWorkCowboy extends AbstractEntityAIHerder<JobCowboy, Buildi
     {
         final List<ItemStack> list = super.getExtraItemsNeeded();
         if (building != null && building.getFirstModuleOccurance(BuildingCowboy.HerdingModule.class).canTryToMilk() &&
-              !searchForAnimals(a -> a instanceof Cow && !(a instanceof MushroomCow)).isEmpty())
+            !searchForAnimals(a -> a instanceof Cow && !(a instanceof MushroomCow)).isEmpty())
         {
             final ItemStack stack = building.getMilkInputItem().copy();
             stack.setCount(building.getSetting(MILKING_AMOUNT).getValue());
             list.add(stack);
         }
         if (building != null && building.getFirstModuleOccurance(BuildingCowboy.HerdingModule.class).canTryToStew() &&
-              !searchForAnimals(a -> a instanceof MushroomCow).isEmpty())
+            !searchForAnimals(a -> a instanceof MushroomCow).isEmpty())
         {
             list.add(new ItemStack(Items.BOWL));
         }
@@ -158,7 +158,7 @@ public class EntityAIWorkCowboy extends AbstractEntityAIHerder<JobCowboy, Buildi
         }
 
         final Cow cow = searchForAnimals(a -> a instanceof Cow && !(a instanceof MushroomCow) && !a.isBaby()).stream()
-                          .map(a -> (Cow) a).findFirst().orElse(null);
+            .map(a -> (Cow) a).findFirst().orElse(null);
 
         if (cow == null)
         {
@@ -208,7 +208,7 @@ public class EntityAIWorkCowboy extends AbstractEntityAIHerder<JobCowboy, Buildi
         }
 
         final MushroomCow mooshroom = searchForAnimals(a -> a instanceof MushroomCow && !a.isBaby()).stream()
-                                        .map(a -> (MushroomCow) a).findFirst().orElse(null);
+            .map(a -> (MushroomCow) a).findFirst().orElse(null);
 
         if (mooshroom == null)
         {

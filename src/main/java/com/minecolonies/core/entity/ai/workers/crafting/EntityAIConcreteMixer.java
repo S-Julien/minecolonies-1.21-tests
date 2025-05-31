@@ -31,9 +31,9 @@ public class EntityAIConcreteMixer extends AbstractEntityAICrafting<JobConcreteM
      * Predicate to check if concrete powder is in inv.
      */
     private static final Predicate<ItemStack> CONCRETE =
-      stack -> !stack.isEmpty()
-                 && stack.getItem() instanceof BlockItem
-                 && ((BlockItem) stack.getItem()).getBlock() instanceof ConcretePowderBlock;
+        stack -> !stack.isEmpty()
+            && stack.getItem() instanceof BlockItem
+            && ((BlockItem) stack.getItem()).getBlock() instanceof ConcretePowderBlock;
 
     /**
      * Constructor for the Concrete mason. Defines the tasks the Concrete mason executes.
@@ -44,8 +44,8 @@ public class EntityAIConcreteMixer extends AbstractEntityAICrafting<JobConcreteM
     {
         super(job);
         super.registerTargets(
-          new AITarget(CONCRETE_MIXER_PLACING, this::placePowder, TICKS_SECOND),
-          new AITarget(CONCRETE_MIXER_HARVESTING, this::harvestConcrete, TICKS_SECOND)
+            new AITarget(CONCRETE_MIXER_PLACING, this::placePowder, TICKS_SECOND),
+            new AITarget(CONCRETE_MIXER_HARVESTING, this::harvestConcrete, TICKS_SECOND)
         );
     }
 

@@ -113,7 +113,9 @@
       ]
     },
     {
-      "unlocks-rewards": [0],
+      "unlocks-rewards": [
+        0
+      ],
       "type": "minecolonies:dialogue",
       "target": 0,
       "text": "Here you are. Please take those 8 cookies and deliver them to $1! You can find the kid with the help of the quest log.",
@@ -167,7 +169,11 @@
       }
     },
     {
-      "unlocks-rewards": [1,2,3],
+      "unlocks-rewards": [
+        1,
+        2,
+        3
+      ],
       "type": "minecolonies:dialogue",
       "target": 1,
       "text": "*Shiny Eyes* Uhhh! Those look delicious!",

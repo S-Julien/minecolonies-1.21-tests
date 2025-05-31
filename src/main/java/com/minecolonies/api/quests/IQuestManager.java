@@ -18,18 +18,20 @@ public interface IQuestManager extends INBTSerializable<CompoundTag>
     /**
      * All quests that exist.
      */
-   Map<ResourceLocation, IQuestTemplate> GLOBAL_SERVER_QUESTS = new HashMap<>();
+    Map<ResourceLocation, IQuestTemplate> GLOBAL_SERVER_QUESTS = new HashMap<>();
 
     /**
      * Have player attempt to accept a colony quest.
+     *
      * @param questID the unique id of the quest.
-     * @param player the player trying to accept it.
+     * @param player  the player trying to accept it.
      * @return true if successful.
      */
     boolean attemptAcceptQuest(ResourceLocation questID, Player player);
 
     /**
      * Conclude a given quest. This is called FROM the quest, to the colony.
+     *
      * @param questId the unique id of the quest.
      */
     void completeQuest(ResourceLocation questId);
@@ -41,12 +43,14 @@ public interface IQuestManager extends INBTSerializable<CompoundTag>
 
     /**
      * Deactivate a given quest.
+     *
      * @param questID the id of the quest.
      */
     void deleteQuest(ResourceLocation questID);
 
     /**
      * Get the currently available or in progress quest with a given id.
+     *
      * @param questId the id.
      * @return the quest.
      */
@@ -60,12 +64,14 @@ public interface IQuestManager extends INBTSerializable<CompoundTag>
 
     /**
      * Unlock a quest with a given id.
+     *
      * @param questId the quest to unlock.
      */
     void unlockQuest(ResourceLocation questId);
 
     /**
      * Check if a quest is unlocked.
+     *
      * @param questId the id of the quest.
      * @return true if so.
      */
@@ -73,12 +79,14 @@ public interface IQuestManager extends INBTSerializable<CompoundTag>
 
     /**
      * Alter the quest reputation.
+     *
      * @param difference the alteration.
      */
     void alterReputation(double difference);
 
     /**
      * Get the reputation of the colony.
+     *
      * @return the reputation.
      */
     double getReputation();
@@ -106,6 +114,7 @@ public interface IQuestManager extends INBTSerializable<CompoundTag>
 
     /**
      * Inject an available quest manually.
+     *
      * @param questInstance the quest instance to inject.
      */
     void injectAvailableQuest(IQuestInstance questInstance);

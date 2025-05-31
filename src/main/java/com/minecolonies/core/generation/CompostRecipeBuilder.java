@@ -22,7 +22,7 @@ import java.util.function.Consumer;
 public class CompostRecipeBuilder
 {
     private final List<Ingredient> inputs = new ArrayList<>();
-    private final int strength;
+    private final int              strength;
 
     public CompostRecipeBuilder(final int strength)
     {
@@ -40,8 +40,9 @@ public class CompostRecipeBuilder
         return this;
     }
 
-    public void save(@NotNull final Consumer<FinishedRecipe> consumer,
-                     @NotNull final ResourceLocation id)
+    public void save(
+        @NotNull final Consumer<FinishedRecipe> consumer,
+        @NotNull final ResourceLocation id)
     {
         // vanilla Ingredient.merge does not take custom ingredient types into account in an alternatives array
         final JsonArray inputsJson = new JsonArray();
@@ -56,12 +57,13 @@ public class CompostRecipeBuilder
     public static class Result implements FinishedRecipe
     {
         private final ResourceLocation id;
-        private final Ingredient input;
-        private final int strength;
+        private final Ingredient       input;
+        private final int              strength;
 
-        public Result(@NotNull final ResourceLocation id,
-                      @NotNull final Ingredient input,
-                      final int strength)
+        public Result(
+            @NotNull final ResourceLocation id,
+            @NotNull final Ingredient input,
+            final int strength)
         {
             this.id = id;
             this.input = input;
@@ -81,17 +83,20 @@ public class CompostRecipeBuilder
         }
 
         @NotNull
-        public ResourceLocation getId() {
+        public ResourceLocation getId()
+        {
             return this.id;
         }
 
         @Nullable
-        public JsonObject serializeAdvancement() {
+        public JsonObject serializeAdvancement()
+        {
             return null;
         }
 
         @Nullable
-        public ResourceLocation getAdvancementId() {
+        public ResourceLocation getAdvancementId()
+        {
             return new ResourceLocation("");
         }
     }

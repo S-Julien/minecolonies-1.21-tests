@@ -139,7 +139,7 @@ public interface IColonyManagerCapability
                 catch (Exception e)
                 {
                     Log.getLogger()
-                      .error("Colony: " + colony.getName() + " id:" + colony.getID() + " owner:" + colony.getPermissions().getOwnerName() + " could not be saved! Error:", e);
+                        .error("Colony: " + colony.getName() + " id:" + colony.getID() + " owner:" + colony.getPermissions().getOwnerName() + " could not be saved! Error:", e);
                 }
             }
 
@@ -155,7 +155,7 @@ public interface IColonyManagerCapability
         }
 
         public static void readNBT(
-          @NotNull final Capability<IColonyManagerCapability> capability, @NotNull final IColonyManagerCapability instance, final boolean overworld, @NotNull final Tag nbt)
+            @NotNull final Capability<IColonyManagerCapability> capability, @NotNull final IColonyManagerCapability instance, final boolean overworld, @NotNull final Tag nbt)
         {
             // Notify that we did load the cap for this world
             IColonyManager.getInstance().setCapLoaded();
@@ -196,11 +196,12 @@ public interface IColonyManagerCapability
                         for (final IColony colony : tempColonies.get(pos))
                         {
                             Log.getLogger()
-                              .warn(
-                                "ID: " + colony.getID() + " name:" + colony.getName() + " citizens:" + colony.getCitizenManager().getCitizens().size() + " building count:" + colony
-                                                                                                                                                                                .getBuildingManager()
-                                                                                                                                                                                .getBuildings()
-                                                                                                                                                                                .size());
+                                .warn(
+                                    "ID: " + colony.getID() + " name:" + colony.getName() + " citizens:" + colony.getCitizenManager().getCitizens().size() + " building count:"
+                                        + colony
+                                        .getBuildingManager()
+                                        .getBuildings()
+                                        .size());
                         }
                         Log.getLogger().warn("Check and remove all except one of the duplicated colonies above!");
                     }

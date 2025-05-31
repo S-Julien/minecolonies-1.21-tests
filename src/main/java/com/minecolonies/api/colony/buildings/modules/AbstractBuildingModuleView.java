@@ -36,6 +36,7 @@ public abstract class AbstractBuildingModuleView implements IBuildingModuleView
 
     /**
      * Check if a worker from this module can be directly hired as a specific job.
+     *
      * @param jobEntry the job to check for.
      * @return true if so. Defaults to false.
      */
@@ -51,7 +52,7 @@ public abstract class AbstractBuildingModuleView implements IBuildingModuleView
     }
 
     @Override
-    public <M extends IBuildingModule, V extends IBuildingModuleView> IBuildingModuleView setProducer(final BuildingEntry.ModuleProducer<M,V> moduleSet)
+    public <M extends IBuildingModule, V extends IBuildingModuleView> IBuildingModuleView setProducer(final BuildingEntry.ModuleProducer<M, V> moduleSet)
     {
         if (producer != null)
         {
@@ -63,7 +64,7 @@ public abstract class AbstractBuildingModuleView implements IBuildingModuleView
     }
 
     @Override
-    public <M extends IBuildingModule, V extends IBuildingModuleView> BuildingEntry.ModuleProducer<M,V> getProducer()
+    public <M extends IBuildingModule, V extends IBuildingModuleView> BuildingEntry.ModuleProducer<M, V> getProducer()
     {
         return producer;
     }

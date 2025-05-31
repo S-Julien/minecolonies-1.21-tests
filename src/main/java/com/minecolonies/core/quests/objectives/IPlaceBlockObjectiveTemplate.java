@@ -13,7 +13,7 @@ public interface IPlaceBlockObjectiveTemplate
      * Callback for block place event
      *
      * @param blockPlacementProgressData the objective data.
-     * @param player the involved player.
+     * @param player                     the involved player.
      */
     void onBlockPlace(IObjectiveInstance blockPlacementProgressData, final IQuestInstance colonyQuest, final Player player);
 }

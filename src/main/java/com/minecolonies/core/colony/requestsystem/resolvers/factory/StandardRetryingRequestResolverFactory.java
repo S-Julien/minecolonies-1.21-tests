@@ -21,13 +21,14 @@ import java.util.stream.Collectors;
 
 public class StandardRetryingRequestResolverFactory implements IFactory<IRequestManager, StandardRetryingRequestResolver>
 {
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
     private static final String NBT_TOKEN    = "Token";
     private static final String NBT_LOCATION = "Location";
     private static final String NBT_VALUE    = "Value";
     private static final String NBT_TRIES    = "Requests";
     private static final String NBT_DELAYS   = "Delays";
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
+
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
 
     @NotNull
     @Override
@@ -46,10 +47,10 @@ public class StandardRetryingRequestResolverFactory implements IFactory<IRequest
     @NotNull
     @Override
     public StandardRetryingRequestResolver getNewInstance(
-      @NotNull final IFactoryController factoryController,
-      @NotNull final IRequestManager iRequestManager,
-      @NotNull final Object... context)
-      throws IllegalArgumentException
+        @NotNull final IFactoryController factoryController,
+        @NotNull final IRequestManager iRequestManager,
+        @NotNull final Object... context)
+        throws IllegalArgumentException
     {
         if (context.length != 0)
         {
@@ -62,7 +63,7 @@ public class StandardRetryingRequestResolverFactory implements IFactory<IRequest
     @NotNull
     @Override
     public CompoundTag serialize(
-      @NotNull final IFactoryController controller, @NotNull final StandardRetryingRequestResolver standardRetryingRequestResolver)
+        @NotNull final IFactoryController controller, @NotNull final StandardRetryingRequestResolver standardRetryingRequestResolver)
     {
         final CompoundTag compound = new CompoundTag();
 

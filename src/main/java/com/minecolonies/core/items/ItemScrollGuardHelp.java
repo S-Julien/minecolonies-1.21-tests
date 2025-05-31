@@ -60,7 +60,7 @@ public class ItemScrollGuardHelp extends AbstractItemScroll
 
     @Override
     protected ItemStack onItemUseSuccess(
-      final ItemStack itemStack, final Level world, final ServerPlayer player)
+        final ItemStack itemStack, final Level world, final ServerPlayer player)
     {
         final IColony colony = getColony(itemStack);
         final BlockPos buildingPos = BlockPosUtil.read(itemStack.getTag(), TAG_BUILDING_POS);
@@ -82,7 +82,7 @@ public class ItemScrollGuardHelp extends AbstractItemScroll
             world.addFreshEntity(entity);
 
             player.displayClientMessage(Component.translatable("minecolonies.scroll.failed" + (world.random.nextInt(FAIL_RESPONSES_TOTAL) + 1)).setStyle(Style.EMPTY.withColor(
-              ChatFormatting.GOLD)), true);
+                ChatFormatting.GOLD)), true);
 
             SoundUtils.playSoundForPlayer(player, SoundEvents.EVOKER_CAST_SPELL, 0.5f, 1.0f);
             return itemStack;
@@ -138,7 +138,7 @@ public class ItemScrollGuardHelp extends AbstractItemScroll
                         }
                         return false;
                     }
-                      , AIWorkerState.DECIDE));
+                        , AIWorkerState.DECIDE));
                 }
             }
 
@@ -185,17 +185,17 @@ public class ItemScrollGuardHelp extends AbstractItemScroll
         if (!worldIn.isClientSide && worldIn.getGameTime() % 5 == 0)
         {
             Network.getNetwork()
-              .sendToTrackingEntity(new VanillaParticleMessage(entity.getX(), entity.getY(), entity.getZ(), ParticleTypes.ENCHANT),
-                entity);
+                .sendToTrackingEntity(new VanillaParticleMessage(entity.getX(), entity.getY(), entity.getZ(), ParticleTypes.ENCHANT),
+                    entity);
             Network.getNetwork()
-              .sendToPlayer(new VanillaParticleMessage(entity.getX(), entity.getY(), entity.getZ(), ParticleTypes.ENCHANT),
-                (ServerPlayer) entity);
+                .sendToPlayer(new VanillaParticleMessage(entity.getX(), entity.getY(), entity.getZ(), ParticleTypes.ENCHANT),
+                    (ServerPlayer) entity);
         }
     }
 
     @Override
     public void appendHoverText(
-      @NotNull final ItemStack stack, @Nullable final Level worldIn, @NotNull final List<Component> tooltip, @NotNull final TooltipFlag flagIn)
+        @NotNull final ItemStack stack, @Nullable final Level worldIn, @NotNull final List<Component> tooltip, @NotNull final TooltipFlag flagIn)
     {
         final MutableComponent guiHint = Component.translatable("item.minecolonies.scroll_guard_help.tip");
         guiHint.setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GREEN));

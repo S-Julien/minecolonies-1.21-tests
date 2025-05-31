@@ -49,11 +49,11 @@ public class SoundManager
             if (instance.timeout <= 0)
             {
                 Minecraft.getInstance().player.level.playSound(Minecraft.getInstance().player,
-                  instance.pos,
-                  instance.soundEvent,
-                  instance.source,
-                  instance.volume,
-                  instance.pitch);
+                    instance.pos,
+                    instance.soundEvent,
+                    instance.source,
+                    instance.volume,
+                    instance.pitch);
                 instance.timeout = instance.length;
                 instance.repetitions--;
                 if (instance.repetitions < 0)
@@ -85,14 +85,14 @@ public class SoundManager
      * @param volume      the volume to play it at.
      */
     public static void addToQueue(
-      final UUID uuid,
-      final SoundEvent soundEvent,
-      final SoundSource source,
-      final int repetitions,
-      final int length,
-      final BlockPos pos,
-      final float volume,
-      final float pitch)
+        final UUID uuid,
+        final SoundEvent soundEvent,
+        final SoundSource source,
+        final int repetitions,
+        final int length,
+        final BlockPos pos,
+        final float volume,
+        final float pitch)
     {
         final Deque<TimedSound> queue = soundQueue.computeIfAbsent(uuid, k -> new ArrayDeque<>());
         queue.add(new TimedSound(soundEvent, source, repetitions, length, pos, volume, pitch));

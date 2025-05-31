@@ -97,7 +97,9 @@ public class WindowBrewingstandCrafting extends AbstractContainerScreen<Containe
         /*
          * The button to click done after finishing the recipe.
          */
-        final Button doneButton = new Button.Builder(buttonDisplay, new WindowBrewingstandCrafting.OnButtonPress()).pos(leftPos + BUTTON_X_OFFSET, topPos + BUTTON_Y_POS).size(BUTTON_WIDTH, BUTTON_HEIGHT).build();
+        final Button doneButton = new Button.Builder(buttonDisplay, new WindowBrewingstandCrafting.OnButtonPress()).pos(leftPos + BUTTON_X_OFFSET, topPos + BUTTON_Y_POS)
+            .size(BUTTON_WIDTH, BUTTON_HEIGHT)
+            .build();
         this.addRenderableWidget(doneButton);
         if (!module.canLearn(ModCraftingTypes.BREWING.get()))
         {
@@ -119,12 +121,13 @@ public class WindowBrewingstandCrafting extends AbstractContainerScreen<Containe
                 input.add(new ItemStorage(container.slots.get(3).getItem()));
 
                 final ItemStack
-                  primaryOutput = net.minecraftforge.common.brewing.BrewingRecipeRegistry.getOutput(container.slots.get(3).getItem(), container.slots.get(0).getItem()).copy();
+                    primaryOutput = net.minecraftforge.common.brewing.BrewingRecipeRegistry.getOutput(container.slots.get(3).getItem(), container.slots.get(0).getItem()).copy();
                 primaryOutput.setCount(3);
 
                 if (!ItemStackUtils.isEmpty(primaryOutput))
                 {
-                    Network.getNetwork().sendToServer(new AddRemoveRecipeMessage(building, input, 1, primaryOutput, false, Blocks.BREWING_STAND, module.getProducer().getRuntimeID()));
+                    Network.getNetwork()
+                        .sendToServer(new AddRemoveRecipeMessage(building, input, 1, primaryOutput, false, Blocks.BREWING_STAND, module.getProducer().getRuntimeID()));
                 }
             }
         }
@@ -142,7 +145,8 @@ public class WindowBrewingstandCrafting extends AbstractContainerScreen<Containe
     {
         stack.blit(BREWING_STAND_LOCATION, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
         int l = Mth.clamp((20 - 1) / 20, 0, 18);
-        if (l > 0) {
+        if (l > 0)
+        {
             stack.blit(BREWING_STAND_LOCATION, mouseX + 60, mouseY + 44, 176, 29, l, 4);
         }
     }

@@ -98,7 +98,11 @@ public class StandardRecipeManager implements IRecipeManager
     {
         if (dirty || nbtCache == null)
         {
-            nbtCache = recipes.entrySet().stream().filter(recipeEntry -> usedRecipes.contains(recipeEntry.getKey())).map(entry -> StandardFactoryController.getInstance().serialize(entry.getValue())).collect(NBTUtils.toListNBT());
+            nbtCache = recipes.entrySet()
+                .stream()
+                .filter(recipeEntry -> usedRecipes.contains(recipeEntry.getKey()))
+                .map(entry -> StandardFactoryController.getInstance().serialize(entry.getValue()))
+                .collect(NBTUtils.toListNBT());
         }
 
         compound.put(TAG_RECIPES, nbtCache);

@@ -29,32 +29,33 @@ public class EmptyColonyStructure extends Structure
     // A custom codec that changes the size limit for our code_structure_sky_fan.json's config to not be capped at 7.
     // With this, we can have a structure with a size limit up to 30 if we want to have extremely long branches of pieces in the structure.
     public static final Codec<EmptyColonyStructure> COLONY_CODEC = RecordCodecBuilder.<EmptyColonyStructure>mapCodec(instance ->
-                                                                                                  instance.group(EmptyColonyStructure.settingsCodec(instance),
-                                                                                                    StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
-                                                                                                    ResourceLocation.CODEC.optionalFieldOf("start_jigsaw_name").forGetter(structure -> structure.startJigsawName),
-                                                                                                    Codec.intRange(0, 10).fieldOf("size").forGetter(structure -> structure.size),
-                                                                                                    HeightProvider.CODEC.fieldOf("start_height").forGetter(structure -> structure.startHeight),
-                                                                                                    Heightmap.Types.CODEC.optionalFieldOf("project_start_to_heightmap").forGetter(structure -> structure.projectStartToHeightmap),
-                                                                                                    Codec.intRange(1, 128).fieldOf("max_distance_from_center").forGetter(structure -> structure.maxDistanceFromCenter),
-                                                                                                    Codec.BOOL.optionalFieldOf("allow_cave", false).forGetter(structure -> structure.allowCave)
-                                                                                                  ).apply(instance, EmptyColonyStructure::new)).codec();
+        instance.group(EmptyColonyStructure.settingsCodec(instance),
+            StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
+            ResourceLocation.CODEC.optionalFieldOf("start_jigsaw_name").forGetter(structure -> structure.startJigsawName),
+            Codec.intRange(0, 10).fieldOf("size").forGetter(structure -> structure.size),
+            HeightProvider.CODEC.fieldOf("start_height").forGetter(structure -> structure.startHeight),
+            Heightmap.Types.CODEC.optionalFieldOf("project_start_to_heightmap").forGetter(structure -> structure.projectStartToHeightmap),
+            Codec.intRange(1, 128).fieldOf("max_distance_from_center").forGetter(structure -> structure.maxDistanceFromCenter),
+            Codec.BOOL.optionalFieldOf("allow_cave", false).forGetter(structure -> structure.allowCave)
+        ).apply(instance, EmptyColonyStructure::new)).codec();
 
     private final Holder<StructureTemplatePool> startPool;
     private final Optional<ResourceLocation>    startJigsawName;
-    private final int size;
-    private final HeightProvider startHeight;
-    private final Optional<Heightmap.Types> projectStartToHeightmap;
-    private final int maxDistanceFromCenter;
-    private boolean allowCave;
+    private final int                           size;
+    private final HeightProvider                startHeight;
+    private final Optional<Heightmap.Types>     projectStartToHeightmap;
+    private final int                           maxDistanceFromCenter;
+    private       boolean                       allowCave;
 
-    public EmptyColonyStructure(Structure.StructureSettings config,
-      Holder<StructureTemplatePool> startPool,
-      Optional<ResourceLocation> startJigsawName,
-      int size,
-      HeightProvider startHeight,
-      Optional<Heightmap.Types> projectStartToHeightmap,
-      int maxDistanceFromCenter,
-      boolean allowCave)
+    public EmptyColonyStructure(
+        Structure.StructureSettings config,
+        Holder<StructureTemplatePool> startPool,
+        Optional<ResourceLocation> startJigsawName,
+        int size,
+        HeightProvider startHeight,
+        Optional<Heightmap.Types> projectStartToHeightmap,
+        int maxDistanceFromCenter,
+        boolean allowCave)
     {
         super(config);
         this.startPool = startPool;
@@ -67,7 +68,8 @@ public class EmptyColonyStructure extends Structure
     }
 
     @Override
-    public StructureType<?> type() {
+    public StructureType<?> type()
+    {
         return MineColoniesStructures.EMPTY_COLONY.get(); // Helps the game know how to turn this structure back to json to save to chunks
     }
 
@@ -81,7 +83,8 @@ public class EmptyColonyStructure extends Structure
     {
         BlockPos blockPos = context.chunkPos().getWorldPosition();
 
-        int landHeight = context.chunkGenerator().getFirstOccupiedHeight(blockPos.getX(), blockPos.getZ(), Heightmap.Types.WORLD_SURFACE_WG, context.heightAccessor(), context.randomState());
+        int landHeight =
+            context.chunkGenerator().getFirstOccupiedHeight(blockPos.getX(), blockPos.getZ(), Heightmap.Types.WORLD_SURFACE_WG, context.heightAccessor(), context.randomState());
         NoiseColumn columnOfBlocks = context.chunkGenerator().getBaseColumn(blockPos.getX(), blockPos.getZ(), context.heightAccessor(), context.randomState());
 
         BlockState topBlock = columnOfBlocks.getBlock(landHeight);
@@ -98,16 +101,16 @@ public class EmptyColonyStructure extends Structure
             if (result != null)
             {
                 Optional<GenerationStub> structurePiecesGenerator =
-                  JigsawPlacement.addPieces(
-                    context,
-                    this.startPool,
-                    this.startJigsawName,
-                    this.size,
-                    result,
-                    false,
-                    this.projectStartToHeightmap,
-                    this.maxDistanceFromCenter
-                  );
+                    JigsawPlacement.addPieces(
+                        context,
+                        this.startPool,
+                        this.startJigsawName,
+                        this.size,
+                        result,
+                        false,
+                        this.projectStartToHeightmap,
+                        this.maxDistanceFromCenter
+                    );
 
                 if (structurePiecesGenerator.isPresent())
                 {
@@ -126,20 +129,21 @@ public class EmptyColonyStructure extends Structure
         // Turns the chunk coordinates into actual coordinates we can use. (Gets center of that chunk)
         BlockPos blockpos = context.chunkPos().getMiddleBlockPosition(0);
 
-        int topLandY = context.chunkGenerator().getFirstFreeHeight(blockpos.getX(), blockpos.getZ(), Heightmap.Types.WORLD_SURFACE_WG, context.heightAccessor(), context.randomState());
+        int topLandY =
+            context.chunkGenerator().getFirstFreeHeight(blockpos.getX(), blockpos.getZ(), Heightmap.Types.WORLD_SURFACE_WG, context.heightAccessor(), context.randomState());
         blockpos = blockpos.above(topLandY);
 
         Optional<Structure.GenerationStub> structurePiecesGenerator =
-          JigsawPlacement.addPieces(
-            context,
-            this.startPool,
-            this.startJigsawName,
-            this.size,
-            blockpos,
-            false,
-            this.projectStartToHeightmap,
-            this.maxDistanceFromCenter
-          );
+            JigsawPlacement.addPieces(
+                context,
+                this.startPool,
+                this.startJigsawName,
+                this.size,
+                blockpos,
+                false,
+                this.projectStartToHeightmap,
+                this.maxDistanceFromCenter
+            );
 
         if (structurePiecesGenerator.isPresent())
         {

@@ -122,6 +122,7 @@ public class CraftingModuleView extends AbstractBuildingModuleView
 
     /**
      * Gets the job associated with this crafting module.
+     *
      * @return The job, or null if there was no such job.
      */
     @Nullable
@@ -132,6 +133,7 @@ public class CraftingModuleView extends AbstractBuildingModuleView
 
     /**
      * Check if recipes can be taught.
+     *
      * @return true if so.
      */
     public boolean isRecipeAlterationAllowed()
@@ -141,6 +143,7 @@ public class CraftingModuleView extends AbstractBuildingModuleView
 
     /**
      * Check if the worker can learn a certain type of recipe.
+     *
      * @param type the type to check for.
      * @return true if so.
      */
@@ -151,6 +154,7 @@ public class CraftingModuleView extends AbstractBuildingModuleView
 
     /**
      * Get the supported crafting types.
+     *
      * @return a set of types.
      */
     public Set<CraftingType> getSupportedCraftingTypes()
@@ -160,6 +164,7 @@ public class CraftingModuleView extends AbstractBuildingModuleView
 
     /**
      * Unique id of the crafting module view.
+     *
      * @return the id.
      */
     @Deprecated
@@ -190,11 +195,12 @@ public class CraftingModuleView extends AbstractBuildingModuleView
     @Override
     public String getDesc()
     {
-        return "com.minecolonies.coremod.gui.workerhuts.recipe." + id ;
+        return "com.minecolonies.coremod.gui.workerhuts.recipe." + id;
     }
 
     /**
      * Get a list of all recipes.
+     *
      * @return the list.
      */
     public List<IRecipeStorage> getRecipes()
@@ -204,6 +210,7 @@ public class CraftingModuleView extends AbstractBuildingModuleView
 
     /**
      * Remove the recipe at index.
+     *
      * @param index the index to remove.
      */
     public void removeRecipe(int index)
@@ -213,6 +220,7 @@ public class CraftingModuleView extends AbstractBuildingModuleView
 
     /**
      * Switch order in recipe list.
+     *
      * @param i first index.
      * @param j second index.
      */
@@ -251,6 +259,7 @@ public class CraftingModuleView extends AbstractBuildingModuleView
 
     /**
      * Enable/disable a recipe.
+     *
      * @param row the location of the recipe.
      */
     public void toggle(final int row)
@@ -268,6 +277,7 @@ public class CraftingModuleView extends AbstractBuildingModuleView
 
     /**
      * Check if a recipe is disabled.
+     *
      * @param recipe the recipe to check for.
      * @return true if so.
      */

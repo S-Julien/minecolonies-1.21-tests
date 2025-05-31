@@ -48,19 +48,19 @@ import static com.minecolonies.api.util.constant.Suppression.BIG_CLASS;
 @SuppressWarnings(BIG_CLASS)
 public class StandardRequestManager implements IStandardRequestManager
 {
-    ////---------------------------NBTTags-------------------------\\\\
-    private static final String NBT_DATASTORE                       = "DataStores";
-    private static final String NBT_ID_REQUEST_IDENTITIES           = "RequestIdentitiesStoreId";
-    private static final String NBT_ID_REQUEST_RESOLVER_IDENTITIES  = "RequestResolverIdentitiesStoreId";
-    private static final String NBT_ID_PROVIDER_ASSIGNMENTS         = "ProviderAssignmentsStoreId";
-    private static final String NBT_ID_REQUEST_RESOLVER_ASSIGNMENTS = "RequestResolverAssignmentsStoreId";
-    private static final String NBT_ID_REQUESTABLE_TYPE_ASSIGNMENTS = "RequestableTypeAssignmentsStoreId";
-    private static final String NBT_ID_PLAYER                       = "PlayerRequestResolverId";
-    private static final String NBT_ID_RETRYING                     = "RetryingRequestResolverId";
-    private static final String NBT_VERSION                         = "Version";
-    ////---------------------------NBTTags-------------------------\\\\
+    /// /---------------------------NBTTags-------------------------\\\\
+    private static final String    NBT_DATASTORE                       = "DataStores";
+    private static final String    NBT_ID_REQUEST_IDENTITIES           = "RequestIdentitiesStoreId";
+    private static final String    NBT_ID_REQUEST_RESOLVER_IDENTITIES  = "RequestResolverIdentitiesStoreId";
+    private static final String    NBT_ID_PROVIDER_ASSIGNMENTS         = "ProviderAssignmentsStoreId";
+    private static final String    NBT_ID_REQUEST_RESOLVER_ASSIGNMENTS = "RequestResolverAssignmentsStoreId";
+    private static final String    NBT_ID_REQUESTABLE_TYPE_ASSIGNMENTS = "RequestableTypeAssignmentsStoreId";
+    private static final String    NBT_ID_PLAYER                       = "PlayerRequestResolverId";
+    private static final String    NBT_ID_RETRYING                     = "RetryingRequestResolverId";
+    private static final String    NBT_VERSION                         = "Version";
+    /// /---------------------------NBTTags-------------------------\\\\
 
-    private IToken<?> requestIdentitiesDataStoreId;
+    private              IToken<?> requestIdentitiesDataStoreId;
 
     private IToken<?> requestResolverIdentitiesDataStoreId;
 
@@ -143,7 +143,7 @@ public class StandardRequestManager implements IStandardRequestManager
     private IToken<?> registerDataStore(TypeToken<? extends IDataStore> typeToken)
     {
         return dataStoreManager.get(StandardFactoryController.getInstance().getNewInstance(TypeConstants.ITOKEN), typeToken)
-                 .getId();
+            .getId();
     }
 
     /**
@@ -454,45 +454,45 @@ public class StandardRequestManager implements IStandardRequestManager
     public void deserializeNBT(final CompoundTag nbt)
     {
         executeDeserializationStepOrMarkForUpdate(nbt,
-          NBT_VERSION,
-          CompoundTag::getInt,
-          v -> version = v);
+            NBT_VERSION,
+            CompoundTag::getInt,
+            v -> version = v);
 
         executeDeserializationStepOrMarkForUpdate(nbt,
-          NBT_DATASTORE,
-          CompoundTag::getCompound,
-          c -> dataStoreManager = getFactoryController().deserialize(c));
+            NBT_DATASTORE,
+            CompoundTag::getCompound,
+            c -> dataStoreManager = getFactoryController().deserialize(c));
 
         executeDeserializationStepOrMarkForUpdate(nbt,
-          NBT_ID_REQUEST_IDENTITIES,
-          CompoundTag::getCompound,
-          c -> requestIdentitiesDataStoreId = getFactoryController().deserialize(c));
+            NBT_ID_REQUEST_IDENTITIES,
+            CompoundTag::getCompound,
+            c -> requestIdentitiesDataStoreId = getFactoryController().deserialize(c));
         executeDeserializationStepOrMarkForUpdate(nbt,
-          NBT_ID_REQUEST_RESOLVER_IDENTITIES,
-          CompoundTag::getCompound,
-          c -> requestResolverIdentitiesDataStoreId = getFactoryController().deserialize(c));
+            NBT_ID_REQUEST_RESOLVER_IDENTITIES,
+            CompoundTag::getCompound,
+            c -> requestResolverIdentitiesDataStoreId = getFactoryController().deserialize(c));
         executeDeserializationStepOrMarkForUpdate(nbt,
-          NBT_ID_PROVIDER_ASSIGNMENTS,
-          CompoundTag::getCompound,
-          c -> providerRequestResolverAssignmentDataStoreId = getFactoryController().deserialize(c));
+            NBT_ID_PROVIDER_ASSIGNMENTS,
+            CompoundTag::getCompound,
+            c -> providerRequestResolverAssignmentDataStoreId = getFactoryController().deserialize(c));
         executeDeserializationStepOrMarkForUpdate(nbt,
-          NBT_ID_REQUEST_RESOLVER_ASSIGNMENTS,
-          CompoundTag::getCompound,
-          c -> requestResolverRequestAssignmentDataStoreId = getFactoryController().deserialize(c));
+            NBT_ID_REQUEST_RESOLVER_ASSIGNMENTS,
+            CompoundTag::getCompound,
+            c -> requestResolverRequestAssignmentDataStoreId = getFactoryController().deserialize(c));
         executeDeserializationStepOrMarkForUpdate(nbt,
-          NBT_ID_REQUESTABLE_TYPE_ASSIGNMENTS,
-          CompoundTag::getCompound,
-          c -> requestableTypeRequestResolverAssignmentDataStoreId = getFactoryController().deserialize(c));
+            NBT_ID_REQUESTABLE_TYPE_ASSIGNMENTS,
+            CompoundTag::getCompound,
+            c -> requestableTypeRequestResolverAssignmentDataStoreId = getFactoryController().deserialize(c));
 
         executeDeserializationStepOrMarkForUpdate(nbt,
-          NBT_ID_PLAYER,
-          CompoundTag::getCompound,
-          c -> playerRequestResolverId = getFactoryController().deserialize(c));
+            NBT_ID_PLAYER,
+            CompoundTag::getCompound,
+            c -> playerRequestResolverId = getFactoryController().deserialize(c));
 
         executeDeserializationStepOrMarkForUpdate(nbt,
-          NBT_ID_RETRYING,
-          CompoundTag::getCompound,
-          c -> retryingRequestResolverId = getFactoryController().deserialize(c));
+            NBT_ID_RETRYING,
+            CompoundTag::getCompound,
+            c -> retryingRequestResolverId = getFactoryController().deserialize(c));
 
         if (dataStoreManager == null)
         {
@@ -531,10 +531,10 @@ public class StandardRequestManager implements IStandardRequestManager
     }
 
     private <T> void executeDeserializationStepOrMarkForUpdate(
-      @NotNull final CompoundTag nbt,
-      @NotNull final String key,
-      @NotNull final BiFunction<CompoundTag, String, T> extractor,
-      @NotNull final Consumer<T> valueConsumer)
+        @NotNull final CompoundTag nbt,
+        @NotNull final String key,
+        @NotNull final BiFunction<CompoundTag, String, T> extractor,
+        @NotNull final Consumer<T> valueConsumer)
     {
         if (!nbt.contains(key))
         {
@@ -560,7 +560,7 @@ public class StandardRequestManager implements IStandardRequestManager
     {
         version = -1;
     }
-    
+
     @Override
     public void log(final String message)
     {

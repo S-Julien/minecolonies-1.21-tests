@@ -121,24 +121,24 @@ public class ModEntities
     public static List<EntityType<? extends AbstractEntityMinecoloniesRaider>> getRaiders()
     {
         return List.of(
-          BARBARIAN,
-          ARCHERBARBARIAN,
-          CHIEFBARBARIAN,
-          AMAZON,
-          AMAZONSPEARMAN,
-          AMAZONCHIEF,
-          MUMMY,
-          ARCHERMUMMY,
-          PHARAO,
-          PIRATE,
-          ARCHERPIRATE,
-          CHIEFPIRATE,
-          SHIELDMAIDEN,
-          NORSEMEN_ARCHER,
-          NORSEMEN_CHIEF,
-          DROWNED_PIRATE,
-          DROWNED_ARCHERPIRATE,
-          DROWNED_CHIEFPIRATE
+            BARBARIAN,
+            ARCHERBARBARIAN,
+            CHIEFBARBARIAN,
+            AMAZON,
+            AMAZONSPEARMAN,
+            AMAZONCHIEF,
+            MUMMY,
+            ARCHERMUMMY,
+            PHARAO,
+            PIRATE,
+            ARCHERPIRATE,
+            CHIEFPIRATE,
+            SHIELDMAIDEN,
+            NORSEMEN_ARCHER,
+            NORSEMEN_CHIEF,
+            DROWNED_PIRATE,
+            DROWNED_ARCHERPIRATE,
+            DROWNED_CHIEFPIRATE
         );
     }
 }

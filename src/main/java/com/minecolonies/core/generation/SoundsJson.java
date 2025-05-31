@@ -93,7 +93,7 @@ public class SoundsJson implements IJsonSerializable
         for (Map.Entry<String, JsonElement> soundEntry : soundsJson.entrySet())
         {
             final String key = soundEntry.getKey();
-            final JsonObject entryJson =  soundEntry.getValue().getAsJsonObject();
+            final JsonObject entryJson = soundEntry.getValue().getAsJsonObject();
 
             final String category = entryJson.get("category").getAsString();
 
@@ -105,7 +105,7 @@ public class SoundsJson implements IJsonSerializable
                 sounds.add(obj.get("name").getAsString());
             }
 
-            this.sounds.put(new String[]{key, category}, sounds);
+            this.sounds.put(new String[] {key, category}, sounds);
         }
     }
 }

@@ -63,7 +63,6 @@ public class BuildingCombatAcademy extends AbstractBuilding
     {
         super(c, l);
     }
-    
 
     @Override
     public void registerBlockPosition(@NotNull final Block block, @NotNull final BlockPos pos, @NotNull final Level world)
@@ -87,7 +86,7 @@ public class BuildingCombatAcademy extends AbstractBuilding
 
         final ListTag partnersTagList = compound.getList(TAG_COMBAT_PARTNER, Tag.TAG_COMPOUND);
         trainingPartners.putAll(NBTUtils.streamCompound(partnersTagList)
-                                  .collect(Collectors.toMap(targetCompound -> targetCompound.getInt(TAG_PARTNER1), targetCompound -> targetCompound.getInt(TAG_PARTNER2))));
+            .collect(Collectors.toMap(targetCompound -> targetCompound.getInt(TAG_PARTNER1), targetCompound -> targetCompound.getInt(TAG_PARTNER2))));
     }
 
     @Override
@@ -159,11 +158,11 @@ public class BuildingCombatAcademy extends AbstractBuilding
         if (citizenData != null)
         {
             final ICitizenData partner = getFirstModuleOccurance(WorkAtHomeBuildingModule.class).getAssignedCitizen().stream()
-                                           .filter(data -> data.getId() != citizenData.getId())
-                                           .filter(data -> !trainingPartners.containsKey(data.getId()))
-                                           .filter(data -> !trainingPartners.containsValue(data.getId()))
-                                           .findFirst()
-                                           .orElse(null);
+                .filter(data -> data.getId() != citizenData.getId())
+                .filter(data -> !trainingPartners.containsKey(data.getId()))
+                .filter(data -> !trainingPartners.containsValue(data.getId()))
+                .findFirst()
+                .orElse(null);
             if (partner != null)
             {
                 trainingPartners.put(citizenData.getId(), partner.getId());
@@ -211,7 +210,7 @@ public class BuildingCombatAcademy extends AbstractBuilding
             }
 
             final ICitizenData citizenData = getFirstModuleOccurance(WorkAtHomeBuildingModule.class).
-              getAssignedCitizen().stream().filter(cit -> cit.getId() != data.getId()).filter(cit -> cit.getId() == citizenId).findFirst().orElse(null);
+                getAssignedCitizen().stream().filter(cit -> cit.getId() != data.getId()).filter(cit -> cit.getId() == citizenId).findFirst().orElse(null);
             if (citizenData != null)
             {
                 return citizenData.getEntity().orElse(null);

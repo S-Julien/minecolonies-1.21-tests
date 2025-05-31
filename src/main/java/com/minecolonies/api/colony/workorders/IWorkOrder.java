@@ -57,7 +57,8 @@ public interface IWorkOrder
 
     /**
      * Loads the blueprint if necessary
-     * @param world world to use
+     *
+     * @param world     world to use
      * @param afterLoad consumes the loaded blueprint or null
      */
     void loadBlueprint(final Level world, final Consumer<Blueprint> afterLoad);
@@ -143,6 +144,7 @@ public interface IWorkOrder
     /**
      * Get the file name of the structure.
      * Calculates the file name from the path.
+     *
      * @return the name without the appendix.
      */
     default String getFileName()

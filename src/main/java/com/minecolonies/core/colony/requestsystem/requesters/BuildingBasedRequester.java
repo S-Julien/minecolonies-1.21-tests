@@ -21,12 +21,12 @@ import java.util.Optional;
 public class BuildingBasedRequester implements IBuildingBasedRequester
 {
 
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
-    private static final String NBT_LOCATION = "Location";
-    private static final String NBT_ID       = "Id";
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
+    private static final String    NBT_LOCATION = "Location";
+    private static final String    NBT_ID       = "Id";
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
 
-    private final ILocation location;
+    private final        ILocation location;
 
     private final IToken<?> requesterId;
 

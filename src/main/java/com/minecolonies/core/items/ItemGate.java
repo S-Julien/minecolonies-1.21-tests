@@ -22,21 +22,21 @@ import java.util.List;
 public class ItemGate extends BlockItem
 {
     public ItemGate(
-      @NotNull final String name,
-      final Block block,
-      final Properties properties)
+        @NotNull final String name,
+        final Block block,
+        final Properties properties)
     {
         super(block, properties);
     }
 
     @Override
     public void appendHoverText(
-      @NotNull final ItemStack stack, @Nullable final Level worldIn, @NotNull final List<Component> tooltip, @NotNull final TooltipFlag flagIn)
+        @NotNull final ItemStack stack, @Nullable final Level worldIn, @NotNull final List<Component> tooltip, @NotNull final TooltipFlag flagIn)
     {
         if (getBlock() instanceof final AbstractBlockGate gate)
         {
             final MutableComponent guiHint2 = Component.translatable(TranslationConstants.GATE_PLACEMENT_TOOLTIP,
-                    gate.getMaxWidth(), gate.getMaxHeight(), gate.getMaxWidth() * gate.getMaxHeight());
+                gate.getMaxWidth(), gate.getMaxHeight(), gate.getMaxWidth() * gate.getMaxHeight());
             guiHint2.setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_AQUA));
             tooltip.add(guiHint2);
         }

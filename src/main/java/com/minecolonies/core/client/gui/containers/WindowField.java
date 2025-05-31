@@ -129,12 +129,12 @@ public class WindowField extends AbstractWindowSkeleton
     private void selectSeed()
     {
         new WindowSelectRes(
-          this,
-          stack -> stack.is(Tags.Items.SEEDS)
-                     || (stack.getItem() instanceof BlockItem item && item.getBlock() instanceof CropBlock)
-                     || (stack.getItem() instanceof ItemCrop itemCrop && itemCrop.canBePlantedIn(Minecraft.getInstance().level.getBiome(tileEntityScarecrow.getBlockPos()))),
-          (stack, qty) -> setSeed(stack),
-          false).open();
+            this,
+            stack -> stack.is(Tags.Items.SEEDS)
+                || (stack.getItem() instanceof BlockItem item && item.getBlock() instanceof CropBlock)
+                || (stack.getItem() instanceof ItemCrop itemCrop && itemCrop.canBePlantedIn(Minecraft.getInstance().level.getBiome(tileEntityScarecrow.getBlockPos()))),
+            (stack, qty) -> setSeed(stack),
+            false).open();
     }
 
     /**
@@ -205,8 +205,9 @@ public class WindowField extends AbstractWindowSkeleton
             return;
         }
 
-        final IBuildingExtension field = colonyView.getBuildingExtension(otherField -> otherField.getBuildingExtensionType().equals(BuildingExtensionRegistries.farmField.get()) && otherField.getPosition()
-                                                                                                                                      .equals(tileEntityScarecrow.getBlockPos()));
+        final IBuildingExtension field =
+            colonyView.getBuildingExtension(otherField -> otherField.getBuildingExtensionType().equals(BuildingExtensionRegistries.farmField.get()) && otherField.getPosition()
+                .equals(tileEntityScarecrow.getBlockPos()));
         if (field instanceof FarmField farmFieldFound)
         {
             farmField = farmFieldFound;
@@ -301,10 +302,10 @@ public class WindowField extends AbstractWindowSkeleton
             button.setText(Component.literal(String.valueOf(Objects.isNull(farmField) ? "" : farmField.getRadius(dir))));
 
             PaneBuilders.tooltipBuilder()
-              .hoverPane(button)
-              .append(Component.translatable(PARTIAL_BLOCK_HUT_FIELD_DIRECTION_ABSOLUTE + dir.getSerializedName()))
-              .appendNL(Component.translatable(getDirectionalTranslationKey(dir)).setStyle(Style.EMPTY.withItalic(true).withColor(ChatFormatting.GRAY)))
-              .build();
+                .hoverPane(button)
+                .append(Component.translatable(PARTIAL_BLOCK_HUT_FIELD_DIRECTION_ABSOLUTE + dir.getSerializedName()))
+                .appendNL(Component.translatable(getDirectionalTranslationKey(dir)).setStyle(Style.EMPTY.withItalic(true).withColor(ChatFormatting.GRAY)))
+                .build();
         }
     }
 

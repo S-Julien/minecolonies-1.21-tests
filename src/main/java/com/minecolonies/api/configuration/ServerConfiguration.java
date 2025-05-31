@@ -89,16 +89,16 @@ public class ServerConfiguration extends AbstractConfiguration
      *  ------------------- ######## Permission Settings ######## ------------------- *
      *  ----------------------------------------------------------------------------- */
 
-    public final ForgeConfigSpec.BooleanValue                        enableColonyProtection;
-    public final ForgeConfigSpec.EnumValue<Explosions>               turnOffExplosionsInColonies;
+    public final ForgeConfigSpec.BooleanValue          enableColonyProtection;
+    public final ForgeConfigSpec.EnumValue<Explosions> turnOffExplosionsInColonies;
 
     /*  -------------------------------------------------------------------------------- *
      *  ------------------- ######## Compatibility Settings ######## ------------------- *
      *  -------------------------------------------------------------------------------- */
 
-    public final ForgeConfigSpec.BooleanValue                        auditCraftingTags;
-    public final ForgeConfigSpec.BooleanValue                        debugInventories;
-    public final ForgeConfigSpec.BooleanValue                        blueprintBuildMode;
+    public final ForgeConfigSpec.BooleanValue auditCraftingTags;
+    public final ForgeConfigSpec.BooleanValue debugInventories;
+    public final ForgeConfigSpec.BooleanValue blueprintBuildMode;
 
     /*  ------------------------------------------------------------------------------ *
      *  ------------------- ######## Pathfinding Settings ######## ------------------- *

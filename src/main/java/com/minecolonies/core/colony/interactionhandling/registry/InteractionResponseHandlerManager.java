@@ -22,9 +22,9 @@ public final class InteractionResponseHandlerManager implements IInteractionResp
     public IInteractionResponseHandler createFrom(@NotNull final ICitizen citizen, @NotNull final CompoundTag compound)
     {
         final ResourceLocation handlerType =
-          compound.contains(NbtTagConstants.TAG_HANDLER_TYPE)
-            ? new ResourceLocation(Constants.MOD_ID, compound.getString(NbtTagConstants.TAG_HANDLER_TYPE))
-            : ModInteractionResponseHandlers.STANDARD;
+            compound.contains(NbtTagConstants.TAG_HANDLER_TYPE)
+                ? new ResourceLocation(Constants.MOD_ID, compound.getString(NbtTagConstants.TAG_HANDLER_TYPE))
+                : ModInteractionResponseHandlers.STANDARD;
         final IInteractionResponseHandler handler = IInteractionResponseHandlerRegistry.getInstance().getValue(handlerType).getProducer().apply(citizen);
         if (handler != null)
         {
@@ -35,7 +35,7 @@ public final class InteractionResponseHandlerManager implements IInteractionResp
             catch (final RuntimeException ex)
             {
                 Log.getLogger().error(String.format("An Interaction %s has thrown an exception during loading, its state cannot be restored. Report this to the mod author",
-                  handlerType), ex);
+                    handlerType), ex);
                 return null;
             }
         }

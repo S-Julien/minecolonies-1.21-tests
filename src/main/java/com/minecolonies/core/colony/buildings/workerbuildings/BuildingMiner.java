@@ -129,7 +129,7 @@ public class BuildingMiner extends AbstractBuildingStructureBuilder
      * The Miner wants to get multiple nodes/levels worth of stuff when requesting.
      */
     @Override
-    public int getResourceBatchMultiplier() 
+    public int getResourceBatchMultiplier()
     {
         if (getModuleMatching(WorkerBuildingModule.class, m -> m.getJobEntry() == ModJobs.quarrier.get()).getAssignedCitizen().isEmpty())
         {
@@ -195,7 +195,8 @@ public class BuildingMiner extends AbstractBuildingStructureBuilder
     /**
      * Normalize the maximum depth.
      * Make sure that the returned depth respects the world limits and follows the building setting..
-     * @param max the max depth of the given building level.
+     *
+     * @param max   the max depth of the given building level.
      * @param level the world.
      * @return the max.
      */
@@ -283,7 +284,13 @@ public class BuildingMiner extends AbstractBuildingStructureBuilder
      * @param rotateTimes  The amount of time to rotate the structure.
      * @param structurePos The position of the structure.
      */
-    public static void initStructure(final MineNode mineNode, final int rotateTimes, final BlockPos structurePos, final BuildingMiner buildingMiner, final Level world, final JobMiner job)
+    public static void initStructure(
+        final MineNode mineNode,
+        final int rotateTimes,
+        final BlockPos structurePos,
+        final BuildingMiner buildingMiner,
+        final Level world,
+        final JobMiner job)
     {
         final String structurePack = buildingMiner.getStructurePack();
         int rotateCount;

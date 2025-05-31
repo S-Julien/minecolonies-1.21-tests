@@ -16,15 +16,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
 /**
  * An ingredient that can be used in a vanilla recipe to require more than one item in a particular input slot.
- *
+ * <p>
  * {
- *     "type": "minecolonies:counted",
- *     "item": {
- *         "item": "minecraft:cobblestone"  // could be a tag or something else
- *     },
- *     "count": 16
+ * "type": "minecolonies:counted",
+ * "item": {
+ * "item": "minecraft:cobblestone"  // could be a tag or something else
+ * },
+ * "count": 16
  * }
  */
 public class CountedIngredient extends Ingredient
@@ -32,9 +33,9 @@ public class CountedIngredient extends Ingredient
     public static final ResourceLocation ID = new ResourceLocation(Constants.MOD_ID, "counted");
 
     @NotNull
-    private final Ingredient child;
-    private final int count;
-    private ItemStack[] array = null;
+    private final Ingredient  child;
+    private final int         count;
+    private       ItemStack[] array = null;
 
     public CountedIngredient(@NotNull final Ingredient child, final int count)
     {
@@ -44,12 +45,16 @@ public class CountedIngredient extends Ingredient
         this.count = count;
     }
 
-    /** The underlying ingredient. */
+    /**
+     * The underlying ingredient.
+     */
     @NotNull
-    public Ingredient getChild() { return this.child; }
+    public Ingredient getChild() {return this.child;}
 
-    /** The number of items required. */
-    public int getCount() { return this.count; }
+    /**
+     * The number of items required.
+     */
+    public int getCount() {return this.count;}
 
     @NotNull
     @Override
@@ -58,7 +63,7 @@ public class CountedIngredient extends Ingredient
         if (this.array == null)
         {
             final List<ItemStack> matchingStacks = Arrays.stream(this.child.getItems())
-                    .map(ItemStack::copy).collect(Collectors.toList());
+                .map(ItemStack::copy).collect(Collectors.toList());
             matchingStacks.forEach(s -> s.setCount(this.count));
             this.array = matchingStacks.toArray(new ItemStack[matchingStacks.size()]);
         }
@@ -85,9 +90,9 @@ public class CountedIngredient extends Ingredient
     {
         private static final Serializer INSTANCE = new Serializer();
 
-        public static Serializer getInstance() { return INSTANCE; }
+        public static Serializer getInstance() {return INSTANCE;}
 
-        private Serializer() { }
+        private Serializer() {}
 
         @NotNull
         @Override

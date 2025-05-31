@@ -249,11 +249,11 @@ public interface IPlantationModule extends IBuildingExtensionModule
          * @param resetState      the reset state.
          */
         private PlantationModuleResult(
-          final IPlantationModule module,
-          final BlockPos workingPosition,
-          final ActionToPerform action,
-          final @Nullable BlockPos actionPosition,
-          final PlanterAIModuleResultResetState resetState)
+            final IPlantationModule module,
+            final BlockPos workingPosition,
+            final ActionToPerform action,
+            final @Nullable BlockPos actionPosition,
+            final PlanterAIModuleResultResetState resetState)
         {
             this.module = module;
             this.workingPosition = workingPosition;

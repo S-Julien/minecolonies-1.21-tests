@@ -114,11 +114,11 @@ public final class ColonyUtils
      * @return a tuple with the required corners.
      */
     public static Tuple<BlockPos, BlockPos> calculateCorners(
-      final BlockPos pos,
-      final Level world,
-      final Blueprint blueprint,
-      final int rotation,
-      final boolean isMirrored)
+        final BlockPos pos,
+        final Level world,
+        final Blueprint blueprint,
+        final int rotation,
+        final boolean isMirrored)
     {
         if (blueprint == null)
         {
@@ -138,7 +138,7 @@ public final class ColonyUtils
      * Reports the block corners from a bounding box.
      *
      * @param box the bounding box.
-     * @return    the corners.
+     * @return the corners.
      */
     public static Tuple<BlockPos, BlockPos> calculateCorners(@NotNull final AABB box)
     {
@@ -149,6 +149,7 @@ public final class ColonyUtils
 
     /**
      * Get the owning colony from a chunk.
+     *
      * @param chunk the chunk to check.
      * @return the colony id.
      */
@@ -160,6 +161,7 @@ public final class ColonyUtils
 
     /**
      * Get all claiming buildings from the chunk.
+     *
      * @param chunk the chunk they are at.
      * @return the map from colony to building claims.
      */
@@ -171,6 +173,7 @@ public final class ColonyUtils
 
     /**
      * Get all static claims from a chunk.
+     *
      * @param chunk the chunk to get it from.
      * @return the list.
      */
@@ -182,6 +185,7 @@ public final class ColonyUtils
 
     /**
      * Get comprehensive chunk ownership data.
+     *
      * @param chunk the chunk to get it from.
      * @return the ownership data, or null.
      */
@@ -189,6 +193,8 @@ public final class ColonyUtils
     public static ChunkCapData getChunkCapData(final LevelChunk chunk)
     {
         final IColonyTagCapability cap = chunk.getCapability(CLOSE_COLONY_CAP, null).resolve().orElse(null);
-        return cap == null ? new ChunkCapData(chunk.getPos().x, chunk.getPos().z) : new ChunkCapData(chunk.getPos().x, chunk.getPos().z, cap.getOwningColony(), cap.getStaticClaimColonies(), cap.getAllClaimingBuildings());
+        return cap == null
+            ? new ChunkCapData(chunk.getPos().x, chunk.getPos().z)
+            : new ChunkCapData(chunk.getPos().x, chunk.getPos().z, cap.getOwningColony(), cap.getStaticClaimColonies(), cap.getAllClaimingBuildings());
     }
 }

@@ -13,13 +13,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
-
 @SuppressWarnings("unchecked")
 public class DefaultDamageTagsProvider extends TagsProvider<DamageType>
 {
     public DefaultDamageTagsProvider(
-      @NotNull final PackOutput output,
-      final CompletableFuture<HolderLookup.Provider> lookupProvider, final ExistingFileHelper helper)
+        @NotNull final PackOutput output,
+        final CompletableFuture<HolderLookup.Provider> lookupProvider, final ExistingFileHelper helper)
     {
         super(output, Registries.DAMAGE_TYPE, lookupProvider, Constants.MOD_ID, helper);
     }

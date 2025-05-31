@@ -24,17 +24,17 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Handles synching of custom datapack and compatibility data from server to client (and initial population
  * for the server in both single-player and dedicated).
- *
+ * <p>
  * As of Forge 36.2.4, at least, events happen in this order:
- *
+ * <p>
  * For Single Player, on startup:
- *  -- JsonReloadListeners, TagsUpdatedEvent, FMLServerAboutToStart, FMLServerStarted, OnDatapackSyncEvent, RecipesUpdatedEvent
+ * -- JsonReloadListeners, TagsUpdatedEvent, FMLServerAboutToStart, FMLServerStarted, OnDatapackSyncEvent, RecipesUpdatedEvent
  * For Dedicated Server, on startup:
- *  -- JsonReloadListeners, TagsUpdatedEvent, FMLServerAboutToStart, FMLServerStarted
+ * -- JsonReloadListeners, TagsUpdatedEvent, FMLServerAboutToStart, FMLServerStarted
  * For Remote Client, on login:
- *  -- OnDatapackSyncEvent [server], PlayerLoggedInEvent [server], RecipesUpdatedEvent [client], TagsUpdatedEvent [client]
+ * -- OnDatapackSyncEvent [server], PlayerLoggedInEvent [server], RecipesUpdatedEvent [client], TagsUpdatedEvent [client]
  * On /reload:
- *  -- JsonReloadListeners, TagsUpdatedEvent [server], OnDatapackSyncEvent [server], TagsUpdatedEvent [remote client], RecipesUpdatedEvent [client]
+ * -- JsonReloadListeners, TagsUpdatedEvent [server], OnDatapackSyncEvent [server], TagsUpdatedEvent [remote client], RecipesUpdatedEvent [client]
  */
 public class DataPackSyncEventHandler
 {
@@ -63,8 +63,9 @@ public class DataPackSyncEventHandler
          * @param player    the player to send the sync packets to.
          * @param compatMsg a cached copy of this message, to avoid rebuilding it for each player.
          */
-        private static void sendPackets(@NotNull final ServerPlayer player,
-                                        @NotNull final UpdateClientWithCompatibilityMessage compatMsg)
+        private static void sendPackets(
+            @NotNull final ServerPlayer player,
+            @NotNull final UpdateClientWithCompatibilityMessage compatMsg)
         {
             Network.getNetwork().sendToPlayer(compatMsg, player);
             CustomRecipeManager.getInstance().sendCustomRecipeManagerPackets(player);
@@ -108,7 +109,7 @@ public class DataPackSyncEventHandler
             }
 
             if (MineColonies.getConfig().getServer().auditCraftingTags.get() &&
-                    (event.getPlayer() == null || event.getPlayerList().getPlayers().isEmpty()))
+                (event.getPlayer() == null || event.getPlayerList().getPlayers().isEmpty()))
             {
                 CraftingTagAuditor.doRecipeAudit(server, recipeManager);
             }

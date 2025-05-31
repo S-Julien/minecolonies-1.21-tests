@@ -25,9 +25,10 @@ public class RequestTag implements IDeliverable
     /**
      * Set of type tokens belonging to this class.
      */
-    private final static Set<TypeToken<?>> TYPE_TOKENS = ReflectionUtils.getSuperClasses(TypeToken.of(RequestTag.class)).stream().filter(type -> !type.equals(TypeConstants.OBJECT)).collect(Collectors.toSet());
+    private final static Set<TypeToken<?>> TYPE_TOKENS =
+        ReflectionUtils.getSuperClasses(TypeToken.of(RequestTag.class)).stream().filter(type -> !type.equals(TypeConstants.OBJECT)).collect(Collectors.toSet());
 
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
     private static final String NBT_TAG      = "Tag";
     private static final String NBT_RESULT   = "Result";
     private static final String NBT_COUNT    = "Count";
@@ -183,9 +184,9 @@ public class RequestTag implements IDeliverable
         }
         final RequestTag tag1 = (RequestTag) o;
         return getCount() == tag1.getCount() &&
-                 getMinimumCount() == tag1.getMinimumCount() &&
-                 getTag().equals(tag1.getTag()) &&
-                 getResult().equals(tag1.getResult());
+            getMinimumCount() == tag1.getMinimumCount() &&
+            getTag().equals(tag1.getTag()) &&
+            getResult().equals(tag1.getResult());
     }
 
     @Override

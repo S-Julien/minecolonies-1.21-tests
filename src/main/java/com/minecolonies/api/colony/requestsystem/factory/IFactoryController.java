@@ -59,7 +59,7 @@ public interface IFactoryController
      * @throws IllegalArgumentException Thrown when no factory exists for the combination of input and output.
      */
     <Input, Output> IFactory<Input, Output> getFactoryForIO(@NotNull final TypeToken<? extends Input> inputTypeToken, @NotNull final TypeToken<? extends Output> outputTypeToken)
-      throws IllegalArgumentException;
+        throws IllegalArgumentException;
 
     /**
      * Method used to get a factory for a given Output class name.
@@ -90,8 +90,8 @@ public interface IFactoryController
     /**
      * Method used to get a factory for a given Output class name.
      *
-     * @param id The class id of the Output type of the requested factory.
-     * @param <Output>  The type of Output for the requested factory.
+     * @param id       The class id of the Output type of the requested factory.
+     * @param <Output> The type of Output for the requested factory.
      * @return The factory that can handle the given Output class.
      * @throws IllegalArgumentException is thrown when the given Output name is unknown to this Factory Controller.
      */
@@ -124,7 +124,7 @@ public interface IFactoryController
     /**
      * Method used to get a factory for a given output class.
      *
-     * @param id    The id of the output type of the requested factory.
+     * @param id       The id of the output type of the requested factory.
      * @param <Output> The type of output for the requested factory.
      * @return The factory that can handle the given output class.
      * @throws IllegalArgumentException is thrown when the given output class is unknown to this Factory Controller.
@@ -194,7 +194,7 @@ public interface IFactoryController
      * @throws ClassCastException       thrown when a Factory is known for the given input, but does not produce the given output.
      */
     <Input, Output> Output getNewInstance(@NotNull final TypeToken<? extends Output> requestedType, @NotNull final Input input, @NotNull final Object... context)
-      throws IllegalArgumentException, ClassCastException;
+        throws IllegalArgumentException, ClassCastException;
 
     /**
      * Method used to create a new instance of the given output.

@@ -27,6 +27,7 @@ public class BuildingAddRecipeCriterionInstance extends AbstractCriterionTrigger
 
     /**
      * Instance with the condition to check what item recipe was added
+     *
      * @param outputItemPredicates the item recipe tester constructed from the advancement information
      */
     public BuildingAddRecipeCriterionInstance(final ItemPredicate[] outputItemPredicates)
@@ -38,8 +39,9 @@ public class BuildingAddRecipeCriterionInstance extends AbstractCriterionTrigger
 
     /**
      * Instance with the condition to check what item recipe was added and at what grid size
+     *
      * @param outputItemPredicates the item recipe tester constructed from the advancement information
-     * @param craftingSize the NxN size of the crafting grid
+     * @param craftingSize         the NxN size of the crafting grid
      */
     public BuildingAddRecipeCriterionInstance(final ItemPredicate[] outputItemPredicates, final int craftingSize)
     {
@@ -51,6 +53,7 @@ public class BuildingAddRecipeCriterionInstance extends AbstractCriterionTrigger
 
     /**
      * Performs the check for these criteria
+     *
      * @param recipeStorage the recipe that was just added
      * @return whether the check succeeded
      */
@@ -80,8 +83,9 @@ public class BuildingAddRecipeCriterionInstance extends AbstractCriterionTrigger
     }
 
     @NotNull
-    public static BuildingAddRecipeCriterionInstance deserializeFromJson(@NotNull final JsonObject jsonObject,
-                                                                         @NotNull final DeserializationContext context)
+    public static BuildingAddRecipeCriterionInstance deserializeFromJson(
+        @NotNull final JsonObject jsonObject,
+        @NotNull final DeserializationContext context)
     {
         if (jsonObject.has("items"))
         {

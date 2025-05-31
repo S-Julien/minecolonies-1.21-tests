@@ -88,9 +88,9 @@ public final class ColonyList<T extends IColony> implements Iterable<T>
         if (existingColony != null && existingColony != colony)
         {
             Log.getLogger().error(String.format("Already a colony registered to id=%d, colony=%s, not changing to colony=%s",
-              colony.getID(),
-              existingColony.getName(),
-              colony.getName()), new Exception());
+                colony.getID(),
+                existingColony.getName(),
+                colony.getName()), new Exception());
             return;
         }
 

@@ -15,6 +15,7 @@ public class CitizenTriggerReturnData implements ITriggerReturnData<ICitizenData
 
     /**
      * Create a new return data obj.
+     *
      * @param match citizen id.
      */
     public CitizenTriggerReturnData(final ICitizenData match)

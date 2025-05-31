@@ -83,10 +83,11 @@ public class PlaySoundForCitizenMessage implements IMessage
 
     /**
      * Play a sound for a certain citizen.
+     *
      * @param entityID the entity id.
-     * @param event the sound event to place.
-     * @param pos the position to play it at.
-     * @param world the world to play it in.
+     * @param event    the sound event to place.
+     * @param pos      the position to play it at.
+     * @param world    the world to play it in.
      */
     public PlaySoundForCitizenMessage(final int entityID, final SoundEvent event, final BlockPos pos, final Level world)
     {
@@ -95,11 +96,12 @@ public class PlaySoundForCitizenMessage implements IMessage
 
     /**
      * Play a sound for a certain citizen.
-     * @param entityID the entity id.
-     * @param event the sound event to place.
+     *
+     * @param entityID    the entity id.
+     * @param event       the sound event to place.
      * @param soundSource the type of source.
-     * @param pos the position to play it at.
-     * @param world the world to play it in.
+     * @param pos         the position to play it at.
+     * @param world       the world to play it in.
      */
     public PlaySoundForCitizenMessage(final int entityID, final SoundEvent event, final SoundSource soundSource, final BlockPos pos, final Level world)
     {
@@ -108,32 +110,50 @@ public class PlaySoundForCitizenMessage implements IMessage
 
     /**
      * Play a sound for a certain citizen.
-     * @param entityID the entity id.
-     * @param event the sound event to place.
+     *
+     * @param entityID    the entity id.
+     * @param event       the sound event to place.
      * @param soundSource the type of source.
-     * @param pos the position to play it at.
-     * @param world the world to play it in.
-     * @param length the length of the music.
+     * @param pos         the position to play it at.
+     * @param world       the world to play it in.
+     * @param length      the length of the music.
      * @param repetitions the number of repetitions.
      */
-    public PlaySoundForCitizenMessage(final int entityID, final SoundEvent event, final SoundSource soundSource, final BlockPos pos, final Level world, final int length, final int repetitions)
+    public PlaySoundForCitizenMessage(
+        final int entityID,
+        final SoundEvent event,
+        final SoundSource soundSource,
+        final BlockPos pos,
+        final Level world,
+        final int length,
+        final int repetitions)
     {
         this(entityID, event, soundSource, pos, world, (float) VOLUME, (float) PITCH, length, repetitions);
     }
 
     /**
      * Play a sound for a certain citizen.
-     * @param entityID the entity id.
-     * @param event the sound event to place.
+     *
+     * @param entityID    the entity id.
+     * @param event       the sound event to place.
      * @param soundSource the type of source.
-     * @param pos the position to play it at.
-     * @param world the world to play it in.
-     * @param volume the volume.
-     * @param pitch the pitch.
-     * @param length the length of the music.
+     * @param pos         the position to play it at.
+     * @param world       the world to play it in.
+     * @param volume      the volume.
+     * @param pitch       the pitch.
+     * @param length      the length of the music.
      * @param repetitions the number of repetitions.
      */
-    public PlaySoundForCitizenMessage(final int entityID, final SoundEvent event, final SoundSource soundSource, final BlockPos pos, final Level world, final float volume, final float pitch, final int length, final int repetitions)
+    public PlaySoundForCitizenMessage(
+        final int entityID,
+        final SoundEvent event,
+        final SoundSource soundSource,
+        final BlockPos pos,
+        final Level world,
+        final float volume,
+        final float pitch,
+        final int length,
+        final int repetitions)
     {
         super();
         this.entityid = entityID;

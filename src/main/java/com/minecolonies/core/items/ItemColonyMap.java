@@ -77,13 +77,14 @@ public class ItemColonyMap extends AbstractItemMinecolonies
     @Override
     @NotNull
     public InteractionResultHolder<ItemStack> use(
-            final Level worldIn,
-            final Player playerIn,
-            final InteractionHand hand)
+        final Level worldIn,
+        final Player playerIn,
+        final InteractionHand hand)
     {
         final ItemStack map = playerIn.getItemInHand(hand);
 
-        if (!worldIn.isClientSide) {
+        if (!worldIn.isClientSide)
+        {
             return new InteractionResultHolder<>(InteractionResult.SUCCESS, map);
         }
 
@@ -100,14 +101,18 @@ public class ItemColonyMap extends AbstractItemMinecolonies
      */
     private static CompoundTag checkForCompound(final ItemStack map)
     {
-        if (!map.hasTag()) map.setTag(new CompoundTag());
+        if (!map.hasTag())
+        {
+            map.setTag(new CompoundTag());
+        }
         return map.getTag();
     }
 
     /**
      * Opens the map window if there is a valid colony linked
+     *
      * @param compound the item compound
-     * @param player the player entity opening the window
+     * @param player   the player entity opening the window
      */
     private static void openWindow(CompoundTag compound, Level world, Player player)
     {

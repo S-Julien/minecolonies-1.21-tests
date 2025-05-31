@@ -52,6 +52,6 @@ public class Tuple<A, B>
         }
         final Tuple<?, ?> tuple = (Tuple<?, ?>) o;
         return Objects.equals(a, tuple.a) &&
-                 Objects.equals(b, tuple.b);
+            Objects.equals(b, tuple.b);
     }
 }

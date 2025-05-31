@@ -34,7 +34,7 @@ public class EventDescriptionManager implements IEventDescriptionManager
     /**
      * NBT tags
      */
-    private static final String TAG_EVENT_DESC_LIST    = "event_descs_list";
+    private static final String TAG_EVENT_DESC_LIST = "event_descs_list";
 
     /**
      * Colony reference
@@ -126,7 +126,7 @@ public class EventDescriptionManager implements IEventDescriptionManager
         {
             if (event.includeInSummary() && event.getDay() == colony.getDay())
             {
-                summaries.compute(event.getSummaryTranslationKey(), (key, value) -> value == null ? 1 :  value + 1);
+                summaries.compute(event.getSummaryTranslationKey(), (key, value) -> value == null ? 1 : value + 1);
             }
         }
 
@@ -135,7 +135,8 @@ public class EventDescriptionManager implements IEventDescriptionManager
         {
             if (builder == null)
             {
-                builder = MessageUtils.format(Component.translatable("com.minecolonies.core.event.summary.prefix")).append(Component.translatable(entry.getKey(), entry.getIntValue()));
+                builder =
+                    MessageUtils.format(Component.translatable("com.minecolonies.core.event.summary.prefix")).append(Component.translatable(entry.getKey(), entry.getIntValue()));
             }
             else
             {

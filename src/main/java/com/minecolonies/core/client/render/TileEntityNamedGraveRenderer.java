@@ -19,7 +19,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
-public class TileEntityNamedGraveRenderer implements BlockEntityRenderer<TileEntityNamedGrave> {
+public class TileEntityNamedGraveRenderer implements BlockEntityRenderer<TileEntityNamedGrave>
+{
 
     /**
      * Basic rotation to achieve a certain direction.
@@ -46,13 +47,18 @@ public class TileEntityNamedGraveRenderer implements BlockEntityRenderer<TileEnt
         super();
     }
 
-
     @Override
-    public void render(@NotNull final TileEntityNamedGrave tileEntity, final float partialTicks, final PoseStack matrixStack, @NotNull final MultiBufferSource buffer, final int combinedLight, final int combinedOverlay)
+    public void render(
+        @NotNull final TileEntityNamedGrave tileEntity,
+        final float partialTicks,
+        final PoseStack matrixStack,
+        @NotNull final MultiBufferSource buffer,
+        final int combinedLight,
+        final int combinedOverlay)
     {
         matrixStack.pushPose();
 
-        if(tileEntity != null)
+        if (tileEntity != null)
         {
             final BlockState state = tileEntity.getLevel().getBlockState(tileEntity.getBlockPos());
             if (state.getBlock() == ModBlocks.blockNamedGrave)
@@ -116,7 +122,7 @@ public class TileEntityNamedGraveRenderer implements BlockEntityRenderer<TileEnt
 
             float x = (float) (-fontRenderer.width(iReorderingProcessor) / 2); //render width of text divided by 2
             fontRenderer.drawInBatch(iReorderingProcessor, x, line * 10f,
-              0xdcdcdc00, false, matrixStack.last().pose(), buffer, Font.DisplayMode.NORMAL, 0, combinedLight);
+                0xdcdcdc00, false, matrixStack.last().pose(), buffer, Font.DisplayMode.NORMAL, 0, combinedLight);
         }
     }
 

@@ -111,13 +111,13 @@ public class CourierAssignmentModuleView extends AbstractBuildingModuleView impl
     {
         for (final IBuildingView bView : buildingView.getColony().getBuildings())
         {
-            final CourierAssignmentModuleView view = bView.getModuleViewMatching(CourierAssignmentModuleView.class, m-> !m.buildingView.getId().equals(buildingView.getId()));
+            final CourierAssignmentModuleView view = bView.getModuleViewMatching(CourierAssignmentModuleView.class, m -> !m.buildingView.getId().equals(buildingView.getId()));
             if (view != null && view.getAssignedCitizens().contains(data.getId()))
             {
                 return false;
             }
         }
-        
+
         return !data.isChild() && data.getJobView() != null && data.getJobView().getEntry() == ModJobs.delivery.get();
     }
 

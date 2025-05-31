@@ -26,13 +26,13 @@ public class NamedGravePlacementHandler implements IPlacementHandler
 
     @Override
     public ActionProcessingResult handle(
-      @NotNull final Level world,
-      @NotNull final BlockPos pos,
-      @NotNull final BlockState blockState,
-      @Nullable final CompoundTag tileEntityData,
-      final boolean complete,
-      final BlockPos centerPos,
-      final PlacementSettings settings)
+        @NotNull final Level world,
+        @NotNull final BlockPos pos,
+        @NotNull final BlockState blockState,
+        @Nullable final CompoundTag tileEntityData,
+        final boolean complete,
+        final BlockPos centerPos,
+        final PlacementSettings settings)
     {
         if (world.getBlockState(pos).getBlock() == ModBlocks.blockNamedGrave)
         {
@@ -50,11 +50,11 @@ public class NamedGravePlacementHandler implements IPlacementHandler
 
     @Override
     public List<ItemStack> getRequiredItems(
-      @NotNull final Level world,
-      @NotNull final BlockPos pos,
-      @NotNull final BlockState blockState,
-      @Nullable final CompoundTag tileEntityData,
-      final boolean complete)
+        @NotNull final Level world,
+        @NotNull final BlockPos pos,
+        @NotNull final BlockState blockState,
+        @Nullable final CompoundTag tileEntityData,
+        final boolean complete)
     {
         if (complete)
         {

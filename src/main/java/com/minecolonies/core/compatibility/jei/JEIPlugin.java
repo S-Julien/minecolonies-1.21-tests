@@ -113,8 +113,9 @@ public class JEIPlugin implements IModPlugin
         }
     }
 
-    private void registerCategory(@NotNull final IRecipeCategoryRegistration registration,
-                                  @NotNull final JobBasedRecipeCategory<?> category)
+    private void registerCategory(
+        @NotNull final IRecipeCategoryRegistration registration,
+        @NotNull final JobBasedRecipeCategory<?> category)
     {
         categories.add(category);
         registration.addRecipeCategories(category);
@@ -124,7 +125,7 @@ public class JEIPlugin implements IModPlugin
     public void registerRecipes(@NotNull final IRecipeRegistration registration)
     {
         registration.addIngredientInfo(new ItemStack(ModBlocks.blockHutComposter.asItem()), VanillaTypes.ITEM_STACK,
-                Component.translatable(TranslationConstants.PARTIAL_JEI_INFO + ModJobs.COMPOSTER_ID.getPath()));
+            Component.translatable(TranslationConstants.PARTIAL_JEI_INFO + ModJobs.COMPOSTER_ID.getPath()));
 
         registration.addRecipes(ModRecipeTypes.TOOLS, ToolRecipeCategory.findRecipes());
         registration.addRecipes(ModRecipeTypes.CROPS, CropRecipeCategory.findRecipes());
@@ -142,11 +143,12 @@ public class JEIPlugin implements IModPlugin
         }
     }
 
-    private <R> void addJobBasedRecipes(@NotNull final Map<CraftingType, List<IGenericRecipe>> vanilla,
-                                        @NotNull final List<Animal> animals,
-                                        @NotNull final JobBasedRecipeCategory<R> category,
-                                        @NotNull final BiConsumer<RecipeType<R>, List<R>> registrar,
-                                        @NotNull final Level world)
+    private <R> void addJobBasedRecipes(
+        @NotNull final Map<CraftingType, List<IGenericRecipe>> vanilla,
+        @NotNull final List<Animal> animals,
+        @NotNull final JobBasedRecipeCategory<R> category,
+        @NotNull final BiConsumer<RecipeType<R>, List<R>> registrar,
+        @NotNull final Level world)
     {
         try
         {

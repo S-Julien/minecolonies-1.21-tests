@@ -59,7 +59,11 @@ public class TileEntityEnchanter extends TileEntityColonyBuilding
 
         this.bookSpreadPrev = this.bookSpread;
         this.bookRotationPrev = this.bookRotation;
-        Player player = this.level.getNearestPlayer(((float) this.worldPosition.getX() + 0.5F), ((float) this.worldPosition.getY() + 0.5F), ((float) this.worldPosition.getZ() + 0.5F), 3.0D, false);
+        Player player = this.level.getNearestPlayer(((float) this.worldPosition.getX() + 0.5F),
+            ((float) this.worldPosition.getY() + 0.5F),
+            ((float) this.worldPosition.getZ() + 0.5F),
+            3.0D,
+            false);
         if (player != null)
         {
             double playerXPos = player.getX() - (double) ((float) this.worldPosition.getX() + 0.5F);

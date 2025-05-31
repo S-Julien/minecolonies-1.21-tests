@@ -44,9 +44,10 @@ public class KillEntityObjectiveTemplateTemplate extends DialogueObjectiveTempla
 
     /**
      * Create a new objective of this type.
-     * @param target the target citizen.
+     *
+     * @param target         the target citizen.
      * @param entitiesToKill the number of entities to kill.
-     * @param entityToKill the entity to kill.
+     * @param entityToKill   the entity to kill.
      */
     public KillEntityObjectiveTemplateTemplate(final int target, final int entitiesToKill, final EntityType<?> entityToKill, final int nextObjective, final List<Integer> rewards)
     {
@@ -61,14 +62,15 @@ public class KillEntityObjectiveTemplateTemplate extends DialogueObjectiveTempla
     {
         final Component text = Component.translatable("com.minecolonies.coremod.questobjectives.kill", entityToKill.getDescription());
         final AnswerElement answer1 = new AnswerElement(Component.translatable("com.minecolonies.coremod.questobjectives.answer.later"),
-                new IQuestDialogueAnswer.CloseUIDialogueAnswer());
+            new IQuestDialogueAnswer.CloseUIDialogueAnswer());
         final AnswerElement answer2 = new AnswerElement(Component.translatable("com.minecolonies.coremod.questobjectives.answer.cancel"),
-                new IQuestDialogueAnswer.QuestCancellationDialogueAnswer());
+            new IQuestDialogueAnswer.QuestCancellationDialogueAnswer());
         return new DialogueElement(text, List.of(answer1, answer2));
     }
 
     /**
      * Parse the mine block objective from json.
+     *
      * @param jsonObject the json to parse it from.
      * @return a new objective object.
      */
@@ -101,9 +103,9 @@ public class KillEntityObjectiveTemplateTemplate extends DialogueObjectiveTempla
         if (quest.getCurrentObjectiveInstance() instanceof EntityKillProgressInstance progress)
         {
             return Component.translatable("com.minecolonies.coremod.questobjectives.kill.progress",
-              progress.currentProgress,
-              entitiesToKill,
-              entityToKill.getDescription().plainCopy().setStyle(style));
+                progress.currentProgress,
+                entitiesToKill,
+                entityToKill.getDescription().plainCopy().setStyle(style));
         }
         return Component.empty();
     }
@@ -122,6 +124,7 @@ public class KillEntityObjectiveTemplateTemplate extends DialogueObjectiveTempla
 
     /**
      * Cleanup the listener of this event.
+     *
      * @param colonyQuest the quest instance it belongs to.
      */
     private void cleanupListener(final IQuestInstance colonyQuest)

@@ -100,6 +100,7 @@ public class CitizenModel<T extends AbstractEntityCitizen> extends HumanoidModel
 
     /**
      * Check if the citizen is supposed to be working.
+     *
      * @param citizen the citizen entity to check.
      * @return true if so.
      */
@@ -110,6 +111,7 @@ public class CitizenModel<T extends AbstractEntityCitizen> extends HumanoidModel
 
     /**
      * Check if the hat should be displayed.
+     *
      * @param citizen the citizen entity to check.
      * @return true if so.
      */
@@ -119,6 +121,7 @@ public class CitizenModel<T extends AbstractEntityCitizen> extends HumanoidModel
         {
             return false;
         }
-        return citizen.getCitizenDataView() == null || (citizen.getCitizenDataView().getDisplayArmor(EquipmentSlot.HEAD).isEmpty() && citizen.getCitizenDataView().getCustomTextureUUID() == null);
+        return citizen.getCitizenDataView() == null || (citizen.getCitizenDataView().getDisplayArmor(EquipmentSlot.HEAD).isEmpty()
+            && citizen.getCitizenDataView().getCustomTextureUUID() == null);
     }
 }

@@ -61,7 +61,7 @@ public abstract class AbstractEntityMinecoloniesRaider extends AbstractEntityMin
     /**
      * 1 in X Chance that thorns effect happens
      */
-    private static final int THORNS_CHANCE            = 5;
+    private static final int THORNS_CHANCE = 5;
 
     /**
      * Set the colony raided if raider is in the wrong colony.
@@ -157,8 +157,8 @@ public abstract class AbstractEntityMinecoloniesRaider extends AbstractEntityMin
     /**
      * Constructor method for Abstract Barbarians.
      *
-     * @param world the world.
-     * @param type  the entity type.
+     * @param world        the world.
+     * @param type         the entity type.
      * @param textureCount texture count.
      */
     public AbstractEntityMinecoloniesRaider(final EntityType<? extends AbstractEntityMinecoloniesRaider> type, final Level world, final int textureCount)
@@ -332,11 +332,11 @@ public abstract class AbstractEntityMinecoloniesRaider extends AbstractEntityMin
                 currentCount = COUNTDOWN_SECOND_MULTIPLIER * TIME_TO_COUNTDOWN;
 
                 if (!this.getMainHandItem().isEmpty() && SPEED_EFFECT != null && this.getMainHandItem().getItem() instanceof IChiefSwordItem
-                      && MinecoloniesAPIProxy.getInstance().getConfig().getServer().raidDifficulty.get() >= BARBARIAN_HORDE_DIFFICULTY_FIVE)
+                    && MinecoloniesAPIProxy.getInstance().getConfig().getServer().raidDifficulty.get() >= BARBARIAN_HORDE_DIFFICULTY_FIVE)
                 {
                     RaiderMobUtils.getBarbariansCloseToEntity(this, SPEED_EFFECT_DISTANCE)
-                      .stream().filter(entity -> !entity.hasEffect(MobEffects.MOVEMENT_SPEED))
-                      .forEach(entity -> entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, SPEED_EFFECT_DURATION, SPEED_EFFECT_MULTIPLIER)));
+                        .stream().filter(entity -> !entity.hasEffect(MobEffects.MOVEMENT_SPEED))
+                        .forEach(entity -> entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, SPEED_EFFECT_DURATION, SPEED_EFFECT_MULTIPLIER)));
                 }
             }
             else
@@ -354,6 +354,7 @@ public abstract class AbstractEntityMinecoloniesRaider extends AbstractEntityMin
 
     /**
      * Even on when a raider entered a new chunk.
+     *
      * @param newChunkPos the new chunk pos.
      */
     private void onEnterChunk(final ChunkPos newChunkPos)
@@ -370,11 +371,11 @@ public abstract class AbstractEntityMinecoloniesRaider extends AbstractEntityMin
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(
-      final ServerLevelAccessor worldIn,
-      final DifficultyInstance difficultyIn,
-      final MobSpawnType reason,
-      @Nullable final SpawnGroupData spawnDataIn,
-      @Nullable final CompoundTag dataTag)
+        final ServerLevelAccessor worldIn,
+        final DifficultyInstance difficultyIn,
+        final MobSpawnType reason,
+        @Nullable final SpawnGroupData spawnDataIn,
+        @Nullable final CompoundTag dataTag)
     {
         RaiderMobUtils.setEquipment(this);
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
@@ -465,7 +466,7 @@ public abstract class AbstractEntityMinecoloniesRaider extends AbstractEntityMin
                 // Up to 7 damage are converted to health scaling damage, 7 is the damage of a diamond sword
                 float baseScalingDamage = Math.min(damage, MAX_SCALED_DAMAGE);
                 float totalWithScaled =
-                  Math.max(damage, (damage - baseScalingDamage) + baseScalingDamage * HP_PERCENT_PER_DMG * this.getMaxHealth() * (1 + (raiderDamageEnchantLevel / 5)));
+                    Math.max(damage, (damage - baseScalingDamage) + baseScalingDamage * HP_PERCENT_PER_DMG * this.getMaxHealth() * (1 + (raiderDamageEnchantLevel / 5)));
                 return super.hurt(damageSource, totalWithScaled);
             }
         }
@@ -515,7 +516,6 @@ public abstract class AbstractEntityMinecoloniesRaider extends AbstractEntityMin
     {
         envDamageImmunity = immunity;
     }
-
 
     /**
      * Sets the temporary immunity to environmental damage

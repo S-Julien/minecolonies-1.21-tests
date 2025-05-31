@@ -26,7 +26,6 @@ public class RendererBarbarian extends AbstractRendererBarbarian<AbstractEntityM
         super(context, new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_OUTER_ARMOR)), 0.5F);
     }
 
-
     @Override
     public ResourceLocation getTextureLocation(final AbstractEntityMinecoloniesMonster entity)
     {

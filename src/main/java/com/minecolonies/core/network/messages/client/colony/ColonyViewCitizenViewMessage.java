@@ -20,8 +20,8 @@ import org.jetbrains.annotations.Nullable;
  */
 public class ColonyViewCitizenViewMessage implements IMessage
 {
-    private int          colonyId;
-    private int          citizenId;
+    private int             colonyId;
+    private int             citizenId;
     private FriendlyByteBuf citizenBuffer;
 
     /**

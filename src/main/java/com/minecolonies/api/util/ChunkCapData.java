@@ -41,7 +41,6 @@ public class ChunkCapData
         this.allClaimBuildings = new HashMap<>();
     }
 
-
     public ChunkCapData(final int x, final int z, final int owningColony, final List<Integer> staticColonyClaim, final @NotNull Map<Integer, Set<BlockPos>> allClaimingBuildings)
     {
         this.x = x;
@@ -93,6 +92,7 @@ public class ChunkCapData
 
     /**
      * Getter for static claim.
+     *
      * @return list.
      */
     public List<Integer> getStaticColonyClaim()
@@ -102,6 +102,7 @@ public class ChunkCapData
 
     /**
      * Getter for owning colony id.
+     *
      * @return the id.
      */
     public int getOwningColony()
@@ -111,6 +112,7 @@ public class ChunkCapData
 
     /**
      * Getter for all claimed buildings.
+     *
      * @return the map.
      */
     public Map<Integer, Set<BlockPos>> getAllClaimingBuildings()

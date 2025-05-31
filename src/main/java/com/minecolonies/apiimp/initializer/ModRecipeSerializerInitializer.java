@@ -15,7 +15,6 @@ public final class ModRecipeSerializerInitializer
 {
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZER = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Constants.MOD_ID);
     public static final DeferredRegister<RecipeType<?>>       RECIPE_TYPES      = DeferredRegister.create(Registries.RECIPE_TYPE, Constants.MOD_ID);
-
     static
     {
         ModRecipeSerializer.CompostRecipeSerializer = RECIPE_SERIALIZER.register("composting", CompostRecipe.Serializer::new);
@@ -23,7 +22,6 @@ public final class ModRecipeSerializerInitializer
 
         ModRecipeSerializer.ZeroWasteRecipeSerializer = RECIPE_SERIALIZER.register("zero_waste", ZeroWasteRecipe.Serializer::new);
     }
-
     private ModRecipeSerializerInitializer()
     {
         throw new IllegalStateException("Tried to initialize: ModRecipeSerializerInitializer but this is a Utility class.");

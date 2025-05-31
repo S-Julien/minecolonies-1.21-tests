@@ -166,6 +166,7 @@ public interface IResolverHandler
 
     /**
      * Check if a resolver is in the progress of being removed.
+     *
      * @param id the id of the resolver to check.
      * @return true if so.
      */

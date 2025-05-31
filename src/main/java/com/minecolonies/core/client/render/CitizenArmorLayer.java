@@ -38,7 +38,7 @@ import java.util.UUID;
 public class CitizenArmorLayer<T extends AbstractEntityCitizen, M extends HumanoidModel<T>, A extends HumanoidModel<T>> extends HumanoidArmorLayer<T, M, A>
 {
     private final Map<SkullBlock.Type, SkullModelBase> skullModels;
-    private final Map<UUID, GameProfile> gameProfileMap = new HashMap<>();
+    private final Map<UUID, GameProfile>               gameProfileMap = new HashMap<>();
 
     public CitizenArmorLayer(RenderLayerParent<T, M> parentLayer, A innerModel, A outerModel, ModelManager modelManager, final EntityModelSet modelSet)
     {
@@ -48,16 +48,16 @@ public class CitizenArmorLayer<T extends AbstractEntityCitizen, M extends Humano
 
     @Override
     public void render(
-      @NotNull PoseStack poseStack,
-      @NotNull MultiBufferSource bufferSource,
-      int light,
-      @NotNull T citizen,
-      float ignore_1,
-      float ignore_2,
-      float partialTicks,
-      float ignore_4,
-      float headRotY,
-      float headRotX)
+        @NotNull PoseStack poseStack,
+        @NotNull MultiBufferSource bufferSource,
+        int light,
+        @NotNull T citizen,
+        float ignore_1,
+        float ignore_2,
+        float partialTicks,
+        float ignore_4,
+        float headRotY,
+        float headRotX)
     {
         if (citizen.getCitizenDataView() == null)
         {
@@ -75,7 +75,7 @@ public class CitizenArmorLayer<T extends AbstractEntityCitizen, M extends Humano
         }
 
         final ICitizenDataView citizenDataView = citizen.getCitizenDataView();
-        if (citizenDataView.getCustomTextureUUID() != null )
+        if (citizenDataView.getCustomTextureUUID() != null)
         {
             final UUID textureUUID = citizenDataView.getCustomTextureUUID();
             final GameProfile gameProfile = gameProfileMap.get(textureUUID);
@@ -118,7 +118,14 @@ public class CitizenArmorLayer<T extends AbstractEntityCitizen, M extends Humano
         this.renderArmorPiece(poseStack, bufferSource, citizen, EquipmentSlot.HEAD, light, this.getArmorModel(EquipmentSlot.HEAD), citizenDataView);
     }
 
-    private void renderArmorPiece(PoseStack poseStack, MultiBufferSource bufferSource, T citizen, EquipmentSlot equipmentSlot, int light, A armor, final ICitizenDataView citizenDataView)
+    private void renderArmorPiece(
+        PoseStack poseStack,
+        MultiBufferSource bufferSource,
+        T citizen,
+        EquipmentSlot equipmentSlot,
+        int light,
+        A armor,
+        final ICitizenDataView citizenDataView)
     {
         ItemStack itemstack = citizenDataView.getDisplayArmor(equipmentSlot);
         if (itemstack.isEmpty())
@@ -160,7 +167,17 @@ public class CitizenArmorLayer<T extends AbstractEntityCitizen, M extends Humano
         }
     }
 
-    private void renderModel(PoseStack poseStack, MultiBufferSource bufferSource, int light, ArmorItem armorItem, net.minecraft.client.model.Model model, boolean ignore, float red, float green, float blue, ResourceLocation armorResource)
+    private void renderModel(
+        PoseStack poseStack,
+        MultiBufferSource bufferSource,
+        int light,
+        ArmorItem armorItem,
+        net.minecraft.client.model.Model model,
+        boolean ignore,
+        float red,
+        float green,
+        float blue,
+        ResourceLocation armorResource)
     {
         VertexConsumer vertexconsumer = bufferSource.getBuffer(RenderType.armorCutoutNoCull(armorResource));
         model.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, red, green, blue, 1.0F);
@@ -171,7 +188,14 @@ public class CitizenArmorLayer<T extends AbstractEntityCitizen, M extends Humano
         model.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.armorEntityGlint()), light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    private void renderTrim(ArmorMaterial armorMaterial, PoseStack poseStack, MultiBufferSource bufferSource, int light, ArmorTrim armorItem, net.minecraft.client.model.Model model, boolean inner)
+    private void renderTrim(
+        ArmorMaterial armorMaterial,
+        PoseStack poseStack,
+        MultiBufferSource bufferSource,
+        int light,
+        ArmorTrim armorItem,
+        net.minecraft.client.model.Model model,
+        boolean inner)
     {
         TextureAtlasSprite textureatlassprite = super.armorTrimAtlas.getSprite(inner ? armorItem.innerTexture(armorMaterial) : armorItem.outerTexture(armorMaterial));
         VertexConsumer vertexconsumer = textureatlassprite.wrap(bufferSource.getBuffer(Sheets.armorTrimsSheet()));

@@ -47,22 +47,22 @@ import java.util.List;
 public class NewBobberEntity extends Projectile implements IEntityAdditionalSpawnData
 {
     private static final EntityDataAccessor<Integer> DATA_HOOKED_ENTITY = SynchedEntityData.defineId(NewBobberEntity.class, EntityDataSerializers.INT);
-    public  static final int                    XP_PER_CATCH       = 2;
-    private              boolean                inGround;
-    private              int                    ticksInGround;
-    private              EntityCitizen          angler;
-    private              int                    tickRemove         = 100;
-    private              int                    ticksInAir;
-    private              int                    ticksCatchable;
-    private              int                    ticksCaughtDelay;
-    private              int                    ticksCatchableDelay;
-    private              float                  fishApproachAngle;
-    public               Entity                 caughtEntity;
-    private              NewBobberEntity.State  currentState       = NewBobberEntity.State.FLYING;
-    private              int                    luck;
-    private              int                    lureSpeed;
-    private              int                    anglerId           = -1;
-    private              boolean                readyToCatch       = false;
+    public static final  int                         XP_PER_CATCH       = 2;
+    private              boolean                     inGround;
+    private              int                         ticksInGround;
+    private              EntityCitizen               angler;
+    private              int                         tickRemove         = 100;
+    private              int                         ticksInAir;
+    private              int                         ticksCatchable;
+    private              int                         ticksCaughtDelay;
+    private              int                         ticksCatchableDelay;
+    private              float                       fishApproachAngle;
+    public               Entity                      caughtEntity;
+    private              NewBobberEntity.State       currentState       = NewBobberEntity.State.FLYING;
+    private              int                         luck;
+    private              int                         lureSpeed;
+    private              int                         anglerId           = -1;
+    private              boolean                     readyToCatch       = false;
 
     /**
      * Saves the bobber position upon catch
@@ -71,7 +71,8 @@ public class NewBobberEntity extends Projectile implements IEntityAdditionalSpaw
 
     /**
      * Serverside constructor.
-     * @param type entity type.
+     *
+     * @param type  entity type.
      * @param world world to spawn it in.
      */
     public NewBobberEntity(final EntityType<? extends Projectile> type, final Level world)
@@ -82,8 +83,9 @@ public class NewBobberEntity extends Projectile implements IEntityAdditionalSpaw
 
     /**
      * Client side constructor.
+     *
      * @param spawnEntity spawn message.
-     * @param world the client world.
+     * @param world       the client world.
      */
     public NewBobberEntity(final PlayMessages.SpawnEntity spawnEntity, final Level world)
     {
@@ -100,7 +102,7 @@ public class NewBobberEntity extends Projectile implements IEntityAdditionalSpaw
     public void setAngler(final EntityCitizen citizen, final int luck, final int lureSpeed)
     {
         this.angler = citizen;
-        final float pitch = (float) (Math.random()*40.0-10.0);
+        final float pitch = (float) (Math.random() * 40.0 - 10.0);
         final float yaw = this.angler.getYRot();
         final float cowYaw = Mth.cos(-yaw * ((float) Math.PI / 180F) - (float) Math.PI);
         final float sinYaw = Mth.sin(-yaw * ((float) Math.PI / 180F) - (float) Math.PI);
@@ -110,11 +112,11 @@ public class NewBobberEntity extends Projectile implements IEntityAdditionalSpaw
         final double eyePos = this.angler.getEyeY();
         final double zYaw = this.angler.getZ() - (double) cowYaw * 0.3D;
         this.moveTo(xYaw, eyePos, zYaw, yaw, pitch);
-        Vec3 vec = new Vec3( (-sinYaw),  Mth.clamp(-(sinPitch / cosPitch), -5.0F, 5.0F), (-cowYaw));
+        Vec3 vec = new Vec3((-sinYaw), Mth.clamp(-(sinPitch / cosPitch), -5.0F, 5.0F), (-cowYaw));
         final double d3 = vec.length();
         vec = vec.multiply(0.6D / d3 + 0.5D + this.random.nextGaussian() * 0.0045D,
-          0.6D / d3 + 0.5D + this.random.nextGaussian() * 0.0045D,
-          0.6D / d3 + 0.5D + this.random.nextGaussian() * 0.0045D);
+            0.6D / d3 + 0.5D + this.random.nextGaussian() * 0.0045D,
+            0.6D / d3 + 0.5D + this.random.nextGaussian() * 0.0045D);
         this.setDeltaMovement(vec);
         this.setYRot((float) (Mth.atan2(vec.x, vec.z) * (double) (180F / (float) Math.PI)));
         this.setXRot((float) (Mth.atan2(vec.y, Mth.sqrt((float) vec.horizontalDistanceSqr())) * (double) (180F / (float) Math.PI)));
@@ -166,13 +168,13 @@ public class NewBobberEntity extends Projectile implements IEntityAdditionalSpaw
      */
     @OnlyIn(Dist.CLIENT)
     public void lerpTo(
-      final double x,
-      final double y,
-      final double z,
-      final float yaw,
-      final float pitch,
-      final int posRotationIncrements,
-      final boolean teleport)
+        final double x,
+        final double y,
+        final double z,
+        final float yaw,
+        final float pitch,
+        final int posRotationIncrements,
+        final boolean teleport)
     {
     }
 
@@ -332,8 +334,8 @@ public class NewBobberEntity extends Projectile implements IEntityAdditionalSpaw
         this.setYRot((float) (Mth.atan2(vec.x, vec.z) * (double) (180F / (float) Math.PI)));
 
         for (this.setXRot((float) (Mth.atan2(vec.y, (double) f) * (double) (180F / (float) Math.PI)));
-          this.getXRot() - this.xRotO < -180.0F;
-          this.xRotO -= 360.0F)
+            this.getXRot() - this.xRotO < -180.0F;
+            this.xRotO -= 360.0F)
         {
             ;
         }
@@ -360,7 +362,10 @@ public class NewBobberEntity extends Projectile implements IEntityAdditionalSpaw
     private void checkCollision()
     {
         HitResult hitresult = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
-        if (hitresult.getType() == HitResult.Type.MISS || !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, hitresult)) this.onHit(hitresult);
+        if (hitresult.getType() == HitResult.Type.MISS || !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, hitresult))
+        {
+            this.onHit(hitresult);
+        }
     }
 
     private void setHookedEntity()
@@ -431,23 +436,23 @@ public class NewBobberEntity extends Projectile implements IEntityAdditionalSpaw
                 this.playSound(SoundEvents.FISHING_BOBBER_SPLASH, 0.25F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
                 final double d3 = this.getY() + 0.5D;
                 serverworld.sendParticles(ParticleTypes.BUBBLE,
-                  this.getX(),
-                  d3,
-                  this.getZ(),
-                  (int) (1.0F + this.getBbWidth() * 20.0F),
-                  (double) this.getBbWidth(),
-                  0.0D,
-                  (double) this.getBbWidth(),
-                  (double) 0.2F);
+                    this.getX(),
+                    d3,
+                    this.getZ(),
+                    (int) (1.0F + this.getBbWidth() * 20.0F),
+                    (double) this.getBbWidth(),
+                    0.0D,
+                    (double) this.getBbWidth(),
+                    (double) 0.2F);
                 serverworld.sendParticles(ParticleTypes.FISHING,
-                  this.getX(),
-                  d3,
-                  this.getZ(),
-                  (int) (1.0F + this.getBbWidth() * 20.0F),
-                  (double) this.getBbWidth(),
-                  0.0D,
-                  (double) this.getBbWidth(),
-                  (double) 0.2F);
+                    this.getX(),
+                    d3,
+                    this.getZ(),
+                    (int) (1.0F + this.getBbWidth() * 20.0F),
+                    (double) this.getBbWidth(),
+                    0.0D,
+                    (double) this.getBbWidth(),
+                    (double) 0.2F);
                 this.ticksCatchable = Mth.nextInt(this.random, 20, 40);
             }
         }
@@ -509,11 +514,11 @@ public class NewBobberEntity extends Projectile implements IEntityAdditionalSpaw
             }
             else if (this.ticksCatchable > 0)
             {
-                LootParams.Builder lootcontext$builder = (new LootParams.Builder((ServerLevel)this.level))
-                                                            .withParameter(LootContextParams.ORIGIN, this.position())
-                                                            .withParameter(LootContextParams.TOOL, this.getAngler().getMainHandItem())
-                                                            .withParameter(LootContextParams.THIS_ENTITY, this)
-                                                            .withLuck((float)this.luck);
+                LootParams.Builder lootcontext$builder = (new LootParams.Builder((ServerLevel) this.level))
+                    .withParameter(LootContextParams.ORIGIN, this.position())
+                    .withParameter(LootContextParams.TOOL, this.getAngler().getMainHandItem())
+                    .withParameter(LootContextParams.THIS_ENTITY, this)
+                    .withLuck((float) this.luck);
 
                 lootcontext$builder.withParameter(LootContextParams.KILLER_ENTITY, this.angler).withParameter(LootContextParams.THIS_ENTITY, this);
                 final LootTable loottable = this.level.getServer().getLootData().getLootTable(ModLootTables.FISHING);
@@ -529,10 +534,10 @@ public class NewBobberEntity extends Projectile implements IEntityAdditionalSpaw
                     itementity.setDeltaMovement(d0 * 0.1D, d1 * 0.1D + Math.sqrt(Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2)) * 0.08D, d2 * 0.1D);
                     this.level.addFreshEntity(itementity);
                     this.angler.level.addFreshEntity(new ExperienceOrb(this.angler.level,
-                      this.angler.getX(),
-                      this.angler.getY() + 0.5D,
-                      this.angler.getZ() + 0.5D,
-                      XP_PER_CATCH));
+                        this.angler.getX(),
+                        this.angler.getY() + 0.5D,
+                        this.angler.getZ() + 0.5D,
+                        XP_PER_CATCH));
                 }
 
                 i = 1;

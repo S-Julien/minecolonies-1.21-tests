@@ -39,203 +39,204 @@ import static com.minecolonies.api.util.constant.Constants.MOD_ID;
  */
 public class DefaultSifterCraftingProvider extends CustomRecipeAndLootTableProvider
 {
-    public static final String SIFTER = ModJobs.SIFTER_ID.getPath();
-    private final Map<Item, List<SifterMeshDetails>> inputs = new HashMap<>();
-    private final DatagenLootTableManager            lootTableManager;
+    public static final String                             SIFTER = ModJobs.SIFTER_ID.getPath();
+    private final       Map<Item, List<SifterMeshDetails>> inputs = new HashMap<>();
+    private final       DatagenLootTableManager            lootTableManager;
 
-    public DefaultSifterCraftingProvider(@NotNull final PackOutput packOutput,
-                                         @NotNull final DatagenLootTableManager lootTableManager)
+    public DefaultSifterCraftingProvider(
+        @NotNull final PackOutput packOutput,
+        @NotNull final DatagenLootTableManager lootTableManager)
     {
         super(packOutput);
         this.lootTableManager = lootTableManager;
 
         inputs.put(Items.DIRT, Arrays.asList(
-                new SifterMeshDetails(ModItems.sifterMeshString, 1, LootTable.lootTable()
-                        .withPool(LootPool.lootPool()
-                                .add(EmptyLootItem.emptyItem().setWeight(71))
-                                .add(LootItem.lootTableItem(Items.WHEAT_SEEDS).setWeight(25))
-                                .add(LootItem.lootTableItem(Items.OAK_SAPLING).setWeight(1))
-                                .add(LootItem.lootTableItem(Items.BIRCH_SAPLING).setWeight(1))
-                                .add(LootItem.lootTableItem(Items.SPRUCE_SAPLING).setWeight(1))
-                                .add(LootItem.lootTableItem(Items.JUNGLE_SAPLING).setWeight(1))
-                        )),
+            new SifterMeshDetails(ModItems.sifterMeshString, 1, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                    .add(EmptyLootItem.emptyItem().setWeight(71))
+                    .add(LootItem.lootTableItem(Items.WHEAT_SEEDS).setWeight(25))
+                    .add(LootItem.lootTableItem(Items.OAK_SAPLING).setWeight(1))
+                    .add(LootItem.lootTableItem(Items.BIRCH_SAPLING).setWeight(1))
+                    .add(LootItem.lootTableItem(Items.SPRUCE_SAPLING).setWeight(1))
+                    .add(LootItem.lootTableItem(Items.JUNGLE_SAPLING).setWeight(1))
+                )),
 
-                new SifterMeshDetails(ModItems.sifterMeshFlint, 3, LootTable.lootTable()
-                        .withPool(LootPool.lootPool()
-                                .add(EmptyLootItem.emptyItem().setWeight(28))
-                                .add(LootItem.lootTableItem(Items.WHEAT_SEEDS).setWeight(50))
-                                .add(LootItem.lootTableItem(Items.OAK_SAPLING).setWeight(5))
-                                .add(LootItem.lootTableItem(Items.BIRCH_SAPLING).setWeight(5))
-                                .add(LootItem.lootTableItem(Items.SPRUCE_SAPLING).setWeight(5))
-                                .add(LootItem.lootTableItem(Items.JUNGLE_SAPLING).setWeight(5))
-                                .add(LootItem.lootTableItem(Items.CARROT).setWeight(1))
-                                .add(LootItem.lootTableItem(Items.POTATO).setWeight(1))
-                        )),
+            new SifterMeshDetails(ModItems.sifterMeshFlint, 3, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                    .add(EmptyLootItem.emptyItem().setWeight(28))
+                    .add(LootItem.lootTableItem(Items.WHEAT_SEEDS).setWeight(50))
+                    .add(LootItem.lootTableItem(Items.OAK_SAPLING).setWeight(5))
+                    .add(LootItem.lootTableItem(Items.BIRCH_SAPLING).setWeight(5))
+                    .add(LootItem.lootTableItem(Items.SPRUCE_SAPLING).setWeight(5))
+                    .add(LootItem.lootTableItem(Items.JUNGLE_SAPLING).setWeight(5))
+                    .add(LootItem.lootTableItem(Items.CARROT).setWeight(1))
+                    .add(LootItem.lootTableItem(Items.POTATO).setWeight(1))
+                )),
 
-                new SifterMeshDetails(ModItems.sifterMeshIron, 4, LootTable.lootTable()
-                        .withPool(LootPool.lootPool()
-                                .setBonusRolls(ConstantValue.exactly(.025f))
-                                .add(EmptyLootItem.emptyItem().setWeight(3))
-                                .add(LootItem.lootTableItem(Items.WHEAT_SEEDS).setWeight(50))
-                                .add(LootItem.lootTableItem(Items.OAK_SAPLING).setWeight(10))
-                                .add(LootItem.lootTableItem(Items.BIRCH_SAPLING).setWeight(10))
-                                .add(LootItem.lootTableItem(Items.SPRUCE_SAPLING).setWeight(10))
-                                .add(LootItem.lootTableItem(Items.JUNGLE_SAPLING).setWeight(10))
-                                .add(LootItem.lootTableItem(Items.CARROT).setWeight(1))
-                                .add(LootItem.lootTableItem(Items.POTATO).setWeight(1))
-                                .add(LootItem.lootTableItem(Items.PUMPKIN_SEEDS).setWeight(1))
-                                .add(LootItem.lootTableItem(Items.MELON_SEEDS).setWeight(1))
-                                .add(LootItem.lootTableItem(Items.BEETROOT_SEEDS).setWeight(1))
-                                .add(LootItem.lootTableItem(Items.DARK_OAK_SAPLING).setWeight(1))
-                                .add(LootItem.lootTableItem(Items.ACACIA_SAPLING).setWeight(1))
-                        )),
+            new SifterMeshDetails(ModItems.sifterMeshIron, 4, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                    .setBonusRolls(ConstantValue.exactly(.025f))
+                    .add(EmptyLootItem.emptyItem().setWeight(3))
+                    .add(LootItem.lootTableItem(Items.WHEAT_SEEDS).setWeight(50))
+                    .add(LootItem.lootTableItem(Items.OAK_SAPLING).setWeight(10))
+                    .add(LootItem.lootTableItem(Items.BIRCH_SAPLING).setWeight(10))
+                    .add(LootItem.lootTableItem(Items.SPRUCE_SAPLING).setWeight(10))
+                    .add(LootItem.lootTableItem(Items.JUNGLE_SAPLING).setWeight(10))
+                    .add(LootItem.lootTableItem(Items.CARROT).setWeight(1))
+                    .add(LootItem.lootTableItem(Items.POTATO).setWeight(1))
+                    .add(LootItem.lootTableItem(Items.PUMPKIN_SEEDS).setWeight(1))
+                    .add(LootItem.lootTableItem(Items.MELON_SEEDS).setWeight(1))
+                    .add(LootItem.lootTableItem(Items.BEETROOT_SEEDS).setWeight(1))
+                    .add(LootItem.lootTableItem(Items.DARK_OAK_SAPLING).setWeight(1))
+                    .add(LootItem.lootTableItem(Items.ACACIA_SAPLING).setWeight(1))
+                )),
 
-                new SifterMeshDetails(ModItems.sifterMeshDiamond, 5, LootTable.lootTable()
-                        .withPool(LootPool.lootPool()
-                                .setBonusRolls(ConstantValue.exactly((0.035f)))
-                                .add(EmptyLootItem.emptyItem().setWeight(5))
-                                .add(LootItem.lootTableItem(Items.WHEAT_SEEDS).setWeight(25))
-                                .add(LootItem.lootTableItem(Items.OAK_SAPLING).setWeight(10))
-                                .add(LootItem.lootTableItem(Items.BIRCH_SAPLING).setWeight(10))
-                                .add(LootItem.lootTableItem(Items.SPRUCE_SAPLING).setWeight(10))
-                                .add(LootItem.lootTableItem(Items.JUNGLE_SAPLING).setWeight(10))
-                                .add(LootItem.lootTableItem(Items.CARROT).setWeight(5))
-                                .add(LootItem.lootTableItem(Items.POTATO).setWeight(5))
-                                .add(LootItem.lootTableItem(Items.PUMPKIN_SEEDS).setWeight(5))
-                                .add(LootItem.lootTableItem(Items.MELON_SEEDS).setWeight(5))
-                                .add(LootItem.lootTableItem(Items.BEETROOT_SEEDS).setWeight(5))
-                                .add(LootItem.lootTableItem(Items.DARK_OAK_SAPLING).setWeight(5))
-                                .add(LootItem.lootTableItem(Items.ACACIA_SAPLING).setWeight(5))
-                        ))
+            new SifterMeshDetails(ModItems.sifterMeshDiamond, 5, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                    .setBonusRolls(ConstantValue.exactly((0.035f)))
+                    .add(EmptyLootItem.emptyItem().setWeight(5))
+                    .add(LootItem.lootTableItem(Items.WHEAT_SEEDS).setWeight(25))
+                    .add(LootItem.lootTableItem(Items.OAK_SAPLING).setWeight(10))
+                    .add(LootItem.lootTableItem(Items.BIRCH_SAPLING).setWeight(10))
+                    .add(LootItem.lootTableItem(Items.SPRUCE_SAPLING).setWeight(10))
+                    .add(LootItem.lootTableItem(Items.JUNGLE_SAPLING).setWeight(10))
+                    .add(LootItem.lootTableItem(Items.CARROT).setWeight(5))
+                    .add(LootItem.lootTableItem(Items.POTATO).setWeight(5))
+                    .add(LootItem.lootTableItem(Items.PUMPKIN_SEEDS).setWeight(5))
+                    .add(LootItem.lootTableItem(Items.MELON_SEEDS).setWeight(5))
+                    .add(LootItem.lootTableItem(Items.BEETROOT_SEEDS).setWeight(5))
+                    .add(LootItem.lootTableItem(Items.DARK_OAK_SAPLING).setWeight(5))
+                    .add(LootItem.lootTableItem(Items.ACACIA_SAPLING).setWeight(5))
+                ))
 
-                ));
+        ));
 
         inputs.put(Items.GRAVEL, Arrays.asList(
-                new SifterMeshDetails(ModItems.sifterMeshString, 1, LootTable.lootTable()
-                        .withPool(LootPool.lootPool()
-                                .add(EmptyLootItem.emptyItem().setWeight(85))
-                                .add(LootItem.lootTableItem(Items.IRON_NUGGET).setWeight(5))
-                                .add(LootItem.lootTableItem(Items.FLINT).setWeight(5))
-                                .add(LootItem.lootTableItem(Items.COAL).setWeight(5))
-                        )),
+            new SifterMeshDetails(ModItems.sifterMeshString, 1, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                    .add(EmptyLootItem.emptyItem().setWeight(85))
+                    .add(LootItem.lootTableItem(Items.IRON_NUGGET).setWeight(5))
+                    .add(LootItem.lootTableItem(Items.FLINT).setWeight(5))
+                    .add(LootItem.lootTableItem(Items.COAL).setWeight(5))
+                )),
 
-                new SifterMeshDetails(ModItems.sifterMeshFlint, 3, LootTable.lootTable()
-                        .withPool(LootPool.lootPool()
-                                .add(EmptyLootItem.emptyItem().setWeight(60))
-                                .add(LootItem.lootTableItem(Items.IRON_NUGGET).setWeight(10))
-                                .add(LootItem.lootTableItem(Items.FLINT).setWeight(10))
-                                .add(LootItem.lootTableItem(Items.COAL).setWeight(10))
-                                .add(LootItem.lootTableItem(Items.REDSTONE).setWeight(10))
-                        )),
+            new SifterMeshDetails(ModItems.sifterMeshFlint, 3, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                    .add(EmptyLootItem.emptyItem().setWeight(60))
+                    .add(LootItem.lootTableItem(Items.IRON_NUGGET).setWeight(10))
+                    .add(LootItem.lootTableItem(Items.FLINT).setWeight(10))
+                    .add(LootItem.lootTableItem(Items.COAL).setWeight(10))
+                    .add(LootItem.lootTableItem(Items.REDSTONE).setWeight(10))
+                )),
 
-                new SifterMeshDetails(ModItems.sifterMeshIron, 4, LootTable.lootTable()
-                        .withPool(LootPool.lootPool()
-                                .setBonusRolls(ConstantValue.exactly((0.025f)))
-                                .add(EmptyLootItem.emptyItem().setWeight(46))
-                                .add(LootItem.lootTableItem(Items.REDSTONE).setWeight(15))
-                                .add(LootItem.lootTableItem(Items.IRON_NUGGET).setWeight(15))
-                                .add(LootItem.lootTableItem(Items.COAL).setWeight(15))
-                                .add(LootItem.lootTableItem(Items.LAPIS_LAZULI).setWeight(5))
-                                .add(LootItem.lootTableItem(Items.IRON_INGOT).setWeight(1))
-                                .add(LootItem.lootTableItem(Items.GOLD_INGOT).setWeight(1))
-                                .add(LootItem.lootTableItem(Items.EMERALD).setWeight(1))
-                                .add(LootItem.lootTableItem(Items.DIAMOND).setWeight(1))
-                        )),
+            new SifterMeshDetails(ModItems.sifterMeshIron, 4, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                    .setBonusRolls(ConstantValue.exactly((0.025f)))
+                    .add(EmptyLootItem.emptyItem().setWeight(46))
+                    .add(LootItem.lootTableItem(Items.REDSTONE).setWeight(15))
+                    .add(LootItem.lootTableItem(Items.IRON_NUGGET).setWeight(15))
+                    .add(LootItem.lootTableItem(Items.COAL).setWeight(15))
+                    .add(LootItem.lootTableItem(Items.LAPIS_LAZULI).setWeight(5))
+                    .add(LootItem.lootTableItem(Items.IRON_INGOT).setWeight(1))
+                    .add(LootItem.lootTableItem(Items.GOLD_INGOT).setWeight(1))
+                    .add(LootItem.lootTableItem(Items.EMERALD).setWeight(1))
+                    .add(LootItem.lootTableItem(Items.DIAMOND).setWeight(1))
+                )),
 
-                new SifterMeshDetails(ModItems.sifterMeshDiamond, 5, LootTable.lootTable()
-                        .withPool(LootPool.lootPool()
-                                .setBonusRolls(ConstantValue.exactly((0.035f)))
-                                .add(EmptyLootItem.emptyItem().setWeight(40))
-                                .add(LootItem.lootTableItem(Items.REDSTONE).setWeight(20))
-                                .add(LootItem.lootTableItem(Items.IRON_NUGGET).setWeight(20))
-                                .add(LootItem.lootTableItem(Items.COAL).setWeight(20))
-                                .add(LootItem.lootTableItem(Items.LAPIS_LAZULI).setWeight(10))
-                                .add(LootItem.lootTableItem(Items.IRON_INGOT).setWeight(2))
-                                .add(LootItem.lootTableItem(Items.GOLD_INGOT).setWeight(2))
-                                .add(LootItem.lootTableItem(Items.EMERALD).setWeight(2))
-                                .add(LootItem.lootTableItem(Items.DIAMOND).setWeight(2))
-                        ))
+            new SifterMeshDetails(ModItems.sifterMeshDiamond, 5, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                    .setBonusRolls(ConstantValue.exactly((0.035f)))
+                    .add(EmptyLootItem.emptyItem().setWeight(40))
+                    .add(LootItem.lootTableItem(Items.REDSTONE).setWeight(20))
+                    .add(LootItem.lootTableItem(Items.IRON_NUGGET).setWeight(20))
+                    .add(LootItem.lootTableItem(Items.COAL).setWeight(20))
+                    .add(LootItem.lootTableItem(Items.LAPIS_LAZULI).setWeight(10))
+                    .add(LootItem.lootTableItem(Items.IRON_INGOT).setWeight(2))
+                    .add(LootItem.lootTableItem(Items.GOLD_INGOT).setWeight(2))
+                    .add(LootItem.lootTableItem(Items.EMERALD).setWeight(2))
+                    .add(LootItem.lootTableItem(Items.DIAMOND).setWeight(2))
+                ))
 
-                ));
+        ));
 
         inputs.put(Items.SAND, Arrays.asList(
-                new SifterMeshDetails(ModItems.sifterMeshString, 1, LootTable.lootTable()
-                        .withPool(LootPool.lootPool()
-                                .add(EmptyLootItem.emptyItem().setWeight(95))
-                                .add(LootItem.lootTableItem(Items.CACTUS).setWeight(2))
-                                .add(LootItem.lootTableItem(Items.SUGAR_CANE).setWeight(2))
-                        )),
+            new SifterMeshDetails(ModItems.sifterMeshString, 1, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                    .add(EmptyLootItem.emptyItem().setWeight(95))
+                    .add(LootItem.lootTableItem(Items.CACTUS).setWeight(2))
+                    .add(LootItem.lootTableItem(Items.SUGAR_CANE).setWeight(2))
+                )),
 
-                new SifterMeshDetails(ModItems.sifterMeshFlint, 3, LootTable.lootTable()
-                        .withPool(LootPool.lootPool()
-                                .add(EmptyLootItem.emptyItem().setWeight(85))
-                                .add(LootItem.lootTableItem(Items.CACTUS).setWeight(5))
-                                .add(LootItem.lootTableItem(Items.SUGAR_CANE).setWeight(5))
-                                .add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(5))
-                        )),
+            new SifterMeshDetails(ModItems.sifterMeshFlint, 3, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                    .add(EmptyLootItem.emptyItem().setWeight(85))
+                    .add(LootItem.lootTableItem(Items.CACTUS).setWeight(5))
+                    .add(LootItem.lootTableItem(Items.SUGAR_CANE).setWeight(5))
+                    .add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(5))
+                )),
 
-                new SifterMeshDetails(ModItems.sifterMeshIron, 4, LootTable.lootTable()
-                        .withPool(LootPool.lootPool()
-                                .setBonusRolls(ConstantValue.exactly((0.025f)))
-                                .add(EmptyLootItem.emptyItem().setWeight(60))
-                                .add(LootItem.lootTableItem(Items.CACTUS).setWeight(10))
-                                .add(LootItem.lootTableItem(Items.SUGAR_CANE).setWeight(10))
-                                .add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(10))
-                                .add(LootItem.lootTableItem(Items.COCOA_BEANS).setWeight(10))
-                        )),
+            new SifterMeshDetails(ModItems.sifterMeshIron, 4, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                    .setBonusRolls(ConstantValue.exactly((0.025f)))
+                    .add(EmptyLootItem.emptyItem().setWeight(60))
+                    .add(LootItem.lootTableItem(Items.CACTUS).setWeight(10))
+                    .add(LootItem.lootTableItem(Items.SUGAR_CANE).setWeight(10))
+                    .add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(10))
+                    .add(LootItem.lootTableItem(Items.COCOA_BEANS).setWeight(10))
+                )),
 
-                new SifterMeshDetails(ModItems.sifterMeshDiamond, 5, LootTable.lootTable()
-                        .withPool(LootPool.lootPool()
-                                .setBonusRolls(ConstantValue.exactly((0.035f)))
-                                .add(EmptyLootItem.emptyItem().setWeight(40))
-                                .add(LootItem.lootTableItem(Items.CACTUS).setWeight(15))
-                                .add(LootItem.lootTableItem(Items.SUGAR_CANE).setWeight(15))
-                                .add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(15))
-                                .add(LootItem.lootTableItem(Items.COCOA_BEANS).setWeight(15))
-                        ))
+            new SifterMeshDetails(ModItems.sifterMeshDiamond, 5, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                    .setBonusRolls(ConstantValue.exactly((0.035f)))
+                    .add(EmptyLootItem.emptyItem().setWeight(40))
+                    .add(LootItem.lootTableItem(Items.CACTUS).setWeight(15))
+                    .add(LootItem.lootTableItem(Items.SUGAR_CANE).setWeight(15))
+                    .add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(15))
+                    .add(LootItem.lootTableItem(Items.COCOA_BEANS).setWeight(15))
+                ))
 
-                ));
+        ));
 
         inputs.put(Items.SOUL_SAND, Arrays.asList(
-                new SifterMeshDetails(ModItems.sifterMeshString, 1, LootTable.lootTable()
-                        .withPool(LootPool.lootPool()
-                                .add(EmptyLootItem.emptyItem().setWeight(90))
-                                .add(LootItem.lootTableItem(Items.NETHER_WART).setWeight(5))
-                                .add(LootItem.lootTableItem(Items.QUARTZ).setWeight(5))
-                        )),
+            new SifterMeshDetails(ModItems.sifterMeshString, 1, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                    .add(EmptyLootItem.emptyItem().setWeight(90))
+                    .add(LootItem.lootTableItem(Items.NETHER_WART).setWeight(5))
+                    .add(LootItem.lootTableItem(Items.QUARTZ).setWeight(5))
+                )),
 
-                new SifterMeshDetails(ModItems.sifterMeshFlint, 3, LootTable.lootTable()
-                        .withPool(LootPool.lootPool()
-                                .add(EmptyLootItem.emptyItem().setWeight(70))
-                                .add(LootItem.lootTableItem(Items.NETHER_WART).setWeight(10))
-                                .add(LootItem.lootTableItem(Items.QUARTZ).setWeight(10))
-                                .add(LootItem.lootTableItem(Items.GLOWSTONE_DUST).setWeight(10))
-                        )),
+            new SifterMeshDetails(ModItems.sifterMeshFlint, 3, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                    .add(EmptyLootItem.emptyItem().setWeight(70))
+                    .add(LootItem.lootTableItem(Items.NETHER_WART).setWeight(10))
+                    .add(LootItem.lootTableItem(Items.QUARTZ).setWeight(10))
+                    .add(LootItem.lootTableItem(Items.GLOWSTONE_DUST).setWeight(10))
+                )),
 
-                new SifterMeshDetails(ModItems.sifterMeshIron, 4, LootTable.lootTable()
-                        .withPool(LootPool.lootPool()
-                                .setBonusRolls(ConstantValue.exactly((0.025f)))
-                                .add(EmptyLootItem.emptyItem().setWeight(50))
-                                .add(LootItem.lootTableItem(Items.NETHER_WART).setWeight(10))
-                                .add(LootItem.lootTableItem(Items.QUARTZ).setWeight(10))
-                                .add(LootItem.lootTableItem(Items.GLOWSTONE_DUST).setWeight(10))
-                                .add(LootItem.lootTableItem(Items.BLAZE_POWDER).setWeight(1))
-                                .add(LootItem.lootTableItem(Items.MAGMA_CREAM).setWeight(1))
-                        )),
+            new SifterMeshDetails(ModItems.sifterMeshIron, 4, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                    .setBonusRolls(ConstantValue.exactly((0.025f)))
+                    .add(EmptyLootItem.emptyItem().setWeight(50))
+                    .add(LootItem.lootTableItem(Items.NETHER_WART).setWeight(10))
+                    .add(LootItem.lootTableItem(Items.QUARTZ).setWeight(10))
+                    .add(LootItem.lootTableItem(Items.GLOWSTONE_DUST).setWeight(10))
+                    .add(LootItem.lootTableItem(Items.BLAZE_POWDER).setWeight(1))
+                    .add(LootItem.lootTableItem(Items.MAGMA_CREAM).setWeight(1))
+                )),
 
-                new SifterMeshDetails(ModItems.sifterMeshDiamond, 5, LootTable.lootTable()
-                        .withPool(LootPool.lootPool()
-                                .setBonusRolls(ConstantValue.exactly((0.035f)))
-                                .add(EmptyLootItem.emptyItem().setWeight(40))
-                                .add(LootItem.lootTableItem(Items.NETHER_WART).setWeight(15))
-                                .add(LootItem.lootTableItem(Items.QUARTZ).setWeight(15))
-                                .add(LootItem.lootTableItem(Items.GLOWSTONE_DUST).setWeight(15))
-                                .add(LootItem.lootTableItem(Items.BLAZE_POWDER).setWeight(5))
-                                .add(LootItem.lootTableItem(Items.MAGMA_CREAM).setWeight(5))
-                                .add(LootItem.lootTableItem(Items.PLAYER_HEAD).setWeight(5))
-                        ))
+            new SifterMeshDetails(ModItems.sifterMeshDiamond, 5, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                    .setBonusRolls(ConstantValue.exactly((0.035f)))
+                    .add(EmptyLootItem.emptyItem().setWeight(40))
+                    .add(LootItem.lootTableItem(Items.NETHER_WART).setWeight(15))
+                    .add(LootItem.lootTableItem(Items.QUARTZ).setWeight(15))
+                    .add(LootItem.lootTableItem(Items.GLOWSTONE_DUST).setWeight(15))
+                    .add(LootItem.lootTableItem(Items.BLAZE_POWDER).setWeight(5))
+                    .add(LootItem.lootTableItem(Items.MAGMA_CREAM).setWeight(5))
+                    .add(LootItem.lootTableItem(Items.PLAYER_HEAD).setWeight(5))
+                ))
 
-                ));
+        ));
     }
 
     @NotNull
@@ -247,9 +248,9 @@ public class DefaultSifterCraftingProvider extends CustomRecipeAndLootTableProvi
 
     private static class SifterMeshDetails
     {
-        private final String name;
-        private final Item mesh;
-        private final int minBuildingLevel;
+        private final String            name;
+        private final Item              mesh;
+        private final int               minBuildingLevel;
         private final LootTable.Builder lootTable;
 
         public SifterMeshDetails(@NotNull final Item mesh, final int minBuildingLevel, @NotNull final LootTable.Builder lootTable)
@@ -261,15 +262,15 @@ public class DefaultSifterCraftingProvider extends CustomRecipeAndLootTableProvi
         }
 
         @NotNull
-        public String getName() { return name; }
+        public String getName() {return name;}
 
         @NotNull
-        public Item getMesh() { return mesh; }
+        public Item getMesh() {return mesh;}
 
-        public int getMinBuildingLevel() { return minBuildingLevel; }
+        public int getMinBuildingLevel() {return minBuildingLevel;}
 
         @NotNull
-        public LootTable.Builder getLootTable() { return lootTable; }
+        public LootTable.Builder getLootTable() {return lootTable;}
     }
 
     @Override
@@ -283,20 +284,20 @@ public class DefaultSifterCraftingProvider extends CustomRecipeAndLootTableProvi
 
                 final List<LootTableAnalyzer.LootDrop> drops = LootTableAnalyzer.toDrops(lootTableManager, mesh.getLootTable().build());
                 final Stream<Item> loot = drops.stream().flatMap(drop -> drop.getItemStacks().stream()
-                        .sorted(Comparator.comparing(ItemStack::getCount).reversed().thenComparing(ItemStack::getDescriptionId))
-                        .map(ItemStack::getItem));
+                    .sorted(Comparator.comparing(ItemStack::getCount).reversed().thenComparing(ItemStack::getDescriptionId))
+                    .map(ItemStack::getItem));
 
                 CustomRecipeProvider.CustomRecipeBuilder.create(SIFTER, MODULE_CUSTOM, name)
-                        .inputs(Stream.of(
-                                        new ItemStorage(new ItemStack(inputEntry.getKey())),
-                                        new ItemStorage(new ItemStack(mesh.getMesh()), true, false))
-                                .collect(Collectors.toList()))
-                        .secondaryOutputs(Stream.concat(Stream.of(mesh.getMesh()), loot)
-                                .map(ItemStack::new)
-                                .collect(Collectors.toList()))
-                        .lootTable(new ResourceLocation(MOD_ID, "recipes/" + name))
-                        .minBuildingLevel(mesh.getMinBuildingLevel())
-                        .build(consumer);
+                    .inputs(Stream.of(
+                            new ItemStorage(new ItemStack(inputEntry.getKey())),
+                            new ItemStorage(new ItemStack(mesh.getMesh()), true, false))
+                        .collect(Collectors.toList()))
+                    .secondaryOutputs(Stream.concat(Stream.of(mesh.getMesh()), loot)
+                        .map(ItemStack::new)
+                        .collect(Collectors.toList()))
+                    .lootTable(new ResourceLocation(MOD_ID, "recipes/" + name))
+                    .minBuildingLevel(mesh.getMinBuildingLevel())
+                    .build(consumer);
             }
         }
 
@@ -307,19 +308,20 @@ public class DefaultSifterCraftingProvider extends CustomRecipeAndLootTableProvi
         mesh(consumer, ModJobs.MECHANIC_ID, Items.DIAMOND, ModItems.sifterMeshDiamond, ResearchConstants.SIFTER_DIAMOND);
     }
 
-    private void mesh(@NotNull final Consumer<FinishedRecipe> consumer,
-                      @NotNull final ResourceLocation job,
-                      @NotNull final ItemLike input,
-                      @NotNull final ItemLike output,
-                      @NotNull final ResourceLocation research)
+    private void mesh(
+        @NotNull final Consumer<FinishedRecipe> consumer,
+        @NotNull final ResourceLocation job,
+        @NotNull final ItemLike input,
+        @NotNull final ItemLike output,
+        @NotNull final ResourceLocation research)
     {
         CustomRecipeProvider.CustomRecipeBuilder.create(job.getPath(), MODULE_CRAFTING,
-                        ForgeRegistries.ITEMS.getKey(output.asItem()).getPath())
-                .inputs(List.of(new ItemStorage(new ItemStack(input))))
-                .result(new ItemStack(output))
-                .minResearchId(research)
-                .showTooltip(true)
-                .build(consumer);
+                ForgeRegistries.ITEMS.getKey(output.asItem()).getPath())
+            .inputs(List.of(new ItemStorage(new ItemStack(input))))
+            .result(new ItemStack(output))
+            .minResearchId(research)
+            .showTooltip(true)
+            .build(consumer);
     }
 
     @Override

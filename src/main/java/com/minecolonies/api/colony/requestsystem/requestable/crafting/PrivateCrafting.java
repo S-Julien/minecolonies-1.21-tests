@@ -20,14 +20,15 @@ public class PrivateCrafting extends AbstractCrafting
     /**
      * Set of type tokens belonging to this class.
      */
-    private final static Set<TypeToken<?>> TYPE_TOKENS = ReflectionUtils.getSuperClasses(TypeToken.of(PrivateCrafting.class)).stream().filter(type -> !type.equals(TypeConstants.OBJECT)).collect(Collectors.toSet());
+    private final static Set<TypeToken<?>> TYPE_TOKENS =
+        ReflectionUtils.getSuperClasses(TypeToken.of(PrivateCrafting.class)).stream().filter(type -> !type.equals(TypeConstants.OBJECT)).collect(Collectors.toSet());
 
     /**
      * Create a Stack deliverable.
      *
-     * @param stack    the required stack.
-     * @param count    the crafting count.
-     * @param minCount the min count.
+     * @param stack       the required stack.
+     * @param count       the crafting count.
+     * @param minCount    the min count.
      * @param recipeToken the recipe token.
      */
     public PrivateCrafting(@NotNull final ItemStack stack, final int count, final int minCount, final IToken<?> recipeToken)

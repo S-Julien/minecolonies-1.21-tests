@@ -58,11 +58,11 @@ public final class TimeBasedHappinessModifier extends AbstractHappinessModifier 
      */
     @SafeVarargs
     public TimeBasedHappinessModifier(
-      final String id,
-      final double weight,
-      final IHappinessSupplierWrapper supplier,
-      final BiPredicate<TimeBasedHappinessModifier, ICitizenData> dayRollOverPredicate,
-      final Tuple<Integer, Double>... timeBasedFactor)
+        final String id,
+        final double weight,
+        final IHappinessSupplierWrapper supplier,
+        final BiPredicate<TimeBasedHappinessModifier, ICitizenData> dayRollOverPredicate,
+        final Tuple<Integer, Double>... timeBasedFactor)
     {
         super(id, weight, supplier);
         this.dayRollOverPredicate = dayRollOverPredicate;

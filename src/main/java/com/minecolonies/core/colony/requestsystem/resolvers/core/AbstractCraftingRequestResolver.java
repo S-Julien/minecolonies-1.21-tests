@@ -57,10 +57,10 @@ public abstract class AbstractCraftingRequestResolver extends AbstractRequestRes
      * @param isPublicCrafter if public crafter or not.
      */
     public AbstractCraftingRequestResolver(
-      @NotNull final ILocation location,
-      @NotNull final IToken<?> token,
-      @NotNull final JobEntry entry,
-      final boolean isPublicCrafter)
+        @NotNull final ILocation location,
+        @NotNull final IToken<?> token,
+        @NotNull final JobEntry entry,
+        final boolean isPublicCrafter)
     {
         super(location, token);
         this.isPublicCrafter = isPublicCrafter;
@@ -69,6 +69,7 @@ public abstract class AbstractCraftingRequestResolver extends AbstractRequestRes
 
     /**
      * Getter of the job entry.
+     *
      * @return the entry.
      */
     public JobEntry getJobEntry()
@@ -132,8 +133,8 @@ public abstract class AbstractCraftingRequestResolver extends AbstractRequestRes
     public boolean canResolveForBuilding(@NotNull final IRequestManager manager, @NotNull final IRequest<? extends IDeliverable> request, @NotNull final AbstractBuilding building)
     {
         if (building.getBuildingLevel() <= 0
-              || !building.hasModule(WorkerBuildingModule.class)
-              || building.getModuleMatching(WorkerBuildingModule.class, m -> m.getJobEntry() == jobEntry).getAssignedCitizen().isEmpty())
+            || !building.hasModule(WorkerBuildingModule.class)
+            || building.getModuleMatching(WorkerBuildingModule.class, m -> m.getJobEntry() == jobEntry).getAssignedCitizen().isEmpty())
         {
             return false;
         }
@@ -155,7 +156,10 @@ public abstract class AbstractCraftingRequestResolver extends AbstractRequestRes
                 boolean success = true;
                 for (final ItemStorage ingredient : recipe.getCleanedInput())
                 {
-                    if (createsCraftingCycle(manager, request, new Stack(ingredient.getItemStack(), ingredient.getAmount() * recipeCount, ingredient.getAmount() * recipeCount), null))
+                    if (createsCraftingCycle(manager,
+                        request,
+                        new Stack(ingredient.getItemStack(), ingredient.getAmount() * recipeCount, ingredient.getAmount() * recipeCount),
+                        null))
                     {
                         success = false;
                         break;
@@ -180,10 +184,10 @@ public abstract class AbstractCraftingRequestResolver extends AbstractRequestRes
      * @return true if so.
      */
     protected boolean createsCraftingCycle(
-      @NotNull final IRequestManager manager,
-      @NotNull final IRequest<?> request,
-      @NotNull final IDeliverable target,
-      @Nullable final IRequest<? extends IDeliverable> targetRequest)
+        @NotNull final IRequestManager manager,
+        @NotNull final IRequest<?> request,
+        @NotNull final IDeliverable target,
+        @Nullable final IRequest<? extends IDeliverable> targetRequest)
     {
         return createsCraftingCycle(manager, request, target, targetRequest, 0);
     }
@@ -198,10 +202,10 @@ public abstract class AbstractCraftingRequestResolver extends AbstractRequestRes
      * @return true if a loop is detected to abort.
      */
     protected boolean createsCraftingCycle(
-      @NotNull final IRequestManager manager,
-      @NotNull final IRequest<?> request,
-      @NotNull final IDeliverable target,
-      @Nullable final IRequest<? extends IDeliverable> targetRequest,
+        @NotNull final IRequestManager manager,
+        @NotNull final IRequest<?> request,
+        @NotNull final IDeliverable target,
+        @Nullable final IRequest<? extends IDeliverable> targetRequest,
         final int count)
     {
         if (count > MAX_CRAFTING_CYCLE_DEPTH)
@@ -228,8 +232,8 @@ public abstract class AbstractCraftingRequestResolver extends AbstractRequestRes
     /**
      * Check if a building can craft a certain recipe.
      *
-     * @param building       the building to check in.
-     * @param recipe         the recipe to check.
+     * @param building the building to check in.
+     * @param recipe   the recipe to check.
      * @return true if so.
      */
     public abstract boolean canBuildingCraftRecipe(@NotNull final AbstractBuilding building, IRecipeStorage recipe);
@@ -244,24 +248,24 @@ public abstract class AbstractCraftingRequestResolver extends AbstractRequestRes
 
     @Nullable
     public List<IToken<?>> attemptResolveForBuilding(
-      @NotNull final IRequestManager manager,
-      @NotNull final IRequest<? extends IDeliverable> request,
-      @NotNull final AbstractBuilding building)
+        @NotNull final IRequestManager manager,
+        @NotNull final IRequest<? extends IDeliverable> request,
+        @NotNull final AbstractBuilding building)
     {
         return attemptResolveForBuildingAndStack(manager,
-          building,
-          itemStack -> request.getRequest().matches(itemStack),
-          request.getRequest().getCount(),
-          request.getRequest().getMinimumCount());
+            building,
+            itemStack -> request.getRequest().matches(itemStack),
+            request.getRequest().getCount(),
+            request.getRequest().getMinimumCount());
     }
 
     @Nullable
     protected List<IToken<?>> attemptResolveForBuildingAndStack(
-      @NotNull final IRequestManager manager,
-      @NotNull final AbstractBuilding building,
-      @NotNull final Predicate<ItemStack> stackPrecicate,
-      final int count,
-      final int minCount)
+        @NotNull final IRequestManager manager,
+        @NotNull final AbstractBuilding building,
+        @NotNull final Predicate<ItemStack> stackPrecicate,
+        final int count,
+        final int minCount)
     {
         for (final ICraftingBuildingModule module : building.getModulesByType(ICraftingBuildingModule.class))
         {
@@ -278,7 +282,8 @@ public abstract class AbstractCraftingRequestResolver extends AbstractRequestRes
 
     /**
      * Create the crafting request entries for the overall request
-     * Will produce multiple, if the ingredients don't all fit in the crafters inventory. 
+     * Will produce multiple, if the ingredients don't all fit in the crafters inventory.
+     *
      * @param manager       request manager
      * @param recipeRequest requested recipe instance
      * @param count         count of item requested
@@ -287,10 +292,10 @@ public abstract class AbstractCraftingRequestResolver extends AbstractRequestRes
      */
     @Nullable
     protected List<IToken<?>> createRequestsForRecipe(
-      @NotNull final IRequestManager manager,
-      final IRecipeStorage recipeRequest,
-      final int count,
-      final int minCount)
+        @NotNull final IRequestManager manager,
+        final IRecipeStorage recipeRequest,
+        final int count,
+        final int minCount)
     {
         final List<ItemStorage> inputs = recipeRequest.getCleanedInput();
         final ItemStack requestStack = recipeRequest.getPrimaryOutput();
@@ -307,16 +312,16 @@ public abstract class AbstractCraftingRequestResolver extends AbstractRequestRes
         while (totalSlots > maxSlots)
         {
             //Start with how much space needed for the output, it's a little naive, as it assumes we need full output and ingredients at the same time
-            int stacksNeeded = (int) Math.ceil((double)(requestStack.getCount() * batchSize) / requestStack.getMaxStackSize());
-            for(ItemStorage ingredient : inputs)
+            int stacksNeeded = (int) Math.ceil((double) (requestStack.getCount() * batchSize) / requestStack.getMaxStackSize());
+            for (ItemStorage ingredient : inputs)
             {
-                if(ItemStackUtils.compareItemStackListIgnoreStackSize(secondaryStacks, ingredient.getItemStack(), false, true))
+                if (ItemStackUtils.compareItemStackListIgnoreStackSize(secondaryStacks, ingredient.getItemStack(), false, true))
                 {
                     stacksNeeded += 1;
                 }
                 else
                 {
-                    stacksNeeded += (int) Math.ceil((double)(ingredient.getAmount() * batchSize) / ingredient.getItemStack().getMaxStackSize());
+                    stacksNeeded += (int) Math.ceil((double) (ingredient.getAmount() * batchSize) / ingredient.getItemStack().getMaxStackSize());
                 }
             }
             if (stacksNeeded > maxSlots)
@@ -329,11 +334,15 @@ public abstract class AbstractCraftingRequestResolver extends AbstractRequestRes
 
         //Create a crafting request for each batch needed to supply the full request
         List<IToken<?>> requests = new ArrayList<>();
-        while(recipeExecutionsCount > 0)
+        while (recipeExecutionsCount > 0)
         {
-            requests.add(manager.createRequest(this, createNewRequestableForStack(requestStack.copy(), Math.min(batchSize, recipeExecutionsCount), Math.max(1, Math.min(batchSize, minRecipeExecutionsCount)),  recipeRequest.getToken())));
+            requests.add(manager.createRequest(this,
+                createNewRequestableForStack(requestStack.copy(),
+                    Math.min(batchSize, recipeExecutionsCount),
+                    Math.max(1, Math.min(batchSize, minRecipeExecutionsCount)),
+                    recipeRequest.getToken())));
             recipeExecutionsCount -= batchSize;
-            minRecipeExecutionsCount  = minRecipeExecutionsCount > batchSize ? minRecipeExecutionsCount - batchSize : 0; 
+            minRecipeExecutionsCount = minRecipeExecutionsCount > batchSize ? minRecipeExecutionsCount - batchSize : 0;
         }
 
         return ImmutableList.copyOf(requests);

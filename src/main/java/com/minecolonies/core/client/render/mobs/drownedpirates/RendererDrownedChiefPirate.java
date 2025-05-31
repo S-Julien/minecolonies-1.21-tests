@@ -17,7 +17,6 @@ public class RendererDrownedChiefPirate extends AbstractRendererDrownedPirate<Ab
      */
     private static final ResourceLocation TEXTURE1 = new ResourceLocation("minecolonies:textures/entity/raiders/drowned_pirate_nude.png");
 
-
     /**
      * Constructor method for renderer
      *

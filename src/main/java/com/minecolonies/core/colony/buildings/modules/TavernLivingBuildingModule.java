@@ -1,6 +1,5 @@
 package com.minecolonies.core.colony.buildings.modules;
 
-
 import com.minecolonies.api.colony.buildings.modules.IAssignsCitizen;
 import com.minecolonies.api.colony.buildings.modules.IBuildingEventsModule;
 import com.minecolonies.api.colony.buildings.modules.IPersistentModule;

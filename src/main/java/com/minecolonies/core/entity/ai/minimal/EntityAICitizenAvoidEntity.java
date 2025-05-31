@@ -91,8 +91,8 @@ public class EntityAICitizenAvoidEntity implements IStateAI
      * @param nearSpeed          how fast we should move when we are close.
      */
     public EntityAICitizenAvoidEntity(
-      @NotNull final EntityCitizen entity, @NotNull final Class<? extends Entity> targetEntityClass,
-      final float distanceFromEntity, final double farSpeed, final double nearSpeed)
+        @NotNull final EntityCitizen entity, @NotNull final Class<? extends Entity> targetEntityClass,
+        final float distanceFromEntity, final double farSpeed, final double nearSpeed)
     {
         super();
         this.citizen = entity;
@@ -151,15 +151,15 @@ public class EntityAICitizenAvoidEntity implements IStateAI
         else
         {
             final Optional<Entity> entityOptional = CompatibilityUtils.getWorldFromCitizen(citizen).getEntities(
-                citizen,
-                citizen.getBoundingBox().inflate(
-                  (double) distanceFromEntity,
-                  3.0D,
-                  (double) distanceFromEntity),
-                target -> target.isAlive() && citizen.getSensing().hasLineOfSight(target))
-                                                      .stream()
-                                                      .filter(targetEntityClass::isInstance)
-                                                      .findFirst();
+                    citizen,
+                    citizen.getBoundingBox().inflate(
+                        (double) distanceFromEntity,
+                        3.0D,
+                        (double) distanceFromEntity),
+                    target -> target.isAlive() && citizen.getSensing().hasLineOfSight(target))
+                .stream()
+                .filter(targetEntityClass::isInstance)
+                .findFirst();
 
             return entityOptional.orElse(null);
         }

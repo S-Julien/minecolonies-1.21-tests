@@ -11,7 +11,6 @@ public class EgyptianModel<T extends AbstractEntityMinecoloniesMonster> extends 
 {
     /**
      * Create a model of a specific size.
-     *
      */
     public EgyptianModel(final ModelPart part)
     {

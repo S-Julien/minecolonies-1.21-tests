@@ -10,7 +10,7 @@ public abstract class CommandArgumentNames
     public static final String SHIP_ARG       = "allowships";
     public static final String RAID_NOW       = "now";
     public static final String RAID_TONIGHT   = "tonight";
-    public static final String POS_ARG = "location";
+    public static final String POS_ARG        = "location";
 
     public static final String RANGE_ARG = "range";
     public static final String ADD_ARG   = "add";

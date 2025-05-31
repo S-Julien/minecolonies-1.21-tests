@@ -53,10 +53,14 @@ public class BuildingLumberjack extends AbstractBuilding
     /**
      * Replant setting.
      */
-    public static final ISettingKey<BoolSetting> REPLANT = new SettingKey<>(BoolSetting.class, new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, "replant"));
-    public static final ISettingKey<BoolSetting> RESTRICT = new SettingKey<>(BoolSetting.class, new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, "restrict"));
-    public static final ISettingKey<BoolSetting> DEFOLIATE = new SettingKey<>(BoolSetting.class, new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, "defoliate"));
-    public static final ISettingKey<DynamicTreesSetting> DYNAMIC_TREES_SIZE = new SettingKey<>(DynamicTreesSetting.class, new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, "dynamictreeharvestsize"));
+    public static final ISettingKey<BoolSetting>         REPLANT            =
+        new SettingKey<>(BoolSetting.class, new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, "replant"));
+    public static final ISettingKey<BoolSetting>         RESTRICT           =
+        new SettingKey<>(BoolSetting.class, new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, "restrict"));
+    public static final ISettingKey<BoolSetting>         DEFOLIATE          =
+        new SettingKey<>(BoolSetting.class, new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, "defoliate"));
+    public static final ISettingKey<DynamicTreesSetting> DYNAMIC_TREES_SIZE =
+        new SettingKey<>(DynamicTreesSetting.class, new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, "dynamictreeharvestsize"));
 
     /**
      * NBT tag for lj restriction start
@@ -81,12 +85,12 @@ public class BuildingLumberjack extends AbstractBuilding
     /**
      * The maximum upgrade of the building.
      */
-    private static final int    MAX_BUILDING_LEVEL = 5;
+    private static final int MAX_BUILDING_LEVEL = 5;
 
     /**
      * The job description.
      */
-    private static final String LUMBERJACK         = "lumberjack";
+    private static final String LUMBERJACK = "lumberjack";
 
     /**
      * A list of all planted nether trees
@@ -132,7 +136,8 @@ public class BuildingLumberjack extends AbstractBuilding
         {
             if (!saplingList.isItemInList(sapling))
             {
-                toKeep.put(stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(sapling.getItemStack(), stack), new Tuple<>(com.minecolonies.api.util.constant.Constants.STACKSIZE, true));
+                toKeep.put(stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(sapling.getItemStack(), stack),
+                    new Tuple<>(com.minecolonies.api.util.constant.Constants.STACKSIZE, true));
             }
         }
         return toKeep;
@@ -375,7 +380,7 @@ public class BuildingLumberjack extends AbstractBuilding
      */
     public static class View extends AbstractBuildingView
     {
-        private boolean restrict;
+        private boolean  restrict;
         private BlockPos startRestriction;
         private BlockPos endRestriction;
 

@@ -42,9 +42,9 @@ public class EntityAIWorkResearcher extends AbstractEntityAIInteract<JobResearch
     {
         super(job);
         super.registerTargets(
-          new AITarget(IDLE, START_WORKING, 1),
-          new AITarget(START_WORKING, this::startWorkingAtOwnBuilding, TICKS_SECOND),
-          new AITarget(STUDY, this::study, STUDY_DELAY)
+            new AITarget(IDLE, START_WORKING, 1),
+            new AITarget(START_WORKING, this::startWorkingAtOwnBuilding, TICKS_SECOND),
+            new AITarget(STUDY, this::study, STUDY_DELAY)
         );
         worker.setCanPickUpLoot(true);
     }
@@ -79,9 +79,9 @@ public class EntityAIWorkResearcher extends AbstractEntityAIInteract<JobResearch
             final ILocalResearch research = inProgress.get(worker.getRandom().nextInt(inProgress.size()));
 
             if (colony.getResearchManager()
-                  .getResearchTree()
-                  .getResearch(research.getBranch(), research.getId())
-                  .research(colony.getResearchManager().getResearchEffects(), colony.getResearchManager().getResearchTree()))
+                .getResearchTree()
+                .getResearch(research.getBranch(), research.getId())
+                .research(colony.getResearchManager().getResearchEffects(), colony.getResearchManager().getResearchTree()))
             {
                 building.onSuccess(research);
             }

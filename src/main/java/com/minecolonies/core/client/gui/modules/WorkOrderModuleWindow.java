@@ -125,8 +125,8 @@ public class WorkOrderModuleWindow extends AbstractModuleWindow
 
         workOrders.clear();
         workOrders.addAll(buildingView.getColony().getWorkOrders().stream()
-                            .filter(finalPredicate)
-                            .toList());
+            .filter(finalPredicate)
+            .toList());
         sortWorkOrders();
     }
 
@@ -150,12 +150,12 @@ public class WorkOrderModuleWindow extends AbstractModuleWindow
 
         Text workOrderTextPanel = rowPane.findPaneOfTypeByID(WORK_ORDER_NAME, Text.class);
         PaneBuilders.tooltipBuilder()
-          .append(order.getDisplayName())
-          .hoverPane(workOrderTextPanel)
-          .build();
+            .append(order.getDisplayName())
+            .hoverPane(workOrderTextPanel)
+            .build();
         workOrderTextPanel.setText(order.getDisplayName());
         rowPane.findPaneOfTypeByID(WORK_ORDER_POS, Text.class)
-          .setText(Component.translatable("com.minecolonies.coremod.gui.blocks.distance", BlockPosUtil.getDistance2D(order.getLocation(), buildingView.getPosition())));
+            .setText(Component.translatable("com.minecolonies.coremod.gui.blocks.distance", BlockPosUtil.getDistance2D(order.getLocation(), buildingView.getPosition())));
 
         if (order.getClaimedBy().equals(buildingView.getPosition()))
         {

@@ -141,7 +141,7 @@ public class CustomGoalSelector extends GoalSelector
     @Override
     public void removeGoal(Goal task)
     {
-        for(final WrappedGoal prioritizedGoal : new ArrayList<>(availableGoals))
+        for (final WrappedGoal prioritizedGoal : new ArrayList<>(availableGoals))
         {
             if (prioritizedGoal.getGoal() == task)
             {
@@ -215,7 +215,7 @@ public class CustomGoalSelector extends GoalSelector
 
             // Vanilla behaviour changed to checking it each tick with 1.14
             if (counter == 1 && !currentGoal.isRunning() &&
-                  ((!hasFlags && currentGoal.canUse()) || (!goalContainsDisabledFlag(currentGoal) && isPreemptedByAll(currentGoal) && currentGoal.canUse())))
+                ((!hasFlags && currentGoal.canUse()) || (!goalContainsDisabledFlag(currentGoal) && isPreemptedByAll(currentGoal) && currentGoal.canUse())))
             {
                 for (Goal.Flag flag : currentGoal.getFlags())
                 {

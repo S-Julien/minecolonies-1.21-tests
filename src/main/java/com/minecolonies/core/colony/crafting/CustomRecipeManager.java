@@ -82,11 +82,12 @@ public class CustomRecipeManager
 
     /**
      * Add recipe to manager.
+     *
      * @param recipe the recipe to add
      */
     public void addRecipe(@NotNull final CustomRecipe recipe)
     {
-        if(!recipeMap.containsKey(recipe.getCrafter()))
+        if (!recipeMap.containsKey(recipe.getCrafter()))
         {
             recipeMap.put(recipe.getCrafter(), new HashMap<>());
         }
@@ -110,11 +111,12 @@ public class CustomRecipeManager
 
     /**
      * Remove recipe
+     *
      * @param toRemove
      */
     public void removeRecipe(@NotNull final ResourceLocation toRemove)
     {
-        if(!removedRecipes.contains(toRemove))
+        if (!removedRecipes.contains(toRemove))
         {
             removedRecipes.add(toRemove);
         }
@@ -122,11 +124,13 @@ public class CustomRecipeManager
 
     /**
      * Temporarily stores a recipe template while waiting for the tags to finish loading.
+     *
      * @param id           the resource id of the template.
      * @param templateJson the template content.
      */
-    public void addRecipeTemplate(@NotNull final ResourceLocation id,
-                                  @NotNull final JsonObject templateJson)
+    public void addRecipeTemplate(
+        @NotNull final ResourceLocation id,
+        @NotNull final JsonObject templateJson)
     {
         recipeTemplates.put(id, templateJson);
     }
@@ -146,6 +150,7 @@ public class CustomRecipeManager
 
     /**
      * Get all of the custom recipes that apply to a particular crafter
+     *
      * @param crafter
      * @return
      */
@@ -166,12 +171,13 @@ public class CustomRecipeManager
 
     /**
      * Get the custom recipes for an item, or an empty list if no matching recipe exists.
-     * @param item     An individual item to search for recipes.
-     * @return  A list of custom recipes with that output.
+     *
+     * @param item An individual item to search for recipes.
+     * @return A list of custom recipes with that output.
      */
     public List<CustomRecipe> getRecipeByOutput(final Item item)
     {
-        if(recipeOutputMap.containsKey(item))
+        if (recipeOutputMap.containsKey(item))
         {
             return recipeOutputMap.get(item);
         }
@@ -180,8 +186,9 @@ public class CustomRecipeManager
 
     /**
      * Gets the custom recipes for an ItemStack, including comparing count and tags, or an empty list if no matching recipe exists.
+     *
      * @param itemStack An ItemStack to search for recipes.
-     * @return  A list of custom recipes with that output.
+     * @return A list of custom recipes with that output.
      */
     public List<CustomRecipe> getRecipeByOutput(final ItemStack itemStack)
     {
@@ -206,8 +213,9 @@ public class CustomRecipeManager
 
     /**
      * Gets the custom recipes for an ItemStorage, optionally including comparing count, damage, and NBT, or an empty list if no matching recipe exists.
+     *
      * @param itemStorage An ItemStorage to search for recipes.
-     * @return  A list of custom recipes with that output.
+     * @return A list of custom recipes with that output.
      */
     public List<CustomRecipe> getRecipeByOutput(final ItemStorage itemStorage)
     {
@@ -235,13 +243,17 @@ public class CustomRecipeManager
     /**
      * Gets the loot drops (if any) associated with a particular recipe.  These are just
      * informational and shouldn't be used to actually generate loot.
+     *
      * @param lootTableId The loot table id of the recipe.
      * @return The loot drops.
      */
     @NotNull
     public List<LootTableAnalyzer.LootDrop> getLootDrops(@Nullable final ResourceLocation lootTableId)
     {
-        if (lootTableId == null) return Collections.emptyList();
+        if (lootTableId == null)
+        {
+            return Collections.emptyList();
+        }
 
         return lootTables.getOrDefault(lootTableId, Collections.emptyList());
     }
@@ -256,18 +268,18 @@ public class CustomRecipeManager
                     .filter(recipes -> recipes.containsKey(toRemove))
                     .findFirst()
                     .ifPresent(crafterRecipeMap ->
+                    {
+                        final List<CustomRecipe> emptyList = new ArrayList<>();
+                        final CustomRecipe recipe = crafterRecipeMap.remove(toRemove);
+                        if (recipe != null)
+                        {
+                            recipeOutputMap.getOrDefault(recipe.getPrimaryOutput().getItem(), emptyList).remove(recipe);
+                            for (final ItemStack item : recipe.getAltOutputs())
                             {
-                                final List<CustomRecipe> emptyList = new ArrayList<>();
-                                final CustomRecipe recipe = crafterRecipeMap.remove(toRemove);
-                                if (recipe != null)
-                                {
-                                    recipeOutputMap.getOrDefault(recipe.getPrimaryOutput().getItem(), emptyList).remove(recipe);
-                                    for (final ItemStack item : recipe.getAltOutputs())
-                                    {
-                                        recipeOutputMap.getOrDefault(item.getItem(), emptyList).remove(recipe);
-                                    }
-                                }
-                            });
+                                recipeOutputMap.getOrDefault(item.getItem(), emptyList).remove(recipe);
+                            }
+                        }
+                    });
             }
 
             removedRecipes.clear();
@@ -276,7 +288,7 @@ public class CustomRecipeManager
 
     /**
      * Resolve the {@link #recipeTemplates} into actual recipes.
-     *
+     * <p>
      * Must be called server-side-only after tags have been loaded and before we sync to client.
      */
     public void resolveTemplates()
@@ -301,10 +313,12 @@ public class CustomRecipeManager
 
     /**
      * Analyses and builds an approximate list of possible loot drops from registered recipes.
+     *
      * @param lootTableManager the loot table manager
      */
-    public void buildLootData(@NotNull final LootDataManager lootTableManager,
-                              @NotNull final Level level)
+    public void buildLootData(
+        @NotNull final LootDataManager lootTableManager,
+        @NotNull final Level level)
     {
         final List<Animal> animals = RecipeAnalyzer.createAnimals(level);
 
@@ -359,14 +373,15 @@ public class CustomRecipeManager
 
         lootTables.clear();
         lootTables.putAll(lootIds.stream()
-                .filter(Objects::nonNull)   // just in case
-                .distinct()
-                .collect(Collectors.toConcurrentMap(Function.identity(),
-                        id -> LootTableAnalyzer.toDrops(lootTableManager, id))));
+            .filter(Objects::nonNull)   // just in case
+            .distinct()
+            .collect(Collectors.toConcurrentMap(Function.identity(),
+                id -> LootTableAnalyzer.toDrops(lootTableManager, id))));
     }
 
     /**
      * Sends relevant Custom Recipes loaded from the Custom Recipe Manager to the client.
+     *
      * @param player the player to send the new data to.
      */
     public void sendCustomRecipeManagerPackets(final ServerPlayer player)
@@ -379,6 +394,7 @@ public class CustomRecipeManager
     /**
      * Serializes a partial assembly of Custom Recipes.
      * This version sends the full Custom Recipe Manager.
+     *
      * @param recipeMgrFriendlyByteBuf packet buffer to encode the data into.
      */
     private void serializeNetworkData(final FriendlyByteBuf recipeMgrFriendlyByteBuf)
@@ -407,6 +423,7 @@ public class CustomRecipeManager
 
     /**
      * Ingests the custom recipes packet, and applies it to the recipe manager.
+     *
      * @param buff packet buffer containing the received data.
      */
     public void handleCustomRecipeManagerMessage(final FriendlyByteBuf buff)

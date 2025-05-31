@@ -65,7 +65,10 @@ public class ItemSupplyCampDeployer extends AbstractItemMinecolonies implements 
                 MessageUtils.format(CANT_PLACE_COLONY_IN_OTHER_DIM).sendTo(ctx.getPlayer());
                 return InteractionResult.FAIL;
             }
-            placeSupplyCamp(ctx.getClickedPos().relative(ctx.getHorizontalDirection(), SUPPLY_OFFSET_DISTANCE).above(), ctx.getPlayer().getDirection(), ctx.getItemInHand(), ctx.getHand());
+            placeSupplyCamp(ctx.getClickedPos().relative(ctx.getHorizontalDirection(), SUPPLY_OFFSET_DISTANCE).above(),
+                ctx.getPlayer().getDirection(),
+                ctx.getItemInHand(),
+                ctx.getHand());
         }
 
         return InteractionResult.FAIL;
@@ -127,10 +130,10 @@ public class ItemSupplyCampDeployer extends AbstractItemMinecolonies implements 
      * @return true if so.
      */
     public static boolean canCampBePlaced(
-      @NotNull final Level world,
-      @NotNull final BlockPos pos,
-      @NotNull final List<PlacementError> placementErrorList,
-      final Player placer)
+        @NotNull final Level world,
+        @NotNull final BlockPos pos,
+        @NotNull final List<PlacementError> placementErrorList,
+        final Player placer)
     {
         if (MineColonies.getConfig().getServer().noSupplyPlacementRestrictions.get())
         {
@@ -169,7 +172,7 @@ public class ItemSupplyCampDeployer extends AbstractItemMinecolonies implements 
             }
         }
 
-        if (needsAirAbove.size() > sizeX*sizeZ*SUPPLY_TOLERANCE_FRACTION || needsSolidBelow.size() > sizeX*sizeZ*SUPPLY_TOLERANCE_FRACTION)
+        if (needsAirAbove.size() > sizeX * sizeZ * SUPPLY_TOLERANCE_FRACTION || needsSolidBelow.size() > sizeX * sizeZ * SUPPLY_TOLERANCE_FRACTION)
         {
             placementErrorList.addAll(needsAirAbove);
             placementErrorList.addAll(needsSolidBelow);

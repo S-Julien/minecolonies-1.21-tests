@@ -31,12 +31,12 @@ import net.minecraft.world.level.block.state.BlockState;
  */
 public class BlockColonyFlagWallBanner extends AbstractColonyFlagBanner<BlockColonyFlagWallBanner>
 {
-    public static final DirectionProperty          HORIZONTAL_FACING = HorizontalDirectionalBlock.FACING;
+    public static final  DirectionProperty          HORIZONTAL_FACING = HorizontalDirectionalBlock.FACING;
     private static final Map<Direction, VoxelShape> BANNER_SHAPES     = Maps.newEnumMap(ImmutableMap.of(
-            Direction.NORTH, Block.box(0.0D, 0.0D, 14.0D, 16.0D, 12.5D, 16.0D),
-            Direction.SOUTH, Block.box(0.0D, 0.0D, 0.0D, 16.0D, 12.5D, 2.0D),
-            Direction.WEST,  Block.box(14.0D, 0.0D, 0.0D, 16.0D, 12.5D, 16.0D),
-            Direction.EAST,  Block.box(0.0D, 0.0D, 0.0D, 2.0D, 12.5D, 16.0D)));
+        Direction.NORTH, Block.box(0.0D, 0.0D, 14.0D, 16.0D, 12.5D, 16.0D),
+        Direction.SOUTH, Block.box(0.0D, 0.0D, 0.0D, 16.0D, 12.5D, 2.0D),
+        Direction.WEST, Block.box(14.0D, 0.0D, 0.0D, 16.0D, 12.5D, 16.0D),
+        Direction.EAST, Block.box(0.0D, 0.0D, 0.0D, 2.0D, 12.5D, 16.0D)));
 
     public BlockColonyFlagWallBanner()
     {
@@ -45,7 +45,7 @@ public class BlockColonyFlagWallBanner extends AbstractColonyFlagBanner<BlockCol
     }
 
     @Override
-    public String getDescriptionId() { return this.asItem().getDescriptionId(); }
+    public String getDescriptionId() {return this.asItem().getDescriptionId();}
 
     @Override
     public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos)
@@ -56,7 +56,9 @@ public class BlockColonyFlagWallBanner extends AbstractColonyFlagBanner<BlockCol
     @Override
     public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos)
     {
-        return facing == stateIn.getValue(HORIZONTAL_FACING).getOpposite() && !stateIn.canSurvive(worldIn, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+        return facing == stateIn.getValue(HORIZONTAL_FACING).getOpposite() && !stateIn.canSurvive(worldIn, currentPos)
+            ? Blocks.AIR.defaultBlockState()
+            : super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 
     @Override
@@ -73,14 +75,16 @@ public class BlockColonyFlagWallBanner extends AbstractColonyFlagBanner<BlockCol
         BlockPos blockpos = context.getClickedPos();
         Direction[] adirection = context.getNearestLookingDirections();
 
-        for(Direction direction : adirection)
+        for (Direction direction : adirection)
         {
             if (direction.getAxis().isHorizontal())
             {
                 Direction direction1 = direction.getOpposite();
                 blockstate = blockstate.setValue(HORIZONTAL_FACING, direction1);
                 if (blockstate.canSurvive(iworldreader, blockpos))
+                {
                     return blockstate;
+                }
             }
         }
 
@@ -100,7 +104,7 @@ public class BlockColonyFlagWallBanner extends AbstractColonyFlagBanner<BlockCol
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) { builder.add(HORIZONTAL_FACING); }
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {builder.add(HORIZONTAL_FACING);}
 
     @Override
     public ResourceLocation getRegistryName()

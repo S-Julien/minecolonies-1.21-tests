@@ -66,7 +66,7 @@ public abstract class AbstractEntityMinecoloniesMonster extends AbstractFastMine
     /**
      * The collision threshold
      */
-    private final static int    COLL_THRESHOLD = 50;
+    private final static int COLL_THRESHOLD = 50;
 
     /**
      * The threattable of the mob
@@ -103,8 +103,8 @@ public abstract class AbstractEntityMinecoloniesMonster extends AbstractFastMine
     /**
      * Constructor method for Abstract minecolonies mobs.
      *
-     * @param world the world.
-     * @param type  the entity type.
+     * @param world        the world.
+     * @param type         the entity type.
      * @param textureCount the texture count.
      */
     public AbstractEntityMinecoloniesMonster(final EntityType<? extends AbstractEntityMinecoloniesMonster> type, final Level world, final int textureCount)
@@ -158,7 +158,6 @@ public abstract class AbstractEntityMinecoloniesMonster extends AbstractFastMine
             this.playSound(soundevent, this.getSoundVolume(), this.getVoicePitch());
         }
     }
-
 
     /**
      * Get the specific raider type of this raider.
@@ -294,7 +293,7 @@ public abstract class AbstractEntityMinecoloniesMonster extends AbstractFastMine
         {
             if (threatTable.getThreatFor(attacker) == -1)
             {
-                for (final AbstractEntityMinecoloniesMonster monster : level.getEntitiesOfClass(AbstractEntityMinecoloniesMonster.class, AABB.ofSize(position(), 20,5,20)))
+                for (final AbstractEntityMinecoloniesMonster monster : level.getEntitiesOfClass(AbstractEntityMinecoloniesMonster.class, AABB.ofSize(position(), 20, 5, 20)))
                 {
                     monster.threatTable.addThreat(attacker, 0);
                 }
@@ -312,17 +311,18 @@ public abstract class AbstractEntityMinecoloniesMonster extends AbstractFastMine
 
     /**
      * Get the default attributes with their values.
+     *
      * @return the attribute modifier map.
      */
     public static AttributeSupplier.Builder getDefaultAttributes()
     {
         return LivingEntity.createLivingAttributes()
-                 .add(MOB_ATTACK_DAMAGE.get())
-                 .add(Attributes.MAX_HEALTH)
-                 .add(Attributes.ARMOR)
-                 .add(Attributes.MOVEMENT_SPEED, MOVEMENT_SPEED)
-                 .add(Attributes.FOLLOW_RANGE, FOLLOW_RANGE * 2)
-                 .add(Attributes.ATTACK_DAMAGE, Attributes.ATTACK_DAMAGE.getDefaultValue());
+            .add(MOB_ATTACK_DAMAGE.get())
+            .add(Attributes.MAX_HEALTH)
+            .add(Attributes.ARMOR)
+            .add(Attributes.MOVEMENT_SPEED, MOVEMENT_SPEED)
+            .add(Attributes.FOLLOW_RANGE, FOLLOW_RANGE * 2)
+            .add(Attributes.ATTACK_DAMAGE, Attributes.ATTACK_DAMAGE.getDefaultValue());
     }
 
     @Override
@@ -381,6 +381,7 @@ public abstract class AbstractEntityMinecoloniesMonster extends AbstractFastMine
 
     /**
      * Texture id of the mob.
+     *
      * @return the texture id.
      */
     public int getTextureId()
@@ -390,6 +391,7 @@ public abstract class AbstractEntityMinecoloniesMonster extends AbstractFastMine
 
     /**
      * Getter for the initial spawn pos of the entity.
+     *
      * @return the pos.
      */
     public BlockPos getSpawnPos()

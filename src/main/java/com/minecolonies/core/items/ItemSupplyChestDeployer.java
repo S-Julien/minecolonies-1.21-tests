@@ -126,8 +126,8 @@ public class ItemSupplyChestDeployer extends AbstractItemMinecolonies implements
     private void placeSupplyShip(Level world, @Nullable final BlockPos pos, final InteractionHand hand, final ItemStack itemInHand)
     {
         final String name = WorldUtil.isNetherType(world)
-                              ? SUPPLY_SHIP_STRUCTURE_NAME_NETHER
-                              : SUPPLY_SHIP_STRUCTURE_NAME;
+            ? SUPPLY_SHIP_STRUCTURE_NAME_NETHER
+            : SUPPLY_SHIP_STRUCTURE_NAME;
 
 
         if (!itemInHand.getOrCreateTag().contains(TAG_SAW_STORY))
@@ -156,8 +156,8 @@ public class ItemSupplyChestDeployer extends AbstractItemMinecolonies implements
      * @return true if so.
      */
     public static boolean canShipBePlaced(
-            @NotNull final Level world, @NotNull final BlockPos pos, final Blueprint ship, @NotNull final List<PlacementError> placementErrorList, final
-    Player placer)
+        @NotNull final Level world, @NotNull final BlockPos pos, final Blueprint ship, @NotNull final List<PlacementError> placementErrorList, final
+        Player placer)
     {
         if (MineColonies.getConfig().getServer().noSupplyPlacementRestrictions.get())
         {
@@ -179,7 +179,7 @@ public class ItemSupplyChestDeployer extends AbstractItemMinecolonies implements
                 for (int y = 0; y <= Math.min(waterLevel + SCAN_HEIGHT, ship.getSizeY() - 1); y++)
                 {
                     final BlockPos worldPos = new BlockPos(zeroPos.getX() + x, zeroPos.getY() + y, zeroPos.getZ() + z);
-                    final BlockState state = ship.getBlockState(new BlockPos(x,y,z));
+                    final BlockState state = ship.getBlockState(new BlockPos(x, y, z));
 
                     if (y < waterLevel)
                     {
@@ -193,7 +193,7 @@ public class ItemSupplyChestDeployer extends AbstractItemMinecolonies implements
             }
         }
 
-        if (needsAirAbove.size() > sizeX*sizeZ*SUPPLY_TOLERANCE_FRACTION || needsWaterList.size() > sizeX*sizeZ*SUPPLY_TOLERANCE_FRACTION)
+        if (needsAirAbove.size() > sizeX * sizeZ * SUPPLY_TOLERANCE_FRACTION || needsWaterList.size() > sizeX * sizeZ * SUPPLY_TOLERANCE_FRACTION)
         {
             placementErrorList.addAll(needsAirAbove);
             placementErrorList.addAll(needsWaterList);
@@ -212,7 +212,12 @@ public class ItemSupplyChestDeployer extends AbstractItemMinecolonies implements
      * @param placer             the player placing the supply camp.
      * @param state              blueprint block at pos.
      */
-    private static void checkFluidAndNotInColony(final Level world, final BlockPos pos, @NotNull final List<PlacementError> placementErrorList, final Player placer, final BlockState state)
+    private static void checkFluidAndNotInColony(
+        final Level world,
+        final BlockPos pos,
+        @NotNull final List<PlacementError> placementErrorList,
+        final Player placer,
+        final BlockState state)
     {
         final boolean isOverworld = WorldUtil.isOverworldType(world);
         final boolean isWater = PathfindingUtils.isWater(world, pos);

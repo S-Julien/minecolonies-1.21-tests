@@ -52,8 +52,8 @@ public interface IEntityManager
      * @param newSubscribers   new subscribers
      */
     void sendPackets(
-      @NotNull Set<ServerPlayer> closeSubscribers,
-      @NotNull Set<ServerPlayer> newSubscribers);
+        @NotNull Set<ServerPlayer> closeSubscribers,
+        @NotNull Set<ServerPlayer> newSubscribers);
 
     /**
      * Returns a map of civilian in the colony. The map has ID as key, and civilian data as value.

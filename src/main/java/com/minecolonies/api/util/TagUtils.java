@@ -19,6 +19,7 @@ public final class TagUtils
 
     /**
      * Get a tag for items.
+     *
      * @param resourceLocation the unique id.
      * @return the tag or an empty placeholder if not existant.
      */
@@ -29,6 +30,7 @@ public final class TagUtils
 
     /**
      * Get a tag for items.
+     *
      * @param resourceLocation the unique id.
      * @return the tag or an empty placeholder if not existant.
      */

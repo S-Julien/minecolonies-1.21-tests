@@ -67,7 +67,6 @@ public class GraveyardManagementModuleView extends AbstractBuildingModuleView
         return "com.minecolonies.gui.workerhuts.enchanter.workers";
     }
 
-
     /**
      * Getter of the graves list.
      *

@@ -21,7 +21,8 @@ public class BuildingAddRecipeTrigger extends AbstractCriterionTrigger<BuildingA
 
     /**
      * Triggers the listener checks if there are any listening in
-     * @param player the player the check regards
+     *
+     * @param player        the player the check regards
      * @param recipeStorage details about the recipe that was added
      */
     public void trigger(final ServerPlayer player, final IRecipeStorage recipeStorage)

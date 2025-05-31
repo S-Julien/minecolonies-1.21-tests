@@ -65,11 +65,11 @@ public class CommandColonyPrintStats implements IMCOPCommand
         final String mayor = colony.getPermissions().getOwnerName();
         context.getSource().sendSuccess(() -> literalAndRemember(MAYOR_TEXT + mayor), false);
         context.getSource()
-          .sendSuccess(() -> literalAndRemember(CITIZENS + colony.getCitizenManager().getCurrentCitizenCount() + "/" + colony.getCitizenManager().getMaxCitizens()), false);
+            .sendSuccess(() -> literalAndRemember(CITIZENS + colony.getCitizenManager().getCurrentCitizenCount() + "/" + colony.getCitizenManager().getMaxCitizens()), false);
         context.getSource()
-          .sendSuccess(() -> literalAndRemember(
-            COORDINATES_TEXT + String.format(COORDINATES_XYZ, position.getX(), position.getY(), position.getZ())).setStyle(Style.EMPTY.withColor(
-            ChatFormatting.GREEN)), false);
+            .sendSuccess(() -> literalAndRemember(
+                COORDINATES_TEXT + String.format(COORDINATES_XYZ, position.getX(), position.getY(), position.getZ())).setStyle(Style.EMPTY.withColor(
+                ChatFormatting.GREEN)), false);
         context.getSource().sendSuccess(() -> literalAndRemember(String.format(LAST_CONTACT_TEXT, colony.getLastContactInHours())), false);
         context.getSource().sendSuccess(() -> literalAndRemember(IS_DELETABLE + !colony.canBeAutoDeleted()), false);
 
@@ -103,14 +103,14 @@ public class CommandColonyPrintStats implements IMCOPCommand
             context.getSource()
                 .sendSuccess(() -> literalAndRemember("Buildings:" + colony.getBuildingManager().getBuildings().size() + " average level:" + average), false);
             context.getSource()
-              .sendSuccess(() -> literalAndRemember(colony.getBuildingManager()
-                .getBuildings()
-                .values()
-                .stream()
-                .filter(iBuilding -> iBuilding.getBuildingLevel() != 0)
-                .map(building -> building.getSchematicName() + building.getBuildingLevel() + " pos:" + building.getPosition().toShortString())
-                .collect(
-                  Collectors.joining("\n"))), false);
+                .sendSuccess(() -> literalAndRemember(colony.getBuildingManager()
+                    .getBuildings()
+                    .values()
+                    .stream()
+                    .filter(iBuilding -> iBuilding.getBuildingLevel() != 0)
+                    .map(building -> building.getSchematicName() + building.getBuildingLevel() + " pos:" + building.getPosition().toShortString())
+                    .collect(
+                        Collectors.joining("\n"))), false);
         }
 
         List<ResourceLocation> completed = ((LocalResearchTree) colony.getResearchManager().getResearchTree()).getCompletedList();
@@ -146,6 +146,6 @@ public class CommandColonyPrintStats implements IMCOPCommand
     public LiteralArgumentBuilder<CommandSourceStack> build()
     {
         return IMCCommand.newLiteral(getName())
-          .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1)).executes(this::checkPreConditionAndExecute));
+            .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1)).executes(this::checkPreConditionAndExecute));
     }
 }

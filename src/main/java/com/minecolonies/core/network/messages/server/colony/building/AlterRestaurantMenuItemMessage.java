@@ -40,7 +40,8 @@ public class AlterRestaurantMenuItemMessage extends AbstractBuildingServerMessag
 
     /**
      * Add a menu item to the building.
-     * @param building the building to add it to.
+     *
+     * @param building  the building to add it to.
      * @param itemStack the stack to add.
      * @param runtimeID the id of the module.
      * @return the message,
@@ -52,7 +53,8 @@ public class AlterRestaurantMenuItemMessage extends AbstractBuildingServerMessag
 
     /**
      * Remove a menu item to the building.
-     * @param building the building to remove it from.
+     *
+     * @param building  the building to remove it from.
      * @param itemStack the stack to remove.
      * @param runtimeID the id of the module.
      * @return the message,
@@ -67,7 +69,7 @@ public class AlterRestaurantMenuItemMessage extends AbstractBuildingServerMessag
      *
      * @param itemStack to be altered.
      * @param building  the building we're executing on.
-     * @param add if add = true if remove = false
+     * @param add       if add = true if remove = false
      */
     private AlterRestaurantMenuItemMessage(final IBuildingView building, final ItemStack itemStack, final int runtimeID, final boolean add)
     {

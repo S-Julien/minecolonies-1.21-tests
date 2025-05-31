@@ -10,6 +10,7 @@ public interface IStat<N extends Number>
 {
     /**
      * Apply the input value to the existing value.
+     *
      * @param input the input value.
      * @return the calculated output.
      */

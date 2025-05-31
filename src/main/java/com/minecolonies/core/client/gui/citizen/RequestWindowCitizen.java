@@ -150,9 +150,9 @@ public class RequestWindowCitizen extends AbstractWindowCitizen
             if (slot == -1)
             {
                 MessageUtils.format("<%s> ")
-                  .append(COM_MINECOLONIES_CANT_TAKE_EQUIPPED, citizen.getName())
-                  .withPriority(MessagePriority.IMPORTANT)
-                  .sendTo(Minecraft.getInstance().player);
+                    .append(COM_MINECOLONIES_CANT_TAKE_EQUIPPED, citizen.getName())
+                    .withPriority(MessagePriority.IMPORTANT)
+                    .sendTo(Minecraft.getInstance().player);
 
                 return; // We don't have one that isn't in our armour slot
             }
@@ -165,7 +165,7 @@ public class RequestWindowCitizen extends AbstractWindowCitizen
             colony.getBuilding(citizen.getWorkBuilding()).onRequestedRequestComplete(colony.getRequestManager(), tRequest);
         }
         Network.getNetwork().sendToServer(
-          new TransferItemsToCitizenRequestMessage(colony, citizen, itemStack, isCreative ? amount : Math.min(amount, count)));
+            new TransferItemsToCitizenRequestMessage(colony, citizen, itemStack, isCreative ? amount : Math.min(amount, count)));
 
         final ItemStack copy = itemStack.copy();
         copy.setCount(isCreative ? amount : Math.min(amount, count));

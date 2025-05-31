@@ -28,9 +28,10 @@ public class StackList implements IConcreteDeliverable, INonExhaustiveDeliverabl
     /**
      * Set of type tokens belonging to this class.
      */
-    private final static Set<TypeToken<?>> TYPE_TOKENS = ReflectionUtils.getSuperClasses(TypeToken.of(StackList.class)).stream().filter(type -> !type.equals(TypeConstants.OBJECT)).collect(Collectors.toSet());
+    private final static Set<TypeToken<?>> TYPE_TOKENS =
+        ReflectionUtils.getSuperClasses(TypeToken.of(StackList.class)).stream().filter(type -> !type.equals(TypeConstants.OBJECT)).collect(Collectors.toSet());
 
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
     private static final String NBT_STACK_LIST  = "StackList";
     private static final String NBT_MATCHMETA   = "MatchMeta";
     private static final String NBT_MATCHNBT    = "MatchNBT";
@@ -143,15 +144,15 @@ public class StackList implements IConcreteDeliverable, INonExhaustiveDeliverabl
      * @param leftOver    the left over amount.
      */
     public StackList(
-      @NotNull final List<ItemStack> stacks,
-      final boolean matchMeta,
-      final boolean matchNBT,
-      final boolean matchOreDic,
-      @NotNull final ItemStack result,
-      final String description,
-      final int count,
-      final int minCount,
-      final int leftOver)
+        @NotNull final List<ItemStack> stacks,
+        final boolean matchMeta,
+        final boolean matchNBT,
+        final boolean matchOreDic,
+        @NotNull final ItemStack result,
+        final String description,
+        final int count,
+        final int minCount,
+        final int leftOver)
     {
         this.description = description;
         for (final ItemStack stack : stacks)
@@ -421,7 +422,7 @@ public class StackList implements IConcreteDeliverable, INonExhaustiveDeliverabl
     }
 
     @Override
-    public List<ItemStack> getRequestedItems() 
+    public List<ItemStack> getRequestedItems()
     {
         return theStacks;
     }

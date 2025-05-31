@@ -48,7 +48,7 @@ public class InventoryCitizen implements IItemHandlerModifiable, Nameable
     /**
      * The inventory. (27 main inventory, 4 armor slots)
      */
-    private NonNullList<ItemStack> mainInventory = NonNullList.withSize(DEFAULT_INV_SIZE, ItemStackUtils.EMPTY);
+    private NonNullList<ItemStack> mainInventory  = NonNullList.withSize(DEFAULT_INV_SIZE, ItemStackUtils.EMPTY);
     private NonNullList<ItemStack> armorInventory = NonNullList.withSize(4, ItemStackUtils.EMPTY);
 
     /**
@@ -262,6 +262,7 @@ public class InventoryCitizen implements IItemHandlerModifiable, Nameable
 
     /**
      * Get the armor from a specific equipment slot.
+     *
      * @param equipmentSlot the slot to get it from.
      * @return the stack.
      */
@@ -276,8 +277,9 @@ public class InventoryCitizen implements IItemHandlerModifiable, Nameable
 
     /**
      * Force an armor stack in a slot. This is for container interaction only.
+     *
      * @param equipmentSlot the slot to pick.
-     * @param stack the stack to set.
+     * @param stack         the stack to set.
      */
     public void forceArmorStackToSlot(final EquipmentSlot equipmentSlot, final ItemStack stack)
     {
@@ -291,8 +293,9 @@ public class InventoryCitizen implements IItemHandlerModifiable, Nameable
 
     /**
      * Force remove armor stack from a slot. This is for container interaction only.
+     *
      * @param equipmentSlot the slot to clear.
-     * @param stack the stack being removed.
+     * @param stack         the stack being removed.
      */
     public void forceClearArmorInSlot(final EquipmentSlot equipmentSlot, final ItemStack stack)
     {
@@ -309,8 +312,9 @@ public class InventoryCitizen implements IItemHandlerModifiable, Nameable
 
     /**
      * Transfer from inventory slot to armor.
+     *
      * @param equipmentSlot the slot to transfer it to.
-     * @param slot the slot to transfer it from.
+     * @param slot          the slot to transfer it from.
      */
     public void transferArmorToSlot(final EquipmentSlot equipmentSlot, final int slot)
     {
@@ -333,6 +337,7 @@ public class InventoryCitizen implements IItemHandlerModifiable, Nameable
 
     /**
      * Move armor from armor slots to inventory.
+     *
      * @param equipmentSlot the origin slot.
      */
     public void moveArmorToInventory(final EquipmentSlot equipmentSlot)
@@ -670,6 +675,7 @@ public class InventoryCitizen implements IItemHandlerModifiable, Nameable
 
     /**
      * Get an iterable of armor and hand inventory.
+     *
      * @return the itemstack iterable.
      */
     public Iterable<ItemStack> getIterableArmorAndHandInv()

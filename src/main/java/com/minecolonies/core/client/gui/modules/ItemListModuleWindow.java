@@ -60,13 +60,13 @@ public class ItemListModuleWindow extends AbstractModuleWindow
 
     /**
      * @param building   the building it belongs to.
-     * @param res   the building res id.
-     * @param moduleView   the assigned module view.
+     * @param res        the building res id.
+     * @param moduleView the assigned module view.
      */
     public ItemListModuleWindow(
-      final String res,
-      final IBuildingView building,
-      final IItemListModuleView moduleView)
+        final String res,
+        final IBuildingView building,
+        final IItemListModuleView moduleView)
     {
         super(building, res);
 
@@ -90,7 +90,6 @@ public class ItemListModuleWindow extends AbstractModuleWindow
             }
         });
     }
-
 
     @Override
     public void onOpened()
@@ -151,8 +150,8 @@ public class ItemListModuleWindow extends AbstractModuleWindow
     private void updateResources()
     {
         final Predicate<ItemStack> filterPredicate = stack -> filter.isEmpty()
-                                                                || stack.getDescriptionId().toLowerCase(Locale.US).contains(filter.toLowerCase(Locale.US))
-                                                                || stack.getHoverName().getString().toLowerCase(Locale.US).contains(filter.toLowerCase(Locale.US));
+            || stack.getDescriptionId().toLowerCase(Locale.US).contains(filter.toLowerCase(Locale.US))
+            || stack.getHoverName().getString().toLowerCase(Locale.US).contains(filter.toLowerCase(Locale.US));
         currentDisplayedList.clear();
         for (final ItemStorage storage : groupedItemList)
         {
@@ -175,11 +174,11 @@ public class ItemListModuleWindow extends AbstractModuleWindow
 
             boolean o2Allowed = building.getModuleViewMatching(ItemListModuleView.class, view -> view.getId().equals(id)).isAllowedItem(o2);
 
-            if(!o1Allowed && o2Allowed)
+            if (!o1Allowed && o2Allowed)
             {
                 return isInverted ? -1 : 1;
             }
-            else if(o1Allowed && !o2Allowed)
+            else if (o1Allowed && !o2Allowed)
             {
                 return isInverted ? 1 : -1;
             }
@@ -224,7 +223,7 @@ public class ItemListModuleWindow extends AbstractModuleWindow
                 resourceLabel.setText(resource.getHoverName());
                 resourceLabel.setColors(WHITE);
                 rowPane.findPaneOfTypeByID(RESOURCE_ICON, ItemIcon.class).setItem(resource);
-                final boolean isAllowedItem  = building.getModuleViewMatching(ItemListModuleView.class, view -> view.getId().equals(id)).isAllowedItem(new ItemStorage(resource));
+                final boolean isAllowedItem = building.getModuleViewMatching(ItemListModuleView.class, view -> view.getId().equals(id)).isAllowedItem(new ItemStorage(resource));
                 final Button switchButton = rowPane.findPaneOfTypeByID(BUTTON_SWITCH, Button.class);
 
                 if ((isInverted && !isAllowedItem) || (!isInverted && isAllowedItem))

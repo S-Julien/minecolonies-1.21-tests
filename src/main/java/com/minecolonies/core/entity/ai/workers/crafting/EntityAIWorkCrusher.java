@@ -40,7 +40,7 @@ public class EntityAIWorkCrusher extends AbstractEntityAICrafting<JobCrusher, Bu
      * Crusher icon
      */
     private final static VisibleCitizenStatus CRUSHING =
-      new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/work/crusher.png"), "com.minecolonies.gui.visiblestatus.crusher");
+        new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/work/crusher.png"), "com.minecolonies.gui.visiblestatus.crusher");
 
     /**
      * Constructor for the crusher. Defines the tasks the crusher executes.
@@ -51,8 +51,8 @@ public class EntityAIWorkCrusher extends AbstractEntityAICrafting<JobCrusher, Bu
     {
         super(job);
         super.registerTargets(
-          new AITarget(IDLE, START_WORKING, 1),
-          new AITarget(CRUSH, this::crush, TICK_DELAY)
+            new AITarget(IDLE, START_WORKING, 1),
+            new AITarget(CRUSH, this::crush, TICK_DELAY)
         );
         worker.setCanPickUpLoot(true);
     }
@@ -186,9 +186,9 @@ public class EntityAIWorkCrusher extends AbstractEntityAICrafting<JobCrusher, Bu
         if (check == CRAFT)
         {
             Network.getNetwork()
-              .sendToTrackingEntity(new LocalizedParticleEffectMessage(currentRecipeStorage.getInput().get(0).getItemStack().copy(), crusherBuilding.getID()), worker);
+                .sendToTrackingEntity(new LocalizedParticleEffectMessage(currentRecipeStorage.getInput().get(0).getItemStack().copy(), crusherBuilding.getID()), worker);
             Network.getNetwork().sendToTrackingEntity(new LocalizedParticleEffectMessage(currentRecipeStorage.getPrimaryOutput().copy(), crusherBuilding.getID().below()),
-              worker);
+                worker);
             SoundUtils.playSoundAtCitizen(world, building.getID(), SoundEvents.STONE_BREAK);
         }
         return getState();
@@ -220,7 +220,7 @@ public class EntityAIWorkCrusher extends AbstractEntityAICrafting<JobCrusher, Bu
         job.setProgress(job.getProgress() + 1);
 
         worker.setItemInHand(InteractionHand.MAIN_HAND,
-          currentRecipeStorage.getCleanedInput().get(worker.getRandom().nextInt(currentRecipeStorage.getCleanedInput().size())).getItemStack().copy());
+            currentRecipeStorage.getCleanedInput().get(worker.getRandom().nextInt(currentRecipeStorage.getCleanedInput().size())).getItemStack().copy());
         worker.setItemInHand(InteractionHand.OFF_HAND, currentRecipeStorage.getPrimaryOutput().copy());
         CitizenItemUtils.hitBlockWithToolInHand(worker, building.getPosition());
 

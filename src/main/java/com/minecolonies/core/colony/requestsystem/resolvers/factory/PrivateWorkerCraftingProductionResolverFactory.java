@@ -18,11 +18,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class PrivateWorkerCraftingProductionResolverFactory implements IRequestResolverFactory<PrivateWorkerCraftingProductionResolver>
 {
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
     private static final String NBT_TOKEN    = "Token";
     private static final String NBT_LOCATION = "Location";
-    private static final String NBT_JOB = "Job";
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
+    private static final String NBT_JOB      = "Job";
+
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
 
     @NotNull
     @Override
@@ -41,9 +42,9 @@ public class PrivateWorkerCraftingProductionResolverFactory implements IRequestR
     @NotNull
     @Override
     public PrivateWorkerCraftingProductionResolver getNewInstance(
-      @NotNull final IFactoryController factoryController,
-      @NotNull final ILocation iLocation,
-      @NotNull final Object... context)
+        @NotNull final IFactoryController factoryController,
+        @NotNull final ILocation iLocation,
+        @NotNull final Object... context)
     {
         return new PrivateWorkerCraftingProductionResolver(iLocation, factoryController.getNewInstance(TypeConstants.ITOKEN), (JobEntry) context[0]);
     }
@@ -51,7 +52,7 @@ public class PrivateWorkerCraftingProductionResolverFactory implements IRequestR
     @NotNull
     @Override
     public CompoundTag serialize(
-      @NotNull final IFactoryController controller, @NotNull final PrivateWorkerCraftingProductionResolver privateWorkerCraftingProductionResolverFactory)
+        @NotNull final IFactoryController controller, @NotNull final PrivateWorkerCraftingProductionResolver privateWorkerCraftingProductionResolverFactory)
     {
         final CompoundTag compound = new CompoundTag();
         compound.put(NBT_TOKEN, controller.serialize(privateWorkerCraftingProductionResolverFactory.getId()));

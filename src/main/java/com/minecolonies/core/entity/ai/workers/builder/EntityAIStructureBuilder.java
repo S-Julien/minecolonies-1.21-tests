@@ -66,8 +66,8 @@ public class EntityAIStructureBuilder extends AbstractEntityAIStructureWithWorkO
     {
         super(job);
         super.registerTargets(
-          new AITarget(IDLE, START_WORKING, 100),
-          new AITarget(START_WORKING, this::checkForWorkOrder, this::startWorkingAtOwnBuilding, 100)
+            new AITarget(IDLE, START_WORKING, 100),
+            new AITarget(START_WORKING, this::checkForWorkOrder, this::startWorkingAtOwnBuilding, 100)
         );
         worker.setCanPickUpLoot(true);
     }
@@ -210,10 +210,10 @@ public class EntityAIStructureBuilder extends AbstractEntityAIStructureWithWorkO
             if (gotoPath == null || gotoPath.isCancelled())
             {
                 final PathJobMoveCloseToXNearY pathJob = new PathJobMoveCloseToXNearY(world,
-                  currentBlock,
-                  job.getWorkOrder().getLocation(),
-                  4,
-                  worker);
+                    currentBlock,
+                    job.getWorkOrder().getLocation(),
+                    4,
+                    worker);
                 gotoPath = ((MinecoloniesAdvancedPathNavigate) worker.getNavigation()).setPathJob(pathJob, currentBlock, 1.0, false);
                 pathJob.getPathingOptions().dropCost = 200;
                 pathJob.extraNodes = 0;
@@ -307,27 +307,27 @@ public class EntityAIStructureBuilder extends AbstractEntityAIStructureWithWorkO
         {
             case REPAIR:
                 message = Component.translatable(
-                  COM_MINECOLONIES_COREMOD_ENTITY_BUILDER_REPAIRING_COMPLETE,
-                  wo.getDisplayName(),
-                  position.getX(),
-                  position.getY(),
-                  position.getZ());
+                    COM_MINECOLONIES_COREMOD_ENTITY_BUILDER_REPAIRING_COMPLETE,
+                    wo.getDisplayName(),
+                    position.getX(),
+                    position.getY(),
+                    position.getZ());
                 break;
             case REMOVE:
                 message = Component.translatable(
-                  COM_MINECOLONIES_COREMOD_ENTITY_BUILDER_DECONSTRUCTION_COMPLETE,
-                  wo.getDisplayName(),
-                  position.getX(),
-                  position.getY(),
-                  position.getZ());
+                    COM_MINECOLONIES_COREMOD_ENTITY_BUILDER_DECONSTRUCTION_COMPLETE,
+                    wo.getDisplayName(),
+                    position.getX(),
+                    position.getY(),
+                    position.getZ());
                 break;
             default:
                 message = Component.translatable(
-                  COM_MINECOLONIES_COREMOD_ENTITY_BUILDER_BUILD_COMPLETE,
-                  wo.getDisplayName(),
-                  position.getX(),
-                  position.getY(),
-                  position.getZ());
+                    COM_MINECOLONIES_COREMOD_ENTITY_BUILDER_BUILD_COMPLETE,
+                    wo.getDisplayName(),
+                    position.getX(),
+                    position.getY(),
+                    position.getZ());
                 break;
         }
 

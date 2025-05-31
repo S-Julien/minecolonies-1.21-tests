@@ -14,11 +14,11 @@ public class Rank
     /**
      * The name of the rank
      */
-    private String name;
+    private String  name;
     /**
      * The id of the rank
      */
-    private int id;
+    private int     id;
     /**
      * Whether the rank is one of the initial ranks which cannot be deleted
      */
@@ -65,6 +65,7 @@ public class Rank
 
     /**
      * Get the id of the rank
+     *
      * @return the id
      */
     public int getId()
@@ -74,6 +75,7 @@ public class Rank
 
     /**
      * Get whether the rank is a subscriber to certain colony events
+     *
      * @return true if so
      */
     public boolean isSubscriber()
@@ -83,6 +85,7 @@ public class Rank
 
     /**
      * Get the name of the rank
+     *
      * @return the name
      */
     public String getName()
@@ -92,24 +95,28 @@ public class Rank
 
     /**
      * Get whether this ranks is an initial rank which cannot be deleted
+     *
      * @return true if so
      */
-    public boolean isInitial() { return isInitial; }
+    public boolean isInitial() {return isInitial;}
 
     /**
      * Get whether this rank is a colony manager
+     *
      * @return true if so
      */
-    public boolean isColonyManager() { return isColonyManager; }
+    public boolean isColonyManager() {return isColonyManager;}
 
     /**
      * Get whether this rank is hostile
+     *
      * @return true if so
      */
-    public boolean isHostile() { return isHostile; }
+    public boolean isHostile() {return isHostile;}
 
     /**
      * Set whether this rank is a colony manager
+     *
      * @param isColonyManager whether the rank is a colony manager
      */
     public void setColonyManager(boolean isColonyManager)
@@ -119,6 +126,7 @@ public class Rank
 
     /**
      * Set whether this rank is hostile
+     *
      * @param isHostile whether the rank is hostile
      */
     public void setHostile(boolean isHostile)
@@ -128,9 +136,10 @@ public class Rank
 
     /**
      * Set whether this rank is a subscriber (receives certain colony events)
+     *
      * @param isSubscriber whether the rank is a subscriber
      */
-    public void setSubscriber(boolean isSubscriber) { this.isSubscriber = isSubscriber; }
+    public void setSubscriber(boolean isSubscriber) {this.isSubscriber = isSubscriber;}
 
     @Override
     public boolean equals(final Object o)

@@ -15,7 +15,7 @@ public interface IEventDescriptionManager extends INBTSerializable<CompoundTag>
 {
     /**
      * Adds an event description.
-     * 
+     *
      * @param colonyEventDescription the event description to add.
      */
     void addEventDescription(IColonyEventDescription colonyEventDescription);
@@ -27,6 +27,7 @@ public interface IEventDescriptionManager extends INBTSerializable<CompoundTag>
 
     /**
      * Serialize to bytebuf.
+     *
      * @param buf the buf to serialize it to.
      */
     void serialize(@NotNull FriendlyByteBuf buf);

@@ -121,10 +121,10 @@ public class WindowBannerRallyGuards extends AbstractWindowSkeleton
             {
                 exampleStackDisplay.setItem(new ItemStack(Items.IRON_SWORD));
                 rowPane.findPaneOfTypeByID(LABEL_GUARDTYPE, Text.class).setText(Component.translatable(ModGuardTypes.knight.get().getJobTranslationKey())
-                  .append("|")
-                  .append(Component.translatable(ModGuardTypes.ranger.get().getJobTranslationKey()))
-                  .append(": ")
-                  .append(String.valueOf(guardTowerView.getGuards().size())));
+                    .append("|")
+                    .append(Component.translatable(ModGuardTypes.ranger.get().getJobTranslationKey()))
+                    .append(": ")
+                    .append(String.valueOf(guardTowerView.getGuards().size())));
                 rowPane.findPaneOfTypeByID(LABEL_POSITION, Text.class).setText(Component.literal(guardTower.getFirst().toString()));
             }
             else
@@ -132,7 +132,7 @@ public class WindowBannerRallyGuards extends AbstractWindowSkeleton
                 exampleStackDisplay.setItem(new ItemStack(Items.COOKIE));
 
                 rowPane.findPaneOfTypeByID(LABEL_GUARDTYPE, Text.class)
-                  .setText(Component.translatable(COM_MINECOLONIES_BANNER_RALLY_GUARDS_GUI_TOWERMISSING));
+                    .setText(Component.translatable(COM_MINECOLONIES_BANNER_RALLY_GUARDS_GUI_TOWERMISSING));
                 rowPane.findPaneOfTypeByID(LABEL_GUARDTYPE, Text.class).setColors(Color.rgbaToInt(255, 0, 0, 1));
                 rowPane.findPaneOfTypeByID(LABEL_POSITION, Text.class).setText(Component.literal(guardTower.getFirst().toString()));
             }

@@ -28,7 +28,7 @@ public class CitizenBornEvent extends AbstractCitizenEvent
 
     /**
      * Creates a new citizen born event.
-     * 
+     *
      * @param eventPos    the position of the hut block of the building.
      * @param citizenName the name of the building.
      */

@@ -41,7 +41,7 @@ public class WindowSupplyStory extends AbstractWindowSkeleton
     /**
      * Type of camp/ship.
      */
-    private final String type;
+    private final String          type;
     private final InteractionHand hand;
 
     /**
@@ -100,7 +100,8 @@ public class WindowSupplyStory extends AbstractWindowSkeleton
         }
 
         this.findPaneOfTypeByID("text", Text.class).setText(story);
-        this.findPaneOfTypeByID("place", Button.class).setText(Component.translatable("com.minecolonies.core.gui.supplies.place", Component.translatable(stack.getItem().getDescriptionId())));
+        this.findPaneOfTypeByID("place", Button.class)
+            .setText(Component.translatable("com.minecolonies.core.gui.supplies.place", Component.translatable(stack.getItem().getDescriptionId())));
     }
 
     /**

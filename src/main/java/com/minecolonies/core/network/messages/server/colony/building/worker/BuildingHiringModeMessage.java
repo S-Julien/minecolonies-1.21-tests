@@ -18,7 +18,7 @@ public class BuildingHiringModeMessage extends AbstractBuildingServerMessage<IBu
     /**
      * The Hiring mode to set.
      */
-    private HiringMode    mode;
+    private HiringMode mode;
 
     /**
      * The job id.

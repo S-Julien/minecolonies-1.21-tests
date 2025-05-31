@@ -19,6 +19,7 @@ public class ColonyPopulationCriterionInstance extends AbstractCriterionTriggerI
 
     /**
      * Constructs a check with a single condition
+     *
      * @param populationCount the population that has to be reached to succeed
      */
     public ColonyPopulationCriterionInstance(final int populationCount)
@@ -30,6 +31,7 @@ public class ColonyPopulationCriterionInstance extends AbstractCriterionTriggerI
 
     /**
      * Performs the check for the conditions
+     *
      * @param populationCount the current population
      * @return whether the check succeeded
      */
@@ -40,8 +42,9 @@ public class ColonyPopulationCriterionInstance extends AbstractCriterionTriggerI
     }
 
     @NotNull
-    public static ColonyPopulationCriterionInstance deserializeFromJson(@NotNull final JsonObject jsonObject,
-                                                                        @NotNull final DeserializationContext context)
+    public static ColonyPopulationCriterionInstance deserializeFromJson(
+        @NotNull final JsonObject jsonObject,
+        @NotNull final DeserializationContext context)
     {
         final int populationCount = GsonHelper.getAsInt(jsonObject, "population_count");
         return new ColonyPopulationCriterionInstance(populationCount);

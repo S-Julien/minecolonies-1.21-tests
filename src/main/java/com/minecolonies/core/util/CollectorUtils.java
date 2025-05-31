@@ -12,11 +12,11 @@ import java.util.stream.Collectors;
 public class CollectorUtils
 {
     private static final Collector<?, ?, ?> SHUFFLER = Collectors.collectingAndThen(
-      Collectors.toCollection(ArrayList::new),
-      list -> {
-          Collections.shuffle(list);
-          return list;
-      }
+        Collectors.toCollection(ArrayList::new),
+        list -> {
+            Collections.shuffle(list);
+            return list;
+        }
     );
 
     private CollectorUtils()

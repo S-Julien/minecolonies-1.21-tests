@@ -50,15 +50,18 @@ public class DefaultFishermanLootProvider extends SimpleLootTableProvider
     }
 
     @Override
-    protected void validate(@NotNull final Map<ResourceLocation, LootTable> map,
-                            @NotNull final ValidationContext validationtracker)
+    protected void validate(
+        @NotNull final Map<ResourceLocation, LootTable> map,
+        @NotNull final ValidationContext validationtracker)
     {
-        ValidationContext newTracker = new ValidationContext(LootContextParamSets.ALL_PARAMS, new LootDataResolver() {
+        ValidationContext newTracker = new ValidationContext(LootContextParamSets.ALL_PARAMS, new LootDataResolver()
+        {
             @Nullable
-            public <T> T getElement(@NotNull LootDataId<T> id) {
+            public <T> T getElement(@NotNull LootDataId<T> id)
+            {
                 if (id.location().equals(BuiltInLootTables.FISHING_FISH) ||
-                      id.location().equals(BuiltInLootTables.FISHING_JUNK) ||
-                      id.location().equals(BuiltInLootTables.FISHING_TREASURE))
+                    id.location().equals(BuiltInLootTables.FISHING_JUNK) ||
+                    id.location().equals(BuiltInLootTables.FISHING_TREASURE))
                 {
                     return (T) map.get(id.location());
                 }
@@ -73,30 +76,30 @@ public class DefaultFishermanLootProvider extends SimpleLootTableProvider
     private void registerStandardLoot(@NotNull final LootTableRegistrar registrar)
     {
         registrar.register(ModLootTables.FISHING, LootContextParamSets.FISHING, LootTable.lootTable()
-                .withPool(LootPool.lootPool()
-                        .add(LootTableReference.lootTableReference(ModLootTables.FISHING_JUNK).setWeight(10).setQuality(-2))
-                        .add(LootTableReference.lootTableReference(ModLootTables.FISHING_TREASURE).setWeight(5).setQuality(2)
-                                .when(new AnyOfCondition.Builder(
-                                        EntityInBiomeTag.of(BiomeTags.IS_OCEAN),
-                                        ResearchUnlocked.effect(ResearchConstants.FISH_TREASURE)
-                                )))
-                        .add(LootTableReference.lootTableReference(ModLootTables.FISHING_FISH).setWeight(85).setQuality(-1))
-                ));
+            .withPool(LootPool.lootPool()
+                .add(LootTableReference.lootTableReference(ModLootTables.FISHING_JUNK).setWeight(10).setQuality(-2))
+                .add(LootTableReference.lootTableReference(ModLootTables.FISHING_TREASURE).setWeight(5).setQuality(2)
+                    .when(new AnyOfCondition.Builder(
+                        EntityInBiomeTag.of(BiomeTags.IS_OCEAN),
+                        ResearchUnlocked.effect(ResearchConstants.FISH_TREASURE)
+                    )))
+                .add(LootTableReference.lootTableReference(ModLootTables.FISHING_FISH).setWeight(85).setQuality(-1))
+            ));
 
         registrar.register(ModLootTables.FISHING_JUNK, LootContextParamSets.FISHING, LootTable.lootTable()
-                .withPool(LootPool.lootPool()
-                        .add(LootTableReference.lootTableReference(BuiltInLootTables.FISHING_JUNK).setWeight(1))
-                ));
+            .withPool(LootPool.lootPool()
+                .add(LootTableReference.lootTableReference(BuiltInLootTables.FISHING_JUNK).setWeight(1))
+            ));
 
         registrar.register(ModLootTables.FISHING_TREASURE, LootContextParamSets.FISHING, LootTable.lootTable()
-                .withPool(LootPool.lootPool()
-                        .add(LootTableReference.lootTableReference(BuiltInLootTables.FISHING_TREASURE).setWeight(1))
-                ));
+            .withPool(LootPool.lootPool()
+                .add(LootTableReference.lootTableReference(BuiltInLootTables.FISHING_TREASURE).setWeight(1))
+            ));
 
         registrar.register(ModLootTables.FISHING_FISH, LootContextParamSets.FISHING, LootTable.lootTable()
-                .withPool(LootPool.lootPool()
-                        .add(LootTableReference.lootTableReference(BuiltInLootTables.FISHING_FISH).setWeight(1))
-                ));
+            .withPool(LootPool.lootPool()
+                .add(LootTableReference.lootTableReference(BuiltInLootTables.FISHING_FISH).setWeight(1))
+            ));
     }
 
     private void registerBonusLoot(@NotNull final LootTableRegistrar registrar)
@@ -117,14 +120,14 @@ public class DefaultFishermanLootProvider extends SimpleLootTableProvider
         final LootTable.Builder noBonus = LootTable.lootTable();
 
         final LootTable.Builder level3 = makeLoot(1000,
-                LootItem.lootTableItem(Items.PRISMARINE_SHARD).setWeight(shardWeight).setQuality(skillBonus),
-                LootItem.lootTableItem(Items.PRISMARINE_CRYSTALS).setWeight(crystalWeight).setQuality(skillBonus)
+            LootItem.lootTableItem(Items.PRISMARINE_SHARD).setWeight(shardWeight).setQuality(skillBonus),
+            LootItem.lootTableItem(Items.PRISMARINE_CRYSTALS).setWeight(crystalWeight).setQuality(skillBonus)
         );
 
         final LootTable.Builder level45 = makeLoot(1000,
-                LootItem.lootTableItem(Items.SPONGE).setWeight(spongeWeight).setQuality(skillBonus),
-                LootItem.lootTableItem(Items.PRISMARINE_SHARD).setWeight(shardWeight).setQuality(skillBonus),
-                LootItem.lootTableItem(Items.PRISMARINE_CRYSTALS).setWeight(crystalWeight).setQuality(skillBonus)
+            LootItem.lootTableItem(Items.SPONGE).setWeight(spongeWeight).setQuality(skillBonus),
+            LootItem.lootTableItem(Items.PRISMARINE_SHARD).setWeight(shardWeight).setQuality(skillBonus),
+            LootItem.lootTableItem(Items.PRISMARINE_CRYSTALS).setWeight(crystalWeight).setQuality(skillBonus)
         );
 
         registrar.register(ModLootTables.FISHERMAN_BONUS.get(1), LootContextParamSets.EMPTY, noBonus);

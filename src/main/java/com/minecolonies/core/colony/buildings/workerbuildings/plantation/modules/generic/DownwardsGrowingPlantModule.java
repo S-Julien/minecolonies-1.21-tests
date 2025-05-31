@@ -45,10 +45,10 @@ public abstract class DownwardsGrowingPlantModule extends AbstractPlantationModu
      * @param item     the item which is harvested.
      */
     protected DownwardsGrowingPlantModule(
-      final IBuildingExtension field,
-      final String fieldTag,
-      final String workTag,
-      final Item item)
+        final IBuildingExtension field,
+        final String fieldTag,
+        final String workTag,
+        final Item item)
     {
         super(field, fieldTag, workTag, item);
         this.random = new Random();
@@ -61,14 +61,14 @@ public abstract class DownwardsGrowingPlantModule extends AbstractPlantationModu
         return switch (action)
         {
             case HARVEST -> new PlantationModuleResult.Builder()
-                              .harvest(workingPosition.below(2))
-                              .pickNewPosition();
+                .harvest(workingPosition.below(2))
+                .pickNewPosition();
             case PLANT -> new PlantationModuleResult.Builder()
-                            .plant(workingPosition.below())
-                            .pickNewPosition();
+                .plant(workingPosition.below())
+                .pickNewPosition();
             case CLEAR -> new PlantationModuleResult.Builder()
-                            .clear(workingPosition.below())
-                            .pickNewPosition();
+                .clear(workingPosition.below())
+                .pickNewPosition();
             default -> PlantationModuleResult.NONE;
         };
     }
@@ -223,8 +223,8 @@ public abstract class DownwardsGrowingPlantModule extends AbstractPlantationModu
     public BlockPos getPositionToWalkTo(final Level world, final BlockPos workingPosition)
     {
         return Stream.of(workingPosition.north(), workingPosition.south(), workingPosition.west(), workingPosition.east())
-                 .filter(pos -> world.getBlockState(pos).isAir())
-                 .findFirst()
-                 .orElse(workingPosition);
+            .filter(pos -> world.getBlockState(pos).isAir())
+            .findFirst()
+            .orElse(workingPosition);
     }
 }

@@ -29,7 +29,7 @@ import static com.minecolonies.api.util.constant.Suppression.UNCHECKED;
  * Class of the crafter job.
  */
 public abstract class AbstractJobCrafter<AI extends AbstractEntityAIBasic<J, ? extends AbstractBuilding>, J extends AbstractJobCrafter<AI, J>>
-  extends AbstractJob<AI, J>
+    extends AbstractJob<AI, J>
 {
     /**
      * The Token of the data store which belongs to this job.
@@ -71,12 +71,12 @@ public abstract class AbstractJobCrafter<AI extends AbstractEntityAIBasic<J, ? e
     private void setupRsDataStore()
     {
         rsDataStoreToken = this.getCitizen()
-                             .getColony()
-                             .getRequestManager()
-                             .getDataStoreManager()
-                             .get(StandardFactoryController.getInstance().getNewInstance(TypeConstants.ITOKEN),
-                               TypeConstants.REQUEST_SYSTEM_CRAFTER_JOB_DATA_STORE)
-                             .getId();
+            .getColony()
+            .getRequestManager()
+            .getDataStoreManager()
+            .get(StandardFactoryController.getInstance().getNewInstance(TypeConstants.ITOKEN),
+                TypeConstants.REQUEST_SYSTEM_CRAFTER_JOB_DATA_STORE)
+            .getId();
     }
 
     @NotNull
@@ -112,7 +112,7 @@ public abstract class AbstractJobCrafter<AI extends AbstractEntityAIBasic<J, ? e
         if (compound.contains(NbtTagConstants.TAG_RS_DMANJOB_DATASTORE))
         {
             rsDataStoreToken = StandardFactoryController.getInstance()
-                                 .deserialize(compound.getCompound(NbtTagConstants.TAG_RS_DMANJOB_DATASTORE));
+                .deserialize(compound.getCompound(NbtTagConstants.TAG_RS_DMANJOB_DATASTORE));
         }
         else
         {
@@ -143,9 +143,9 @@ public abstract class AbstractJobCrafter<AI extends AbstractEntityAIBasic<J, ? e
     private IRequestSystemCrafterJobDataStore getDataStore()
     {
         return getCitizen().getColony()
-                 .getRequestManager()
-                 .getDataStoreManager()
-                 .get(rsDataStoreToken, TypeConstants.REQUEST_SYSTEM_CRAFTER_JOB_DATA_STORE);
+            .getRequestManager()
+            .getDataStoreManager()
+            .get(rsDataStoreToken, TypeConstants.REQUEST_SYSTEM_CRAFTER_JOB_DATA_STORE);
     }
 
     /**
@@ -346,8 +346,9 @@ public abstract class AbstractJobCrafter<AI extends AbstractEntityAIBasic<J, ? e
 
     /**
      * Play a job specific work sound at a pos.
+     *
      * @param blockPos the pos to play it at.
-     * @param worker the worker to play it for.
+     * @param worker   the worker to play it for.
      */
     public void playSound(final BlockPos blockPos, final EntityCitizen worker)
     {

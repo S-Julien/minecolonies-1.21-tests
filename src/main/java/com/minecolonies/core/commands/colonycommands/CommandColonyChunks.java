@@ -63,11 +63,12 @@ public class CommandColonyChunks implements IMCColonyOfficerCommand
         }
 
         context.getSource()
-          .sendSuccess(() -> Component.literal(ID_TEXT)
-            .append(Component.literal("" + colony.getID()).withStyle(ChatFormatting.YELLOW))
-            .append(Component.literal(" " + NAME_TEXT))
-            .append(Component.literal("" + colony.getName()).withStyle(ChatFormatting.YELLOW)), true);
-        context.getSource().sendSuccess(() -> Component.literal("Loaded chunks:").append(Component.literal(" " + colony.getLoadedChunkCount()).withStyle(ChatFormatting.YELLOW)), true);
+            .sendSuccess(() -> Component.literal(ID_TEXT)
+                .append(Component.literal("" + colony.getID()).withStyle(ChatFormatting.YELLOW))
+                .append(Component.literal(" " + NAME_TEXT))
+                .append(Component.literal("" + colony.getName()).withStyle(ChatFormatting.YELLOW)), true);
+        context.getSource()
+            .sendSuccess(() -> Component.literal("Loaded chunks:").append(Component.literal(" " + colony.getLoadedChunkCount()).withStyle(ChatFormatting.YELLOW)), true);
         context.getSource().sendSuccess(() -> Component.translatable("Ticket types: ").append(Component.literal(ticketString.toString()).withStyle(ChatFormatting.YELLOW)), true);
 
         return 1;
@@ -86,6 +87,6 @@ public class CommandColonyChunks implements IMCColonyOfficerCommand
     public LiteralArgumentBuilder<CommandSourceStack> build()
     {
         return IMCCommand.newLiteral(getName())
-          .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1)).executes(this::checkPreConditionAndExecute));
+            .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1)).executes(this::checkPreConditionAndExecute));
     }
 }

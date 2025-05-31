@@ -31,8 +31,8 @@ import java.util.List;
 public abstract class DeliverymenRequestResolver<R extends IRequestable> extends AbstractRequestResolver<R>
 {
     public DeliverymenRequestResolver(
-      @NotNull final ILocation location,
-      @NotNull final IToken<?> token)
+        @NotNull final ILocation location,
+        @NotNull final IToken<?> token)
     {
         super(location, token);
     }
@@ -46,7 +46,7 @@ public abstract class DeliverymenRequestResolver<R extends IRequestable> extends
         }
 
         if (manager.getColony().getBuildingManager().getBuilding(requestToCheck.getRequester().getLocation().getInDimensionLocation()) instanceof IWareHouse
-              && !requestToCheck.getRequester().getLocation().equals(getLocation()))
+            && !requestToCheck.getRequester().getLocation().equals(getLocation()))
         {
             return false;
         }
@@ -69,7 +69,7 @@ public abstract class DeliverymenRequestResolver<R extends IRequestable> extends
             return false;
         }
 
-       return !wareHouse.getModule(BuildingModules.WAREHOUSE_COURIERS).getAssignedCitizen().isEmpty();
+        return !wareHouse.getModule(BuildingModules.WAREHOUSE_COURIERS).getAssignedCitizen().isEmpty();
     }
 
     @Override
@@ -81,7 +81,7 @@ public abstract class DeliverymenRequestResolver<R extends IRequestable> extends
         {
             return distance;
         }
-        return Math.max(distance/10, 1) + wareHouse.getModule(BuildingModules.WAREHOUSE_REQUEST_QUEUE).getMutableRequestList().size();
+        return Math.max(distance / 10, 1) + wareHouse.getModule(BuildingModules.WAREHOUSE_REQUEST_QUEUE).getMutableRequestList().size();
     }
 
     @Nullable
@@ -130,16 +130,16 @@ public abstract class DeliverymenRequestResolver<R extends IRequestable> extends
 
     @Override
     public void onAssignedRequestCancelled(
-      @NotNull final IRequestManager manager, @NotNull final IRequest<? extends R> request)
+        @NotNull final IRequestManager manager, @NotNull final IRequest<? extends R> request)
     {
         if (!manager.getColony().getWorld().isClientSide)
         {
             final Colony colony = (Colony) manager.getColony();
             final ICitizenData freeDeliveryMan = colony.getCitizenManager().getCitizens()
-                                                   .stream()
-                                                   .filter(c -> c.getJob() instanceof JobDeliveryman && ((JobDeliveryman) c.getJob()).getTaskQueue().contains(request.getId()))
-                                                   .findFirst()
-                                                   .orElse(null);
+                .stream()
+                .filter(c -> c.getJob() instanceof JobDeliveryman && ((JobDeliveryman) c.getJob()).getTaskQueue().contains(request.getId()))
+                .findFirst()
+                .orElse(null);
 
             if (freeDeliveryMan != null)
             {
@@ -173,7 +173,7 @@ public abstract class DeliverymenRequestResolver<R extends IRequestable> extends
     @NotNull
     @Override
     public MutableComponent getRequesterDisplayName(
-      @NotNull final IRequestManager manager, @NotNull final IRequest<?> request)
+        @NotNull final IRequestManager manager, @NotNull final IRequest<?> request)
     {
         return Component.translatable(TranslationConstants.COM_MINECOLONIES_COREMOD_JOB_DELIVERYMAN);
     }

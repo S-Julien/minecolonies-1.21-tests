@@ -70,12 +70,14 @@ public abstract class AbstractTileEntityPlantationField extends BlockEntity impl
 
     /**
      * Get the rotation of the controller.
+     *
      * @return the placed rotation.
      */
     public abstract Rotation getRotation();
 
     /**
      * Get the mirroring setting of the controller.
+     *
      * @return true if mirrored.
      */
     public abstract boolean getMirror();

@@ -78,20 +78,26 @@ public class BuildingMechanic extends AbstractBuilding
         public OptionalPredicate<ItemStack> getIngredientValidator()
         {
             return CraftingUtils.getIngredientValidatorBasedOnTags(CRAFTING_MECHANIC)
-                    .combine(super.getIngredientValidator());
+                .combine(super.getIngredientValidator());
         }
 
         @Override
         public boolean isRecipeCompatible(@NotNull final IGenericRecipe recipe)
         {
-            if (!super.isRecipeCompatible(recipe)) return false;
+            if (!super.isRecipeCompatible(recipe))
+            {
+                return false;
+            }
 
             final Optional<Boolean> isRecipeAllowed = CraftingUtils.isRecipeCompatibleBasedOnTags(recipe, CRAFTING_MECHANIC);
-            if (isRecipeAllowed.isPresent()) { return isRecipeAllowed.get(); }
+            if (isRecipeAllowed.isPresent())
+            {
+                return isRecipeAllowed.get();
+            }
 
             final Item item = recipe.getPrimaryOutput().getItem();
             return item instanceof MinecartItem
-                     || (item instanceof BlockItem && ((BlockItem) item).getBlock() instanceof HopperBlock);
+                || (item instanceof BlockItem && ((BlockItem) item).getBlock() instanceof HopperBlock);
         }
 
         @Override
@@ -115,18 +121,20 @@ public class BuildingMechanic extends AbstractBuilding
 
         /**
          * See {@link ICraftingBuildingModule#getIngredientValidator}.
+         *
          * @return the validator
          */
-        public @NotNull static OptionalPredicate<ItemStack> getStaticIngredientValidator()
+        public @NotNull
+        static OptionalPredicate<ItemStack> getStaticIngredientValidator()
         {
             final OptionalPredicate<ItemStack> sawmill = CraftingUtils.getIngredientValidatorBasedOnTags(CRAFTING_SAWMILL, true)
-                    .combine(stack -> Optional.of(stack.is(ItemTags.PLANKS) || stack.is(ItemTags.LOGS)));
+                .combine(stack -> Optional.of(stack.is(ItemTags.PLANKS) || stack.is(ItemTags.LOGS)));
 
             final Predicate<ItemStack> handled = sawmill
-                    .or(CraftingUtils.getIngredientValidatorBasedOnTags(CRAFTING_FLETCHER, true))
-                    .or(CraftingUtils.getIngredientValidatorBasedOnTags(CRAFTING_STONEMASON, true))
-                    .or(CraftingUtils.getIngredientValidatorBasedOnTags(CRAFTING_GLASSBLOWER, true))
-                    .orElse(false);
+                .or(CraftingUtils.getIngredientValidatorBasedOnTags(CRAFTING_FLETCHER, true))
+                .or(CraftingUtils.getIngredientValidatorBasedOnTags(CRAFTING_STONEMASON, true))
+                .or(CraftingUtils.getIngredientValidatorBasedOnTags(CRAFTING_GLASSBLOWER, true))
+                .orElse(false);
 
             // mechanic accepts every ingredient not otherwise handled
             return OptionalPredicate.of(handled.negate());

@@ -51,7 +51,7 @@ public interface IRecipeManager
 
     /**
      * Register the recipe as used with the recipe manager
-     * 
+     *
      * @param token the recipe token
      */
     void registerUse(final IToken<?> token);

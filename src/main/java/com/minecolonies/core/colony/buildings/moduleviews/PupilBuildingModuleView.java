@@ -3,7 +3,7 @@ package com.minecolonies.core.colony.buildings.moduleviews;
 import com.minecolonies.api.colony.ICitizenDataView;
 
 /**
- *  Pupil module view.
+ * Pupil module view.
  */
 public class PupilBuildingModuleView extends WorkerBuildingModuleView
 {

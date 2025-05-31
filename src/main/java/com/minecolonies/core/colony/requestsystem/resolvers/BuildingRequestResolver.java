@@ -96,9 +96,9 @@ public class BuildingRequestResolver extends AbstractBuildingDependentRequestRes
     @Nullable
     @Override
     public List<IToken<?>> attemptResolveForBuilding(
-      @NotNull final IRequestManager manager,
-      @NotNull final IRequest<? extends IDeliverable> request,
-      @NotNull final AbstractBuilding building)
+        @NotNull final IRequestManager manager,
+        @NotNull final IRequest<? extends IDeliverable> request,
+        @NotNull final AbstractBuilding building)
     {
         final int totalRequested = request.getRequest().getCount();
         int totalAvailable = InventoryUtils.getCountFromBuilding(building, itemStack -> request.getRequest().matches(itemStack));
@@ -191,8 +191,8 @@ public class BuildingRequestResolver extends AbstractBuildingDependentRequestRes
 
     @NotNull
     private Set<ICapabilityProvider> getCapabilityProviders(
-      @NotNull final IRequestManager manager,
-      @NotNull final AbstractBuilding building)
+        @NotNull final IRequestManager manager,
+        @NotNull final AbstractBuilding building)
     {
         final Set<ICapabilityProvider> tileEntities = Sets.newHashSet();
         tileEntities.add(building.getTileEntity());

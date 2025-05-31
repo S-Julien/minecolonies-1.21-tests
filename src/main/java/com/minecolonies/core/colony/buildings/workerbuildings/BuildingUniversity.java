@@ -143,9 +143,9 @@ public class BuildingUniversity extends AbstractBuilding
             }
 
             if (colony.getResearchManager()
-                  .getResearchTree()
-                  .getResearch(research.getBranch(), research.getId())
-                  .research(colony.getResearchManager().getResearchEffects(), colony.getResearchManager().getResearchTree()))
+                .getResearchTree()
+                .getResearch(research.getBranch(), research.getId())
+                .research(colony.getResearchManager().getResearchEffects(), colony.getResearchManager().getResearchTree()))
             {
                 onSuccess(research);
             }
@@ -167,7 +167,7 @@ public class BuildingUniversity extends AbstractBuilding
         }
 
         final MutableComponent message = Component.translatable(RESEARCH_CONCLUDED + ThreadLocalRandom.current().nextInt(3),
-          MutableComponent.create(IGlobalResearchTree.getInstance().getResearch(research.getBranch(), research.getId()).getName()));
+            MutableComponent.create(IGlobalResearchTree.getInstance().getResearch(research.getBranch(), research.getId()).getName()));
 
         MessageUtils.format(message).sendTo(colony).forManagers();
         colony.getResearchManager().checkAutoStartResearch();

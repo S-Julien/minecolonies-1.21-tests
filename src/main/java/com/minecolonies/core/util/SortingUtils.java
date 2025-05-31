@@ -66,7 +66,7 @@ public final class SortingUtils
                 final double totalSlots = inv.getSlots();
                 final int totalReq = tuple.getA().get();
                 map.entrySet().stream().sorted(SortingUtils::compare)
-                  .forEach(entry -> SortingUtils.pushIntoInv(runCount, entry, inv, tuple.getA(), totalSlots, totalReq, tuple.getB()));
+                    .forEach(entry -> SortingUtils.pushIntoInv(runCount, entry, inv, tuple.getA(), totalSlots, totalReq, tuple.getB()));
             }
         }
         catch (Exception e)
@@ -88,11 +88,11 @@ public final class SortingUtils
      * @param creativeTabs     the creative tabs information for the items.
      */
     private static void pushIntoInv(
-      final AtomicInteger currentSlot,
-      final Map.Entry<ExactMatchItemStorage, Integer> entry,
-      final CombinedItemHandler inv,
-      final AtomicInteger requiredSlots,
-      final double totalSlots, final double totalRequirement, final Map<Integer, Integer> creativeTabs)
+        final AtomicInteger currentSlot,
+        final Map.Entry<ExactMatchItemStorage, Integer> entry,
+        final CombinedItemHandler inv,
+        final AtomicInteger requiredSlots,
+        final double totalSlots, final double totalRequirement, final Map<Integer, Integer> creativeTabs)
     {
         final int creativeTabId = IColonyManager.getInstance().getCompatibilityManager().getCreativeTabKey(entry.getKey());
 

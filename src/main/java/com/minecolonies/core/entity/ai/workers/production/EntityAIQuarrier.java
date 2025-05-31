@@ -83,12 +83,12 @@ public class EntityAIQuarrier extends AbstractEntityAIStructureWithWorkOrder<Job
     {
         super(job);
         super.registerTargets(
-          /*
-           * If IDLE - switch to start working.
-           */
-          new AITarget(IDLE, START_WORKING, 1),
-          new AITarget(START_WORKING, this::startWorkingAtOwnBuilding, TICKS_SECOND),
-          new AITarget(BUILDING_STEP, this::structureStep, STANDARD_DELAY)
+            /*
+             * If IDLE - switch to start working.
+             */
+            new AITarget(IDLE, START_WORKING, 1),
+            new AITarget(START_WORKING, this::startWorkingAtOwnBuilding, TICKS_SECOND),
+            new AITarget(BUILDING_STEP, this::structureStep, STANDARD_DELAY)
         );
         worker.setCanPickUpLoot(true);
     }
@@ -142,7 +142,7 @@ public class EntityAIQuarrier extends AbstractEntityAIStructureWithWorkOrder<Job
 
             final Tuple<String, String> shaft = getShaftPath(quarry);
             final WorkOrderMiner wo =
-              new WorkOrderMiner(quarry.getStructurePack(), shaft.getA(), shaft.getB(), quarry.getRotation(), quarry.getPosition().below(2), false, building.getPosition());
+                new WorkOrderMiner(quarry.getStructurePack(), shaft.getA(), shaft.getB(), quarry.getRotation(), quarry.getPosition().below(2), false, building.getPosition());
             wo.setClaimedBy(building.getPosition());
             building.getColony().getWorkManager().addWorkOrder(wo, false);
             job.setWorkOrder(wo);
@@ -168,7 +168,7 @@ public class EntityAIQuarrier extends AbstractEntityAIStructureWithWorkOrder<Job
         if (tileEntity != null)
         {
             path = quarry.getBlueprintPath().replace('\\', '/')
-                     .replace("1.blueprint", "shaft1.blueprint");
+                .replace("1.blueprint", "shaft1.blueprint");
             if (!path.endsWith("shaft1.blueprint"))
             {
                 path = path.replace(".blueprint", "shaft.blueprint");
@@ -212,9 +212,9 @@ public class EntityAIQuarrier extends AbstractEntityAIStructureWithWorkOrder<Job
 
     @Override
     public void loadStructure(
-      @NotNull final IWorkOrder workOrder,
-      final BlockPos position,
-      final boolean removal)
+        @NotNull final IWorkOrder workOrder,
+        final BlockPos position,
+        final boolean removal)
     {
         this.loadingBlueprint = true;
         workOrder.loadBlueprint(world, (blueprint -> {
@@ -222,7 +222,7 @@ public class EntityAIQuarrier extends AbstractEntityAIStructureWithWorkOrder<Job
             {
                 handleSpecificCancelActions();
                 Log.getLogger()
-                  .warn("Couldn't find structure with name: " + workOrder.getStructurePath() + " in: " + workOrder.getStructurePack() + ". Aborting loading procedure");
+                    .warn("Couldn't find structure with name: " + workOrder.getStructurePath() + " in: " + workOrder.getStructurePack() + ". Aborting loading procedure");
                 this.loadingBlueprint = false;
                 return;
             }
@@ -230,7 +230,7 @@ public class EntityAIQuarrier extends AbstractEntityAIStructureWithWorkOrder<Job
             final BuildingStructureHandler<JobQuarrier, BuildingMiner> structure;
             structure = new BuildingStructureHandler<>(world,
                 workOrder,
-              this, new BuildingStructureHandler.Stage[] {BUILD_SOLID, DECORATE, CLEAR});
+                this, new BuildingStructureHandler.Stage[] {BUILD_SOLID, DECORATE, CLEAR});
             building.setTotalStages(3);
 
             if (!structure.hasBluePrint())
@@ -317,13 +317,13 @@ public class EntityAIQuarrier extends AbstractEntityAIStructureWithWorkOrder<Job
         else
         {
             final int newLayer = switch (structurePlacer.getB().getStage())
-                                   {
-                                       // The quarrier decorates the level above the one they just placed solid blocks at (to support rails and torches standing on those blocks)
-                                       case DECORATE -> currentLayer + 1;
-                                       // After decorating, we need to go a layer lower again
-                                       case CLEAR -> currentLayer - 1;
-                                       default -> currentLayer;
-                                   };
+            {
+                // The quarrier decorates the level above the one they just placed solid blocks at (to support rails and torches standing on those blocks)
+                case DECORATE -> currentLayer + 1;
+                // After decorating, we need to go a layer lower again
+                case CLEAR -> currentLayer - 1;
+                default -> currentLayer;
+            };
             if (newLayer >= iterator.getSize().getY())
             {
                 // This can happen at the first level when getting to the decoration stage. In that case, skip the decoration step and go to the CLEAR step immediately
@@ -344,8 +344,8 @@ public class EntityAIQuarrier extends AbstractEntityAIStructureWithWorkOrder<Job
     {
         final BlockState blockInfoState = info.getBlockInfo().getState();
         return !BlockUtils.isAnySolid(blockInfoState)
-                 || isDecoItem(blockInfoState.getBlock())
-                 || DONT_TOUCH_PREDICATE.test(info, pos, handler);
+            || isDecoItem(blockInfoState.getBlock())
+            || DONT_TOUCH_PREDICATE.test(info, pos, handler);
     }
 
     @Override
@@ -367,7 +367,7 @@ public class EntityAIQuarrier extends AbstractEntityAIStructureWithWorkOrder<Job
     {
         StructurePhasePlacementResult result;
         final WorkerLoadOnlyStructureHandler structure =
-          new WorkerLoadOnlyStructureHandler(world, structurePlacer.getB().getWorldPos(), structurePlacer.getB().getBluePrint(), new PlacementSettings(), true, this);
+            new WorkerLoadOnlyStructureHandler(world, structurePlacer.getB().getWorldPos(), structurePlacer.getB().getBluePrint(), new PlacementSettings(), true, this);
         job.getWorkOrder().setIteratorType("default");
 
         final LayerBlueprintIterator iterator = new LayerBlueprintIterator(job.getWorkOrder().getIteratorType(), structure);
@@ -396,13 +396,13 @@ public class EntityAIQuarrier extends AbstractEntityAIStructureWithWorkOrder<Job
         {
             case SOLID:
                 result = placer.executeStructureStep(world,
-                  null,
-                  requestProgress,
-                  StructurePlacer.Operation.GET_RES_REQUIREMENTS,
-                  () -> placer.getIterator()
-                          .decrement(DONT_TOUCH_PREDICATE.or((info, pos, handler) -> !BlockUtils.isAnySolid(info.getBlockInfo().getState())
-                                                                                       || isDecoItem(info.getBlockInfo().getState().getBlock()))),
-                  false);
+                    null,
+                    requestProgress,
+                    StructurePlacer.Operation.GET_RES_REQUIREMENTS,
+                    () -> placer.getIterator()
+                        .decrement(DONT_TOUCH_PREDICATE.or((info, pos, handler) -> !BlockUtils.isAnySolid(info.getBlockInfo().getState())
+                            || isDecoItem(info.getBlockInfo().getState().getBlock()))),
+                    false);
 
                 for (final ItemStack stack : result.getBlockResult().getRequiredItems())
                 {
@@ -434,14 +434,14 @@ public class EntityAIQuarrier extends AbstractEntityAIStructureWithWorkOrder<Job
                 return false;
             case DECO:
                 result = placer.executeStructureStep(world,
-                  null,
-                  requestProgress,
-                  StructurePlacer.Operation.GET_RES_REQUIREMENTS,
-                  () -> placer.getIterator()
-                          .increment(DONT_TOUCH_PREDICATE.or((info, pos, handler) -> BlockUtils.isAnySolid(info.getBlockInfo().getState()) && !isDecoItem(info.getBlockInfo()
-                                                                                                                                                            .getState()
-                                                                                                                                                            .getBlock()))),
-                  false);
+                    null,
+                    requestProgress,
+                    StructurePlacer.Operation.GET_RES_REQUIREMENTS,
+                    () -> placer.getIterator()
+                        .increment(DONT_TOUCH_PREDICATE.or((info, pos, handler) -> BlockUtils.isAnySolid(info.getBlockInfo().getState()) && !isDecoItem(info.getBlockInfo()
+                            .getState()
+                            .getBlock()))),
+                    false);
 
                 for (final ItemStack stack : result.getBlockResult().getRequiredItems())
                 {

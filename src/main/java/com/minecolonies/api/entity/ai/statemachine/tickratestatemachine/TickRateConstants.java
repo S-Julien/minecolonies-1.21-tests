@@ -13,7 +13,7 @@ public class TickRateConstants
     /**
      * The max delay one can set upon AITarget creation
      */
-    public static final int MAX_AI_TICKRATE = 20*60*10;
+    public static final int MAX_AI_TICKRATE = 20 * 60 * 10;
 
     /**
      * Maximum of the random offset for AI Ticks, to not activate on the same tick.

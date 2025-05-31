@@ -20,7 +20,8 @@ public class DmanJobView extends DefaultJobView
 
     /**
      * Instantiate the dman job view.
-     * @param iColonyView the colony it belongs to.
+     *
+     * @param iColonyView      the colony it belongs to.
      * @param iCitizenDataView the citizen it belongs to.
      */
     public DmanJobView(final IColonyView iColonyView, final ICitizenDataView iCitizenDataView)
@@ -43,13 +44,14 @@ public class DmanJobView extends DefaultJobView
     public IRequestSystemDeliveryManJobDataStore getDataStore()
     {
         return getColonyView()
-                 .getRequestManager()
-                 .getDataStoreManager()
-                 .get(rsDataStoreToken, TypeConstants.REQUEST_SYSTEM_DELIVERY_MAN_JOB_DATA_STORE);
+            .getRequestManager()
+            .getDataStoreManager()
+            .get(rsDataStoreToken, TypeConstants.REQUEST_SYSTEM_DELIVERY_MAN_JOB_DATA_STORE);
     }
 
     /**
      * Get the data store token assigned to it.
+     *
      * @return the token.
      */
     public IToken<?> getRsDataStoreToken()

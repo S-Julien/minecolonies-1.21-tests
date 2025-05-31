@@ -53,9 +53,9 @@ public class CommandTrackType implements IMCOPCommand
     public LiteralArgumentBuilder<CommandSourceStack> build()
     {
         return IMCCommand.newLiteral(getName())
-                 .then(IMCCommand.newArgument("pathjobname", StringArgumentType.word()).suggests((context, builder) -> {
-                     builder.suggest("clear");
-                     return builder.buildFuture();
-                 }).executes(this::checkPreConditionAndExecute));
+            .then(IMCCommand.newArgument("pathjobname", StringArgumentType.word()).suggests((context, builder) -> {
+                builder.suggest("clear");
+                return builder.buildFuture();
+            }).executes(this::checkPreConditionAndExecute));
     }
 }

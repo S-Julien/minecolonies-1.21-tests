@@ -19,7 +19,8 @@ public interface IRangedMobEntity extends Enemy
 
     /**
      * If the shooter penetrates fluids.
+     *
      * @return true if so.
      */
-    default boolean penetrateFluids() { return true; }
+    default boolean penetrateFluids() {return true;}
 }

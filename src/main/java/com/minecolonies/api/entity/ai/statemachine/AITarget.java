@@ -23,10 +23,10 @@ public class AITarget<S extends IState> extends TickingTransition<S>
      * @param tickRate  the tick rate.
      */
     public AITarget(
-      @NotNull final S state,
-      @NotNull final BooleanSupplier predicate,
-      @NotNull final Supplier<S> action,
-      final int tickRate)
+        @NotNull final S state,
+        @NotNull final BooleanSupplier predicate,
+        @NotNull final Supplier<S> action,
+        final int tickRate)
     {
         super(state, predicate, action, tickRate);
     }
@@ -39,9 +39,9 @@ public class AITarget<S extends IState> extends TickingTransition<S>
      * @param tickRate  the tick rate.
      */
     protected AITarget(
-      @NotNull final BooleanSupplier predicate,
-      @NotNull final Supplier<S> action,
-      final int tickRate)
+        @NotNull final BooleanSupplier predicate,
+        @NotNull final Supplier<S> action,
+        final int tickRate)
     {
         super(predicate, action, tickRate);
     }

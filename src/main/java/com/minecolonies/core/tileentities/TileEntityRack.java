@@ -104,15 +104,15 @@ public class TileEntityRack extends AbstractTileEntityRack implements IMateriall
         .add(new ResourceLocation("block/blue_wool")).build();
 
     private static final List<ResourceLocation> secondarytextureMapping = ImmutableList.<ResourceLocation>builder()
-                                                                            .add(new ResourceLocation("block/oak_log"))
-                                                                            .add(new ResourceLocation("block/spruce_log"))
-                                                                            .add(new ResourceLocation("block/birch_log"))
-                                                                            .add(new ResourceLocation("block/jungle_log"))
-                                                                            .add(new ResourceLocation("block/acacia_log"))
-                                                                            .add(new ResourceLocation("block/dark_oak_log"))
-                                                                            .add(new ResourceLocation("block/mangrove_log"))
-                                                                            .add(new ResourceLocation("block/crimson_stem"))
-                                                                            .build();
+        .add(new ResourceLocation("block/oak_log"))
+        .add(new ResourceLocation("block/spruce_log"))
+        .add(new ResourceLocation("block/birch_log"))
+        .add(new ResourceLocation("block/jungle_log"))
+        .add(new ResourceLocation("block/acacia_log"))
+        .add(new ResourceLocation("block/dark_oak_log"))
+        .add(new ResourceLocation("block/mangrove_log"))
+        .add(new ResourceLocation("block/crimson_stem"))
+        .build();
 
     /**
      * Cached resmap.
@@ -126,8 +126,9 @@ public class TileEntityRack extends AbstractTileEntityRack implements IMateriall
 
     /**
      * Create a new rack.
-     * @param type the specific block entity type.
-     * @param pos the position.
+     *
+     * @param type  the specific block entity type.
+     * @param pos   the position.
      * @param state its state.
      */
     public TileEntityRack(final BlockEntityType<? extends TileEntityRack> type, final BlockPos pos, final BlockState state)
@@ -138,10 +139,11 @@ public class TileEntityRack extends AbstractTileEntityRack implements IMateriall
 
     /**
      * Create a rack with a specific inventory size.
-     * @param type the specific block entity type.
-     * @param pos the position.
+     *
+     * @param type  the specific block entity type.
+     * @param pos   the position.
      * @param state its state.
-     * @param size the ack size.
+     * @param size  the ack size.
      */
     public TileEntityRack(final BlockEntityType<? extends TileEntityRack> type, final BlockPos pos, final BlockState state, final int size)
     {
@@ -152,7 +154,8 @@ public class TileEntityRack extends AbstractTileEntityRack implements IMateriall
 
     /**
      * Create a new default rack.
-     * @param pos the position.
+     *
+     * @param pos   the position.
      * @param state its state.
      */
     public TileEntityRack(final BlockPos pos, final BlockState state)
@@ -315,16 +318,16 @@ public class TileEntityRack extends AbstractTileEntityRack implements IMateriall
                 if ((beforeEmpty && !afterEmpty) || (!beforeEmpty && afterEmpty))
                 {
                     level.setBlockAndUpdate(getBlockPos(),
-                      getBlockState().setValue(AbstractBlockMinecoloniesRack.VARIANT,
-                        getBlockState().getValue(AbstractBlockMinecoloniesRack.VARIANT).getInvBasedVariant(afterEmpty)));
+                        getBlockState().setValue(AbstractBlockMinecoloniesRack.VARIANT,
+                            getBlockState().getValue(AbstractBlockMinecoloniesRack.VARIANT).getInvBasedVariant(afterEmpty)));
 
 
                     if (potentialNeighbor != null)
                     {
                         level.setBlockAndUpdate(potentialNeighbor.getBlockPos(),
-                          potentialNeighbor.getBlockState()
-                            .setValue(AbstractBlockMinecoloniesRack.VARIANT,
-                              potentialNeighbor.getBlockState().getValue(AbstractBlockMinecoloniesRack.VARIANT).getInvBasedVariant(afterEmpty)));
+                            potentialNeighbor.getBlockState()
+                                .setValue(AbstractBlockMinecoloniesRack.VARIANT,
+                                    potentialNeighbor.getBlockState().getValue(AbstractBlockMinecoloniesRack.VARIANT).getInvBasedVariant(afterEmpty)));
                     }
                 }
             }
@@ -558,7 +561,6 @@ public class TileEntityRack extends AbstractTileEntityRack implements IMateriall
         return super.getCapability(capability, dir);
     }
 
-
     @Override
     public int getUpgradeSize()
     {
@@ -702,8 +704,8 @@ public class TileEntityRack extends AbstractTileEntityRack implements IMateriall
                 resMap.put(resLoc, block);
 
                 if (this.textureDataCache == null
-                      || !this.textureDataCache.getTexturedComponents().getOrDefault(resLoc, Blocks.BEDROCK).equals(resMap.get(resLoc))
-                      || !this.textureDataCache.getTexturedComponents().getOrDefault(secondaryResLoc, Blocks.BEDROCK).equals(resMap.get(secondaryResLoc)))
+                    || !this.textureDataCache.getTexturedComponents().getOrDefault(resLoc, Blocks.BEDROCK).equals(resMap.get(resLoc))
+                    || !this.textureDataCache.getTexturedComponents().getOrDefault(secondaryResLoc, Blocks.BEDROCK).equals(resMap.get(secondaryResLoc)))
                 {
                     update = true;
                 }
@@ -740,8 +742,8 @@ public class TileEntityRack extends AbstractTileEntityRack implements IMateriall
             resMap.put(resLoc, block);
 
             if (this.textureDataCache == null
-                  || !this.textureDataCache.getTexturedComponents().getOrDefault(resLoc, Blocks.BEDROCK).equals(resMap.get(resLoc))
-                  || !this.textureDataCache.getTexturedComponents().getOrDefault(secondaryResLoc, Blocks.BEDROCK).equals(resMap.get(secondaryResLoc)))
+                || !this.textureDataCache.getTexturedComponents().getOrDefault(resLoc, Blocks.BEDROCK).equals(resMap.get(resLoc))
+                || !this.textureDataCache.getTexturedComponents().getOrDefault(secondaryResLoc, Blocks.BEDROCK).equals(resMap.get(secondaryResLoc)))
             {
                 update = true;
             }
@@ -769,8 +771,8 @@ public class TileEntityRack extends AbstractTileEntityRack implements IMateriall
         }
 
         return ModelData.builder()
-                 .with(ModProperties.MATERIAL_TEXTURE_PROPERTY, textureDataCache)
-                 .build();
+            .with(ModProperties.MATERIAL_TEXTURE_PROPERTY, textureDataCache)
+            .build();
     }
 
     @Override

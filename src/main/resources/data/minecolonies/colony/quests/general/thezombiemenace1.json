@@ -68,7 +68,10 @@
       }
     },
     {
-      "unlocks-rewards": [0, 1],
+      "unlocks-rewards": [
+        0,
+        1
+      ],
       "type": "minecolonies:dialogue",
       "target": 0,
       "text": "You did it! We're safe for now. Here's your reward.",

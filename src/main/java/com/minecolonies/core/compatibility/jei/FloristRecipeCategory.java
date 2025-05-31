@@ -36,7 +36,7 @@ public class FloristRecipeCategory extends JobBasedRecipeCategory<FloristRecipeC
     public FloristRecipeCategory(@NotNull final IGuiHelper guiHelper)
     {
         super(ModJobs.florist.get().produceJob(null), ModRecipeTypes.FLOWERS,
-                new ItemStack(ModBuildings.florist.get().getBuildingBlock()), guiHelper);
+            new ItemStack(ModBuildings.florist.get().getBuildingBlock()), guiHelper);
     }
 
     private static final int LOOT_SLOTS_X = CITIZEN_X + CITIZEN_W + 4;
@@ -48,19 +48,20 @@ public class FloristRecipeCategory extends JobBasedRecipeCategory<FloristRecipeC
     protected List<Component> generateInfoBlocks(@NotNull final FloristRecipeCategory.FloristRecipe recipe)
     {
         return Collections.singletonList(
-                Component.translatable(PARTIAL_JEI_INFO + "onelevelrestriction",
-                        recipe.level()));
+            Component.translatable(PARTIAL_JEI_INFO + "onelevelrestriction",
+                recipe.level()));
     }
 
     @Override
-    public void setRecipe(@NotNull final IRecipeLayoutBuilder builder,
-                          @NotNull final FloristRecipeCategory.FloristRecipe recipe,
-                          @NotNull final IFocusGroup focuses)
+    public void setRecipe(
+        @NotNull final IRecipeLayoutBuilder builder,
+        @NotNull final FloristRecipeCategory.FloristRecipe recipe,
+        @NotNull final IFocusGroup focuses)
     {
         builder.addSlot(RecipeIngredientRole.CATALYST, WIDTH - 18, CITIZEN_Y - 20)
-                .setSlotName("compost")
-                .setBackground(this.slot, -1, -1)
-                .addItemStack(new ItemStack(ModItems.compost));
+            .setSlotName("compost")
+            .setBackground(this.slot, -1, -1)
+            .addItemStack(new ItemStack(ModItems.compost));
 
         final int initialColumns = LOOT_SLOTS_W / this.slot.getWidth();
         final int rows = (recipe.flowers().size() + initialColumns - 1) / initialColumns;
@@ -73,8 +74,8 @@ public class FloristRecipeCategory extends JobBasedRecipeCategory<FloristRecipeC
         for (final List<ItemStack> flowers : recipe.flowers())
         {
             builder.addSlot(RecipeIngredientRole.OUTPUT, x, y)
-                    .setBackground(this.chanceSlot, -1, -1)
-                    .addItemStacks(flowers);
+                .setBackground(this.chanceSlot, -1, -1)
+                .addItemStacks(flowers);
             if (++c >= columns)
             {
                 c = 0;
@@ -89,10 +90,11 @@ public class FloristRecipeCategory extends JobBasedRecipeCategory<FloristRecipeC
     }
 
     @Override
-    public void draw(@NotNull final FloristRecipeCategory.FloristRecipe recipe,
-                     @NotNull final IRecipeSlotsView recipeSlotsView,
-                     @NotNull final GuiGraphics stack,
-                     final double mouseX, final double mouseY)
+    public void draw(
+        @NotNull final FloristRecipeCategory.FloristRecipe recipe,
+        @NotNull final IRecipeSlotsView recipeSlotsView,
+        @NotNull final GuiGraphics stack,
+        final double mouseX, final double mouseY)
     {
         super.draw(recipe, recipeSlotsView, stack, mouseX, mouseY);
 
@@ -155,10 +157,13 @@ public class FloristRecipeCategory extends JobBasedRecipeCategory<FloristRecipeC
 
     /**
      * Represents the flowers available at the specified level.
+     *
      * @param level   the building level.
      * @param flowers the flowers available at that level, grouped into display slots.
      */
-    public record FloristRecipe(int level, @NotNull List<List<ItemStack>> flowers)
+    public record FloristRecipe(
+        int level,
+        @NotNull List<List<ItemStack>> flowers)
     {
     }
 }

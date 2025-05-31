@@ -14,6 +14,7 @@ public interface OptionalPredicate<T>
 {
     /**
      * Evaluates this predicate on the given argument.
+     *
      * @param t the input argument
      * @return true, false, or empty
      */
@@ -22,49 +23,53 @@ public interface OptionalPredicate<T>
 
     /**
      * A predicate that always returns empty.
+     *
      * @param <T> the input type
      * @return empty
      */
     @NotNull
-    static<T> OptionalPredicate<T> empty()
+    static <T> OptionalPredicate<T> empty()
     {
         return t -> Optional.empty();
     }
 
     /**
      * Creates a non-empty optional predicate.
+     *
      * @param predicate the input predicate
-     * @param <T> the input type
+     * @param <T>       the input type
      * @return a non-empty optional predicate
      */
     @NotNull
-    static<T> OptionalPredicate<T> of(@NotNull final Predicate<T> predicate)
+    static <T> OptionalPredicate<T> of(@NotNull final Predicate<T> predicate)
     {
         return t -> Optional.of(predicate.test(t));
     }
 
     /**
      * Convert the given predicate into an optional success.
+     *
      * @param predicate the input predicate
+     * @param <T>       the input type
      * @return a predicate which returns true if the input predicate returns true,
      * or empty if the input predicate returns false.
-     * @param <T> the input type
      */
     @NotNull
-    static<T> OptionalPredicate<T> passIf(@NotNull final Predicate<T> predicate)
+    static <T> OptionalPredicate<T> passIf(@NotNull final Predicate<T> predicate)
     {
         return t -> predicate.test(t) ? Optional.of(true) : Optional.empty();
     }
 
     /**
      * Convert the given predicate into an optional failure.
+     *
      * @param predicate the input predicate
+     * @param <T>       the input type
      * @return a predicate which returns false if the input predicate returns true,
      * or empty if the input predicate returns false.
-     * @param <T> the input type
      */
     @NotNull
-    static<T> OptionalPredicate<T> failIf(@NotNull final Predicate<T> predicate)
+    static <T> OptionalPredicate<T> failIf(@NotNull final Predicate<T> predicate)
     {
         return t -> predicate.test(t) ? Optional.of(false) : Optional.empty();
     }
@@ -103,10 +108,10 @@ public interface OptionalPredicate<T>
      * @param a   the first optional value
      * @param b   a supplier to calculate the second optional value
      * @param <X> the value type
-     * @return    the first value, if present; otherwise calculates and returns the second value
+     * @return the first value, if present; otherwise calculates and returns the second value
      */
     @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-    static<X> Optional<X> combine(@NotNull Optional<X> a, @NotNull Supplier<Optional<X>> b)
+    static <X> Optional<X> combine(@NotNull Optional<X> a, @NotNull Supplier<Optional<X>> b)
     {
         return a.isPresent() ? a : b.get();
     }
@@ -125,10 +130,10 @@ public interface OptionalPredicate<T>
 
     /**
      * Performs the logical AND on two optional predicates, such that:
-     *  - if both sides are empty, the result is empty
-     *  - if one side is empty, the result is the other side
-     *  - if both sides are non-empty, the result is the logical AND
-     *  - if the left side is false, the right side is not evaluated (short circuit)
+     * - if both sides are empty, the result is empty
+     * - if one side is empty, the result is the other side
+     * - if both sides are non-empty, the result is the logical AND
+     * - if the left side is false, the right side is not evaluated (short circuit)
      *
      * @param other the other optional predicate
      * @return the logical AND of both predicates
@@ -150,10 +155,10 @@ public interface OptionalPredicate<T>
 
     /**
      * Performs the logical OR on two optional predicates, such that:
-     *  - if both sides are empty, the result is empty
-     *  - if one side is empty, the result is the other side
-     *  - if both sides are non-empty, the result is the logical OR
-     *  - if the left side is true, the right side is not evaluated (short circuit)
+     * - if both sides are empty, the result is empty
+     * - if one side is empty, the result is the other side
+     * - if both sides are non-empty, the result is the logical OR
+     * - if the left side is true, the right side is not evaluated (short circuit)
      *
      * @param other the other optional predicate
      * @return the logical OR of both predicates

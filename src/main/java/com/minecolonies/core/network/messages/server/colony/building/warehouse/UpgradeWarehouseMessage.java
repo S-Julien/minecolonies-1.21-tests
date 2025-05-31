@@ -57,8 +57,8 @@ public class UpgradeWarehouseMessage extends AbstractBuildingServerMessage<Build
         if (!isCreative)
         {
             final int slot = InventoryUtils.
-                                             findFirstSlotInItemHandlerWith(new InvWrapper(player.getInventory()),
-                                               itemStack -> ItemStack.isSameItem(itemStack, new ItemStack(Blocks.EMERALD_BLOCK)));
+                findFirstSlotInItemHandlerWith(new InvWrapper(player.getInventory()),
+                    itemStack -> ItemStack.isSameItem(itemStack, new ItemStack(Blocks.EMERALD_BLOCK)));
             player.getInventory().removeItem(slot, 1);
         }
     }

@@ -98,12 +98,12 @@ public abstract class AbstractWindowWorkerModuleBuilding<B extends IBuildingView
         if (prio == 0)
         {
             component = Component.translatable(TEXT_PICKUP_PRIORITY)
-              .append(Component.translatable(TEXT_PICKUP_PRIORITY_NEVER));
+                .append(Component.translatable(TEXT_PICKUP_PRIORITY_NEVER));
         }
         else
         {
             component = Component.translatable(TEXT_PICKUP_PRIORITY)
-              .append(Component.literal(prio + "/10"));
+                .append(Component.literal(prio + "/10"));
         }
         findPaneOfTypeByID(LABEL_PRIO_VALUE, Text.class).setText(component);
     }
@@ -190,7 +190,7 @@ public abstract class AbstractWindowWorkerModuleBuilding<B extends IBuildingView
                     if (worker != null)
                     {
                         rowPane.findPaneOfTypeByID(LABEL_WORKERNAME, Text.class)
-                          .setText(Component.literal(Component.translatable(workers.get(index).getA()).getString() + ": " + worker.getName()));
+                            .setText(Component.literal(Component.translatable(workers.get(index).getA()).getString() + ": " + worker.getName()));
                     }
                 }
             });

@@ -64,7 +64,10 @@ public class EventListener
     @SubscribeEvent(priority = EventPriority.LOW)
     public void onChunkLoaded(@NotNull final ChunkEvent.Load event)
     {
-        if (!event.getLevel().isClientSide()) return;
+        if (!event.getLevel().isClientSide())
+        {
+            return;
+        }
 
         if (event.getLevel() instanceof Level)
         {
@@ -118,16 +121,16 @@ public class EventListener
                 final IJob<?> job = jobEntry == null ? null : jobEntry.produceJob(null);
 
                 if (job instanceof AbstractJobGuard
-                        ? !JourneymapOptions.getShowGuards(this.jmap.getOptions())
-                        : !JourneymapOptions.getShowCitizens(this.jmap.getOptions()))
+                    ? !JourneymapOptions.getShowGuards(this.jmap.getOptions())
+                    : !JourneymapOptions.getShowCitizens(this.jmap.getOptions()))
                 {
                     wrapper.setDisable(true);
                     return;
                 }
 
                 jobName = Component.translatable(jobEntry == null
-                        ? PARTIAL_JOURNEY_MAP_INFO + "unemployed"
-                        : jobEntry.getTranslationKey());
+                    ? PARTIAL_JOURNEY_MAP_INFO + "unemployed"
+                    : jobEntry.getTranslationKey());
             }
 
             if (JourneymapOptions.getShowColonistTooltip(this.jmap.getOptions()))
@@ -140,8 +143,8 @@ public class EventListener
             }
 
             final boolean showName = event.getActiveUiState().ui.equals(Context.UI.Minimap)
-                    ? JourneymapOptions.getShowColonistNameMinimap(this.jmap.getOptions())
-                    : JourneymapOptions.getShowColonistNameFullscreen(this.jmap.getOptions());
+                ? JourneymapOptions.getShowColonistNameMinimap(this.jmap.getOptions())
+                : JourneymapOptions.getShowColonistNameFullscreen(this.jmap.getOptions());
 
             if (!showName)
             {
@@ -171,7 +174,10 @@ public class EventListener
     @SubscribeEvent(priority = EventPriority.LOW)
     public void onClientTick(@NotNull final TickEvent.ClientTickEvent event)
     {
-        if (event.phase != TickEvent.Phase.END) return;
+        if (event.phase != TickEvent.Phase.END)
+        {
+            return;
+        }
 
         final Level world = Minecraft.getInstance().level;
         if (world != null)

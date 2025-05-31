@@ -38,6 +38,7 @@ public class BuildingStatisticsModule extends AbstractBuildingModule implements 
 
     /**
      * Get the statistic manager of the building.
+     *
      * @return the manager.
      */
     public IStatisticsManager getBuildingStatisticsManager()
@@ -47,20 +48,22 @@ public class BuildingStatisticsModule extends AbstractBuildingModule implements 
 
     /**
      * Helper method for incrementation of the stats.
+     *
      * @param s the stat id to increment.
      */
     public void increment(final String s)
     {
-       statisticsManager.increment(s, building.getColony().getDay());
-       if (MathUtils.RANDOM.nextInt(10) == 0)
-       {
-           markDirty();
-       }
+        statisticsManager.increment(s, building.getColony().getDay());
+        if (MathUtils.RANDOM.nextInt(10) == 0)
+        {
+            markDirty();
+        }
     }
 
     /**
      * Helper method for incrementation of the stats by a count.
-     * @param s the stat id to increment.
+     *
+     * @param s     the stat id to increment.
      * @param count the count to increment it by.
      */
     public void incrementBy(final String s, final int count)

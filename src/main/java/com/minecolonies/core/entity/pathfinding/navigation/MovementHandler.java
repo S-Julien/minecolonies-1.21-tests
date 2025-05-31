@@ -79,9 +79,9 @@ public class MovementHandler extends MoveControl
 
             final NodeEvaluator nodeprocessor = pathnavigator.getNodeEvaluator();
             if (nodeprocessor.getBlockPathType(this.mob.level,
-              Mth.floor(this.mob.getX() + (double) rot1),
-              Mth.floor(this.mob.getY()),
-              Mth.floor(this.mob.getZ() + (double) rot2)) != BlockPathTypes.WALKABLE)
+                Mth.floor(this.mob.getX() + (double) rot1),
+                Mth.floor(this.mob.getY()),
+                Mth.floor(this.mob.getZ() + (double) rot2)) != BlockPathTypes.WALKABLE)
             {
                 this.strafeForwards = 1.0F;
                 this.strafeRight = 0.0F;
@@ -113,7 +113,7 @@ public class MovementHandler extends MoveControl
             final BlockState blockstate = this.mob.level.getBlockState(blockpos);
 
             if (PathfindingUtils.isWater(mob.level, mob.blockPosition(), blockstate, blockstate.getFluidState())
-                  && PathfindingUtils.isWater(mob.level, mob.blockPosition().above(), null, null))
+                && PathfindingUtils.isWater(mob.level, mob.blockPosition().above(), null, null))
             {
                 if (yDif != 0.0D)
                 {
@@ -127,10 +127,10 @@ public class MovementHandler extends MoveControl
             final Block block = blockstate.getBlock();
             final VoxelShape voxelshape = blockstate.getCollisionShape(this.mob.level, blockpos);
             if ((yDif > (double) stepHeight && xDif * xDif + zDif * zDif < (double) Math.max(1.0F, this.mob.getBbWidth()))
-                  || (!ShapeUtil.isEmpty(voxelshape) && this.mob.getY() < ShapeUtil.max(voxelshape, Direction.Axis.Y) + (double) blockpos.getY() && !blockstate.is(BlockTags.DOORS)
-                        && !blockstate.is(
-              BlockTags.FENCES) && !blockstate.is(BlockTags.FENCE_GATES))
-                       && !block.isLadder(blockstate, this.mob.level, blockpos, this.mob))
+                || (!ShapeUtil.isEmpty(voxelshape) && this.mob.getY() < ShapeUtil.max(voxelshape, Direction.Axis.Y) + (double) blockpos.getY() && !blockstate.is(BlockTags.DOORS)
+                && !blockstate.is(
+                BlockTags.FENCES) && !blockstate.is(BlockTags.FENCE_GATES))
+                && !block.isLadder(blockstate, this.mob.level, blockpos, this.mob))
             {
                 this.mob.getJumpControl().jump();
                 this.operation = net.minecraft.world.entity.ai.control.MoveControl.Operation.JUMPING;

@@ -11,9 +11,10 @@ public interface ITickable
 {
     /**
      * Tick the tickable with parameters.
+     *
      * @param level the world its ticking in.
      * @param state its state.
-     * @param pos the position its ticking at.
+     * @param pos   the position its ticking at.
      */
     default void tick(final Level level, final BlockState state, final BlockPos pos)
     {

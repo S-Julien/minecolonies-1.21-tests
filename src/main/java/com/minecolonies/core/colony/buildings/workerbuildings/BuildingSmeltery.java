@@ -64,8 +64,8 @@ public class BuildingSmeltery extends AbstractBuilding
         super(c, l);
         keepX.put(IColonyManager.getInstance().getCompatibilityManager()::isOre, new Tuple<>(Integer.MAX_VALUE, true));
         keepX.put(stack -> !ItemStackUtils.isEmpty(stack)
-                             && (stack.getItem() instanceof SwordItem || stack.getItem() instanceof DiggerItem || stack.getItem() instanceof ArmorItem)
-          , new Tuple<>(STUFF_TO_KEEP, true));
+                && (stack.getItem() instanceof SwordItem || stack.getItem() instanceof DiggerItem || stack.getItem() instanceof ArmorItem)
+            , new Tuple<>(STUFF_TO_KEEP, true));
     }
 
     @NotNull
@@ -127,10 +127,10 @@ public class BuildingSmeltery extends AbstractBuilding
         private static IGenericRecipe createSmeltingRecipe(final ItemStack input, final ItemStack output, final Block intermediate)
         {
             return GenericRecipe.builder()
-                    .withInputs(List.of(List.of(input)))
-                    .withOutput(output)
-                    .withIntermediate(intermediate)
-                    .build();
+                .withInputs(List.of(List.of(input)))
+                .withOutput(output)
+                .withIntermediate(intermediate)
+                .build();
         }
     }
 
@@ -177,9 +177,9 @@ public class BuildingSmeltery extends AbstractBuilding
             for (final Item input : ForgeRegistries.ITEMS.tags().getTag(ModTags.breakable_ore))
             {
                 recipes.add(GenericRecipe.builder()
-                        .withInputs(List.of(List.of(input.getDefaultInstance())))
-                        .withLootTable(getLootTable(input))
-                        .build());
+                    .withInputs(List.of(List.of(input.getDefaultInstance())))
+                    .withLootTable(getLootTable(input))
+                    .build());
             }
 
             return recipes;
@@ -203,10 +203,10 @@ public class BuildingSmeltery extends AbstractBuilding
                 }
 
                 final RecipeStorage tempRecipe = RecipeStorage.builder()
-                        .withInputs(Collections.singletonList(new ItemStorage(new ItemStack(input))))
-                        .withSecondaryOutputs(drops)
-                        .withLootTable(getLootTable(input))
-                        .build();
+                    .withInputs(Collections.singletonList(new ItemStorage(new ItemStack(input))))
+                    .withSecondaryOutputs(drops)
+                    .withLootTable(getLootTable(input))
+                    .build();
                 IToken<?> token = IColonyManager.getInstance().getRecipeManager().checkOrAddRecipe(tempRecipe);
                 this.addRecipeToList(token, false);
             }

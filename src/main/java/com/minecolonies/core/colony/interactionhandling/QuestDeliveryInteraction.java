@@ -28,7 +28,7 @@ public class QuestDeliveryInteraction extends QuestDialogueInteraction
     /**
      * Two icon options.
      */
-    private static final ResourceLocation QUEST_START_ICON = new ResourceLocation(Constants.MOD_ID, "textures/icons/queststart.png");
+    private static final ResourceLocation QUEST_START_ICON     = new ResourceLocation(Constants.MOD_ID, "textures/icons/queststart.png");
     private static final ResourceLocation QUEST_NEXT_TASK_ICON = new ResourceLocation(Constants.MOD_ID, "textures/icons/nexttask.png");
 
     public QuestDeliveryInteraction(final Component inquiry, final IChatPriority priority, final ResourceLocation location, final int index, final ICitizenData citizenData)
@@ -98,13 +98,23 @@ public class QuestDeliveryInteraction extends QuestDialogueInteraction
             final IQuestDialogueAnswer result = this.currentElement.getOptionResult(responseId);
             if (result instanceof IFinalQuestDialogueAnswer)
             {
-                Network.getNetwork().sendToServer(new InteractionResponse(data.getColonyId(), data.getId(), player.level.dimension(), Component.literal(colonyQuest.getId().toString()), responseId));
+                Network.getNetwork()
+                    .sendToServer(new InteractionResponse(data.getColonyId(),
+                        data.getId(),
+                        player.level.dimension(),
+                        Component.literal(colonyQuest.getId().toString()),
+                        responseId));
                 this.currentElement = this.startElement;
                 return true;
             }
             else if (result instanceof DialogueObjectiveTemplateTemplate.DialogueElement)
             {
-                Network.getNetwork().sendToServer(new InteractionResponse(data.getColonyId(), data.getId(), player.level.dimension(), Component.literal(colonyQuest.getId().toString()), responseId));
+                Network.getNetwork()
+                    .sendToServer(new InteractionResponse(data.getColonyId(),
+                        data.getId(),
+                        player.level.dimension(),
+                        Component.literal(colonyQuest.getId().toString()),
+                        responseId));
                 this.currentElement = (DialogueObjectiveTemplateTemplate.DialogueElement) result;
                 return false;
             }

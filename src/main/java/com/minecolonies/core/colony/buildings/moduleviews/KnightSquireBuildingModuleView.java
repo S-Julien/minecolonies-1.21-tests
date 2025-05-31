@@ -4,7 +4,7 @@ import com.minecolonies.api.colony.jobs.ModJobs;
 import com.minecolonies.api.colony.jobs.registry.JobEntry;
 
 /**
- *  Student module view.
+ * Student module view.
  */
 public class KnightSquireBuildingModuleView extends WorkerBuildingModuleView
 {

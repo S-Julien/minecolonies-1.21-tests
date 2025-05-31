@@ -65,19 +65,25 @@ public class DefaultBlockLootTableProvider extends SimpleLootTableProvider
         saveBlock(ModBlocks.blockIronGate, registrar);
         saveBlock(ModBlocks.blockWoodenGate, registrar);
         saveBlock(ModBlocks.blockCompostedDirt, registrar,
-          lootPool -> lootPool.add(AlternativesEntry.alternatives()
-                                     .otherwise(LootItem.lootTableItem(ModBlocks.blockCompostedDirt)
-                                                  .when(ModLootConditions.HAS_SILK_TOUCH))
-                                     .otherwise(LootItem.lootTableItem(Blocks.DIRT)
-                                                  .when(ExplosionCondition.survivesExplosion()))));
+            lootPool -> lootPool.add(AlternativesEntry.alternatives()
+                .otherwise(LootItem.lootTableItem(ModBlocks.blockCompostedDirt)
+                    .when(ModLootConditions.HAS_SILK_TOUCH))
+                .otherwise(LootItem.lootTableItem(Blocks.DIRT)
+                    .when(ExplosionCondition.survivesExplosion()))));
 
         saveBlock(ModBlocks.farmland, registrar, lootPool -> lootPool.add(AlternativesEntry.alternatives().otherwise(LootItem.lootTableItem(Blocks.DIRT))));
         saveBlock(ModBlocks.floodedFarmland, registrar, lootPool -> lootPool.add(AlternativesEntry.alternatives().otherwise(LootItem.lootTableItem(Blocks.DIRT))));
 
         for (Block block : ModBlocks.getCrops())
         {
-            final LootItemBlockStatePropertyCondition.Builder cropCondition = LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CropBlock.AGE, 6));
-            saveBlock(block, registrar, lootPool -> lootPool.add(LootItem.lootTableItem(block.asItem()).when(cropCondition).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714286F, 3)).otherwise(LootItem.lootTableItem(block.asItem()))));
+            final LootItemBlockStatePropertyCondition.Builder cropCondition =
+                LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CropBlock.AGE, 6));
+            saveBlock(block,
+                registrar,
+                lootPool -> lootPool.add(LootItem.lootTableItem(block.asItem())
+                    .when(cropCondition)
+                    .apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714286F, 3))
+                    .otherwise(LootItem.lootTableItem(block.asItem()))));
         }
 
         // intentionally no drops -- creative only
@@ -143,7 +149,7 @@ public class DefaultBlockLootTableProvider extends SimpleLootTableProvider
         if (location != null)
         {
             final ResourceLocation id = new ResourceLocation(location.getNamespace(),
-              "blocks/" + location.getPath());
+                "blocks/" + location.getPath());
 
             final Builder lootPoolbuilder = LootPool.lootPool();
             lootPoolConfigurer.accept(lootPoolbuilder);
@@ -157,12 +163,12 @@ public class DefaultBlockLootTableProvider extends SimpleLootTableProvider
         if (location != null)
         {
             registrar.register(new ResourceLocation(location.getNamespace(), "blocks/" + location.getPath()), LootContextParamSets.BLOCK,
-              LootTable.lootTable().withPool(LootPool.lootPool()
-                                               .add(LootItem.lootTableItem(block))
-                                               .apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY))
-                                               .apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("Patterns", "BlockEntityTag.Patterns").copy("id", "BlockEntityTag.id"))
-                                               .when(ExplosionCondition.survivesExplosion())
-              ));
+                LootTable.lootTable().withPool(LootPool.lootPool()
+                    .add(LootItem.lootTableItem(block))
+                    .apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY))
+                    .apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("Patterns", "BlockEntityTag.Patterns").copy("id", "BlockEntityTag.id"))
+                    .when(ExplosionCondition.survivesExplosion())
+                ));
         }
     }
 }

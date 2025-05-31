@@ -39,10 +39,10 @@ public abstract class PercentageHarvestPlantModule extends AbstractPlantationMod
      * @param item     the item which is harvested.
      */
     protected PercentageHarvestPlantModule(
-      final IBuildingExtension field,
-      final String fieldTag,
-      final String workTag,
-      final Item item)
+        final IBuildingExtension field,
+        final String fieldTag,
+        final String workTag,
+        final Item item)
     {
         super(field, fieldTag, workTag, item);
     }
@@ -54,14 +54,14 @@ public abstract class PercentageHarvestPlantModule extends AbstractPlantationMod
         return switch (action)
         {
             case HARVEST -> new PlantationModuleResult.Builder()
-                              .harvest(workingPosition)
-                              .pickNewPosition();
+                .harvest(workingPosition)
+                .pickNewPosition();
             case PLANT -> new PlantationModuleResult.Builder()
-                            .plant(workingPosition)
-                            .pickNewPosition();
+                .plant(workingPosition)
+                .pickNewPosition();
             case CLEAR -> new PlantationModuleResult.Builder()
-                            .clear(workingPosition)
-                            .pickNewPosition();
+                .clear(workingPosition)
+                .pickNewPosition();
             default -> PlantationModuleResult.NONE;
         };
     }
@@ -152,21 +152,21 @@ public abstract class PercentageHarvestPlantModule extends AbstractPlantationMod
         {
             // We want to prevent putting "harvestable" blocks next to one another as much as possible.
             Set<BlockPos> excludedPositions = harvestablePositions.stream()
-                                                .flatMap(f -> Stream.of(f, f.above(), f.below(), f.north(), f.south(), f.west(), f.east()))
-                                                .collect(Collectors.toSet());
+                .flatMap(f -> Stream.of(f, f.above(), f.below(), f.north(), f.south(), f.west(), f.east()))
+                .collect(Collectors.toSet());
             return workingPositions.stream()
-                     .filter(f -> !excludedPositions.contains(f))
-                     .findFirst()
-                     .orElse(null);
+                .filter(f -> !excludedPositions.contains(f))
+                .findFirst()
+                .orElse(null);
         }
         else if (minimumPlantCount < harvestablePositions.size())
         {
             Set<BlockPos> duplicateLocator = new HashSet<>();
             return harvestablePositions.stream()
-                     .flatMap(f -> Stream.of(f, f.above(), f.below(), f.north(), f.south(), f.west(), f.east()))
-                     .filter(f -> !duplicateLocator.add(f))
-                     .findFirst()
-                     .orElse(harvestablePositions.get(0));
+                .flatMap(f -> Stream.of(f, f.above(), f.below(), f.north(), f.south(), f.west(), f.east()))
+                .filter(f -> !duplicateLocator.add(f))
+                .findFirst()
+                .orElse(harvestablePositions.get(0));
         }
 
         return null;
@@ -196,8 +196,8 @@ public abstract class PercentageHarvestPlantModule extends AbstractPlantationMod
     public BlockPos getPositionToWalkTo(final Level world, final BlockPos workingPosition)
     {
         return Stream.of(workingPosition.north(), workingPosition.south(), workingPosition.west(), workingPosition.east())
-                 .filter(pos -> world.getBlockState(pos).isAir())
-                 .findFirst()
-                 .orElse(workingPosition);
+            .filter(pos -> world.getBlockState(pos).isAir())
+            .findFirst()
+            .orElse(workingPosition);
     }
 }

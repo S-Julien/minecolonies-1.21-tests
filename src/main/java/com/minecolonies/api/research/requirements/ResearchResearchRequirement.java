@@ -18,15 +18,15 @@ public class ResearchResearchRequirement implements IResearchRequirement
     /**
      * The property name for a non-parent research requirement.
      */
-    public static final String RESEARCH_REQUIRED_RESEARCH_PROP = "research";
+    public static final  String           RESEARCH_REQUIRED_RESEARCH_PROP = "research";
     /**
      * The nbtProperty identifying the research resource location which must be unlocked.
      */
-    private static final String TAG_ID = "id";
+    private static final String           TAG_ID                          = "id";
     /**
      * The research id.
      */
-    private final ResourceLocation researchId;
+    private final        ResourceLocation researchId;
 
     /**
      * Create research based research requirement.

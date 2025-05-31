@@ -101,10 +101,10 @@ public class SplitPacketMessage implements IMessage
             //No need to sync again, since we are now the last packet to arrive.
             //All data gets sorted and appended.
             final byte[] packetData = Network.getNetwork().getMessageCache().get(this.communicationId, Maps::newConcurrentMap).entrySet()
-                                        .stream()
-                                        .sorted(Map.Entry.comparingByKey())
-                                        .map(Map.Entry::getValue)
-              .reduce(new byte[0], Bytes::concat);
+                .stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(Map.Entry::getValue)
+                .reduce(new byte[0], Bytes::concat);
 
             //Grab the entry from the inner message id.
             final NetworkChannel.NetworkingMessageEntry<?> messageEntry = Network.getNetwork().getMessagesTypes().get(this.innerMessageId);
@@ -143,7 +143,7 @@ public class SplitPacketMessage implements IMessage
                 }
                 catch (Exception e)
                 {
-                    Log.getLogger().error("Packet error:" ,e);
+                    Log.getLogger().error("Packet error:", e);
                 }
             });
         }

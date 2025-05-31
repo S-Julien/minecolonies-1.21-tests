@@ -25,6 +25,7 @@ public interface IHasRequiredItemsModule extends IBuildingModule
 
     /**
      * Calculate the number of reserved stacks the resolver can't touch.
+     *
      * @return a list of itemstorages.
      */
     default Map<ItemStorage, Integer> reservedStacks()
@@ -34,6 +35,7 @@ public interface IHasRequiredItemsModule extends IBuildingModule
 
     /**
      * Calculate the number of reserved stacks the resolver can't touch.
+     *
      * @param excluded ignore reservations that would exist for the current request.
      * @return a list of itemstorages.
      */

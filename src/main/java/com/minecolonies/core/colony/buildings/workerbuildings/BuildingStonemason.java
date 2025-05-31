@@ -67,13 +67,16 @@ public class BuildingStonemason extends AbstractBuilding
         public OptionalPredicate<ItemStack> getIngredientValidator()
         {
             return CraftingUtils.getIngredientValidatorBasedOnTags(CRAFTING_STONEMASON)
-                    .combine(super.getIngredientValidator());
+                .combine(super.getIngredientValidator());
         }
 
         @Override
         public boolean isRecipeCompatible(@NotNull final IGenericRecipe recipe)
         {
-            if (!super.isRecipeCompatible(recipe)) return false;
+            if (!super.isRecipeCompatible(recipe))
+            {
+                return false;
+            }
             return CraftingUtils.isRecipeCompatibleBasedOnTags(recipe, CRAFTING_STONEMASON).orElse(false);
         }
     }
@@ -92,9 +95,11 @@ public class BuildingStonemason extends AbstractBuilding
 
         /**
          * See {@link ICraftingBuildingModule#getIngredientValidator}.
+         *
          * @return the validator
          */
-        public @NotNull static OptionalPredicate<ItemStack> getStaticIngredientValidator()
+        public @NotNull
+        static OptionalPredicate<ItemStack> getStaticIngredientValidator()
         {
             return CraftingUtils.getIngredientValidatorBasedOnTags(CRAFTING_STONEMASON, true);
         }

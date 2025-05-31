@@ -17,7 +17,7 @@
     },
     {
       "type": "minecolonies:citizen",
-      "state": { }
+      "state": {}
     },
     {
       "type": "minecolonies:unlock"
@@ -255,7 +255,9 @@
       }
     },
     {
-      "unlocks-rewards": [0],
+      "unlocks-rewards": [
+        0
+      ],
       "type": "minecolonies:dialogue",
       "target": 0,
       "text": "Congratulations. You built the first building of your colony! Come back to me in a bit and I will let you know the next steps! Here, have some cobblestone as a reward!",

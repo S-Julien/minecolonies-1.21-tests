@@ -28,9 +28,9 @@ import java.util.Map;
  */
 public class DatagenLootTableManager extends LootDataManager
 {
-    private static final Gson GSON = Deserializers.createLootTableSerializer().create();
-    private final ExistingFileHelper               existingFileHelper;
-    private final Map<ResourceLocation, LootTable> tables = new HashMap<>();
+    private static final Gson                             GSON   = Deserializers.createLootTableSerializer().create();
+    private final        ExistingFileHelper               existingFileHelper;
+    private final        Map<ResourceLocation, LootTable> tables = new HashMap<>();
 
     public DatagenLootTableManager(@NotNull final ExistingFileHelper existingFileHelper)
     {
@@ -43,7 +43,10 @@ public class DatagenLootTableManager extends LootDataManager
     public LootTable getLootTable(@NotNull final ResourceLocation location)
     {
         final LootTable table = this.tables.get(location);
-        if (table != null) return table;
+        if (table != null)
+        {
+            return table;
+        }
 
         try
         {

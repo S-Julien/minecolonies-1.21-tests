@@ -33,7 +33,7 @@ public class DomumOrnamentumUtils
     public static IMateriallyTexturedBlock getBlock(@NotNull final ItemStack stack)
     {
         return stack.getItem() instanceof BlockItem bi &&
-                 bi.getBlock() instanceof IMateriallyTexturedBlock doBlock ? doBlock : null;
+            bi.getBlock() instanceof IMateriallyTexturedBlock doBlock ? doBlock : null;
     }
 
     /**

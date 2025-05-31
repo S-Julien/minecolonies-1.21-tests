@@ -15,7 +15,7 @@ public abstract class AbstractBlockMinecoloniesRack<B extends AbstractBlockMinec
     /**
      * The position it faces.
      */
-    public static final DirectionProperty      FACING       = HorizontalDirectionalBlock.FACING;
+    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
     public AbstractBlockMinecoloniesRack(final Properties properties)
     {

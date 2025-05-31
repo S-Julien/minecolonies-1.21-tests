@@ -32,10 +32,10 @@ public class WeatheredCopperPlacementHandler implements IPlacementHandler
      */
     @Nullable
     private static BlockState getExpectedBlockState(
-      final Level world,
-      final BlockPos pos,
-      final BlockState blockState,
-      final boolean complete)
+        final Level world,
+        final BlockPos pos,
+        final BlockState blockState,
+        final boolean complete)
     {
         final BlockState inWorldState = world.getBlockState(pos);
 
@@ -53,7 +53,7 @@ public class WeatheredCopperPlacementHandler implements IPlacementHandler
 
         // In case the block is the wrong "kind" of copper block, replace it with the correct copper block.
         if (!(blockState.getBlock() instanceof WeatheringCopper)
-              || !Objects.equals(WeatheringCopper.getFirst(inWorldState.getBlock()), WeatheringCopper.getFirst(blockState.getBlock())))
+            || !Objects.equals(WeatheringCopper.getFirst(inWorldState.getBlock()), WeatheringCopper.getFirst(blockState.getBlock())))
         {
             return blockState;
         }
@@ -82,12 +82,12 @@ public class WeatheredCopperPlacementHandler implements IPlacementHandler
 
     @Override
     public ActionProcessingResult handle(
-      final Level world,
-      final BlockPos pos,
-      final BlockState blockState,
-      @Nullable final CompoundTag tileEntityData,
-      final boolean complete,
-      final BlockPos centerPos)
+        final Level world,
+        final BlockPos pos,
+        final BlockState blockState,
+        @Nullable final CompoundTag tileEntityData,
+        final boolean complete,
+        final BlockPos centerPos)
     {
         final BlockState expectedBlockState = getExpectedBlockState(world, pos, blockState, complete);
 

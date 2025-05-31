@@ -148,12 +148,12 @@ public class StreamParticleEffectMessage implements IMessage
                 final Vec3 randomPos = new Vec3(RAND.nextDouble() * 0.1D + 0.1D, RAND.nextDouble() * 0.1D + 0.1D, RAND.nextDouble() * 0.1D + 0.1D);
                 final Vec3 randomOffset = new Vec3((RAND.nextDouble() - 0.5D) * 0.1D, (RAND.nextDouble() - 0.5D) * 0.1D, (RAND.nextDouble() - 0.5D) * 0.1D);
                 world.addParticle(type,
-                  end.x + randomOffset.x + xDif * step,
-                  end.y + randomOffset.y + yDif * step + minDif,
-                  end.z + randomOffset.z + zDif * step,
-                  randomPos.x,
-                  randomPos.y + 0.05D,
-                  randomPos.z);
+                    end.x + randomOffset.x + xDif * step,
+                    end.y + randomOffset.y + yDif * step + minDif,
+                    end.z + randomOffset.z + zDif * step,
+                    randomPos.x,
+                    randomPos.y + 0.05D,
+                    randomPos.z);
             }
         }
     }

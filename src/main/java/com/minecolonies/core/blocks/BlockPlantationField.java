@@ -43,7 +43,8 @@ import java.util.Map;
 /**
  * Block class for the plantation field block.
  */
-public class BlockPlantationField extends AbstractBlockMinecoloniesHorizontal<BlockPlantationField> implements IBuilderUndestroyable, IAnchorBlock, IBuildingBrowsableBlock, EntityBlock
+public class BlockPlantationField extends AbstractBlockMinecoloniesHorizontal<BlockPlantationField>
+    implements IBuilderUndestroyable, IAnchorBlock, IBuildingBrowsableBlock, EntityBlock
 {
     /**
      * If the block is mirrored.
@@ -107,12 +108,12 @@ public class BlockPlantationField extends AbstractBlockMinecoloniesHorizontal<Bl
 
     @Override
     public InteractionResult use(
-      final BlockState state,
-      final Level worldIn,
-      final BlockPos pos,
-      final Player player,
-      final InteractionHand hand,
-      final BlockHitResult ray)
+        final BlockState state,
+        final Level worldIn,
+        final BlockPos pos,
+        final Player player,
+        final InteractionHand hand,
+        final BlockHitResult ray)
     {
         // If this is the client side, open the plantation field GUI
         if (worldIn.isClientSide)
@@ -144,12 +145,12 @@ public class BlockPlantationField extends AbstractBlockMinecoloniesHorizontal<Bl
             return SHAPES.get(dir);
         }
         VoxelShape shape = Shapes.box(
-          0D + (dir.getStepX() > 0 ? 0.5 : 0),
-          0D,
-          0D + (dir.getStepZ() > 0 ? 0.5 : 0),
-          1D - (dir.getStepX() < 0 ? 0.5 : 0),
-          0.625D,
-          1D - (dir.getStepZ() < 0 ? 0.5 : 0)
+            0D + (dir.getStepX() > 0 ? 0.5 : 0),
+            0D,
+            0D + (dir.getStepZ() > 0 ? 0.5 : 0),
+            1D - (dir.getStepX() < 0 ? 0.5 : 0),
+            0.625D,
+            1D - (dir.getStepZ() < 0 ? 0.5 : 0)
         );
         SHAPES.put(dir, shape);
         return shape;
@@ -247,7 +248,8 @@ public class BlockPlantationField extends AbstractBlockMinecoloniesHorizontal<Bl
                 {
                     for (BuildingExtensionEntry plantationFieldType : plantationField.getPlantationFieldTypes())
                     {
-                        colony.getBuildingManager().removeBuildingExtension(field -> field.getBuildingExtensionType().equals(plantationFieldType) && field.getPosition().equals(pos));
+                        colony.getBuildingManager()
+                            .removeBuildingExtension(field -> field.getBuildingExtensionType().equals(plantationFieldType) && field.getPosition().equals(pos));
                         colony.getBuildingManager().removeLeisureSite(pos);
                     }
                 }

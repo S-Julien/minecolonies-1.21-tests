@@ -124,7 +124,7 @@ public class NorsemenRaidEvent extends HordeRaidEvent
     public static NorsemenRaidEvent loadFromNBT(final IColony colony, final CompoundTag compound)
     {
         NorsemenRaidEvent
-          event = new NorsemenRaidEvent(colony);
+            event = new NorsemenRaidEvent(colony);
         event.deserializeNBT(compound);
         return event;
     }

@@ -57,11 +57,11 @@ public class EntityAIFloat extends FloatGoal
                     nav.stop();
 
                     waterPathing = nav.setPathJob(
-                      new PathJobEscapeWater(CompatibilityUtils.getWorldFromEntity(owner),
-                        owner.blockPosition(),
-                        (int) owner.getAttribute(Attributes.FOLLOW_RANGE).getValue() * 5,
-                        owner),
-                      null, 1.0, false);
+                        new PathJobEscapeWater(CompatibilityUtils.getWorldFromEntity(owner),
+                            owner.blockPosition(),
+                            (int) owner.getAttribute(Attributes.FOLLOW_RANGE).getValue() * 5,
+                            owner),
+                        null, 1.0, false);
                     nav.setPauseTicks(20 * 15);
                 }
             }

@@ -366,6 +366,7 @@ public abstract class AbstractFastMinecoloniesEntity extends PathfinderMob imple
     /**
      * Get the team name of this entity.
      * todo sam make colony ids unique across dimensions.
+     *
      * @return the team name.
      */
     public abstract int getTeamId();

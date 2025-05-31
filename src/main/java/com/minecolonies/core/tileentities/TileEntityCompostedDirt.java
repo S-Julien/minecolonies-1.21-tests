@@ -91,9 +91,9 @@ public class TileEntityCompostedDirt extends BlockEntity implements ITickable
         if (this.composted)
         {
             ((ServerLevel) worldIn).sendParticles(
-              ParticleTypes.HAPPY_VILLAGER, this.getBlockPos().getX() + 0.5,
-              this.getBlockPos().getY() + 1, this.getBlockPos().getZ() + 0.5,
-              1, 0.2, 0, 0.2, 0);
+                ParticleTypes.HAPPY_VILLAGER, this.getBlockPos().getX() + 0.5,
+                this.getBlockPos().getY() + 1, this.getBlockPos().getZ() + 0.5,
+                1, 0.2, 0, 0.2, 0);
         }
 
         if (random.nextDouble() * 100 <= this.percentage)
@@ -105,7 +105,10 @@ public class TileEntityCompostedDirt extends BlockEntity implements ITickable
                 {
                     if (((BlockItem) flower.getItem()).getBlock() instanceof DoublePlantBlock)
                     {
-                        ((DoublePlantBlock) ((BlockItem) flower.getItem()).getBlock()).placeAt(worldIn, ((BlockItem) flower.getItem()).getBlock().defaultBlockState(), position, UPDATE_FLAG);
+                        ((DoublePlantBlock) ((BlockItem) flower.getItem()).getBlock()).placeAt(worldIn,
+                            ((BlockItem) flower.getItem()).getBlock().defaultBlockState(),
+                            position,
+                            UPDATE_FLAG);
                     }
                     else
                     {

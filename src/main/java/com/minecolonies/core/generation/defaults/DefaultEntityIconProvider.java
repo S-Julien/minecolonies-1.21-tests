@@ -53,7 +53,7 @@ public class DefaultEntityIconProvider implements DataProvider
     private static boolean IsEntitySkin(@NotNull final ResourceLocation id)
     {
         return id.getPath().endsWith(".png") &&
-                (id.getPath().startsWith("textures/entity/citizen/") || id.getPath().startsWith("textures/entity/raiders/"));
+            (id.getPath().startsWith("textures/entity/citizen/") || id.getPath().startsWith("textures/entity/raiders/"));
     }
 
     @NotNull
@@ -72,7 +72,7 @@ public class DefaultEntityIconProvider implements DataProvider
                 if (IsEntitySkin(id))
                 {
                     final ResourceLocation iconId = new ResourceLocation(id.getNamespace(),
-                            id.getPath().replace("textures/entity/", "").replace(".png", ""));
+                        id.getPath().replace("textures/entity/", "").replace(".png", ""));
                     icons.add(generateIcon(outputProvider, iconId, stream, cache));
                 }
             });
@@ -81,10 +81,11 @@ public class DefaultEntityIconProvider implements DataProvider
         }
     }
 
-    private CompletableFuture<?> generateIcon(@NotNull final PackOutput.PathProvider outputProvider,
-                                              @NotNull final ResourceLocation id,
-                                              @NotNull final IoSupplier<InputStream> inputSupplier,
-                                              @NotNull final CachedOutput cache)
+    private CompletableFuture<?> generateIcon(
+        @NotNull final PackOutput.PathProvider outputProvider,
+        @NotNull final ResourceLocation id,
+        @NotNull final IoSupplier<InputStream> inputSupplier,
+        @NotNull final CachedOutput cache)
     {
         return CompletableFuture.runAsync(() ->
         {
@@ -102,7 +103,6 @@ public class DefaultEntityIconProvider implements DataProvider
             {
                 Log.getLogger().error("Failed to save file to {}", id, e);
             }
-
         }, Util.backgroundExecutor());
     }
 
@@ -127,10 +127,11 @@ public class DefaultEntityIconProvider implements DataProvider
         return icon;
     }
 
-    private static void saveIcon(@NotNull final PackOutput.PathProvider outputProvider,
-                                 @NotNull final ResourceLocation id,
-                                 @NotNull final NativeImage icon,
-                                 @NotNull final CachedOutput cache) throws IOException
+    private static void saveIcon(
+        @NotNull final PackOutput.PathProvider outputProvider,
+        @NotNull final ResourceLocation id,
+        @NotNull final NativeImage icon,
+        @NotNull final CachedOutput cache) throws IOException
     {
         final BufferedImage image;
         try (final ByteArrayInputStream stream = new ByteArrayInputStream(icon.asByteArray()))

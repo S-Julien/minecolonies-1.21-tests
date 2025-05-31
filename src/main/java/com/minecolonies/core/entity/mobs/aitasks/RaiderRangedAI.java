@@ -57,7 +57,7 @@ public class RaiderRangedAI<T extends AbstractEntityMinecoloniesMonster & IThrea
      */
     private static final double PITCH_MULTIPLIER = 0.4;
     private static final double BASE_PITCH       = 0.8D;
-    private static final double PITCH_DIVIDER = 1.0D;
+    private static final double PITCH_DIVIDER    = 1.0D;
 
     /**
      * Counter for flying time
@@ -65,8 +65,8 @@ public class RaiderRangedAI<T extends AbstractEntityMinecoloniesMonster & IThrea
     private int flightCounter = 0;
 
     public RaiderRangedAI(
-      final T owner,
-      final ITickRateStateMachine<IState> stateMachine)
+        final T owner,
+        final ITickRateStateMachine<IState> stateMachine)
     {
         super(owner, stateMachine);
     }
@@ -99,7 +99,7 @@ public class RaiderRangedAI<T extends AbstractEntityMinecoloniesMonster & IThrea
 
         // Setup arrow
         AbstractArrow arrowEntity = CombatUtils.createArrowForShooter(user);
-        if (this.user.penetrateFluids() && arrowEntity instanceof CustomArrowEntity customArrowEntity )
+        if (this.user.penetrateFluids() && arrowEntity instanceof CustomArrowEntity customArrowEntity)
         {
             customArrowEntity.setWaterInertia(0.99f);
         }

@@ -10,12 +10,14 @@ public interface ISettingsModuleView extends IBuildingModuleView
 {
     /**
      * Trigger a setting of a specific key.
+     *
      * @param key the settings key.
      */
     void trigger(final ISettingKey<?> key);
 
     /**
      * Get a specific setting.
+     *
      * @param key the key of the setting.
      * @param <T> the type of setting.
      * @return the setting.

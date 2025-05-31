@@ -27,8 +27,8 @@ public class PathJobWalkRandomEdge extends AbstractPathJob implements ISearchPat
     private final BlockPos searchAroundPos;
 
     public PathJobWalkRandomEdge(
-      final Level world,
-      @NotNull final BlockPos searchAroundPos, final int range, final Mob entity)
+        final Level world,
+        @NotNull final BlockPos searchAroundPos, final int range, final Mob entity)
     {
         super(world, PathfindingUtils.prepareStart(entity), range, new PathResult<PathJobWalkRandomEdge>(), entity);
         this.searchAroundPos = searchAroundPos;

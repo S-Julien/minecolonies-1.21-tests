@@ -106,14 +106,14 @@ public class QuestManager implements IQuestManager
         for (final Map.Entry<ResourceLocation, IQuestTemplate> quest : GLOBAL_SERVER_QUESTS.entrySet())
         {
             if (availableQuests.containsKey(quest.getKey())
-                  || inProgressQuests.containsKey(quest.getKey())
-                  || finishedQuests.getOrDefault(quest.getKey(), 0) >= quest.getValue().getMaxOccurrence())
+                || inProgressQuests.containsKey(quest.getKey())
+                || finishedQuests.getOrDefault(quest.getKey(), 0) >= quest.getValue().getMaxOccurrence())
             {
                 continue;
             }
 
             boolean missingParent = false;
-            for (final ResourceLocation parent: quest.getValue().getParents())
+            for (final ResourceLocation parent : quest.getValue().getParents())
             {
                 if (!finishedQuests.containsKey(parent))
                 {

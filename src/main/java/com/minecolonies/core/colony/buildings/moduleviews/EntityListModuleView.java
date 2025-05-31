@@ -44,8 +44,9 @@ public class EntityListModuleView extends AbstractBuildingModuleView implements 
 
     /**
      * Create a nw grouped entity list view for the client side.
-     * @param id the id.
-     * @param desc desc lang string.
+     *
+     * @param id       the id.
+     * @param desc     desc lang string.
      * @param inverted enabling or disabling.
      */
     public EntityListModuleView(final String id, final String desc, final boolean inverted)
@@ -95,7 +96,7 @@ public class EntityListModuleView extends AbstractBuildingModuleView implements 
     }
 
     @Override
-    public void clearEntities() { listOfEntities.clear(); }
+    public void clearEntities() {listOfEntities.clear();}
 
     @Override
     public String getDesc()

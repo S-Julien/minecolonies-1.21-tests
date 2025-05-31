@@ -28,15 +28,15 @@ import java.util.*;
  */
 public class ExpeditionLog
 {
-    private static final String TAG_STATUS = "status";
-    private static final String TAG_ID = "id";
-    private static final String TAG_NAME = "name";
-    private static final String TAG_STATS = "stats";
+    private static final String TAG_STATUS    = "status";
+    private static final String TAG_ID        = "id";
+    private static final String TAG_NAME      = "name";
+    private static final String TAG_STATS     = "stats";
     private static final String TAG_EQUIPMENT = "equip";
-    private static final String TAG_MOBS = "mobs";
-    private static final String TAG_TYPE = "type";
-    private static final String TAG_COUNT = "count";
-    private static final String TAG_LOOT = "loot";
+    private static final String TAG_MOBS      = "mobs";
+    private static final String TAG_TYPE      = "type";
+    private static final String TAG_COUNT     = "count";
+    private static final String TAG_LOOT      = "loot";
 
     public enum Status
     {
@@ -57,13 +57,13 @@ public class ExpeditionLog
         SATURATION,
     }
 
-    private Status status = Status.NONE;
-    private int id;
-    private String name;
-    private Map<StatType, Double> stats = new HashMap<>();
-    private List<ItemStack> equipment = new ArrayList<>();
-    private Map<EntityType<?>, Integer> mobs = new HashMap<>();
-    private Map<ItemStorage, ItemStorage> loot = new HashMap<>();
+    private Status                        status    = Status.NONE;
+    private int                           id;
+    private String                        name;
+    private Map<StatType, Double>         stats     = new HashMap<>();
+    private List<ItemStack>               equipment = new ArrayList<>();
+    private Map<EntityType<?>, Integer>   mobs      = new HashMap<>();
+    private Map<ItemStorage, ItemStorage> loot      = new HashMap<>();
 
     /**
      * Resets the expedition log to prepare to start a new expedition.
@@ -83,6 +83,7 @@ public class ExpeditionLog
 
     /**
      * Reports the current status of the expedition
+     *
      * @return the current expedition status
      */
     public Status getStatus()
@@ -92,6 +93,7 @@ public class ExpeditionLog
 
     /**
      * Sets the current status of the expedition
+     *
      * @param status the new expedition status
      */
     public void setStatus(final Status status)
@@ -101,6 +103,7 @@ public class ExpeditionLog
 
     /**
      * Reports the id of the citizen who is on this expedition, if any.
+     *
      * @return the id, or 0 if there is no citizen or the citizen was killed.
      */
     public int getId()
@@ -110,6 +113,7 @@ public class ExpeditionLog
 
     /**
      * Reports the name of the citizen who is (or was) on this expedition, if any.
+     *
      * @return the name, or null if there is nobody.  (does not reset when killed)
      */
     @Nullable
@@ -120,6 +124,7 @@ public class ExpeditionLog
 
     /**
      * Reports the stats of the citizen.
+     *
      * @param stat the stat to retrieve
      * @return the value of that stat (as of the latest update, not necessarily "live")
      */
@@ -130,6 +135,7 @@ public class ExpeditionLog
 
     /**
      * Captures and updates the stats and other info for the citizen currently on the expedition.
+     *
      * @param citizen the citizen who is currently on the expedition
      */
     public void setCitizen(@Nullable final AbstractEntityCitizen citizen)
@@ -160,6 +166,7 @@ public class ExpeditionLog
 
     /**
      * Reports the list of equipment currently in use on this expedition.
+     *
      * @return the equipment list.  Some stacks might be empty.
      */
     public List<ItemStack> getEquipment()
@@ -171,30 +178,33 @@ public class ExpeditionLog
      * Captures and sets the list of equipment currently in use on this expedition.
      * Some stacks may be empty to indicate that there is no equipment in that "slot".
      * It's up to the actual expedition to decide what equipment is interesting to show.
+     *
      * @param equipment the list of equipment
      */
     public void setEquipment(@NotNull final List<ItemStack> equipment)
     {
         this.equipment = equipment.stream()
-                .map(ItemStack::copy)
-                .collect(ImmutableList.toImmutableList());
+            .map(ItemStack::copy)
+            .collect(ImmutableList.toImmutableList());
     }
 
     /**
      * Reports the list and count of mobs interacted with (usually fought, but doesn't have to be) during
      * this expedition.
+     *
      * @return the list of mobs and counts, sorted highest-count-first
      */
     public List<Tuple<EntityType<?>, Integer>> getMobs()
     {
         return this.mobs.entrySet().stream()
-                .map(entry -> new Tuple<EntityType<?>, Integer>(entry.getKey(), entry.getValue()))
-                .sorted(Comparator.<Tuple<EntityType<?>, Integer>>comparingInt(Tuple::getB).reversed())
-                .collect(ImmutableList.toImmutableList());
+            .map(entry -> new Tuple<EntityType<?>, Integer>(entry.getKey(), entry.getValue()))
+            .sorted(Comparator.<Tuple<EntityType<?>, Integer>>comparingInt(Tuple::getB).reversed())
+            .collect(ImmutableList.toImmutableList());
     }
 
     /**
      * Adds a mob to the interaction list of this expedition.
+     *
      * @param mobType the type of mob
      */
     public void addMob(@NotNull final EntityType<?> mobType)
@@ -204,17 +214,19 @@ public class ExpeditionLog
 
     /**
      * Reports the resources gathered so far during this expedition.
+     *
      * @return the list of resources, sorted highest-amount-first
      */
     public List<ItemStorage> getLoot()
     {
         return this.loot.keySet().stream()
-                .sorted(Comparator.comparing(ItemStorage::getAmount).reversed())
-                .collect(ImmutableList.toImmutableList());
+            .sorted(Comparator.comparing(ItemStorage::getAmount).reversed())
+            .collect(ImmutableList.toImmutableList());
     }
 
     /**
      * Adds a list of resources to this expedition.
+     *
      * @param loot the additional resources gathered this round
      */
     public void addLoot(@NotNull final List<ItemStack> loot)
@@ -232,6 +244,7 @@ public class ExpeditionLog
 
     /**
      * Save to NBT
+     *
      * @param compound target
      */
     public void serializeNBT(@NotNull final CompoundTag compound)
@@ -274,6 +287,7 @@ public class ExpeditionLog
 
     /**
      * Reload from NBT
+     *
      * @param compound source
      */
     public void deserializeNBT(@NotNull final CompoundTag compound)
@@ -281,7 +295,10 @@ public class ExpeditionLog
         this.status = Enums.getIfPresent(Status.class, compound.getString(TAG_STATUS)).or(Status.NONE);
         this.id = compound.getInt(TAG_ID);
         this.name = compound.getString(TAG_NAME);
-        if (this.name.isEmpty()) this.name = null;
+        if (this.name.isEmpty())
+        {
+            this.name = null;
+        }
 
         this.stats.clear();
         final CompoundTag stats = compound.getCompound(TAG_STATS);
@@ -325,6 +342,7 @@ public class ExpeditionLog
 
     /**
      * Save to network
+     *
      * @param buf target
      */
     public void serialize(@NotNull final FriendlyByteBuf buf)
@@ -360,6 +378,7 @@ public class ExpeditionLog
 
     /**
      * Reload from network
+     *
      * @param buf source
      */
     public void deserialize(@NotNull final FriendlyByteBuf buf)
@@ -367,7 +386,10 @@ public class ExpeditionLog
         this.status = Status.values()[buf.readVarInt()];
         this.id = buf.readVarInt();
         this.name = buf.readUtf();
-        if (this.name.isEmpty()) this.name = null;
+        if (this.name.isEmpty())
+        {
+            this.name = null;
+        }
 
         this.stats.clear();
         for (final StatType stat : StatType.values())

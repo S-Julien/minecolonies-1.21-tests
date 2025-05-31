@@ -144,7 +144,7 @@ public abstract class AbstractWindowSkeleton extends BOWindow implements ButtonH
      * Generic page handler, uses common ids
      *
      * @param relative whether page param is relative or absolute
-     * @param page if relative turn x pages forward/backward, if absolute turn to x-th page
+     * @param page     if relative turn x pages forward/backward, if absolute turn to x-th page
      */
     public void setPage(final boolean relative, final int page)
     {
@@ -154,7 +154,7 @@ public abstract class AbstractWindowSkeleton extends BOWindow implements ButtonH
         }
 
         final int switchPagesSize = switchView.getChildrenSize();
-    
+
         if (switchPagesSize <= 1)
         {
             buttonPrevPage.off();

@@ -20,7 +20,7 @@ public class Pickup extends AbstractDeliverymanRequestable
      * Set of type tokens belonging to this class.
      */
     private final static Set<TypeToken<?>>
-      TYPE_TOKENS = ReflectionUtils.getSuperClasses(TypeToken.of(Pickup.class)).stream().filter(type -> !type.equals(TypeConstants.OBJECT)).collect(Collectors.toSet());
+        TYPE_TOKENS = ReflectionUtils.getSuperClasses(TypeToken.of(Pickup.class)).stream().filter(type -> !type.equals(TypeConstants.OBJECT)).collect(Collectors.toSet());
 
     /**
      * Constructor for Delivery requests
@@ -92,8 +92,8 @@ public class Pickup extends AbstractDeliverymanRequestable
     public String toString()
     {
         return "Pickup{" +
-                 "priority=" + priority +
-                 '}';
+            "priority=" + priority +
+            '}';
     }
 
     @Override

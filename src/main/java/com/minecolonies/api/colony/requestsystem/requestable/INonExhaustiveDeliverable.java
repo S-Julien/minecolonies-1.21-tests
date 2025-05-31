@@ -7,6 +7,7 @@ public interface INonExhaustiveDeliverable extends IDeliverable
 {
     /**
      * Get the amount that is supposed to be kept left over at the warehouse.
+     *
      * @return the amount.
      */
     int getLeftOver();

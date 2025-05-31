@@ -27,8 +27,8 @@ import net.minecraft.world.level.LevelReader;
  */
 public class BlockColonyFlagBanner extends AbstractColonyFlagBanner<BlockColonyFlagBanner>
 {
-    public static final IntegerProperty ROTATION = BlockStateProperties.ROTATION_16;
-    private static final VoxelShape SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 16.0D, 12.0D);
+    public static final  IntegerProperty ROTATION = BlockStateProperties.ROTATION_16;
+    private static final VoxelShape      SHAPE    = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 16.0D, 12.0D);
 
     public BlockColonyFlagBanner()
     {
@@ -52,15 +52,15 @@ public class BlockColonyFlagBanner extends AbstractColonyFlagBanner<BlockColonyF
     public BlockState getStateForPlacement(BlockPlaceContext context)
     {
         return this.defaultBlockState()
-                .setValue(ROTATION, Integer.valueOf(Mth.floor((double)((180.0F + context.getRotation()) * 16.0F / 360.0F) + 0.5D) & 15));
+            .setValue(ROTATION, Integer.valueOf(Mth.floor((double) ((180.0F + context.getRotation()) * 16.0F / 360.0F) + 0.5D) & 15));
     }
 
     @Override
     public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos)
     {
         return facing == Direction.DOWN && !stateIn.canSurvive(worldIn, currentPos)
-                ? Blocks.AIR.defaultBlockState()
-                : super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+            ? Blocks.AIR.defaultBlockState()
+            : super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 
     @Override
@@ -76,7 +76,8 @@ public class BlockColonyFlagBanner extends AbstractColonyFlagBanner<BlockColonyF
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
+    {
         builder.add(ROTATION);
     }
 

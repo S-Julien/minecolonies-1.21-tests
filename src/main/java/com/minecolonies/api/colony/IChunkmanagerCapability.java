@@ -97,18 +97,18 @@ public interface IChunkmanagerCapability
         {
             final CompoundTag compound = new CompoundTag();
             compound.put(TAG_ALL_CHUNK_STORAGES,
-              instance.getAllChunkStorages().entrySet().stream().map(entry -> write(entry.getKey(), entry.getValue())).collect(NBTUtils.toListNBT()));
+                instance.getAllChunkStorages().entrySet().stream().map(entry -> write(entry.getKey(), entry.getValue())).collect(NBTUtils.toListNBT()));
             return compound;
         }
 
         public static void readNBT(
-          @NotNull final Capability<IChunkmanagerCapability> capability, @NotNull final IChunkmanagerCapability instance,
-          @Nullable final Direction side, @NotNull final Tag nbt)
+            @NotNull final Capability<IChunkmanagerCapability> capability, @NotNull final IChunkmanagerCapability instance,
+            @Nullable final Direction side, @NotNull final Tag nbt)
         {
             if (nbt instanceof CompoundTag && ((CompoundTag) nbt).contains(TAG_ALL_CHUNK_STORAGES))
             {
                 NBTUtils.streamCompound(((CompoundTag) nbt).getList(TAG_ALL_CHUNK_STORAGES, Tag.TAG_COMPOUND))
-                  .map(Storage::read).forEach(key -> instance.addChunkStorage(key.getA().x, key.getA().z, key.getB()));
+                    .map(Storage::read).forEach(key -> instance.addChunkStorage(key.getA().x, key.getA().z, key.getB()));
             }
         }
 

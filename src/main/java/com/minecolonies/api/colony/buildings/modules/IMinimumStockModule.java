@@ -26,6 +26,7 @@ public interface IMinimumStockModule extends IBuildingModule
 
     /**
      * Check if this stack is stocked.
+     *
      * @param stack the stack to check.
      * @return true if stocked.
      */

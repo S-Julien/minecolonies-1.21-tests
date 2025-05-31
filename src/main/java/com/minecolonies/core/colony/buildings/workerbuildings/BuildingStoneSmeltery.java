@@ -65,13 +65,16 @@ public class BuildingStoneSmeltery extends AbstractBuilding
         public OptionalPredicate<ItemStack> getIngredientValidator()
         {
             return CraftingUtils.getIngredientValidatorBasedOnTags(CRAFTING_STONE_SMELTERY)
-                    .combine(super.getIngredientValidator());
+                .combine(super.getIngredientValidator());
         }
 
         @Override
         public boolean isRecipeCompatible(@NotNull final IGenericRecipe recipe)
         {
-            if (!super.isRecipeCompatible(recipe)) return false;
+            if (!super.isRecipeCompatible(recipe))
+            {
+                return false;
+            }
             return CraftingUtils.isRecipeCompatibleBasedOnTags(recipe, CRAFTING_STONE_SMELTERY).orElse(false);
         }
     }

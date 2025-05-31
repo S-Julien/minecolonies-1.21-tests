@@ -81,9 +81,9 @@ public class EventStructureManager implements IEventStructureManager
      */
     @Override
     public boolean spawnTemporaryStructure(
-      final Blueprint structure,
-      final BlockPos targetSpawnPoint,
-      final int eventID)
+        final Blueprint structure,
+        final BlockPos targetSpawnPoint,
+        final int eventID)
     {
         if (eventManager.getEventByID(eventID) == null)
         {
@@ -98,23 +98,23 @@ public class EventStructureManager implements IEventStructureManager
         final BlockPos anchor = new BlockPos(zeroPos.getX() + structure.getSizeX() / 2, zeroPos.getY(), zeroPos.getZ() + structure.getSizeZ() / 2);
 
         final Path outputPath = new File(".").toPath()
-          .resolve(BLUEPRINT_FOLDER)
-          .resolve(STRUCTURE_BACKUP_FOLDER)
-          .resolve(Integer.toString(colony.getID()))
-          .resolve(colony.getDimension().location().getNamespace() + colony.getDimension().location().getPath())
-                                  .resolve(anchor.toString() + ".blueprint");
+            .resolve(BLUEPRINT_FOLDER)
+            .resolve(STRUCTURE_BACKUP_FOLDER)
+            .resolve(Integer.toString(colony.getID()))
+            .resolve(colony.getDimension().location().getNamespace() + colony.getDimension().location().getPath())
+            .resolve(anchor.toString() + ".blueprint");
 
         final CompoundTag bp = BlueprintUtil.writeBlueprintToNBT(BlueprintUtil.createBlueprint(world, zeroPos, true,
-                structure.getSizeX(), structure.getSizeY(), structure.getSizeZ(), anchor.toString(), Optional.of(anchor)));
+            structure.getSizeX(), structure.getSizeY(), structure.getSizeZ(), anchor.toString(), Optional.of(anchor)));
 
         StructurePacks.storeBlueprint(STRUCTURE_BACKUP_FOLDER, bp, outputPath);
 
         backupSchematics.put(anchor, eventID);
 
         CreativeRaiderStructureHandler.loadAndPlaceStructure(world,
-          structure,
-          spawnPos,
-          true, colony.getID(), (IColonyRaidEvent) eventManager.getEventByID(eventID), null);
+            structure,
+            spawnPos,
+            true, colony.getID(), (IColonyRaidEvent) eventManager.getEventByID(eventID), null);
 
         return true;
     }
@@ -131,34 +131,36 @@ public class EventStructureManager implements IEventStructureManager
             if (entry.getValue() == eventID)
             {
                 final Path backupPath = new File(".").toPath()
-                  .resolve(BLUEPRINT_FOLDER)
-                  .resolve(STRUCTURE_BACKUP_FOLDER)
-                  .resolve(Integer.toString(colony.getID()))
-                  .resolve(colony.getDimension().location().getNamespace() + colony.getDimension().location().getPath())
-                  .resolve(entry.getKey().toString() + ".blueprint");
+                    .resolve(BLUEPRINT_FOLDER)
+                    .resolve(STRUCTURE_BACKUP_FOLDER)
+                    .resolve(Integer.toString(colony.getID()))
+                    .resolve(colony.getDimension().location().getNamespace() + colony.getDimension().location().getPath())
+                    .resolve(entry.getKey().toString() + ".blueprint");
 
 
-                ServerFutureProcessor.queueBlueprint(new ServerFutureProcessor.BlueprintProcessingData(StructurePacks.getBlueprintFuture(STRUCTURE_BACKUP_FOLDER, backupPath), colony.getWorld(), (blueprint -> {
+                ServerFutureProcessor.queueBlueprint(new ServerFutureProcessor.BlueprintProcessingData(StructurePacks.getBlueprintFuture(STRUCTURE_BACKUP_FOLDER, backupPath),
+                    colony.getWorld(),
+                    (blueprint -> {
 
-                    if (blueprint == null)
-                    {
-                        Log.getLogger().info("Minor issue: Failed to restore backup" + backupPath.toString());
-                        return;
-                    }
+                        if (blueprint == null)
+                        {
+                            Log.getLogger().info("Minor issue: Failed to restore backup" + backupPath.toString());
+                            return;
+                        }
 
-                    final IStructureHandler structure = new CreativeStructureHandler(colony.getWorld(), entry.getKey(), blueprint, new PlacementSettings(Mirror.NONE,  Rotation.NONE), true);
-                    Manager.addToQueue(new PlaceStructureOperation(new StructurePlacer(structure), null));
+                        final IStructureHandler structure =
+                            new CreativeStructureHandler(colony.getWorld(), entry.getKey(), blueprint, new PlacementSettings(Mirror.NONE, Rotation.NONE), true);
+                        Manager.addToQueue(new PlaceStructureOperation(new StructurePlacer(structure), null));
 
-                    try
-                    {
-                        Files.delete(backupPath);
-                    }
-                    catch (Exception e)
-                    {
-                        Log.getLogger().info("Minor issue: Failed at deleting a backup schematic at " + backupPath.toString(), e);
-                    }
-
-                })));
+                        try
+                        {
+                            Files.delete(backupPath);
+                        }
+                        catch (Exception e)
+                        {
+                            Log.getLogger().info("Minor issue: Failed at deleting a backup schematic at " + backupPath.toString(), e);
+                        }
+                    })));
 
                 iterator.remove();
             }

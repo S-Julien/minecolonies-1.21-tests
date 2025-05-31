@@ -66,14 +66,14 @@ public final class ShipBasedRaiderUtils
      * @return true if successful.
      */
     public static boolean spawnPirateShip(
-      final BlockPos targetSpawnPoint,
-      final IColony colony,
-      final Blueprint blueprint,
-      final IColonyRaidEvent event)
+        final BlockPos targetSpawnPoint,
+        final IColony colony,
+        final Blueprint blueprint,
+        final IColonyRaidEvent event)
     {
         return colony.getEventManager()
-                .getStructureManager()
-                .spawnTemporaryStructure(blueprint, targetSpawnPoint, event.getID());
+            .getStructureManager()
+            .spawnTemporaryStructure(blueprint, targetSpawnPoint, event.getID());
     }
 
     /**
@@ -118,10 +118,10 @@ public final class ShipBasedRaiderUtils
     /**
      * Checks whether a pirate event is possible at this place.
      *
-     * @param colony     the colony.
-     * @param spawnPoint the spawn point.
-     * @param raidLevel  the raid level.
-     * @param rotation   the rotation.
+     * @param colony      the colony.
+     * @param spawnPoint  the spawn point.
+     * @param raidLevel   the raid level.
+     * @param rotation    the rotation.
      * @param neededDepth the required depth.
      * @return true if successful.
      */
@@ -177,9 +177,9 @@ public final class ShipBasedRaiderUtils
         }
 
         if (isSurfaceAreaMostlyMaterial(allowedShipMaterials, world, pos.getY(),
-          zeroPos,
-          new BlockPos(zeroPos.getX() + ship.getSizeX() - 1, zeroPos.getY(), zeroPos.getZ() + ship.getSizeZ() - 1),
-          0.85))
+            zeroPos,
+            new BlockPos(zeroPos.getX() + ship.getSizeX() - 1, zeroPos.getY(), zeroPos.getZ() + ship.getSizeZ() - 1),
+            0.85))
         {
             for (int i = 0; i < neededDepth; i++)
             {
@@ -206,11 +206,11 @@ public final class ShipBasedRaiderUtils
      * @return true if enough water surface blocks are found
      */
     public static boolean isSurfaceAreaMostlyMaterial(
-      @NotNull final List<Predicate<BlockState>> materials,
-      @NotNull final Level world,
-      final int baseY, @NotNull final BlockPos from,
-      @NotNull final BlockPos to,
-      final double percentRequired)
+        @NotNull final List<Predicate<BlockState>> materials,
+        @NotNull final Level world,
+        final int baseY, @NotNull final BlockPos from,
+        @NotNull final BlockPos to,
+        final double percentRequired)
     {
         final int xDist = Math.abs(from.getX() - to.getX());
         final int zDist = Math.abs(from.getZ() - to.getZ());
@@ -287,12 +287,12 @@ public final class ShipBasedRaiderUtils
      * @return the position.
      */
     public static BlockPos getLoadedPositionTowardsCenter(
-      final BlockPos startPos,
-      final IColony colony,
-      final int maxDistance,
-      final BlockPos maxDistancePos,
-      final int minDistance,
-      final int accuracy)
+        final BlockPos startPos,
+        final IColony colony,
+        final int maxDistance,
+        final BlockPos maxDistancePos,
+        final int minDistance,
+        final int accuracy)
     {
         return getLoadedPositionTowardsCenter(startPos, colony, maxDistance, maxDistancePos, minDistance, accuracy, false);
     }
@@ -310,13 +310,13 @@ public final class ShipBasedRaiderUtils
      * @return the position.
      */
     public static BlockPos getLoadedPositionTowardsCenter(
-      final BlockPos startPos,
-      final IColony colony,
-      final int maxDistance,
-      final BlockPos maxDistancePos,
-      final int minDistance,
-      final int accuracy,
-      final boolean underWater)
+        final BlockPos startPos,
+        final IColony colony,
+        final int maxDistance,
+        final BlockPos maxDistancePos,
+        final int minDistance,
+        final int accuracy,
+        final boolean underWater)
     {
         if (accuracy < 1)
         {
@@ -328,20 +328,20 @@ public final class ShipBasedRaiderUtils
             if (underWater)
             {
                 return BlockPosUtil.findAround(colony.getWorld(),
-                  startPos,
-                  30,
-                  3,
-                  (world, pos) -> (world.getBlockState(pos).isSolid() || world.getBlockState(pos).liquid()) && !world.getBlockState(
-                    pos.above()).blocksMotion() && !world.getBlockState(pos.above(2)).blocksMotion());
+                    startPos,
+                    30,
+                    3,
+                    (world, pos) -> (world.getBlockState(pos).isSolid() || world.getBlockState(pos).liquid()) && !world.getBlockState(
+                        pos.above()).blocksMotion() && !world.getBlockState(pos.above(2)).blocksMotion());
             }
             else
             {
                 return BlockPosUtil.findAround(colony.getWorld(),
-                  startPos,
-                  30,
-                  3,
-                  (world, pos) -> (world.getBlockState(pos).isSolid() || world.getBlockState(pos).liquid()) && world.getBlockState(
-                    pos.above()).isAir() && world.getBlockState(pos.above(2)).isAir());
+                    startPos,
+                    30,
+                    3,
+                    (world, pos) -> (world.getBlockState(pos).isSolid() || world.getBlockState(pos).liquid()) && world.getBlockState(
+                        pos.above()).isAir() && world.getBlockState(pos.above(2)).isAir());
             }
         }
 

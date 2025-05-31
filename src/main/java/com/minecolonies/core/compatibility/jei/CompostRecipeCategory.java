@@ -31,10 +31,10 @@ import java.util.stream.Collectors;
 @SuppressWarnings("MethodParameterOfConcreteClass")
 public class CompostRecipeCategory implements IRecipeCategory<CompostRecipe>
 {
-    private final String title;
-    private final IDrawable background;
-    private final IDrawable icon;
-    private final IDrawable slot;
+    private final String     title;
+    private final IDrawable  background;
+    private final IDrawable  icon;
+    private final IDrawable  slot;
     private final ITickTimer timer;
 
     public CompostRecipeCategory(@NotNull final IGuiHelper guiHelper)
@@ -51,8 +51,8 @@ public class CompostRecipeCategory implements IRecipeCategory<CompostRecipe>
     public static List<CompostRecipe> findRecipes()
     {
         return IColonyManager.getInstance().getCompatibilityManager().getCopyOfCompostRecipes().entrySet().stream()
-                .map(entry -> CompostRecipe.individualize(entry.getKey(), entry.getValue()))
-                .collect(Collectors.toList());
+            .map(entry -> CompostRecipe.individualize(entry.getKey(), entry.getValue()))
+            .collect(Collectors.toList());
     }
 
     @NotNull
@@ -84,29 +84,31 @@ public class CompostRecipeCategory implements IRecipeCategory<CompostRecipe>
     }
 
     @Override
-    public void setRecipe(@NotNull final IRecipeLayoutBuilder builder,
-                          @NotNull final CompostRecipe recipe,
-                          @NotNull final IFocusGroup focuses)
+    public void setRecipe(
+        @NotNull final IRecipeLayoutBuilder builder,
+        @NotNull final CompostRecipe recipe,
+        @NotNull final IFocusGroup focuses)
     {
         builder.addSlot(RecipeIngredientRole.INPUT, 0, 0)
-                .setBackground(this.slot, -1, -1)
-                .addIngredients(recipe.getIngredients().get(0));
+            .setBackground(this.slot, -1, -1)
+            .addIngredients(recipe.getIngredients().get(0));
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 62, 0)
-                .setBackground(this.slot, -1, -1)
-                .addItemStack(recipe.getResultItem(null));
+            .setBackground(this.slot, -1, -1)
+            .addItemStack(recipe.getResultItem(null));
     }
 
     @Override
-    public void draw(@NotNull final CompostRecipe recipe,
-                     @NotNull final IRecipeSlotsView recipeSlotsView,
-                     @NotNull final GuiGraphics stack,
-                     final double mouseX, final double mouseY)
+    public void draw(
+        @NotNull final CompostRecipe recipe,
+        @NotNull final IRecipeSlotsView recipeSlotsView,
+        @NotNull final GuiGraphics stack,
+        final double mouseX, final double mouseY)
     {
         final BarrelType type = BarrelType.byMetadata(this.timer.getValue());
         final BlockState barrel = ModBlocks.blockBarrel.defaultBlockState()
-                .setValue(AbstractBlockBarrel.FACING, Direction.SOUTH)
-                .setValue(AbstractBlockBarrel.VARIANT, type);
+            .setValue(AbstractBlockBarrel.FACING, Direction.SOUTH)
+            .setValue(AbstractBlockBarrel.VARIANT, type);
         RenderHelper.renderBlock(stack.pose(), barrel, 40, 20, 100, -30F, 20F, 25F);
     }
 }

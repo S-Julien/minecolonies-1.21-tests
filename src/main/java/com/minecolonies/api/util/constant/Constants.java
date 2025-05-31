@@ -44,28 +44,28 @@ public final class Constants
     public static final String DEFAULT_STYLE                    = "Colonial";
     public static final String STORAGE_STYLE                    = "Minecolonies Original";
 
-    public static final String ORES                             = "ores";
-    public static final double HALF_BLOCK                       = 0.5D;
-    public static final double SLIGHTLY_UP                      = 0.1D;
-    public static final int    ONE_HUNDRED_PERCENT              = 100;
-    public static final int    VISIT_BUILDING_CHANCE            = 8;
-    public static final int    WANDER_CHANCE                    = 35;
-    public static final int    DOUBLE                           = 2;
-    public static final int    TRIPLE                           = 3;
-    public static final int    BLOCKS_PER_CHUNK                 = 16;
-    public static final int    NINETY_DEGREE                    = 90;
-    public static final int    HALF_ROTATION                    = 180;
-    public static final int    THREE_QUARTERS                   = 270;
-    public static final float  SLEEPING_RENDER_OFFSET           = -1.5F;
-    public static final double DEFAULT_VOLUME                   = 0.2;
-    public static final double DEFAULT_PITCH_MULTIPLIER         = 0.7D;
-    public static final double XP_PARTICLE_EXPLOSION_SIZE       = 20;
-    public static final double DEFAULT_SPEED                    = 0.6D;
-    public static final float  WATCH_CLOSEST                    = 6.0F;
-    public static final float  WATCH_CLOSEST2                   = 3.0F;
-    public static final float  WATCH_CLOSEST2_FAR               = 5.0F;
-    public static final float  WATCH_CLOSEST2_FAR_CHANCE        = 0.02F;
-    public static final int    CHUNKS_TO_CLAIM_THRESHOLD        = 5000;
+    public static final String ORES                       = "ores";
+    public static final double HALF_BLOCK                 = 0.5D;
+    public static final double SLIGHTLY_UP                = 0.1D;
+    public static final int    ONE_HUNDRED_PERCENT        = 100;
+    public static final int    VISIT_BUILDING_CHANCE      = 8;
+    public static final int    WANDER_CHANCE              = 35;
+    public static final int    DOUBLE                     = 2;
+    public static final int    TRIPLE                     = 3;
+    public static final int    BLOCKS_PER_CHUNK           = 16;
+    public static final int    NINETY_DEGREE              = 90;
+    public static final int    HALF_ROTATION              = 180;
+    public static final int    THREE_QUARTERS             = 270;
+    public static final float  SLEEPING_RENDER_OFFSET     = -1.5F;
+    public static final double DEFAULT_VOLUME             = 0.2;
+    public static final double DEFAULT_PITCH_MULTIPLIER   = 0.7D;
+    public static final double XP_PARTICLE_EXPLOSION_SIZE = 20;
+    public static final double DEFAULT_SPEED              = 0.6D;
+    public static final float  WATCH_CLOSEST              = 6.0F;
+    public static final float  WATCH_CLOSEST2             = 3.0F;
+    public static final float  WATCH_CLOSEST2_FAR         = 5.0F;
+    public static final float  WATCH_CLOSEST2_FAR_CHANCE  = 0.02F;
+    public static final int    CHUNKS_TO_CLAIM_THRESHOLD  = 5000;
 
     /**
      * Advancement Criterion Names
@@ -162,8 +162,8 @@ public final class Constants
      */
     public static final int SLOT_PER_LINE = 9;
 
-    public static final String SCIMITAR_NAME     = "iron_scimitar";
-    public static final String CHIEFSWORD_NAME   = "chiefsword";
+    public static final String    SCIMITAR_NAME     = "iron_scimitar";
+    public static final String    CHIEFSWORD_NAME   = "chiefsword";
     public static final MobEffect LEVITATION_EFFECT = MobEffects.LEVITATION;
     public static final MobEffect GLOW_EFFECT       = MobEffects.GLOWING;
 

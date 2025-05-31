@@ -73,12 +73,12 @@ public class BlockBarrel extends AbstractBlockBarrel<BlockBarrel> implements Ent
     @NotNull
     @Override
     public InteractionResult use(
-      final BlockState state,
-      final Level worldIn,
-      final BlockPos pos,
-      final Player player,
-      final InteractionHand hand,
-      final BlockHitResult ray)
+        final BlockState state,
+        final Level worldIn,
+        final BlockPos pos,
+        final Player player,
+        final InteractionHand hand,
+        final BlockHitResult ray)
     {
         final ItemStack itemstack = player.getInventory().getSelected();
         final BlockEntity te = worldIn.getBlockEntity(pos);
@@ -133,6 +133,6 @@ public class BlockBarrel extends AbstractBlockBarrel<BlockBarrel> implements Ent
     public boolean canSurvive(final BlockState state, final LevelReader worldIn, final BlockPos pos)
     {
         return !worldIn.isEmptyBlock(pos.below())
-                 && worldIn.getBlockState(pos.below()).getBlock() != ModBlocks.blockBarrel;
+            && worldIn.getBlockState(pos.below()).getBlock() != ModBlocks.blockBarrel;
     }
 }

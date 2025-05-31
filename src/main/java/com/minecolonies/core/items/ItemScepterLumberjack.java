@@ -35,10 +35,10 @@ import static com.minecolonies.api.util.constant.translation.ToolTranslationCons
  */
 public class ItemScepterLumberjack extends AbstractItemMinecolonies implements IBlockOverlayItem
 {
-    private static final int RED_OVERLAY = 0xFFFF0000;
-    private static final int GREEN_OVERLAY = 0xFF00FF00;
+    private static final int    RED_OVERLAY = 0xFFFF0000;
+    private static final int    GREEN_OVERLAY = 0xFF00FF00;
     private static final String NBT_START_POS = Constants.MOD_ID + ":" + "start_pos";
-    private static final String NBT_END_POS   = Constants.MOD_ID + ":" + "end_pos";
+    private static final String NBT_END_POS = Constants.MOD_ID + ":" + "end_pos";
 
     /**
      * LumberjackScepter constructor. Sets max stack to 1, like other tools.
@@ -80,7 +80,8 @@ public class ItemScepterLumberjack extends AbstractItemMinecolonies implements I
         return false;
     }
 
-    public float getDestroySpeed(ItemStack stack, BlockState state) {
+    public float getDestroySpeed(ItemStack stack, BlockState state)
+    {
         return 3.4028235E38F;
     }
 
@@ -151,7 +152,9 @@ public class ItemScepterLumberjack extends AbstractItemMinecolonies implements I
         return Collections.emptyList();
     }
 
-    private record Box(@Nullable BlockPos anchor, @Nullable Tuple<BlockPos, BlockPos> corners) { }
+    private record Box(
+        @Nullable BlockPos anchor,
+        @Nullable Tuple<BlockPos, BlockPos> corners) {}
 
     @NotNull
     private Box getBox(@NotNull final Level world, final CompoundTag compound)
@@ -182,8 +185,9 @@ public class ItemScepterLumberjack extends AbstractItemMinecolonies implements I
     }
 
     @NotNull
-    private Box getBox(@NotNull final Level world, final int colonyId, @NotNull final BlockPos pos,
-                       @Nullable final BlockPos start, @Nullable final BlockPos end)
+    private Box getBox(
+        @NotNull final Level world, final int colonyId, @NotNull final BlockPos pos,
+        @Nullable final BlockPos start, @Nullable final BlockPos end)
     {
         final IColonyView colony = IColonyManager.getInstance().getColonyView(colonyId, world.dimension());
 

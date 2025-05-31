@@ -39,7 +39,7 @@ import static com.minecolonies.api.util.constant.TranslationConstants.PARTIAL_JE
 @SuppressWarnings("MethodParameterOfConcreteClass")
 public class CropRecipeCategory implements IRecipeCategory<CropRecipeCategory.CropRecipe>
 {
-    private final int WIDTH = 150;
+    private final int WIDTH  = 150;
     private final int HEIGHT = 54;
 
     private final IDrawable background;
@@ -96,23 +96,24 @@ public class CropRecipeCategory implements IRecipeCategory<CropRecipeCategory.Cr
     }
 
     @Override
-    public void setRecipe(@NotNull final IRecipeLayoutBuilder builder,
-                          @NotNull final CropRecipe recipe,
-                          @NotNull final IFocusGroup focuses)
+    public void setRecipe(
+        @NotNull final IRecipeLayoutBuilder builder,
+        @NotNull final CropRecipe recipe,
+        @NotNull final IFocusGroup focuses)
     {
         final EquipmentTypeEntry requiredTool = ModEquipmentTypes.hoe.get();
         builder.addSlot(RecipeIngredientRole.CATALYST, WIDTH - 18, 0)
-                .setSlotName("tool")
-                .setBackground(this.chanceSlot, -1, -1)
-                .addItemStacks(MinecoloniesAPIProxy.getInstance().getColonyManager().getCompatibilityManager().getListOfAllItems().stream()
-                        .filter(requiredTool::checkIsEquipment)
-                        .sorted(Comparator.comparing(requiredTool::getMiningLevel))
-                        .toList());
+            .setSlotName("tool")
+            .setBackground(this.chanceSlot, -1, -1)
+            .addItemStacks(MinecoloniesAPIProxy.getInstance().getColonyManager().getCompatibilityManager().getListOfAllItems().stream()
+                .filter(requiredTool::checkIsEquipment)
+                .sorted(Comparator.comparing(requiredTool::getMiningLevel))
+                .toList());
 
         builder.addSlot(RecipeIngredientRole.INPUT, 0, 0)
-                .setSlotName("block")
-                .setBackground(this.slot, -1, -1)
-                .addItemStack(recipe.source().getCloneItemStack(Minecraft.getInstance().level, BlockPos.ZERO, recipe.source().defaultBlockState()));
+            .setSlotName("block")
+            .setBackground(this.slot, -1, -1)
+            .addItemStack(recipe.source().getCloneItemStack(Minecraft.getInstance().level, BlockPos.ZERO, recipe.source().defaultBlockState()));
 
         final List<LootTableAnalyzer.LootDrop> drops = CustomRecipeManager.getInstance().getLootDrops(recipe.source().getLootTable());
         final int initialColumns = (WIDTH - 36) / this.slot.getWidth();
@@ -126,8 +127,8 @@ public class CropRecipeCategory implements IRecipeCategory<CropRecipeCategory.Cr
         for (final LootTableAnalyzer.LootDrop drop : drops)
         {
             final IRecipeSlotBuilder slot = builder.addSlot(RecipeIngredientRole.OUTPUT, x, y)
-                    .setBackground(this.chanceSlot, -1, -1)
-                    .addItemStacks(drop.getItemStacks());
+                .setBackground(this.chanceSlot, -1, -1)
+                .addItemStacks(drop.getItemStacks());
             slot.addTooltipCallback(new JobBasedRecipeCategory.LootTableTooltipCallback(drop, recipe.source().getLootTable()));
             if (++c >= columns)
             {

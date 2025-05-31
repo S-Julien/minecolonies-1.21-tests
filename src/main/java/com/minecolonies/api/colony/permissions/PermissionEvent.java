@@ -145,9 +145,9 @@ public class PermissionEvent
         }
         final PermissionEvent that = (PermissionEvent) o;
         return Objects.equals(id, that.id) &&
-                 Objects.equals(name, that.name) &&
-                 action == that.action &&
-                 Objects.equals(position, that.position);
+            Objects.equals(name, that.name) &&
+            action == that.action &&
+            Objects.equals(position, that.position);
     }
 
     @Override

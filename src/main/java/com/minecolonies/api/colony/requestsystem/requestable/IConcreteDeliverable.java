@@ -11,6 +11,7 @@ public interface IConcreteDeliverable extends IDeliverable
 {
     /**
      * Get a list of concrete items requested by this deliverable
+     *
      * @return
      */
     List<ItemStack> getRequestedItems();

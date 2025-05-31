@@ -11,7 +11,6 @@ public class NorsemenModel extends HumanoidModel<AbstractEntityMinecoloniesMonst
 {
     /**
      * Create a model of a specific size.
-     *
      */
     public NorsemenModel(final ModelPart part)
     {

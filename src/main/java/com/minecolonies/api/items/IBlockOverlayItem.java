@@ -15,6 +15,7 @@ public interface IBlockOverlayItem
 {
     /**
      * Called client-side only.
+     *
      * @return a list of overlay boxes that should be rendered for this item.
      */
     @NotNull
@@ -22,10 +23,15 @@ public interface IBlockOverlayItem
 
     /**
      * Details about the overlay box to draw.
+     *
      * @param bounds            the bounds of the box.
      * @param color             the line color.
      * @param width             the line width.
      * @param showThroughBlocks true to display through blocks.
      */
-    record OverlayBox(AABB bounds, int color, float width, boolean showThroughBlocks) { }
+    record OverlayBox(
+        AABB bounds,
+        int color,
+        float width,
+        boolean showThroughBlocks) {}
 }

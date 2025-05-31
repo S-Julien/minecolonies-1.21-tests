@@ -82,9 +82,10 @@ public abstract class AttributeModifierUtils
 
     /**
      * Remove a specific modifier from an entity.
-     * @param entity the entity.
+     *
+     * @param entity       the entity.
      * @param modifierName the name of the modifier.
-     * @param attribute the type of attribute.
+     * @param attribute    the type of attribute.
      */
     public static void removeModifier(final LivingEntity entity, final String modifierName, final Attribute attribute)
     {
@@ -104,8 +105,9 @@ public abstract class AttributeModifierUtils
 
     /**
      * Add a specific new modifier.
-     * @param entity the entity to add it to.
-     * @param modifier the modifier to add.
+     *
+     * @param entity    the entity to add it to.
+     * @param modifier  the modifier to add.
      * @param attribute the type of the attribute.
      */
     public static void addModifier(final LivingEntity entity, final AttributeModifier modifier, final Attribute attribute)

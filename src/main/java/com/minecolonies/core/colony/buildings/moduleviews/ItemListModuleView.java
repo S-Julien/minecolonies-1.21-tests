@@ -51,8 +51,9 @@ public class ItemListModuleView extends AbstractBuildingModuleView implements II
 
     /**
      * Create a nw grouped item list view for the client side.
-     * @param id the id.
-     * @param desc desc lang string.
+     *
+     * @param id       the id.
+     * @param desc     desc lang string.
      * @param inverted enabling or disabling.
      * @param allItems a supplier for all the items.
      */

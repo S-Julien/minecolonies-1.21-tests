@@ -53,7 +53,7 @@ public class ResetFilterableItemMessage extends AbstractBuildingServerMessage<Ab
 
     @Override
     public void onExecute(
-      final NetworkEvent.Context ctxIn, final boolean isLogicalServer, final IColony colony, final AbstractBuilding building)
+        final NetworkEvent.Context ctxIn, final boolean isLogicalServer, final IColony colony, final AbstractBuilding building)
     {
         if (building.getModule(id) instanceof ItemListModule module)
         {

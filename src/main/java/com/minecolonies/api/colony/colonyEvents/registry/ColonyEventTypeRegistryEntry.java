@@ -44,7 +44,7 @@ public class ColonyEventTypeRegistryEntry
 
     /**
      * Deserializes the event from nbt.
-     * 
+     *
      * @param colony   the colony this event is part of.
      * @param compound the nbt to deserialize the event from.
      * @return the deserialized event.
@@ -56,6 +56,7 @@ public class ColonyEventTypeRegistryEntry
 
     /**
      * Get the fitting registry name.
+     *
      * @return the name.
      */
     public ResourceLocation getRegistryName()

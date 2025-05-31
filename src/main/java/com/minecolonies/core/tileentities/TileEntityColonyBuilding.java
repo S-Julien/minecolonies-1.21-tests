@@ -374,7 +374,7 @@ public class TileEntityColonyBuilding extends AbstractTileEntityColonyBuilding i
             {
                 final String level = this.getSchematicName().substring(this.getSchematicName().length() - 1);
                 path = BlueprintMapping.getPathMapping(compound.getString(TAG_STYLE), this.getSchematicName().substring(0, this.getSchematicName().length() - 1)) + level
-                         + ".blueprint";
+                    + ".blueprint";
             }
         }
         else

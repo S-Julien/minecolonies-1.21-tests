@@ -14,7 +14,6 @@ import static com.minecolonies.api.util.constant.GuardConstants.DRUID_HP_BONUS;
 
 /**
  * The Druid's Job class
- *
  */
 public class JobDruid extends AbstractJobGuard<JobDruid>
 {
@@ -44,9 +43,9 @@ public class JobDruid extends AbstractJobGuard<JobDruid>
 
             // +1 Heart every 4 level
             final AttributeModifier healthModLevel =
-              new AttributeModifier(GUARD_HEALTH_MOD_LEVEL_NAME,
-                getCitizen().getCitizenSkillHandler().getLevel(Skill.Mana) / 2.0 + DRUID_HP_BONUS,
-                AttributeModifier.Operation.ADDITION);
+                new AttributeModifier(GUARD_HEALTH_MOD_LEVEL_NAME,
+                    getCitizen().getCitizenSkillHandler().getLevel(Skill.Mana) / 2.0 + DRUID_HP_BONUS,
+                    AttributeModifier.Operation.ADDITION);
             AttributeModifierUtils.addHealthModifier(citizen, healthModLevel);
         }
     }

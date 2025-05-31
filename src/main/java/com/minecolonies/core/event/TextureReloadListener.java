@@ -21,7 +21,7 @@ import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 /**
  * Specific texture reload listener.
  */
-@Mod.EventBusSubscriber(value= Dist.CLIENT, modid= Constants.MOD_ID, bus=MOD)
+@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Constants.MOD_ID, bus = MOD)
 public class TextureReloadListener extends SimplePreparableReloadListener<TextureReloadListener.TexturePacks>
 {
     /**
@@ -55,8 +55,8 @@ public class TextureReloadListener extends SimplePreparableReloadListener<Textur
     @Override
     protected void apply(@NotNull final TexturePacks packs, @NotNull final ResourceManager manager, @NotNull final ProfilerFiller profiler)
     {
-       TextureReloadListener.TEXTURE_PACKS.clear();
-       TextureReloadListener.TEXTURE_PACKS.addAll(packs.packs);
+        TextureReloadListener.TEXTURE_PACKS.clear();
+        TextureReloadListener.TEXTURE_PACKS.addAll(packs.packs);
     }
 
     /**

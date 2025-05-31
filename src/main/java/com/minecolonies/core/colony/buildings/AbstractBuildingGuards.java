@@ -62,21 +62,21 @@ public abstract class AbstractBuildingGuards extends AbstractBuilding implements
     /**
      * Settings.
      */
-    public static final ISettingKey<BoolSetting>       RETREAT      =
-      new SettingKey<>(BoolSetting.class, new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, "retreat"));
+    public static final ISettingKey<BoolSetting>            RETREAT      =
+        new SettingKey<>(BoolSetting.class, new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, "retreat"));
     public static final ISettingKey<BoolSetting>            HIRE_TRAINEE =
-      new SettingKey<>(BoolSetting.class, new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, "hiretrainee"));
-    public static final ISettingKey<GuardPatrolModeSetting> PATROL_MODE =
-      new SettingKey<>(GuardPatrolModeSetting.class, new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, "patrolmode"));
-    public static final ISettingKey<GuardFollowModeSetting> FOLLOW_MODE =
-      new SettingKey<>(GuardFollowModeSetting.class, new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, "followmode"));
-    public static final ISettingKey<GuardTaskSetting>       GUARD_TASK  =
-      new SettingKey<>(GuardTaskSetting.class, new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, "guardtask"));
+        new SettingKey<>(BoolSetting.class, new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, "hiretrainee"));
+    public static final ISettingKey<GuardPatrolModeSetting> PATROL_MODE  =
+        new SettingKey<>(GuardPatrolModeSetting.class, new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, "patrolmode"));
+    public static final ISettingKey<GuardFollowModeSetting> FOLLOW_MODE  =
+        new SettingKey<>(GuardFollowModeSetting.class, new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, "followmode"));
+    public static final ISettingKey<GuardTaskSetting>       GUARD_TASK   =
+        new SettingKey<>(GuardTaskSetting.class, new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, "guardtask"));
 
 
     //manual patroll. retreat, hire from training
 
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
     private static final String NBT_JOB            = "guardType";
     private static final String NBT_PATROL_TARGETS = "patrol targets";
     private static final String NBT_TARGET         = "target";
@@ -162,17 +162,17 @@ public abstract class AbstractBuildingGuards extends AbstractBuilding implements
         keepX.put(itemStack -> !ItemStackUtils.isEmpty(itemStack) && ItemStackUtils.doesItemServeAsWeapon(itemStack), new Tuple<>(1, true));
 
         keepX.put(itemStack -> !ItemStackUtils.isEmpty(itemStack)
-                                 && itemStack.getItem() instanceof ArmorItem
-                                 && ((ArmorItem) itemStack.getItem()).getEquipmentSlot() == EquipmentSlot.CHEST, new Tuple<>(1, true));
+            && itemStack.getItem() instanceof ArmorItem
+            && ((ArmorItem) itemStack.getItem()).getEquipmentSlot() == EquipmentSlot.CHEST, new Tuple<>(1, true));
         keepX.put(itemStack -> !ItemStackUtils.isEmpty(itemStack)
-                                 && itemStack.getItem() instanceof ArmorItem
-                                 && ((ArmorItem) itemStack.getItem()).getEquipmentSlot() == EquipmentSlot.HEAD, new Tuple<>(1, true));
+            && itemStack.getItem() instanceof ArmorItem
+            && ((ArmorItem) itemStack.getItem()).getEquipmentSlot() == EquipmentSlot.HEAD, new Tuple<>(1, true));
         keepX.put(itemStack -> !ItemStackUtils.isEmpty(itemStack)
-                                 && itemStack.getItem() instanceof ArmorItem
-                                 && ((ArmorItem) itemStack.getItem()).getEquipmentSlot() == EquipmentSlot.LEGS, new Tuple<>(1, true));
+            && itemStack.getItem() instanceof ArmorItem
+            && ((ArmorItem) itemStack.getItem()).getEquipmentSlot() == EquipmentSlot.LEGS, new Tuple<>(1, true));
         keepX.put(itemStack -> !ItemStackUtils.isEmpty(itemStack)
-                                 && itemStack.getItem() instanceof ArmorItem
-                                 && ((ArmorItem) itemStack.getItem()).getEquipmentSlot() == EquipmentSlot.FEET, new Tuple<>(1, true));
+            && itemStack.getItem() instanceof ArmorItem
+            && ((ArmorItem) itemStack.getItem()).getEquipmentSlot() == EquipmentSlot.FEET, new Tuple<>(1, true));
 
         keepX.put(itemStack -> {
             if (ItemStackUtils.isEmpty(itemStack) || !(itemStack.getItem() instanceof ArrowItem))
@@ -211,7 +211,7 @@ public abstract class AbstractBuildingGuards extends AbstractBuilding implements
 
     //// ---- NBT Overrides ---- \\\\
 
-    //// ---- Overrides ---- \\\\
+    /// / ---- Overrides ---- \\\\
 
     @Override
     public void deserializeNBT(final CompoundTag compound)
@@ -236,7 +236,6 @@ public abstract class AbstractBuildingGuards extends AbstractBuilding implements
         {
             followPlayerUUID = compound.getUUID(NBT_PLAYER_UUID);
         }
-
     }
 
     @Override
@@ -374,6 +373,7 @@ public abstract class AbstractBuildingGuards extends AbstractBuilding implements
 
     /**
      * Set the patroll timer.
+     *
      * @param timer the timer to set.
      */
     public void setPatrolTimer(final int timer)
@@ -560,7 +560,8 @@ public abstract class AbstractBuildingGuards extends AbstractBuilding implements
         final IColony colonyAtPosition = IColonyManager.getInstance().getColonyByPosFromDim(rallyLocation.getDimension(), rallyLocation.getInDimensionLocation());
         if (colonyAtPosition == null || colonyAtPosition.getID() != colony.getID())
         {
-            if (getColony().getResearchManager().getResearchEffects().getEffectStrength(TELESCOPE) <= 0 || BlockPosUtil.getDistance2D(rallyLocation.getInDimensionLocation(), colony.getCenter()) > 500)
+            if (getColony().getResearchManager().getResearchEffects().getEffectStrength(TELESCOPE) <= 0
+                || BlockPosUtil.getDistance2D(rallyLocation.getInDimensionLocation(), colony.getCenter()) > 500)
             {
                 outOfRange = true;
             }
@@ -782,14 +783,14 @@ public abstract class AbstractBuildingGuards extends AbstractBuilding implements
          *
          * @return the position of the mine
          */
-        public BlockPos getMinePos() { return minePos; }
+        public BlockPos getMinePos() {return minePos;}
 
         /**
          * Set the position of the mine the guard is patrolling
          *
          * @param pos the position of the mine
          */
-        public void setMinePos(BlockPos pos) { this.minePos = pos; }
+        public void setMinePos(BlockPos pos) {this.minePos = pos;}
 
         @Override
         public int getRange()

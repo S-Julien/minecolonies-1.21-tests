@@ -186,10 +186,10 @@ public class EntityAISleep implements IStateAI
                         final BlockState state = world.getBlockState(pos);
                         final BlockState above = world.getBlockState(pos.above());
                         if (state.is(BlockTags.BEDS)
-                              && !state.getValue(BedBlock.OCCUPIED)
-                              && state.getValue(BedBlock.PART).equals(BedPart.HEAD)
-                              && !isBedOccupied(hut, pos)
-                              && (above.is(BlockTags.BEDS) || above.getBlock() instanceof PanelBlock || above.getBlock() instanceof TrapDoorBlock || !above.isSolid()))
+                            && !state.getValue(BedBlock.OCCUPIED)
+                            && state.getValue(BedBlock.PART).equals(BedPart.HEAD)
+                            && !isBedOccupied(hut, pos)
+                            && (above.is(BlockTags.BEDS) || above.getBlock() instanceof PanelBlock || above.getBlock() instanceof TrapDoorBlock || !above.isSolid()))
                         {
                             usedBed = pos;
                             setBedOccupied(true);

@@ -33,9 +33,10 @@ public class FurnaceCraftingGuiHandler extends AbstractTeachingGuiHandler<Window
 
     @NotNull
     @Override
-    public Collection<IGuiClickableArea> getGuiClickableAreas(@NotNull final WindowFurnaceCrafting containerScreen,
-                                                              final double mouseX,
-                                                              final double mouseY)
+    public Collection<IGuiClickableArea> getGuiClickableAreas(
+        @NotNull final WindowFurnaceCrafting containerScreen,
+        final double mouseX,
+        final double mouseY)
     {
         final List<IGuiClickableArea> areas = new ArrayList<>();
         final JobBasedRecipeCategory<?> category = getRecipeCategory(containerScreen.getBuildingView());

@@ -45,10 +45,11 @@ public interface IColonyRaidEvent extends IColonyEntitySpawnEvent
 
     /**
      * Whether or not the raid is still active.
+     *
      * @return true if so.
      */
     default boolean isRaidActive()
     {
-        return getStatus() == EventStatus.PROGRESSING ||getStatus() == EventStatus.PREPARING;
+        return getStatus() == EventStatus.PROGRESSING || getStatus() == EventStatus.PREPARING;
     }
 }

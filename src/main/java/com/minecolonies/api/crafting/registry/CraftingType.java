@@ -24,13 +24,15 @@ public abstract class CraftingType
 
     /**
      * Find all teachable recipes supported by this particular crafting type
+     *
      * @param recipeManager the vanilla recipe manager
-     * @param world the world (if available)
+     * @param world         the world (if available)
      * @return the list of teachable recipes
      */
     @NotNull
-    public abstract List<IGenericRecipe> findRecipes(@NotNull final RecipeManager recipeManager,
-                                                     @Nullable final Level world);
+    public abstract List<IGenericRecipe> findRecipes(
+        @NotNull final RecipeManager recipeManager,
+        @Nullable final Level world);
 
     @Override
     public boolean equals(Object obj)

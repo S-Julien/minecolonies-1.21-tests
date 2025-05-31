@@ -276,7 +276,7 @@ public class EntityAIInteractToggleAble extends Goal
                         // Check if the next pathing node is below
                         final Node nextPoint = path.getNode(i + 1);
                         if ((pos.getX() == nextPoint.x && pos.getY() > nextPoint.y && pos.getZ() == nextPoint.z) ||
-                              entity.getY() - pos.getY() > 1)
+                            entity.getY() - pos.getY() > 1)
                         {
                             toggleAblePositions.put(pos, entity.level.getBlockState(pos).getValue(BlockStateProperties.OPEN));
                         }

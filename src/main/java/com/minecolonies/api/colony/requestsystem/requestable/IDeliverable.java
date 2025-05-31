@@ -55,6 +55,7 @@ public interface IDeliverable extends IRetryable
 
     /**
      * Can this type of request be resolved by the building, or only by external resolvers.
+     *
      * @return true if so.
      */
     default boolean canBeResolvedByBuilding()

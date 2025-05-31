@@ -26,13 +26,13 @@ public class FurnaceRecipes implements IFurnaceRecipes
     /**
      * Furnace recipes.
      */
-    private Map<ItemStorage, RecipeStorage> recipes = new HashMap<>();
+    private Map<ItemStorage, RecipeStorage> recipes        = new HashMap<>();
     private Map<ItemStorage, RecipeStorage> reverseRecipes = new HashMap<>();
 
     /**
      * Load all the recipes in the recipe storage.
      *
-     * @param recipeManager  The recipe manager to parse.
+     * @param recipeManager The recipe manager to parse.
      */
     public void loadRecipes(final RecipeManager recipeManager, final Level level)
     {
@@ -42,17 +42,17 @@ public class FurnaceRecipes implements IFurnaceRecipes
             final NonNullList<Ingredient> list = recipe.getIngredients();
             if (list.size() == 1)
             {
-                for(final ItemStack smeltable: list.get(0).getItems())
+                for (final ItemStack smeltable : list.get(0).getItems())
                 {
                     if (!smeltable.isEmpty())
                     {
                         final RecipeStorage storage = RecipeStorage.builder()
-                                .withInputs(ImmutableList.of(new ItemStorage(smeltable)))
-                                .withPrimaryOutput(recipe.getResultItem(level.registryAccess()))
-                                .withGridSize(1)
-                                .withIntermediate(Blocks.FURNACE)
-                                .withRecipeId(recipe.getId())
-                                .build();
+                            .withInputs(ImmutableList.of(new ItemStorage(smeltable)))
+                            .withPrimaryOutput(recipe.getResultItem(level.registryAccess()))
+                            .withGridSize(1)
+                            .withIntermediate(Blocks.FURNACE)
+                            .withRecipeId(recipe.getId())
+                            .build();
 
                         recipes.put(storage.getCleanedInput().get(0), storage);
 

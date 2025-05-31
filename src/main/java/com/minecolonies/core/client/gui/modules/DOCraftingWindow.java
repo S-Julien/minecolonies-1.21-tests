@@ -53,7 +53,7 @@ public class DOCraftingWindow extends AbstractModuleWindow
     /**
      * Inputs scrolling list.
      */
-    private final ScrollingList inputs;
+    private final ScrollingList  inputs;
     private final List<ItemIcon> inputIcons = new ArrayList<>();
 
     /**
@@ -100,7 +100,7 @@ public class DOCraftingWindow extends AbstractModuleWindow
     private void updateInputs(final int index, final Pane rowPane)
     {
         rowPane.findPaneOfTypeByID(RESOURCE_NAME, Text.class)
-                .setText(Component.translatable(DOCRAFTING_BLOCK, index + 1));
+            .setText(Component.translatable(DOCRAFTING_BLOCK, index + 1));
 
         final ItemIcon icon = rowPane.findPaneOfTypeByID(RESOURCE_ICON, ItemIcon.class);
         inputIcons.set(index, icon);
@@ -123,10 +123,16 @@ public class DOCraftingWindow extends AbstractModuleWindow
     private boolean matchingRequest(@NotNull final IRequest<?> request)
     {
         final ItemStack stack = DomumOrnamentumUtils.getRequestedStack(request);
-        if (stack.isEmpty()) return false;
+        if (stack.isEmpty())
+        {
+            return false;
+        }
 
         final MaterialTextureData textureData = DomumOrnamentumUtils.getTextureData(stack);
-        if (textureData.isEmpty()) return false;
+        if (textureData.isEmpty())
+        {
+            return false;
+        }
 
         for (final Block block : textureData.getTexturedComponents().values())
         {
@@ -170,7 +176,8 @@ public class DOCraftingWindow extends AbstractModuleWindow
 
     private void addRecipe()
     {
-        final List<ArchitectsCutterRecipe> list = Minecraft.getInstance().level.getRecipeManager().getRecipesFor(ModRecipeTypes.ARCHITECTS_CUTTER.get(), inputInventory, Minecraft.getInstance().level);
+        final List<ArchitectsCutterRecipe> list =
+            Minecraft.getInstance().level.getRecipeManager().getRecipesFor(ModRecipeTypes.ARCHITECTS_CUTTER.get(), inputInventory, Minecraft.getInstance().level);
         final Map<Integer, List<Integer>> map = new HashMap<>();
 
         if (inputInventory.isEmpty() || list.isEmpty())
@@ -215,12 +222,12 @@ public class DOCraftingWindow extends AbstractModuleWindow
         }
 
         final IRecipeStorage storage = RecipeStorage.builder()
-                .withInputs(input)
-                .withPrimaryOutput(list.get(inputIndizes.get(0)).assemble(inputInventory, Minecraft.getInstance().level.registryAccess()).copy())
-                .withAlternateOutputs(additionalOutput)
-                .withGridSize(3)
-                .withRecipeType(com.minecolonies.api.crafting.ModRecipeTypes.MULTI_OUTPUT_ID)
-                .build();
+            .withInputs(input)
+            .withPrimaryOutput(list.get(inputIndizes.get(0)).assemble(inputInventory, Minecraft.getInstance().level.registryAccess()).copy())
+            .withAlternateOutputs(additionalOutput)
+            .withGridSize(3)
+            .withRecipeType(com.minecolonies.api.crafting.ModRecipeTypes.MULTI_OUTPUT_ID)
+            .build();
 
         Network.getNetwork().sendToServer(new AddRemoveRecipeMessage(buildingView, false, storage, craftingModuleView.getProducer().getRuntimeID()));
     }
@@ -240,7 +247,8 @@ public class DOCraftingWindow extends AbstractModuleWindow
         resourceList.enable();
         resourceList.show();
 
-        final List<ArchitectsCutterRecipe> list = Minecraft.getInstance().level.getRecipeManager().getRecipesFor(ModRecipeTypes.ARCHITECTS_CUTTER.get(), inputInventory, Minecraft.getInstance().level);
+        final List<ArchitectsCutterRecipe> list =
+            Minecraft.getInstance().level.getRecipeManager().getRecipesFor(ModRecipeTypes.ARCHITECTS_CUTTER.get(), inputInventory, Minecraft.getInstance().level);
         int inputCount = 0;
         for (int i = 0; i < inputInventory.getContainerSize(); i++)
         {

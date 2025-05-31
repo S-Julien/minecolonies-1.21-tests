@@ -65,7 +65,9 @@
     },
     {
       "type": "minecolonies:dialogue",
-      "unlocks-rewards": [0],
+      "unlocks-rewards": [
+        0
+      ],
       "target": 0,
       "text": "Thank you so much for bringing me the Resource Scroll! You know, all you have to do is shift-right-click it on the hut block to activate it. It will help you gather resources more quickly and efficiently. I hope you find it as useful as I do!",
       "options": [

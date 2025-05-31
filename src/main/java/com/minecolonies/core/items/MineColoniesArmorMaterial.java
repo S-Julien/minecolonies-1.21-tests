@@ -35,14 +35,14 @@ public class MineColoniesArmorMaterial implements ArmorMaterial
     private final LazyLoadedValue<Ingredient> repairIngredient;
 
     public MineColoniesArmorMaterial(
-      final String name,
-      final int durabilityMultiplier,
-      final Map<Type, Integer> protectionFunctionForType,
-      final int enchantmentValue,
-      final SoundEvent sound,
-      final float toughness,
-      final float knockbackResistance,
-      final Supplier<Ingredient> repairIngredient)
+        final String name,
+        final int durabilityMultiplier,
+        final Map<Type, Integer> protectionFunctionForType,
+        final int enchantmentValue,
+        final SoundEvent sound,
+        final float toughness,
+        final float knockbackResistance,
+        final Supplier<Ingredient> repairIngredient)
     {
         this.name = name;
         this.durabilityMultiplier = durabilityMultiplier;

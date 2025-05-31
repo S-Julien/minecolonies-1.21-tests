@@ -119,7 +119,8 @@ public abstract class AbstractJobStructure<AI extends AbstractAISkeleton<J>, J e
                             {
                                 final CompoundTag tagData = compoundNBT.getCompound(TAG_BLUEPRINTDATA);
                                 final String schematicPath = tagData.getString(TAG_NAME);
-                                final String location = StructurePacks.getStructurePack(blueprint.getPackName()).getSubPath(Utils.resolvePath(blueprint.getFilePath(), schematicPath));
+                                final String location =
+                                    StructurePacks.getStructurePack(blueprint.getPackName()).getSubPath(Utils.resolvePath(blueprint.getFilePath(), schematicPath));
 
                                 tagData.putString(TAG_NAME, location);
                                 tagData.putString(NbtTagConstants.TAG_PACK, blueprint.getPackName());

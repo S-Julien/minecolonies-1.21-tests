@@ -37,14 +37,14 @@ public class ResearchObjectiveTemplate extends DialogueObjectiveTemplateTemplate
     /**
      * Create a new objective of this type.
      *
-     * @param target        the target citizen.
-     * @param rewards       the rewards this unlocks.
+     * @param target  the target citizen.
+     * @param rewards the rewards this unlocks.
      */
     public ResearchObjectiveTemplate(
-      final int target,
-      final ResourceLocation researchId,
-      final int nextObjective,
-      final List<Integer> rewards)
+        final int target,
+        final ResourceLocation researchId,
+        final int nextObjective,
+        final List<Integer> rewards)
     {
         super(target, buildDialogueTree(researchId), rewards);
         this.researchId = researchId;
@@ -56,12 +56,12 @@ public class ResearchObjectiveTemplate extends DialogueObjectiveTemplateTemplate
     {
         final IGlobalResearch research = IGlobalResearchTree.getInstance().getResearch(researchId);
 
-        final Component text  = Component.translatable("com.minecolonies.coremod.questobjectives.research", MutableComponent.create((research.getName())));
+        final Component text = Component.translatable("com.minecolonies.coremod.questobjectives.research", MutableComponent.create((research.getName())));
 
         final AnswerElement answer1 = new AnswerElement(Component.translatable("com.minecolonies.coremod.questobjectives.answer.later"),
-          new IQuestDialogueAnswer.CloseUIDialogueAnswer());
+            new IQuestDialogueAnswer.CloseUIDialogueAnswer());
         final AnswerElement answer2 = new AnswerElement(Component.translatable("com.minecolonies.coremod.questobjectives.answer.cancel"),
-          new IQuestDialogueAnswer.QuestCancellationDialogueAnswer());
+            new IQuestDialogueAnswer.QuestCancellationDialogueAnswer());
         return new DialogueElement(text, List.of(answer1, answer2));
     }
 

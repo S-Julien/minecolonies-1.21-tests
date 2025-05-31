@@ -47,7 +47,7 @@ public class JobChickenHerder extends AbstractJob<EntityAIWorkChickenHerder, Job
         if (pickedUpStack.getItem() == Items.FEATHER || pickedUpStack.getItem() == Items.EGG)
         {
             return getCitizen().getRandom()
-              .nextInt((getCitizen().getCitizenSkillHandler().getLevel(getCitizen().getWorkBuilding().getModule(BuildingModules.CHICKENHERDER_WORK).getPrimarySkill()))) > 1;
+                .nextInt((getCitizen().getCitizenSkillHandler().getLevel(getCitizen().getWorkBuilding().getModule(BuildingModules.CHICKENHERDER_WORK).getPrimarySkill()))) > 1;
         }
         return true;
     }
@@ -68,7 +68,7 @@ public class JobChickenHerder extends AbstractJob<EntityAIWorkChickenHerder, Job
     public boolean onStackPickUp(@NotNull final ItemStack pickedUpStack)
     {
         if (getCitizen().getWorkBuilding() != null && getCitizen().getEntity().isPresent() && getCitizen().getWorkBuilding()
-          .isInBuilding(getCitizen().getEntity().get().blockPosition()))
+            .isInBuilding(getCitizen().getEntity().get().blockPosition()))
         {
             getCitizen().getWorkBuilding().getModule(STATS_MODULE).incrementBy(ITEM_USED + ";" + pickedUpStack.getItem().getDescriptionId(), pickedUpStack.getCount());
         }

@@ -83,6 +83,5 @@ public class PickupBlockMessage implements IMessage
         {
             MessageUtils.format(WARNING_BUILDING_PICKUP_PLAYER_INVENTORY_FULL).sendTo(sender);
         }
-
     }
 }

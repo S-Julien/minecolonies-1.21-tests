@@ -31,10 +31,10 @@ public class ItemSantaHead extends ArmorItem
      * @param properties      the item properties.
      */
     public ItemSantaHead(
-      @NotNull final String name,
-      @NotNull final ArmorMaterial materialIn,
-      @NotNull final Type equipmentSlotIn,
-      final Item.Properties properties)
+        @NotNull final String name,
+        @NotNull final ArmorMaterial materialIn,
+        @NotNull final Type equipmentSlotIn,
+        final Item.Properties properties)
     {
         super(materialIn, equipmentSlotIn, properties);
     }

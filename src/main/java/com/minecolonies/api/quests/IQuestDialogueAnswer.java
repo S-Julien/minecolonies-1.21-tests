@@ -34,6 +34,7 @@ public interface IQuestDialogueAnswer
 
         /**
          * Create a new go to result.
+         *
          * @param nextObjective the next obj index.
          */
         public NextObjectiveDialogueAnswer(final int nextObjective)
@@ -43,6 +44,7 @@ public interface IQuestDialogueAnswer
 
         /**
          * Create the go to result from json.
+         *
          * @param jsonObject the json obj.
          */
         public NextObjectiveDialogueAnswer(final JsonObject jsonObject)

@@ -43,12 +43,14 @@ public interface IGraveData
 
     /**
      * Read this CitizenData from the compoundNBT
+     *
      * @param compoundNBT
      */
     void read(CompoundTag compoundNBT);
 
     /**
      * Write this CitizenData to a coumpoundNBT
+     *
      * @return
      */
     CompoundTag write();

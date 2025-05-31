@@ -58,18 +58,18 @@ public class PrivateSmeltingTeachingTransferHandler implements IRecipeTransferHa
     @Nullable
     @Override
     public IRecipeTransferError transferRecipe(
-            @NotNull final ContainerCraftingFurnace craftingGUIBuilding,
-            @NotNull final SmeltingRecipe recipe,
-            @NotNull final IRecipeSlotsView recipeSlots,
-            @NotNull final Player player,
-            final boolean maxTransfer,
-            final boolean doTransfer)
+        @NotNull final ContainerCraftingFurnace craftingGUIBuilding,
+        @NotNull final SmeltingRecipe recipe,
+        @NotNull final IRecipeSlotsView recipeSlots,
+        @NotNull final Player player,
+        final boolean maxTransfer,
+        final boolean doTransfer)
     {
         // we only care about the first input ingredient for furnace recipes
         final ItemStack input = recipeSlots.getSlotViews(RecipeIngredientRole.INPUT).stream()
-                .flatMap(slot -> slot.getDisplayedIngredient(VanillaTypes.ITEM_STACK).stream())
-                .findFirst()
-                .orElse(ItemStack.EMPTY);
+            .flatMap(slot -> slot.getDisplayedIngredient(VanillaTypes.ITEM_STACK).stream())
+            .findFirst()
+            .orElse(ItemStack.EMPTY);
 
         if (!input.isEmpty() && doTransfer)
         {

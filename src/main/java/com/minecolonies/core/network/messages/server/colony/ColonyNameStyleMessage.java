@@ -26,8 +26,8 @@ public class ColonyNameStyleMessage extends AbstractColonyServerMessage
     /**
      * Change the colony name style from the client to the serverside.
      *
-     * @param colony      the colony the player changed the style in.
-     * @param style the list of patterns they set in the banner picker
+     * @param colony the colony the player changed the style in.
+     * @param style  the list of patterns they set in the banner picker
      */
     public ColonyNameStyleMessage(final IColony colony, final String style)
     {

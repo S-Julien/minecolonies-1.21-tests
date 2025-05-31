@@ -52,11 +52,11 @@ public abstract class AbstractEntityAITraining<J extends AbstractJob<?, J>, B ex
         //Tasks: Wander around, Find shooting position, go to shooting position, shoot, verify shot
         super(job);
         super.registerTargets(
-          new AITarget(IDLE, () -> START_WORKING, 1),
-          new AITarget(START_WORKING, () -> DECIDE, 1),
-          new AITarget(DECIDE, this::decide, 20),
-          new AITarget(TRAINING_WANDER, this::wander, 200),
-          new AITarget(GO_TO_TARGET, this::pathToTarget, 20)
+            new AITarget(IDLE, () -> START_WORKING, 1),
+            new AITarget(START_WORKING, () -> DECIDE, 1),
+            new AITarget(DECIDE, this::decide, 20),
+            new AITarget(TRAINING_WANDER, this::wander, 200),
+            new AITarget(GO_TO_TARGET, this::pathToTarget, 20)
         );
         worker.setCanPickUpLoot(true);
     }

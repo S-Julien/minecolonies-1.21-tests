@@ -34,10 +34,10 @@ public class SimpleModelType implements ISimpleModelType
     private final CitizenModel<AbstractEntityCitizen> femaleModel;
 
     public SimpleModelType(
-      final ResourceLocation name,
-      final int numTextures,
-      final CitizenModel<AbstractEntityCitizen> maleModel,
-      final CitizenModel<AbstractEntityCitizen> femaleModel)
+        final ResourceLocation name,
+        final int numTextures,
+        final CitizenModel<AbstractEntityCitizen> maleModel,
+        final CitizenModel<AbstractEntityCitizen> femaleModel)
     {
         this.name = name;
         this.numTextures = numTextures;

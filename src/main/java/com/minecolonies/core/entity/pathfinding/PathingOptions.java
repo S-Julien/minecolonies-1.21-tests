@@ -80,7 +80,7 @@ public class PathingOptions
     /**
      * Whether to use minecart rail pathing
      */
-    private boolean canUseRails        = false;
+    private boolean canUseRails      = false;
     /**
      * Can swim
      */
@@ -175,6 +175,7 @@ public class PathingOptions
     {
         return canPassDanger;
     }
+
     public boolean canWalkUnderWater()
     {
         return walkUnderWater;
@@ -259,6 +260,7 @@ public class PathingOptions
 
     /**
      * Set door opening capability
+     *
      * @param canEnter whether we can enter doors
      * @return
      */
@@ -270,6 +272,7 @@ public class PathingOptions
 
     /**
      * Set under water walking opening capability
+     *
      * @param walkUnderWater whether we can walk underwater
      * @return
      */
@@ -281,6 +284,7 @@ public class PathingOptions
 
     /**
      * Imports all options from the given other pathing options
+     *
      * @param pathingOptions
      */
     public void importFrom(final PathingOptions pathingOptions)

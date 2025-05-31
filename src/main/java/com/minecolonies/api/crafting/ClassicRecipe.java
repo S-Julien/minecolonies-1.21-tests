@@ -29,9 +29,9 @@ public class ClassicRecipe extends AbstractRecipeType<IRecipeStorage>
     @Override
     public List<ItemStack> getOutputDisplayStacks()
     {
-        if(outputDisplayStacks.isEmpty())
+        if (outputDisplayStacks.isEmpty())
         {
-            if(!ItemStackUtils.isEmpty(recipe.getPrimaryOutput()) || recipe.getSecondaryOutputs().isEmpty())
+            if (!ItemStackUtils.isEmpty(recipe.getPrimaryOutput()) || recipe.getSecondaryOutputs().isEmpty())
             {
                 outputDisplayStacks.addAll(super.getOutputDisplayStacks());
             }
@@ -45,5 +45,4 @@ public class ClassicRecipe extends AbstractRecipeType<IRecipeStorage>
     {
         return ModRecipeTypes.CLASSIC_ID;
     }
-    
 }

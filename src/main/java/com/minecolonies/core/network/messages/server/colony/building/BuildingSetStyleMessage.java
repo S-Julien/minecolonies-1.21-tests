@@ -29,8 +29,8 @@ public class BuildingSetStyleMessage extends AbstractBuildingServerMessage<IBuil
     /**
      * Creates object for the style of a building.
      *
-     * @param building View of the building to read data from.
-     * @param structurePack    style of the building.
+     * @param building      View of the building to read data from.
+     * @param structurePack style of the building.
      */
     public BuildingSetStyleMessage(@NotNull final IBuildingView building, final String structurePack)
     {

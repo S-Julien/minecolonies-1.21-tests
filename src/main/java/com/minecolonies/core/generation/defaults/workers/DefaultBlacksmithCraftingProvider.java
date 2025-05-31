@@ -75,36 +75,38 @@ public class DefaultBlacksmithCraftingProvider extends CustomRecipeProvider
             .build(consumer);
     }
 
-    private void plate(@NotNull final Consumer<FinishedRecipe> consumer,
-                       final int ironCount, final int coalCount,
-                       @NotNull final ItemLike output)
+    private void plate(
+        @NotNull final Consumer<FinishedRecipe> consumer,
+        final int ironCount, final int coalCount,
+        @NotNull final ItemLike output)
     {
         CustomRecipeBuilder.create(BLACKSMITH, MODULE_CRAFTING,
-                        ForgeRegistries.ITEMS.getKey(output.asItem()).getPath())
-                .inputs(List.of(new ItemStorage(new ItemStack(Items.IRON_INGOT, ironCount)),
-                        new ItemStorage(new ItemStack(Items.LEATHER)),
-                        new ItemStorage(new ItemStack(Items.COAL, coalCount))))
-                .result(new ItemStack(output))
-                .minBuildingLevel(4)
-                .minResearchId(ResearchConstants.PLATE_ARMOR)
-                .showTooltip(true)
-                .build(consumer);
+                ForgeRegistries.ITEMS.getKey(output.asItem()).getPath())
+            .inputs(List.of(new ItemStorage(new ItemStack(Items.IRON_INGOT, ironCount)),
+                new ItemStorage(new ItemStack(Items.LEATHER)),
+                new ItemStorage(new ItemStack(Items.COAL, coalCount))))
+            .result(new ItemStack(output))
+            .minBuildingLevel(4)
+            .minResearchId(ResearchConstants.PLATE_ARMOR)
+            .showTooltip(true)
+            .build(consumer);
     }
 
-    private void netherite(@NotNull final Consumer<FinishedRecipe> consumer,
-                           @NotNull final ItemLike input,
-                           @NotNull final ItemLike output)
+    private void netherite(
+        @NotNull final Consumer<FinishedRecipe> consumer,
+        @NotNull final ItemLike input,
+        @NotNull final ItemLike output)
     {
         CustomRecipeBuilder.create(BLACKSMITH, MODULE_CRAFTING,
-                        ForgeRegistries.ITEMS.getKey(output.asItem()).getPath())
-                .inputs(List.of(new ItemStorage(new ItemStack(input)),
-                        new ItemStorage(new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)),
-                        new ItemStorage(new ItemStack(Items.NETHERITE_INGOT)),
-                        new ItemStorage(new ItemStack(Items.DIAMOND, 7)),
-                        new ItemStorage(new ItemStack(Items.NETHERRACK))))
-                .result(new ItemStack(output))
-                .secondaryOutputs(Collections.singletonList(new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)))
-                .minBuildingLevel(4)
-                .build(consumer);
+                ForgeRegistries.ITEMS.getKey(output.asItem()).getPath())
+            .inputs(List.of(new ItemStorage(new ItemStack(input)),
+                new ItemStorage(new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)),
+                new ItemStorage(new ItemStack(Items.NETHERITE_INGOT)),
+                new ItemStorage(new ItemStack(Items.DIAMOND, 7)),
+                new ItemStorage(new ItemStack(Items.NETHERRACK))))
+            .result(new ItemStack(output))
+            .secondaryOutputs(Collections.singletonList(new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)))
+            .minBuildingLevel(4)
+            .build(consumer);
     }
 }

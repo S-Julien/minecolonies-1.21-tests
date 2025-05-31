@@ -34,11 +34,11 @@ import net.minecraft.world.InteractionResultHolder;
  */
 public abstract class AbstractItemScroll extends AbstractItemMinecolonies
 {
-    public static final String TAG_COLONY_DIM = "colony_dim";
-    public static final String TAG_BUILDING_POS = "building_pos";
+    public static final String TAG_COLONY_DIM         = "colony_dim";
+    public static final String TAG_BUILDING_POS       = "building_pos";
     public static final String TAG_CACHED_COLONY_NAME = "cached_colony_name";
 
-    public static final int    FAIL_RESPONSES_TOTAL = 10;
+    public static final int FAIL_RESPONSES_TOTAL = 10;
 
     /**
      * Sets the name, creative tab, and registers the item.
@@ -168,7 +168,8 @@ public abstract class AbstractItemScroll extends AbstractItemMinecolonies
             return null;
         }
 
-        return IColonyManager.getInstance().getColonyByDimension(stack.getTag().getInt(TAG_COLONY_ID), ResourceKey.create(Registries.DIMENSION, new ResourceLocation(stack.getTag().getString(TAG_COLONY_DIM))));
+        return IColonyManager.getInstance()
+            .getColonyByDimension(stack.getTag().getInt(TAG_COLONY_ID), ResourceKey.create(Registries.DIMENSION, new ResourceLocation(stack.getTag().getString(TAG_COLONY_DIM))));
     }
 
     /**
@@ -184,6 +185,7 @@ public abstract class AbstractItemScroll extends AbstractItemMinecolonies
             return null;
         }
 
-        return IColonyManager.getInstance().getColonyView(stack.getTag().getInt(TAG_COLONY_ID), ResourceKey.create(Registries.DIMENSION, new ResourceLocation(stack.getTag().getString(TAG_COLONY_DIM))));
+        return IColonyManager.getInstance()
+            .getColonyView(stack.getTag().getInt(TAG_COLONY_ID), ResourceKey.create(Registries.DIMENSION, new ResourceLocation(stack.getTag().getString(TAG_COLONY_DIM))));
     }
 }

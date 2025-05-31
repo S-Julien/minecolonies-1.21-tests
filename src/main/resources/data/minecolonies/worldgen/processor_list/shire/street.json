@@ -79,9 +79,9 @@
       "processor_type": "minecraft:rule"
     },
     {
-      "blocks":[
+      "blocks": [
         {
-          "Name":"structurize:blocksubstitution"
+          "Name": "structurize:blocksubstitution"
         }
       ],
       "processor_type": "minecraft:block_ignore"

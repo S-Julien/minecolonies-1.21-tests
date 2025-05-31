@@ -31,8 +31,12 @@ public final class ToolsAnalyzer
 
         for (final ItemStack stack : IColonyManager.getInstance().getCompatibilityManager().getListOfAllItems())
         {
-            for (EquipmentTypeEntry toolType : ModEquipmentTypes.getRegistry()) {
-                if (toolType == ModEquipmentTypes.none.get() || !toolType.checkIsEquipment(stack)) { continue; }
+            for (EquipmentTypeEntry toolType : ModEquipmentTypes.getRegistry())
+            {
+                if (toolType == ModEquipmentTypes.none.get() || !toolType.checkIsEquipment(stack))
+                {
+                    continue;
+                }
 
                 tryAddingToolWithLevel(toolItems, toolType, stack);
 
@@ -49,10 +53,11 @@ public final class ToolsAnalyzer
         return toolItems.values().stream().sorted(Comparator.comparing(ToolUsage::tool, new EquipmentTypeEntry.Comparator())).toList();
     }
 
-    private static void tryAddingEnchantedTool(@NotNull final Map<EquipmentTypeEntry, ToolUsage> toolItems,
-                                               @NotNull final EquipmentTypeEntry tool,
-                                               @NotNull final ItemStack stack,
-                                               final int enchantLevel)
+    private static void tryAddingEnchantedTool(
+        @NotNull final Map<EquipmentTypeEntry, ToolUsage> toolItems,
+        @NotNull final EquipmentTypeEntry tool,
+        @NotNull final ItemStack stack,
+        final int enchantLevel)
     {
         final ItemStack enchantedStack = stack.copy();
 
@@ -67,9 +72,10 @@ public final class ToolsAnalyzer
         tryAddingToolWithLevel(toolItems, tool, enchantedStack);
     }
 
-    private static void tryEnchantStack(@NotNull final ItemStack stack,
-                                        @NotNull final Enchantment enchantment,
-                                        final int enchantLevel)
+    private static void tryEnchantStack(
+        @NotNull final ItemStack stack,
+        @NotNull final Enchantment enchantment,
+        final int enchantLevel)
     {
         if (enchantment.canEnchant(stack) && enchantLevel >= enchantment.getMinLevel() && enchantLevel <= enchantment.getMaxLevel())
         {
@@ -77,12 +83,14 @@ public final class ToolsAnalyzer
         }
     }
 
-    private static void tryAddingToolWithLevel(@NotNull final Map<EquipmentTypeEntry, ToolUsage> toolItems,
-                                               @NotNull final EquipmentTypeEntry tool,
-                                               @NotNull final ItemStack stack)
+    private static void tryAddingToolWithLevel(
+        @NotNull final Map<EquipmentTypeEntry, ToolUsage> toolItems,
+        @NotNull final EquipmentTypeEntry tool,
+        @NotNull final ItemStack stack)
     {
         int level = tool.getMiningLevel(stack);
-        if (level < 0) {
+        if (level < 0)
+        {
             return;
         }
         level = Math.min(MAX_BUILDING_LEVEL, level + ItemStackUtils.getMaxEnchantmentLevel(stack));

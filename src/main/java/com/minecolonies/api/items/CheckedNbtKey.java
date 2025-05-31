@@ -47,6 +47,7 @@ public class CheckedNbtKey
 
     /**
      * Check if two nbt match according to this checked nbt keys rules.
+     *
      * @param nbt1 the first nbt.
      * @param nbt2 the second nbt.
      * @return true if they match.

@@ -207,7 +207,6 @@ public class SpearEntity extends ThrownTrident implements ICustomAttackSound
         return true;
     }
 
-
     @Override
     public SoundEvent getAttackSound()
     {

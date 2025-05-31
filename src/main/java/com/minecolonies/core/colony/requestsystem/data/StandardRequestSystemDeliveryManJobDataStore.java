@@ -26,7 +26,7 @@ public class StandardRequestSystemDeliveryManJobDataStore implements IRequestSys
 
     private       IToken<?>             id;
     private final LinkedList<IToken<?>> queue;
-    private final Set<IToken<?>> ongoingDeliveries;
+    private final Set<IToken<?>>        ongoingDeliveries;
 
     public StandardRequestSystemDeliveryManJobDataStore(final IToken<?> id, final LinkedList<IToken<?>> queue, final Set<IToken<?>> ongoingDeliveries)
     {
@@ -38,7 +38,7 @@ public class StandardRequestSystemDeliveryManJobDataStore implements IRequestSys
     public StandardRequestSystemDeliveryManJobDataStore()
     {
         this(StandardFactoryController.getInstance().getNewInstance(TypeConstants.ITOKEN),
-          new LinkedList<>(), new HashSet<>());
+            new LinkedList<>(), new HashSet<>());
     }
 
     @Override
@@ -85,7 +85,7 @@ public class StandardRequestSystemDeliveryManJobDataStore implements IRequestSys
         @NotNull
         @Override
         public StandardRequestSystemDeliveryManJobDataStore getNewInstance(
-          @NotNull final IFactoryController factoryController, @NotNull final FactoryVoidInput factoryVoidInput, @NotNull final Object... context) throws IllegalArgumentException
+            @NotNull final IFactoryController factoryController, @NotNull final FactoryVoidInput factoryVoidInput, @NotNull final Object... context) throws IllegalArgumentException
         {
             return new StandardRequestSystemDeliveryManJobDataStore();
         }
@@ -93,7 +93,7 @@ public class StandardRequestSystemDeliveryManJobDataStore implements IRequestSys
         @NotNull
         @Override
         public CompoundTag serialize(
-          @NotNull final IFactoryController controller, @NotNull final StandardRequestSystemDeliveryManJobDataStore standardRequestSystemDeliveryManJobDataStore)
+            @NotNull final IFactoryController controller, @NotNull final StandardRequestSystemDeliveryManJobDataStore standardRequestSystemDeliveryManJobDataStore)
         {
             final CompoundTag compound = new CompoundTag();
             compound.put(TAG_TOKEN, controller.serialize(standardRequestSystemDeliveryManJobDataStore.id));
@@ -108,18 +108,18 @@ public class StandardRequestSystemDeliveryManJobDataStore implements IRequestSys
         {
             final IToken<?> token = controller.deserialize(nbt.getCompound(TAG_TOKEN));
             final LinkedList<IToken<?>> queue = NBTUtils.streamCompound(nbt.getList(TAG_LIST, Tag.TAG_COMPOUND))
-                                                  .map(CompoundTag -> (IToken<?>) controller.deserialize(CompoundTag))
-                                                  .collect(Collectors.toCollection(LinkedList::new));
+                .map(CompoundTag -> (IToken<?>) controller.deserialize(CompoundTag))
+                .collect(Collectors.toCollection(LinkedList::new));
             final HashSet<IToken<?>> ongoingDeliveries = NBTUtils.streamCompound(nbt.getList(TAG_ONGOING_LIST, Tag.TAG_COMPOUND))
-                                                  .map(CompoundTag -> (IToken<?>) controller.deserialize(CompoundTag))
-                                                  .collect(Collectors.toCollection(HashSet::new));
+                .map(CompoundTag -> (IToken<?>) controller.deserialize(CompoundTag))
+                .collect(Collectors.toCollection(HashSet::new));
             return new StandardRequestSystemDeliveryManJobDataStore(token, queue, ongoingDeliveries);
         }
 
         @Override
         public void serialize(
-          IFactoryController controller, StandardRequestSystemDeliveryManJobDataStore input,
-          FriendlyByteBuf packetBuffer)
+            IFactoryController controller, StandardRequestSystemDeliveryManJobDataStore input,
+            FriendlyByteBuf packetBuffer)
         {
             controller.serialize(packetBuffer, input.id);
             packetBuffer.writeInt(input.queue.size());
@@ -131,8 +131,8 @@ public class StandardRequestSystemDeliveryManJobDataStore implements IRequestSys
         @NotNull
         @Override
         public StandardRequestSystemDeliveryManJobDataStore deserialize(
-          IFactoryController controller,
-          @NotNull FriendlyByteBuf buffer) throws Throwable
+            IFactoryController controller,
+            @NotNull FriendlyByteBuf buffer) throws Throwable
         {
             final IToken<?> id = controller.deserialize(buffer);
             final LinkedList<IToken<?>> queue = new LinkedList<>();

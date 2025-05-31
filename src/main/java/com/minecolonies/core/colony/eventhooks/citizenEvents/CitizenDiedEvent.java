@@ -32,7 +32,7 @@ public class CitizenDiedEvent extends AbstractCitizenEvent
 
     /**
      * Creates a new citizen died event.
-     * 
+     *
      * @param eventPos    the position of the hut block of the building.
      * @param citizenName the name of the building.
      * @param deathCause  the cause of the citizen death.
@@ -86,7 +86,7 @@ public class CitizenDiedEvent extends AbstractCitizenEvent
 
     /**
      * Gets the cause of the citizen death.
-     * 
+     *
      * @return the cause of the citizen death.
      */
     public String getDeathCause()
@@ -96,7 +96,7 @@ public class CitizenDiedEvent extends AbstractCitizenEvent
 
     /**
      * Sets the cause of the citizen death.
-     * 
+     *
      * @param deathCause the cause of the citizen death.
      */
     public void setDeathCause(String deathCause)

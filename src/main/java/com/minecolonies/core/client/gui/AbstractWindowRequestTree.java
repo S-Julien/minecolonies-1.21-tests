@@ -72,7 +72,8 @@ public abstract class AbstractWindowRequestTree extends AbstractWindowSkeleton
     /**
      * The building position.
      */
-    private @Nullable final IBuildingView building;
+    private @Nullable
+    final IBuildingView building;
 
     /**
      * Constructor to initiate the window request tree windows.
@@ -188,11 +189,11 @@ public abstract class AbstractWindowRequestTree extends AbstractWindowSkeleton
      * @param currentDepth the current depth.
      */
     private void constructTreeFromRequest(
-      @Nullable final IBuildingView buildingView,
-      @NotNull final IRequestManager manager,
-      @NotNull final IRequest<?> request,
-      @NotNull final List<RequestWrapper> list,
-      final int currentDepth)
+        @Nullable final IBuildingView buildingView,
+        @NotNull final IRequestManager manager,
+        @NotNull final IRequest<?> request,
+        @NotNull final List<RequestWrapper> list,
+        final int currentDepth)
     {
         list.add(new RequestWrapper(request, currentDepth, buildingView));
         if (request.hasChildren())
@@ -357,19 +358,20 @@ public abstract class AbstractWindowRequestTree extends AbstractWindowSkeleton
                     icon.setVisible(true);
                     rowPane.findPaneOfTypeByID(REQUEST_SHORT_DETAIL, Text.class).setText(((IStackBasedTask) request).getDisplayPrefix().withStyle(ChatFormatting.BLACK));
                 }
-                else if(request instanceof StandardRequests.ItemTagRequest)
+                else if (request instanceof StandardRequests.ItemTagRequest)
                 {
                     rowPane.findPaneOfTypeByID("detailIcon", ItemIcon.class).setVisible(false);
-                    if(!displayStacks.isEmpty())
+                    if (!displayStacks.isEmpty())
                     {
                         rowPane.findPaneOfTypeByID(REQUEST_SHORT_DETAIL, Text.class).setText(
-                          request.getDisplayStacks().get((lifeCount / LIFE_COUNT_DIVIDER) % displayStacks.size()).getHoverName());
+                            request.getDisplayStacks().get((lifeCount / LIFE_COUNT_DIVIDER) % displayStacks.size()).getHoverName());
                     }
                 }
                 else
                 {
                     rowPane.findPaneOfTypeByID("detailIcon", ItemIcon.class).setVisible(false);
-                    rowPane.findPaneOfTypeByID(REQUEST_SHORT_DETAIL, Text.class).setText(Component.literal(request.getShortDisplayString().getString().replace("§f", "")).withStyle(ChatFormatting.BLACK));
+                    rowPane.findPaneOfTypeByID(REQUEST_SHORT_DETAIL, Text.class)
+                        .setText(Component.literal(request.getShortDisplayString().getString().replace("§f", "")).withStyle(ChatFormatting.BLACK));
                 }
 
                 PaneBuilders.tooltipBuilder().hoverPane(findPaneByID(REQUEST_DETAIL)).build().setText(Component.translatable(DETAILS));
@@ -422,11 +424,11 @@ public abstract class AbstractWindowRequestTree extends AbstractWindowSkeleton
             if (wrapper.getDepth() > 0)
             {
                 if (!(tRequest.getRequester() instanceof IBuildingBasedRequester)
-                      || !((IBuildingBasedRequester) tRequest.getRequester())
-                            .getBuilding(colony.getRequestManager(),
-                              tRequest.getId()).map(
-                    iRequester -> iRequester.getLocation()
-                                    .equals(building.getLocation())).isPresent())
+                    || !((IBuildingBasedRequester) tRequest.getRequester())
+                    .getBuilding(colony.getRequestManager(),
+                        tRequest.getId()).map(
+                        iRequester -> iRequester.getLocation()
+                            .equals(building.getLocation())).isPresent())
                 {
                     return false;
                 }
@@ -515,8 +517,8 @@ public abstract class AbstractWindowRequestTree extends AbstractWindowSkeleton
             this.request = request;
             this.depth = depth;
             this.overruleable = buildingView != null && (request.getRequester().getId().equals(buildingView.getId())
-                                  || buildingView.getResolverIds().contains(request.getRequester().getId())
-                                  || buildingView.getPosition().equals(request.getRequester().getLocation().getInDimensionLocation()));
+                || buildingView.getResolverIds().contains(request.getRequester().getId())
+                || buildingView.getPosition().equals(request.getRequester().getLocation().getInDimensionLocation()));
         }
 
         /**

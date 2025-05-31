@@ -24,6 +24,7 @@ public interface IColonyStructureSpawnEvent extends IColonyEvent
 
     /**
      * Set the max raider count.
+     *
      * @param maxRaiderCount the count.
      */
     void setMaxRaiderCount(int maxRaiderCount);

@@ -130,8 +130,8 @@ public class CitizenExperienceHandler implements ICitizenExperienceHandler
         int experience;
 
         if (!CompatibilityUtils.getWorldFromCitizen(citizen).isClientSide && citizen.getRecentlyHit() > 0 && citizen.checkCanDropLoot() && CompatibilityUtils.getWorldFromCitizen(
-          citizen).getGameRules().getBoolean(
-          GameRules.RULE_DOMOBLOOT))
+            citizen).getGameRules().getBoolean(
+            GameRules.RULE_DOMOBLOOT))
         {
             experience = (int) (citizen.getCitizenData().getCitizenSkillHandler().getTotalXP());
 
@@ -140,7 +140,7 @@ public class CitizenExperienceHandler implements ICitizenExperienceHandler
                 final int j = ExperienceOrb.getExperienceValue(experience);
                 experience -= j;
                 CompatibilityUtils.getWorldFromCitizen(citizen)
-                  .addFreshEntity(new ExperienceOrb(CompatibilityUtils.getWorldFromCitizen(citizen), citizen.getX(), citizen.getY(), citizen.getZ(), j));
+                    .addFreshEntity(new ExperienceOrb(CompatibilityUtils.getWorldFromCitizen(citizen), citizen.getX(), citizen.getY(), citizen.getZ(), j));
             }
         }
 
@@ -151,12 +151,12 @@ public class CitizenExperienceHandler implements ICitizenExperienceHandler
             final double d0 = citizen.getRandom().nextGaussian() * 0.02D;
             final double d1 = citizen.getRandom().nextGaussian() * 0.02D;
             CompatibilityUtils.getWorldFromCitizen(citizen).addParticle(ParticleTypes.EXPLOSION,
-              citizen.getX() + (citizen.getRandom().nextDouble() * citizen.getBbWidth() * 2.0F) - (double) citizen.getBbWidth(),
-              citizen.getY() + (citizen.getRandom().nextDouble() * citizen.getBbHeight()),
-              citizen.getZ() + (citizen.getRandom().nextDouble() * citizen.getBbWidth() * 2.0F) - (double) citizen.getBbWidth(),
-              d2,
-              d0,
-              d1);
+                citizen.getX() + (citizen.getRandom().nextDouble() * citizen.getBbWidth() * 2.0F) - (double) citizen.getBbWidth(),
+                citizen.getY() + (citizen.getRandom().nextDouble() * citizen.getBbHeight()),
+                citizen.getZ() + (citizen.getRandom().nextDouble() * citizen.getBbWidth() * 2.0F) - (double) citizen.getBbWidth(),
+                d2,
+                d0,
+                d1);
         }
     }
 
@@ -211,7 +211,7 @@ public class CitizenExperienceHandler implements ICitizenExperienceHandler
             movedXp = true;
             counterMovedXp++;
         }
-        if(!movedXp)
+        if (!movedXp)
         {
             counterMovedXp = 0;
         }

@@ -29,10 +29,10 @@ public class ItemSugaryBread extends AbstractItemMinecolonies
      * Setup the food definition
      */
     private static FoodProperties sweetBread = (new FoodProperties.Builder())
-                                        .nutrition(6)
-                                        .saturationMod(0.7F)
-                                        .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 600), 1.0F)
-                                        .build(); 
+        .nutrition(6)
+        .saturationMod(0.7F)
+        .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 600), 1.0F)
+        .build();
 
     /**
      * Sets the name, creative tab, and registers the Sweet Bread item.
@@ -44,23 +44,24 @@ public class ItemSugaryBread extends AbstractItemMinecolonies
         super("sugary_bread", properties.stacksTo(STACKSIZE).food(sweetBread));
     }
 
-   /**
-    * Remove the poison effect
-    */
+    /**
+     * Remove the poison effect
+     */
     @Override
-    public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
+    public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving)
+    {
 
         if (!worldIn.isClientSide)
         {
             entityLiving.removeEffect(MobEffects.POISON);
         }
-  
+
         return super.finishUsingItem(stack, worldIn, entityLiving);
-    }    
-    
+    }
+
     @Override
     public void appendHoverText(
-    @NotNull final ItemStack stack, @Nullable final Level worldIn, @NotNull final List<Component> tooltip, @NotNull final TooltipFlag flagIn)
+        @NotNull final ItemStack stack, @Nullable final Level worldIn, @NotNull final List<Component> tooltip, @NotNull final TooltipFlag flagIn)
     {
         final MutableComponent guiHint = Component.translatable(TranslationConstants.COM_MINECOLONIES_COREMOD_SUGARY_BREAD_TOOLTIP_GUI);
         guiHint.setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY));

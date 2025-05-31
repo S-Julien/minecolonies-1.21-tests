@@ -58,7 +58,6 @@ public class BuildingKitchen extends AbstractBuilding
         return MAX_BUILDING_LEVEL;
     }
 
-
     public static class CraftingModule extends AbstractCraftingBuildingModule.Crafting
     {
         /**
@@ -76,21 +75,27 @@ public class BuildingKitchen extends AbstractBuilding
         public OptionalPredicate<ItemStack> getIngredientValidator()
         {
             return CraftingUtils.getIngredientValidatorBasedOnTags(CRAFTING_COOK)
-                    .combine(super.getIngredientValidator());
+                .combine(super.getIngredientValidator());
         }
 
         @Override
         public boolean isRecipeCompatible(@NotNull final IGenericRecipe recipe)
         {
-            if (!super.isRecipeCompatible(recipe)) return false;
+            if (!super.isRecipeCompatible(recipe))
+            {
+                return false;
+            }
 
             final Optional<Boolean> isRecipeAllowed = CraftingUtils.isRecipeCompatibleBasedOnTags(recipe, CRAFTING_COOK);
-            if (isRecipeAllowed.isPresent()) return isRecipeAllowed.get();
+            if (isRecipeAllowed.isPresent())
+            {
+                return isRecipeAllowed.get();
+            }
 
             final ItemStack output = recipe.getPrimaryOutput();
             return FoodUtils.EDIBLE.test(output)
                 || FoodUtils.EDIBLE.test(FurnaceRecipes.getInstance()
-                    .getSmeltingResult(output));
+                .getSmeltingResult(output));
         }
     }
 
@@ -111,13 +116,16 @@ public class BuildingKitchen extends AbstractBuilding
         public OptionalPredicate<ItemStack> getIngredientValidator()
         {
             return CraftingUtils.getIngredientValidatorBasedOnTags(CRAFTING_COOK)
-                    .combine(super.getIngredientValidator());
+                .combine(super.getIngredientValidator());
         }
 
         @Override
         public boolean isRecipeCompatible(@NotNull final IGenericRecipe recipe)
         {
-            if (!super.isRecipeCompatible(recipe)) return false;
+            if (!super.isRecipeCompatible(recipe))
+            {
+                return false;
+            }
             return CraftingUtils.isRecipeCompatibleBasedOnTags(recipe, CRAFTING_COOK).orElse(FoodUtils.EDIBLE.test(recipe.getPrimaryOutput()));
         }
     }

@@ -75,6 +75,7 @@ public class CustomArrowEntity extends Arrow
 
     /**
      * Setter for the water inertia to allow to penetrate liquids better.
+     *
      * @param waterInertia the new inertia.
      */
     public void setWaterInertia(final float waterInertia)
@@ -148,7 +149,8 @@ public class CustomArrowEntity extends Arrow
         if (this.inGround)
         {
             final AABB aabb = (new AABB(this.position(), this.position())).inflate(0.06D);
-            for(VoxelShape voxelshape : this.level.getBlockCollisions(null, aabb)) {
+            for (VoxelShape voxelshape : this.level.getBlockCollisions(null, aabb))
+            {
                 if (!voxelshape.isEmpty())
                 {
                     return false;

@@ -20,8 +20,9 @@ public interface IRequestSystemBuildingDataStore extends IDataStore
 
     /**
      * Move request from building (-1) to citizen and mark synchronous.
+     *
      * @param citizenData the citizen to move it to.
-     * @param request the request to move.
+     * @param request     the request to move.
      */
     void moveToSyncCitizen(ICitizenData citizenData, IRequest<?> request);
 }

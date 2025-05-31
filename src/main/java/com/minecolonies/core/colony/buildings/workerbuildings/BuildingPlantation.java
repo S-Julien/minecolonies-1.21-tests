@@ -98,7 +98,7 @@ public class BuildingPlantation extends AbstractBuilding
     {
         final PlantationField plantationField = PlantationField.create(type, getPosition());
         final List<BlockPos> workingPositions =
-          plantationField.getModule().getValidWorkingPositions(colony.getWorld(), getLocationsFromTag(plantationField.getModule().getWorkTag()));
+            plantationField.getModule().getValidWorkingPositions(colony.getWorld(), getLocationsFromTag(plantationField.getModule().getWorkTag()));
         if (workingPositions.isEmpty())
         {
             colony.getBuildingManager().removeBuildingExtension(field -> field.equals(plantationField));
@@ -246,8 +246,8 @@ public class BuildingPlantation extends AbstractBuilding
         {
             int allowedPlants = (int) Math.ceil(building.getBuildingLevel() / 2D);
             return building.getColony().getResearchManager().getResearchEffects().getEffectStrength(PLANTATION_LARGE) > 0
-                     ? allowedPlants + 1
-                     : allowedPlants;
+                ? allowedPlants + 1
+                : allowedPlants;
         }
 
         @Override
@@ -277,8 +277,8 @@ public class BuildingPlantation extends AbstractBuilding
         private int getCurrentPlantsPlusField(final IBuildingExtension extraField)
         {
             final Set<IPlantationModule> plants = getOwnedExtensions().stream()
-                                                    .map(field -> field.getFirstModuleOccurance(IPlantationModule.class))
-                                                    .collect(Collectors.toSet());
+                .map(field -> field.getFirstModuleOccurance(IPlantationModule.class))
+                .collect(Collectors.toSet());
             plants.add(extraField.getFirstModuleOccurance(IPlantationModule.class));
             return plants.size();
         }
@@ -363,8 +363,8 @@ public class BuildingPlantation extends AbstractBuilding
         private int getCurrentPlantsPlusField(final IBuildingExtension extraField)
         {
             final Set<IPlantationModule> plants = getOwnedFields().stream()
-                                                    .map(field -> field.getFirstModuleOccurance(IPlantationModule.class))
-                                                    .collect(Collectors.toSet());
+                .map(field -> field.getFirstModuleOccurance(IPlantationModule.class))
+                .collect(Collectors.toSet());
             plants.add(extraField.getFirstModuleOccurance(IPlantationModule.class));
             return plants.size();
         }
@@ -397,9 +397,9 @@ public class BuildingPlantation extends AbstractBuilding
         public int getCurrentPlants()
         {
             return getOwnedFields().stream()
-                     .map(field -> field.getFirstModuleOccurance(IPlantationModule.class))
-                     .collect(Collectors.toSet())
-                     .size();
+                .map(field -> field.getFirstModuleOccurance(IPlantationModule.class))
+                .collect(Collectors.toSet())
+                .size();
         }
 
         @Override
@@ -451,15 +451,15 @@ public class BuildingPlantation extends AbstractBuilding
             for (BuildingExtensionEntry type : BuildingExtensionRegistries.getBuildingExtensionRegistry().getValues())
             {
                 type.getExtensionModuleProducers().stream()
-                  .map(m -> m.apply(null))
-                  .filter(IPlantationModule.class::isInstance)
-                  .map(m -> (IPlantationModule) m)
-                  .findFirst()
-                  .ifPresent(module -> recipes.add(GenericRecipe.builder()
-                          .withOutput(module.getItem())
-                          .withInputs(List.of(module.getRequiredItemsForOperation()))
-                          .withRequiredTool(module.getRequiredTool())
-                          .build()));
+                    .map(m -> m.apply(null))
+                    .filter(IPlantationModule.class::isInstance)
+                    .map(m -> (IPlantationModule) m)
+                    .findFirst()
+                    .ifPresent(module -> recipes.add(GenericRecipe.builder()
+                        .withOutput(module.getItem())
+                        .withInputs(List.of(module.getRequiredItemsForOperation()))
+                        .withRequiredTool(module.getRequiredTool())
+                        .build()));
             }
 
             return recipes;

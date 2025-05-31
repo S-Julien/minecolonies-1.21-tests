@@ -37,7 +37,7 @@ public class BlockHutGraveyard extends AbstractBlockHut<BlockHutGraveyard>
 
     @NotNull
     @Override
-    public String getHutName() { return "blockhutgraveyard"; }
+    public String getHutName() {return "blockhutgraveyard";}
 
     @Override
     public BuildingEntry getBuildingEntry()

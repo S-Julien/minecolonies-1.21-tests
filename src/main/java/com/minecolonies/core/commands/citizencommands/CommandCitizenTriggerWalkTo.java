@@ -101,9 +101,9 @@ public class CommandCitizenTriggerWalkTo implements IMCColonyOfficerCommand
     public LiteralArgumentBuilder<CommandSourceStack> build()
     {
         return IMCCommand.newLiteral(getName())
-                 .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1))
-                         .then(IMCCommand.newArgument(CITIZENID_ARG, IntegerArgumentType.integer(1))
-                                 .then(IMCCommand.newArgument(POS_ARG, Vec3Argument.vec3())
-                                         .executes(this::checkPreConditionAndExecute))));
+            .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1))
+                .then(IMCCommand.newArgument(CITIZENID_ARG, IntegerArgumentType.integer(1))
+                    .then(IMCCommand.newArgument(POS_ARG, Vec3Argument.vec3())
+                        .executes(this::checkPreConditionAndExecute))));
     }
 }

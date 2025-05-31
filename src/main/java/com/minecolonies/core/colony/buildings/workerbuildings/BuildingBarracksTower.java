@@ -21,7 +21,7 @@ import static com.minecolonies.api.util.constant.TranslationConstants.WARNING_UP
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class BuildingBarracksTower extends AbstractBuildingGuards
 {
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
     private static final String TAG_POS = "pos";
     ////// --------------------------- NBTConstants --------------------------- \\\\\\
 

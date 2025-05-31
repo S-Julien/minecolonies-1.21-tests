@@ -15,15 +15,15 @@ public class JourneymapOptions
 {
     private final Option<BorderStyle> borderFullscreenStyle;
     private final Option<BorderStyle> borderMinimapStyle;
-    private final Option<Boolean> deathpoints;
-    private final Option<Boolean> colonyname;
-    private final Option<Boolean> colonistNameMinimap;
-    private final Option<Boolean> colonistNameFullscreen;
-    private final Option<Boolean> colonistTooltips;
-    private final Option<Boolean> colonistTeam;
-    private final Option<Boolean> guards;
-    private final Option<Boolean> citizens;
-    private final Option<Boolean> visitors;
+    private final Option<Boolean>     deathpoints;
+    private final Option<Boolean>     colonyname;
+    private final Option<Boolean>     colonistNameMinimap;
+    private final Option<Boolean>     colonistNameFullscreen;
+    private final Option<Boolean>     colonistTooltips;
+    private final Option<Boolean>     colonistTeam;
+    private final Option<Boolean>     guards;
+    private final Option<Boolean>     citizens;
+    private final Option<Boolean>     visitors;
     private final Option<RaiderColor> raiders;
 
     public JourneymapOptions()
@@ -134,7 +134,7 @@ public class JourneymapOptions
         PURPLE(PARTIAL_JOURNEY_MAP_INFO + "raidercolor.purple", TextColor.fromLegacyFormat(ChatFormatting.LIGHT_PURPLE)),
         ORANGE(PARTIAL_JOURNEY_MAP_INFO + "raidercolor.orange", TextColor.fromLegacyFormat(ChatFormatting.GOLD));
 
-        private final String key;
+        private final String    key;
         private final TextColor color;
 
         RaiderColor(final String key, final TextColor color)

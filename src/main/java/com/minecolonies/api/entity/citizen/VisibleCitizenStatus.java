@@ -24,21 +24,21 @@ public class VisibleCitizenStatus
      * General public Icons
      */
     public final static VisibleCitizenStatus EAT         =
-      new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/hungry.png"), MESSAGE_INFO_CITIZEN_STATUS_HUNGRY);
+        new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/hungry.png"), MESSAGE_INFO_CITIZEN_STATUS_HUNGRY);
     public final static VisibleCitizenStatus HOUSE       =
-      new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/house_big.png"), MESSAGE_INFO_CITIZEN_STATUS_IDLE);
+        new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/house_big.png"), MESSAGE_INFO_CITIZEN_STATUS_IDLE);
     public final static VisibleCitizenStatus RAIDED      =
-      new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/raid_icon.png"), MESSAGE_INFO_CITIZEN_STATUS_RAID);
+        new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/raid_icon.png"), MESSAGE_INFO_CITIZEN_STATUS_RAID);
     public final static VisibleCitizenStatus MOURNING    =
-      new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/mourning.png"), MESSAGE_INFO_CITIZEN_STATUS_MOURNING);
+        new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/mourning.png"), MESSAGE_INFO_CITIZEN_STATUS_MOURNING);
     public final static VisibleCitizenStatus BAD_WEATHER =
-      new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/bad_weather.png"), MESSAGE_INFO_CITIZEN_STATUS_RAINING);
+        new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/bad_weather.png"), MESSAGE_INFO_CITIZEN_STATUS_RAINING);
     public final static VisibleCitizenStatus SLEEP       =
-      new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/bed_icon.png"), MESSAGE_INFO_CITIZEN_STATUS_SLEEPING);
+        new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/bed_icon.png"), MESSAGE_INFO_CITIZEN_STATUS_SLEEPING);
     public final static VisibleCitizenStatus SICK        =
-      new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/sick_icon.png"), MESSAGE_INFO_CITIZEN_STATUS_SICK);
+        new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/sick_icon.png"), MESSAGE_INFO_CITIZEN_STATUS_SICK);
     public final static VisibleCitizenStatus WORKING     =
-      new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/working.png"), MESSAGE_INFO_CITIZEN_STATUS_WORKING);
+        new VisibleCitizenStatus(new ResourceLocation(Constants.MOD_ID, "textures/icons/working.png"), MESSAGE_INFO_CITIZEN_STATUS_WORKING);
 
     /**
      * The status ID

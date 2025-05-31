@@ -20,7 +20,8 @@ public class ArmyPopulationTrigger extends AbstractCriterionTrigger<ArmyPopulati
 
     /**
      * Triggers the listener checks if there is any listening in
-     * @param player the player the check regards
+     *
+     * @param player   the player the check regards
      * @param armySize the related colony's current army size
      */
     public void trigger(final ServerPlayer player, final int armySize)

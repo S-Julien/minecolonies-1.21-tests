@@ -15,8 +15,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class CompleteBuildRequestCriterionInstance extends AbstractCriterionTriggerInstance
 {
-    private String        hutName;
-    private int           level = -1;
+    private String hutName;
+    private int    level = -1;
 
     public CompleteBuildRequestCriterionInstance()
     {
@@ -25,6 +25,7 @@ public class CompleteBuildRequestCriterionInstance extends AbstractCriterionTrig
 
     /**
      * Construct the check with a single condition
+     *
      * @param hutName the hut that has to be completed to succeed
      */
     public CompleteBuildRequestCriterionInstance(final String hutName)
@@ -36,8 +37,9 @@ public class CompleteBuildRequestCriterionInstance extends AbstractCriterionTrig
 
     /**
      * Construct the check with a more specific condition
+     *
      * @param hutName the hut that has to be completed to succeed
-     * @param level the level of the hut that should be completed
+     * @param level   the level of the hut that should be completed
      */
     public CompleteBuildRequestCriterionInstance(final String hutName, final int level)
     {
@@ -49,8 +51,9 @@ public class CompleteBuildRequestCriterionInstance extends AbstractCriterionTrig
 
     /**
      * Performs the check for the conditions
+     *
      * @param structureName the id of the structure that was just built
-     * @param level the level that the structure is now on, or 0
+     * @param level         the level that the structure is now on, or 0
      * @return whether the check succeeded
      */
     public boolean test(final String structureName, final int level)
@@ -68,8 +71,9 @@ public class CompleteBuildRequestCriterionInstance extends AbstractCriterionTrig
     }
 
     @NotNull
-    public static CompleteBuildRequestCriterionInstance deserializeFromJson(@NotNull final JsonObject jsonObject,
-                                                                            @NotNull final DeserializationContext context)
+    public static CompleteBuildRequestCriterionInstance deserializeFromJson(
+        @NotNull final JsonObject jsonObject,
+        @NotNull final DeserializationContext context)
     {
         if (jsonObject.has("hut_name"))
         {

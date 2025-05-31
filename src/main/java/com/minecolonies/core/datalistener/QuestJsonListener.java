@@ -52,6 +52,7 @@ public class QuestJsonListener extends SimpleJsonResourceReloadListener
 
     /**
      * Sync to client.
+     *
      * @param player to send it to.
      */
     public static void sendGlobalQuestPackets(final ServerPlayer player)
@@ -68,6 +69,7 @@ public class QuestJsonListener extends SimpleJsonResourceReloadListener
 
     /**
      * Read the data from the packet and parse it.
+     *
      * @param byteBuf pck.
      */
     public static void readGlobalQuestPackets(final FriendlyByteBuf byteBuf)
@@ -91,6 +93,7 @@ public class QuestJsonListener extends SimpleJsonResourceReloadListener
 
     /**
      * Our universal apply.
+     *
      * @param jsonElementMap the map.
      */
     private static void apply(final Map<ResourceLocation, JsonElement> jsonElementMap)
@@ -251,7 +254,7 @@ public class QuestJsonListener extends SimpleJsonResourceReloadListener
             return colony -> {
                 final List<ITriggerReturnData<?>> returnList = new ArrayList<>();
 
-                for (final IQuestTriggerTemplate trigger: triggers)
+                for (final IQuestTriggerTemplate trigger : triggers)
                 {
                     ITriggerReturnData<?> returnData = trigger.canTriggerQuest(questId, colony);
                     if (returnData.isPositive())
@@ -273,7 +276,7 @@ public class QuestJsonListener extends SimpleJsonResourceReloadListener
         //order = order.replaceAll("\\s+", "");
 
         // Split by words and braces, but keep the chars
-        final List<String> values = Arrays.asList(order.replaceAll("\\s+","").split("((?<=\\w)|(?=\\w)|(?<=[)(])|(?=[)(]))"));
+        final List<String> values = Arrays.asList(order.replaceAll("\\s+", "").split("((?<=\\w)|(?=\\w)|(?<=[)(])|(?=[)(]))"));
 
         final List<String> types = new ArrayList<>();
         for (String value : values)
@@ -302,7 +305,7 @@ public class QuestJsonListener extends SimpleJsonResourceReloadListener
         final Map<String, IQuestTriggerTemplate> triggerMap = new HashMap<>();
         for (int i = 0; i < triggers.size(); i++)
         {
-            triggerMap.put(String.valueOf(i+1), triggers.get(i));
+            triggerMap.put(String.valueOf(i + 1), triggers.get(i));
         }
 
         if (values.isEmpty())
@@ -396,7 +399,12 @@ public class QuestJsonListener extends SimpleJsonResourceReloadListener
      * @param colony the colony.
      * @return predicate from data
      */
-    private static List<ITriggerReturnData<?>> evaluate(final IColony colony, final Map<String, IQuestTriggerTemplate> triggerMap, final ExpressionNode expressionTree, final Map<String, ITriggerReturnData<?>> triggerDataCache, final ResourceLocation questId)
+    private static List<ITriggerReturnData<?>> evaluate(
+        final IColony colony,
+        final Map<String, IQuestTriggerTemplate> triggerMap,
+        final ExpressionNode expressionTree,
+        final Map<String, ITriggerReturnData<?>> triggerDataCache,
+        final ResourceLocation questId)
     {
         switch (expressionTree.expression)
         {

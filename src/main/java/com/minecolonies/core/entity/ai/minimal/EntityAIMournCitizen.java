@@ -248,12 +248,12 @@ public class EntityAIMournCitizen implements IStateAI
         if (closestEntity == null)
         {
             closestEntity = this.citizen.level.getNearestEntity(EntityCitizen.class,
-              TargetingConditions.DEFAULT,
-              citizen,
-              citizen.getX(),
-              citizen.getY(),
-              citizen.getZ(),
-              citizen.getBoundingBox().inflate(3.0D, 3.0D, 3.0D));
+                TargetingConditions.DEFAULT,
+                citizen,
+                citizen.getX(),
+                citizen.getY(),
+                citizen.getZ(),
+                citizen.getBoundingBox().inflate(3.0D, 3.0D, 3.0D));
 
             if (closestEntity == null)
             {
@@ -262,11 +262,11 @@ public class EntityAIMournCitizen implements IStateAI
         }
 
         citizen.getLookControl()
-          .setLookAt(closestEntity.getX(),
-            closestEntity.getY() + (double) closestEntity.getEyeHeight(),
-            closestEntity.getZ(),
-            (float) citizen.getMaxHeadYRot(),
-            (float) citizen.getMaxHeadXRot());
+            .setLookAt(closestEntity.getX(),
+                closestEntity.getY() + (double) closestEntity.getEyeHeight(),
+                closestEntity.getZ(),
+                (float) citizen.getMaxHeadYRot(),
+                (float) citizen.getMaxHeadXRot());
         return MourningState.STARING;
     }
 
@@ -290,8 +290,11 @@ public class EntityAIMournCitizen implements IStateAI
         if (this.graveyard == null)
         {
             final IBuilding graveyardBuilding =
-              citizen.getCitizenColonyHandler().getColonyOrRegister().getBuildingManager().getFirstBuildingMatching(b -> b instanceof BuildingGraveyard && b.getFirstModuleOccurance(
-                GraveyardManagementModule.class).hasRestingCitizen(citizen.getCitizenData().getCitizenMournHandler().getDeceasedCitizens()));
+                citizen.getCitizenColonyHandler()
+                    .getColonyOrRegister()
+                    .getBuildingManager()
+                    .getFirstBuildingMatching(b -> b instanceof BuildingGraveyard && b.getFirstModuleOccurance(
+                        GraveyardManagementModule.class).hasRestingCitizen(citizen.getCitizenData().getCitizenMournHandler().getDeceasedCitizens()));
             if (graveyardBuilding != null)
             {
                 this.graveyard = graveyardBuilding;
@@ -304,7 +307,7 @@ public class EntityAIMournCitizen implements IStateAI
         }
 
         citizen.getLookControl().setLookAt(citizen.getX(), citizen.getY() - 10, citizen.getZ(), (float) citizen.getMaxHeadYRot(),
-          (float) citizen.getMaxHeadXRot());
+            (float) citizen.getMaxHeadXRot());
 
         if (getMournLocation() != null && BlockPosUtil.getDistance2D(this.citizen.blockPosition(), getMournLocation().getPosition()) > MIN_DESTINATION_TO_LOCATION)
         {

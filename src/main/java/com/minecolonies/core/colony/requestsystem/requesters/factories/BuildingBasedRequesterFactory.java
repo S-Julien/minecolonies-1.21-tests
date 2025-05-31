@@ -32,7 +32,7 @@ public class BuildingBasedRequesterFactory implements IFactory<AbstractBuilding,
     @NotNull
     @Override
     public BuildingBasedRequester getNewInstance(@NotNull final IFactoryController factoryController, @NotNull final AbstractBuilding building, @NotNull final Object... context)
-      throws IllegalArgumentException
+        throws IllegalArgumentException
     {
         if (context.length != 0)
         {

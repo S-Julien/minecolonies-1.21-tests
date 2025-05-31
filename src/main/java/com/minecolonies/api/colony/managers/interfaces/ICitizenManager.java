@@ -66,9 +66,9 @@ public interface ICitizenManager extends IEntityManager
      * Resurrect a citizen from its saved NBT.
      *
      * @param compoundNBT the saved citizen NBT
-     * @param resetId if true, will calculate a new citizen ID
+     * @param resetId     if true, will calculate a new citizen ID
      * @param world
-     * @param spawnPos position where to resurrect the citizen
+     * @param spawnPos    position where to resurrect the citizen
      * @return the citizenData of the resurrected citizen
      */
     ICitizenData resurrectCivilianData(@NotNull final CompoundTag compoundNBT, final boolean resetId, @NotNull final Level world, final BlockPos spawnPos);

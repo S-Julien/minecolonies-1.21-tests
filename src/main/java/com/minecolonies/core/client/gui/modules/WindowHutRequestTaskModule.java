@@ -36,6 +36,7 @@ public class WindowHutRequestTaskModule extends AbstractModuleWindow
 
     /**
      * The constructor of the window.
+     *
      * @param view the building view.
      * @param name the layout file.
      */
@@ -48,7 +49,7 @@ public class WindowHutRequestTaskModule extends AbstractModuleWindow
     public void onOpened()
     {
         super.onOpened();
-        final List<IToken<?>> tasks =  buildingView.getModuleViewByType(RequestTaskModuleView.class).getTasks();
+        final List<IToken<?>> tasks = buildingView.getModuleViewByType(RequestTaskModuleView.class).getTasks();
         findPaneOfTypeByID(LIST_TASKS, ScrollingList.class).setDataProvider(new ScrollingList.DataProvider()
         {
             @Override
@@ -80,15 +81,23 @@ public class WindowHutRequestTaskModule extends AbstractModuleWindow
 
                 if (parent == null)
                 {
-                    rowPane.findPaneOfTypeByID(REQUESTER, Text.class).setText(request.getRequester().getRequesterDisplayName(buildingView.getColony().getRequestManager(), request));
+                    rowPane.findPaneOfTypeByID(REQUESTER, Text.class)
+                        .setText(request.getRequester().getRequesterDisplayName(buildingView.getColony().getRequestManager(), request));
                 }
                 else
                 {
                     rowPane.findPaneOfTypeByID(REQUESTER, Text.class)
-                      .setText(Component.literal(request.getRequester().getRequesterDisplayName(buildingView.getColony().getRequestManager(), request).getString() + " -> " + parent.getRequester().getRequesterDisplayName(buildingView.getColony().getRequestManager(), parent).getString()));
-                    PaneBuilders.tooltipBuilder().hoverPane(rowPane.findPaneOfTypeByID(REQUESTER, Text.class))
-                      .build().setText(Component.literal(request.getRequester().getLocation().getInDimensionLocation().toShortString() + " -> " + parent.getRequester().getLocation().getInDimensionLocation().toShortString()));
-
+                        .setText(Component.literal(
+                            request.getRequester().getRequesterDisplayName(buildingView.getColony().getRequestManager(), request).getString() + " -> " + parent.getRequester()
+                                .getRequesterDisplayName(buildingView.getColony().getRequestManager(), parent)
+                                .getString()));
+                    PaneBuilders.tooltipBuilder()
+                        .hoverPane(rowPane.findPaneOfTypeByID(REQUESTER, Text.class))
+                        .build()
+                        .setText(Component.literal(request.getRequester().getLocation().getInDimensionLocation().toShortString() + " -> " + parent.getRequester()
+                            .getLocation()
+                            .getInDimensionLocation()
+                            .toShortString()));
                 }
 
                 // Add an extra thing with an Interface about having a stack to display, if we have this, then also add a method for a shorter string.
@@ -99,18 +108,22 @@ public class WindowHutRequestTaskModule extends AbstractModuleWindow
                     copyStack.setCount(((IStackBasedTask) request).getDisplayCount());
                     icon.setItem(copyStack);
                     icon.setVisible(true);
-                    rowPane.findPaneOfTypeByID(REQUEST_SHORT_DETAIL, Text.class).setText(((IStackBasedTask) request).getDisplayPrefix().withStyle(request.getState() == RequestState.IN_PROGRESS ? ChatFormatting.DARK_GREEN : ChatFormatting.BLACK));
+                    rowPane.findPaneOfTypeByID(REQUEST_SHORT_DETAIL, Text.class)
+                        .setText(((IStackBasedTask) request).getDisplayPrefix()
+                            .withStyle(request.getState() == RequestState.IN_PROGRESS ? ChatFormatting.DARK_GREEN : ChatFormatting.BLACK));
                 }
                 else
                 {
                     rowPane.findPaneOfTypeByID("detailIcon", ItemIcon.class).setVisible(false);
-                    rowPane.findPaneOfTypeByID(REQUEST_SHORT_DETAIL, Text.class).setText(Component.literal(request.getShortDisplayString().getString().replace("§f", "")).withStyle(request.getState() == RequestState.IN_PROGRESS ? ChatFormatting.DARK_GREEN : ChatFormatting.BLACK));
+                    rowPane.findPaneOfTypeByID(REQUEST_SHORT_DETAIL, Text.class)
+                        .setText(Component.literal(request.getShortDisplayString().getString().replace("§f", ""))
+                            .withStyle(request.getState() == RequestState.IN_PROGRESS ? ChatFormatting.DARK_GREEN : ChatFormatting.BLACK));
                 }
 
                 if (request.getRequest() instanceof IDeliverymanRequestable)
                 {
                     rowPane.findPaneOfTypeByID(REQUEST_PRIORITY, Text.class).setText(Component.translatable(COM_MINECOLONIES_COREMOD_ENTITY_DELIVERYMAN_PRIORITY)
-                                                                                       .append(String.valueOf(((IDeliverymanRequestable) request.getRequest()).getPriority())));
+                        .append(String.valueOf(((IDeliverymanRequestable) request.getRequest()).getPriority())));
                 }
 
                 final Image logo = rowPane.findPaneOfTypeByID(DELIVERY_IMAGE, Image.class);

@@ -45,27 +45,30 @@ public abstract class SimpleLootTableProvider extends LootTableProvider
         registerTables((id, type, table) -> tables.put(id, Pair.of(type, table)));
 
         return tables.entrySet().stream()
-                .map(w -> new SubProviderEntry(() -> new LootTableSubProvider() {
-                    @Override
-                    public void generate(final @NotNull BiConsumer<ResourceLocation, LootTable.Builder> builder)
-                    {
-                        builder.accept(w.getKey(), w.getValue().getSecond());
-                    }
-                }, w.getValue().getFirst()))
-                .collect(Collectors.toList());
+            .map(w -> new SubProviderEntry(() -> new LootTableSubProvider()
+            {
+                @Override
+                public void generate(final @NotNull BiConsumer<ResourceLocation, LootTable.Builder> builder)
+                {
+                    builder.accept(w.getKey(), w.getValue().getSecond());
+                }
+            }, w.getValue().getFirst()))
+            .collect(Collectors.toList());
     }
 
     private static Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>
-        make(@NotNull final ResourceLocation id,
-             @NotNull final LootContextParamSet type,
-             @NotNull final LootTable.Builder table)
+    make(
+        @NotNull final ResourceLocation id,
+        @NotNull final LootContextParamSet type,
+        @NotNull final LootTable.Builder table)
     {
         return Pair.of(() -> (BiConsumer<ResourceLocation, LootTable.Builder> register) -> register.accept(id, table), type);
     }
 
     @Override
-    protected void validate(@NotNull final Map<ResourceLocation, LootTable> map,
-                            @NotNull final ValidationContext validationtracker)
+    protected void validate(
+        @NotNull final Map<ResourceLocation, LootTable> map,
+        @NotNull final ValidationContext validationtracker)
     {
         map.forEach((id, table) -> table.validate(validationtracker));
     }
@@ -78,6 +81,7 @@ public abstract class SimpleLootTableProvider extends LootTableProvider
 
     /**
      * Helper method to make a loot entry builder for an ItemStack
+     *
      * @param stack The loot ItemStack
      * @return A loot entry builder for this stack
      */

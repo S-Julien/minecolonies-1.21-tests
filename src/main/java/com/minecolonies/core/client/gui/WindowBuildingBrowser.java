@@ -49,23 +49,28 @@ public class WindowBuildingBrowser extends AbstractWindowSkeleton
     /**
      * Number of worker threads to spawn to scan blueprints (each pack on a separate thread); higher reduces total search time.
      */
-    private static final int WORKER_THREADS = 4;
-    private static final ResourceLocation WINDOW_RESOURCE = new ResourceLocation(MOD_ID, "gui/windowbrowsebuilding.xml");
-    @SuppressWarnings("ConstantConditions") private static final int COLOR_NORMAL          = ChatFormatting.BLACK.getColor();
-    @SuppressWarnings("ConstantConditions") private static final int COLOR_CHILD           = ChatFormatting.DARK_GREEN.getColor();
-    @SuppressWarnings("ConstantConditions") private static final int COLOR_INVISIBLE       = ChatFormatting.DARK_BLUE.getColor();
-    @SuppressWarnings("ConstantConditions") private static final int COLOR_INVISIBLE_CHILD = ChatFormatting.BLUE.getColor();
+    private static final int              WORKER_THREADS        = 4;
+    private static final ResourceLocation WINDOW_RESOURCE       = new ResourceLocation(MOD_ID, "gui/windowbrowsebuilding.xml");
+    @SuppressWarnings("ConstantConditions")
+    private static final int              COLOR_NORMAL          = ChatFormatting.BLACK.getColor();
+    @SuppressWarnings("ConstantConditions")
+    private static final int              COLOR_CHILD           = ChatFormatting.DARK_GREEN.getColor();
+    @SuppressWarnings("ConstantConditions")
+    private static final int              COLOR_INVISIBLE       = ChatFormatting.DARK_BLUE.getColor();
+    @SuppressWarnings("ConstantConditions")
+    private static final int              COLOR_INVISIBLE_CHILD = ChatFormatting.BLUE.getColor();
 
     private static final Map<Block, List<BuildingInfo>> buildingCache = new HashMap<>();
 
-    private final Block block;
-    private List<BuildingInfo> buildings;
-    private Future<List<BuildingInfo>> futureBuildings;
-    private AtomicInteger currentProgress = new AtomicInteger();
-    private int totalProgress;
+    private final Block                      block;
+    private       List<BuildingInfo>         buildings;
+    private       Future<List<BuildingInfo>> futureBuildings;
+    private       AtomicInteger              currentProgress = new AtomicInteger();
+    private       int                        totalProgress;
 
     /**
      * Construct the window
+     *
      * @param block the hut to display styles for
      */
     public WindowBuildingBrowser(@NotNull final Block block)
@@ -147,7 +152,7 @@ public class WindowBuildingBrowser extends AbstractWindowSkeleton
         findPaneOfTypeByID("progress", ImageRepeatable.class).hide();
 
         final List<BuildingInfo> visibleBuildings = mc.player.isCreative() ? buildings
-                : buildings.stream().filter(b -> !b.isInvisible()).toList();
+            : buildings.stream().filter(b -> !b.isInvisible()).toList();
 
         final ScrollingList buildingList = findPaneOfTypeByID("buildings", ScrollingList.class);
         buildingList.enable();
@@ -181,9 +186,9 @@ public class WindowBuildingBrowser extends AbstractWindowSkeleton
                 packLabel.setText(Component.literal(building.pack().getName()));
                 nameLabel.setText(Component.literal(building.path()));
                 nameLabel.setColors(building.isParent() ? building.isInvisible() ? COLOR_INVISIBLE_CHILD : COLOR_CHILD
-                        : building.isInvisible() ? COLOR_INVISIBLE : COLOR_NORMAL);
+                    : building.isInvisible() ? COLOR_INVISIBLE : COLOR_NORMAL);
                 sizeLabel.setText(Component.literal(String.format("%d x %d x %d",
-                        building.size().getX(), building.size().getY(), building.size().getZ())));
+                    building.size().getX(), building.size().getY(), building.size().getZ())));
                 if (building.levels().isEmpty())
                 {
                     levelLabel.hide();
@@ -247,7 +252,7 @@ public class WindowBuildingBrowser extends AbstractWindowSkeleton
         });
         totalProgress = StructurePacks.getPackMetas().size();
         final Map<StructurePackMeta, Future<Map<Block, List<BuildingInfo>>>> packFutures = StructurePacks.getPackMetas().stream()
-                .collect(Collectors.toMap(pack -> pack, pack -> packPool.submit(() -> discoverBuildings(pack, browsableBlocks))));
+            .collect(Collectors.toMap(pack -> pack, pack -> packPool.submit(() -> discoverBuildings(pack, browsableBlocks))));
         while (!futureBuildings.isCancelled() && packFutures.values().stream().anyMatch(f -> !f.isDone()))
         {
             try
@@ -269,15 +274,15 @@ public class WindowBuildingBrowser extends AbstractWindowSkeleton
 
         buildingCache.clear();
         for (final Future<Map<Block, List<BuildingInfo>>> futureBuildings : packFutures.entrySet().stream()
-                .sorted(Comparator.comparing(entry -> entry.getKey().getName()))
-                .map(Map.Entry::getValue).toList())
+            .sorted(Comparator.comparing(entry -> entry.getKey().getName()))
+            .map(Map.Entry::getValue).toList())
         {
             try
             {
                 for (final Map.Entry<Block, List<BuildingInfo>> entry : futureBuildings.get().entrySet())
                 {
                     buildingCache.merge(entry.getKey(), entry.getValue(), (prev, next) ->
-                            ImmutableList.<BuildingInfo>builder().addAll(prev).addAll(next).build());
+                        ImmutableList.<BuildingInfo>builder().addAll(prev).addAll(next).build());
                 }
             }
             catch (InterruptedException | ExecutionException e)
@@ -288,8 +293,9 @@ public class WindowBuildingBrowser extends AbstractWindowSkeleton
     }
 
     @NotNull
-    private Map<Block, List<BuildingInfo>> discoverBuildings(@NotNull final StructurePackMeta pack,
-                                                             @NotNull final List<Block> browsableBlocks)
+    private Map<Block, List<BuildingInfo>> discoverBuildings(
+        @NotNull final StructurePackMeta pack,
+        @NotNull final List<Block> browsableBlocks)
     {
         final Map<Block, List<BuildingInfo>> buildings = new HashMap<>();
         try
@@ -298,7 +304,10 @@ public class WindowBuildingBrowser extends AbstractWindowSkeleton
             {
                 paths.forEach(file ->
                 {
-                    if (futureBuildings.isCancelled()) { return; }
+                    if (futureBuildings.isCancelled())
+                    {
+                        return;
+                    }
                     if (!Files.isDirectory(file) && file.toString().endsWith(".blueprint"))
                     {
                         final Blueprint blueprint = StructurePacks.getBlueprint(pack.getName(), file, true);
@@ -328,41 +337,50 @@ public class WindowBuildingBrowser extends AbstractWindowSkeleton
     private static List<Block> findBrowsableBlocks()
     {
         return ForgeRegistries.BLOCKS.getValues().stream()
-                .filter(block -> block instanceof IBuildingBrowsableBlock)
-                .toList();
+            .filter(block -> block instanceof IBuildingBrowsableBlock)
+            .toList();
     }
 
-    private void classifyBlueprint(@NotNull final StructurePackMeta pack,
-                                   @NotNull final Map<Block, List<BuildingInfo>> buildings,
-                                   @NotNull final Blueprint blueprint,
-                                   @NotNull final BlockState anchor,
-                                   @NotNull final Block block)
+    private void classifyBlueprint(
+        @NotNull final StructurePackMeta pack,
+        @NotNull final Map<Block, List<BuildingInfo>> buildings,
+        @NotNull final Blueprint blueprint,
+        @NotNull final BlockState anchor,
+        @NotNull final Block block)
     {
         if (anchor.is(block))
         {
             buildings.computeIfAbsent(block, k -> new ArrayList<>())
-                    .add(BuildingInfo.create(pack, blueprint, false));
+                .add(BuildingInfo.create(pack, blueprint, false));
         }
         else if (Arrays.stream(blueprint.getPalette()).anyMatch(p -> p.is(block)))
         {
             buildings.computeIfAbsent(block, k -> new ArrayList<>())
-                    .add(BuildingInfo.create(pack, blueprint, true));
+                .add(BuildingInfo.create(pack, blueprint, true));
         }
     }
 
-    private record BuildingInfo(StructurePackMeta pack, String path, Set<Integer> levels, BlockPos size, boolean isParent, boolean isInvisible)
+    private record BuildingInfo(
+        StructurePackMeta pack,
+        String path,
+        Set<Integer> levels,
+        BlockPos size,
+        boolean isParent,
+        boolean isInvisible)
     {
         /**
          * Creates building info for the specified blueprint.
+         *
          * @param pack      the pack.
          * @param blueprint the blueprint.
          * @param isParent  true if this is a parent building/deco (the search block is not the anchor)
          * @return the created info.
          */
         @NotNull
-        public static BuildingInfo create(@NotNull final StructurePackMeta pack,
-                                          @NotNull final Blueprint blueprint,
-                                          final boolean isParent)
+        public static BuildingInfo create(
+            @NotNull final StructurePackMeta pack,
+            @NotNull final Blueprint blueprint,
+            final boolean isParent)
         {
             String path = pack.getSubPath(blueprint.getFilePath()).replace('\\', '/');
             String name = blueprint.getFileName().replace(".blueprint", "");
@@ -380,28 +398,29 @@ public class WindowBuildingBrowser extends AbstractWindowSkeleton
 
         /**
          * For a single pack, merges single-level entries to multi-level entries.
+         *
          * @param input the list of info for a single pack.
          * @return the merged list of info.
          */
         public static List<BuildingInfo> flattenLevels(@NotNull final List<BuildingInfo> input)
         {
             return input.stream()
-                    .collect(Collectors.groupingBy(BuildingInfo::path))
-                    .values().stream()
-                    .map(BuildingInfo::getFlattened)
-                    .toList();
+                .collect(Collectors.groupingBy(BuildingInfo::path))
+                .values().stream()
+                .map(BuildingInfo::getFlattened)
+                .toList();
         }
 
         private static BuildingInfo getFlattened(@NotNull final List<BuildingInfo> input)
         {
             final BuildingInfo first = input.get(0);
             final Set<Integer> levels = input.stream()
-                    .flatMap(info -> info.levels.stream())
-                    .collect(Collectors.toCollection(TreeSet::new));
+                .flatMap(info -> info.levels.stream())
+                .collect(Collectors.toCollection(TreeSet::new));
             final BlockPos size = input.stream()
-                    .map(BuildingInfo::size)
-                    .max(Comparator.naturalOrder())
-                    .get();     // sizes *should* be all the same, but technically don't have to be...
+                .map(BuildingInfo::size)
+                .max(Comparator.naturalOrder())
+                .get();     // sizes *should* be all the same, but technically don't have to be...
             return new BuildingInfo(first.pack, first.path, levels, size, first.isParent, first.isInvisible);
         }
 
@@ -410,7 +429,7 @@ public class WindowBuildingBrowser extends AbstractWindowSkeleton
         {
             final BlockInfo anchor = blueprint.getBlockInfoAsMap().get(blueprint.getPrimaryBlockOffset());
             if (anchor.getState().getBlock() instanceof IInvisibleBlueprintAnchorBlock invis &&
-                    !invis.isVisible(anchor.getTileEntityData()))
+                !invis.isVisible(anchor.getTileEntityData()))
             {
                 return true;
             }

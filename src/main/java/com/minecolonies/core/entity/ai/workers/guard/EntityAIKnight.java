@@ -34,11 +34,11 @@ public class EntityAIKnight extends AbstractEntityAIGuard<JobKnight, AbstractBui
         for (final List<GuardGear> list : itemsNeeded)
         {
             list.add(new GuardGear(ModEquipmentTypes.shield.get(),
-              EquipmentSlot.OFFHAND,
-              TOOL_LEVEL_WOOD_OR_GOLD,
-              TOOL_LEVEL_MAXIMUM,
-              SHIELD_LEVEL_RANGE,
-              SHIELD_BUILDING_LEVEL_RANGE));
+                EquipmentSlot.OFFHAND,
+                TOOL_LEVEL_WOOD_OR_GOLD,
+                TOOL_LEVEL_MAXIMUM,
+                SHIELD_LEVEL_RANGE,
+                SHIELD_BUILDING_LEVEL_RANGE));
         }
 
         new KnightCombatAI((EntityCitizen) worker, getStateAI(), this);

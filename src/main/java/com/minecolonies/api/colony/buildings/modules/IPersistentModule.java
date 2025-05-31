@@ -9,13 +9,15 @@ public interface IPersistentModule extends IBuildingModule
 {
     /**
      * Deserialize the module.
+     *
      * @param compound the nbt compound.
      */
-    default void deserializeNBT(CompoundTag compound) { }
+    default void deserializeNBT(CompoundTag compound) {}
 
     /**
      * Serialize the module from a compound.
+     *
      * @param compound the compound.
      */
-    default void serializeNBT(final CompoundTag compound) { }
+    default void serializeNBT(final CompoundTag compound) {}
 }

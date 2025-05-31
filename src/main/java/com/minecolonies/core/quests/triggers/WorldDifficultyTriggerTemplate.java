@@ -28,6 +28,7 @@ public class WorldDifficultyTriggerTemplate implements IQuestTriggerTemplate
 
     /**
      * Create a new trigger directly from json.
+     *
      * @param jsonObj the json associated to this trigger.
      */
     public static WorldDifficultyTriggerTemplate createDifficultyTrigger(final JsonObject jsonObj)

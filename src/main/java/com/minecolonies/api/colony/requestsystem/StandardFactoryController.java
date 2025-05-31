@@ -25,9 +25,9 @@ import java.util.concurrent.ExecutionException;
 public final class StandardFactoryController implements IFactoryController
 {
 
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
-    public static final String NBT_TYPE = "Type";
-    public static final String NBT_DATA = "Data";
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
+    public static final String NBT_TYPE     = "Type";
+    public static final String NBT_DATA     = "Data";
     public static final String NEW_NBT_TYPE = "NType";
 
     ////// --------------------------- NBTConstants --------------------------- \\\\\\
@@ -109,7 +109,7 @@ public final class StandardFactoryController implements IFactoryController
     @SuppressWarnings(Suppression.UNCHECKED)
     @Override
     public <INPUT, OUTPUT> IFactory<INPUT, OUTPUT> getFactoryForIO(@NotNull final TypeToken<? extends INPUT> inputClass, @NotNull final TypeToken<? extends OUTPUT> outputClass)
-      throws IllegalArgumentException
+        throws IllegalArgumentException
     {
         final ITypeOverrideHandler<?> inputOverrideHandler = getMatchingOverrideHandler(inputClass);
         final ITypeOverrideHandler<?> outputOverrideHandler = getMatchingOverrideHandler(inputClass);
@@ -174,6 +174,7 @@ public final class StandardFactoryController implements IFactoryController
 
     /**
      * Get a matching override handler from the types.
+     *
      * @param inputClass the input class to match.
      * @return the overridehandler or null.
      */
@@ -347,7 +348,7 @@ public final class StandardFactoryController implements IFactoryController
 
     @Override
     public <INPUT, OUTPUT> OUTPUT getNewInstance(@NotNull final TypeToken<? extends OUTPUT> requestedType, @NotNull final INPUT input, @NotNull final Object... context)
-      throws IllegalArgumentException, ClassCastException
+        throws IllegalArgumentException, ClassCastException
     {
         final TypeToken<? extends INPUT> inputToken = TypeToken.of((Class<? extends INPUT>) input.getClass());
         final IFactory<INPUT, OUTPUT> factory = getFactoryForIO(inputToken, requestedType);

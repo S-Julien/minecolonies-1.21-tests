@@ -21,6 +21,7 @@ public interface IEntityListModuleView extends IBuildingModuleView
      * @return true if so.
      */
     boolean isAllowedEntity(final ResourceLocation entity);
+
     /**
      * Get the size of allowed items.
      *
@@ -37,12 +38,14 @@ public interface IEntityListModuleView extends IBuildingModuleView
 
     /**
      * Get the unique id of this group (used to sync with server side).
+     *
      * @return the id.
      */
     String getId();
 
     /**
      * Check if the list is enabling or disabling.
+     *
      * @return true if enabling.
      */
     boolean isInverted();

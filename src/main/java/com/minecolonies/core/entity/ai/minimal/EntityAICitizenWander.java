@@ -104,8 +104,8 @@ public class EntityAICitizenWander implements IStateAI
                 walkTo = null;
                 leisureSite = null;
                 citizen.getCitizenData()
-                  .getCitizenSkillHandler()
-                  .tryLevelUpIntelligence(citizen.getCitizenData().getRandom(), EntityAIStudy.ONE_IN_X_CHANCE, citizen.getCitizenData());
+                    .getCitizenSkillHandler()
+                    .tryLevelUpIntelligence(citizen.getCitizenData().getRandom(), EntityAIStudy.ONE_IN_X_CHANCE, citizen.getCitizenData());
                 return CitizenAIState.IDLE;
             }
 
@@ -165,7 +165,7 @@ public class EntityAICitizenWander implements IStateAI
                 EntityNavigationUtils.walkToRandomPosWithin(citizen, 10, DEFAULT_SPEED, ((IBlueprintDataProviderBE) blockEntity).getInWorldCorners());
             }
             if (walkTo == null && blockEntity instanceof TileEntityColonyBuilding && ((TileEntityColonyBuilding) blockEntity).getBuilding() instanceof BuildingLibrary
-                  && citizen.getRandom().nextInt(100) < 5)
+                && citizen.getRandom().nextInt(100) < 5)
             {
                 return READ_A_BOOK;
             }
@@ -230,6 +230,6 @@ public class EntityAICitizenWander implements IStateAI
     public boolean canUse()
     {
         return citizen.getNavigation().isDone() && !citizen.isBaby()
-                 && !(citizen.getCitizenData().getJob() instanceof AbstractJobGuard);
+            && !(citizen.getCitizenData().getJob() instanceof AbstractJobGuard);
     }
 }

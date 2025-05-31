@@ -87,10 +87,10 @@ public class ModuleContainerUtils
      * @throws IllegalArgumentException if your condition does not match any modules
      */
     public static <T, T2 extends T> @NotNull T2 getModuleMatching(
-      final Collection<T> modules,
-      final Class<T2> clazz,
-      final Predicate<? super T2> modulePredicate,
-      String errorMessage)
+        final Collection<T> modules,
+        final Class<T2> clazz,
+        final Predicate<? super T2> modulePredicate,
+        String errorMessage)
     {
         for (final T module : modules)
         {

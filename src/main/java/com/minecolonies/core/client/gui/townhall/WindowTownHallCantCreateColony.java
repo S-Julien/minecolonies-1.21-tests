@@ -17,7 +17,7 @@ import static com.minecolonies.api.util.constant.Constants.MOD_ID;
 import static com.minecolonies.api.util.constant.WindowConstants.*;
 
 /**
- *  UI to notify the player that a colony can't be created here.
+ * UI to notify the player that a colony can't be created here.
  */
 public class WindowTownHallCantCreateColony extends AbstractWindowSkeleton
 {

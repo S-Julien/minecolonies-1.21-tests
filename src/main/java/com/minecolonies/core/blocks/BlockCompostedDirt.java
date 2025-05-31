@@ -60,11 +60,11 @@ public class BlockCompostedDirt extends AbstractBlockMinecolonies<BlockComposted
 
     @Override
     public boolean canSustainPlant(
-      @NotNull final BlockState state,
-      @NotNull final BlockGetter world,
-      final BlockPos pos,
-      @NotNull final Direction facing,
-      final IPlantable plantable)
+        @NotNull final BlockState state,
+        @NotNull final BlockGetter world,
+        final BlockPos pos,
+        @NotNull final Direction facing,
+        final IPlantable plantable)
     {
         return true;
     }

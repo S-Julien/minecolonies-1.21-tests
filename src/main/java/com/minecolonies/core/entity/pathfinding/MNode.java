@@ -97,6 +97,7 @@ public class MNode implements Comparable<MNode>
 
     /**
      * Create an MNode from a bytebuf.
+     *
      * @param byteBuf the buffer to load it from.
      */
     public MNode(final FriendlyByteBuf byteBuf)
@@ -115,6 +116,7 @@ public class MNode implements Comparable<MNode>
 
     /**
      * Serialize the Node to buf.
+     *
      * @param byteBuf
      */
     public void serializeToBuf(final FriendlyByteBuf byteBuf)
@@ -176,8 +178,8 @@ public class MNode implements Comparable<MNode>
         {
             @Nullable final MNode other = (MNode) o;
             return x == other.x
-                     && y == other.y
-                     && z == other.z;
+                && y == other.y
+                && z == other.z;
         }
 
         return false;
@@ -341,6 +343,7 @@ public class MNode implements Comparable<MNode>
 
     /**
      * Marks the node as reached by the worker
+     *
      * @param reached if reached or reset.
      */
     public void setReachedByWorker(final boolean reached)
@@ -395,8 +398,8 @@ public class MNode implements Comparable<MNode>
     public static int computeNodeKey(final int x, final int y, final int z)
     {
         return ((x & 0xFFF) << SHIFT_X_BY)
-                 | ((y & 0xFF) << SHIFT_Y_BY)
-                 | (z & 0xFFF);
+            | ((y & 0xFF) << SHIFT_Y_BY)
+            | (z & 0xFFF);
     }
 
     @Override

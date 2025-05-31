@@ -60,15 +60,15 @@ public class CitizenWindowUtils
 
         public final int              X;
         public final int              Y;
-        public final int happinessValue;
-        public final SmileyEnum prevSmiley;
-        public final SmileyEnum halfSmiley;
-        public       boolean isHalfSmiley = false;
+        public final int              happinessValue;
+        public final SmileyEnum       prevSmiley;
+        public final SmileyEnum       halfSmiley;
+        public       boolean          isHalfSmiley = false;
         public final ResourceLocation Image;
 
         SmileyEnum(
-          final ResourceLocation heartImage, final int x, final int y, final int happinessValue,
-          final SmileyEnum halfSmiley, final SmileyEnum prevSmiley)
+            final ResourceLocation heartImage, final int x, final int y, final int happinessValue,
+            final SmileyEnum halfSmiley, final SmileyEnum prevSmiley)
         {
             this.Image = heartImage;
             this.X = x;
@@ -107,8 +107,8 @@ public class CitizenWindowUtils
         public final ResourceLocation Image;
 
         HeartsEnum(
-          final ResourceLocation heartImage, final int x, final int y, final int hpValue,
-          final HeartsEnum halfHeart, final HeartsEnum prevHeart)
+            final ResourceLocation heartImage, final int x, final int y, final int hpValue,
+            final HeartsEnum halfHeart, final HeartsEnum prevHeart)
         {
             this.Image = heartImage;
             this.X = x;
@@ -215,6 +215,7 @@ public class CitizenWindowUtils
     /**
      * Get vertical offset for the saturation icon based on the iteration
      * If i >= 10, move the icons down another line
+     *
      * @param i the current iteration
      * @return the y offset
      */
@@ -226,6 +227,7 @@ public class CitizenWindowUtils
     /**
      * Get horizontal offset modifier for the saturation icon based on the iteration
      * if i >= 10, decrease i by 10 to start the line from the beginning
+     *
      * @param i the current iteration
      * @return the x offset modifier
      */
@@ -249,7 +251,7 @@ public class CitizenWindowUtils
      * Creates a saturation bar
      *
      * @param curSaturation the current saturation level.
-     * @param view    the view to add these to.
+     * @param view          the view to add these to.
      */
     public static void createSaturationBar(final double curSaturation, final View view)
     {
@@ -260,8 +262,8 @@ public class CitizenWindowUtils
         {
             @NotNull final Image saturation = new Image();
             saturation.setImage(GUI_ICONS_LOCATION,
-              EMPTY_SATURATION_ITEM_ROW_POS,
-              SATURATION_ICON_COLUMN, HEART_ICON_HEIGHT_WIDTH, HEART_ICON_HEIGHT_WIDTH);
+                EMPTY_SATURATION_ITEM_ROW_POS,
+                SATURATION_ICON_COLUMN, HEART_ICON_HEIGHT_WIDTH, HEART_ICON_HEIGHT_WIDTH);
             saturation.setMapDimensions(256, 256);
             saturation.setSize(SATURATION_ICON_HEIGHT_WIDTH, SATURATION_ICON_HEIGHT_WIDTH);
 
@@ -296,8 +298,8 @@ public class CitizenWindowUtils
     /**
      * Creates a Happiness bar according to the citizen maxHappiness and currentHappiness.
      *
-     * @param citizen pointer to the citizen data view
-     * @param happinessParView  pointer to the current bar view.
+     * @param citizen          pointer to the citizen data view
+     * @param happinessParView pointer to the current bar view.
      */
     public static void createHappinessBar(final ICitizenDataView citizen, final View happinessParView)
     {
@@ -353,7 +355,7 @@ public class CitizenWindowUtils
      *
      * @param happinessBarView the happiness bar to add the heart to.
      * @param happinessPos     the number of the smileys to add.
-     * @param smiley         the smiley to add.
+     * @param smiley           the smiley to add.
      */
     private static void addSmiley(final View happinessBarView, final int happinessPos, final SmileyEnum smiley)
     {
@@ -367,8 +369,9 @@ public class CitizenWindowUtils
 
     /**
      * General happiness bar setup.
+     *
      * @param citizen citizen its for.
-     * @param window window its at.
+     * @param window  window its at.
      */
     public static void createHappinessBar(final ICitizenDataView citizen, final AbstractWindowSkeleton window)
     {
@@ -380,7 +383,8 @@ public class CitizenWindowUtils
 
     /**
      * Fills the citizen gui with it's skill values.
-     *  @param citizen the citizen to use.
+     *
+     * @param citizen the citizen to use.
      * @param window  the window to fill.
      */
     public static void createSkillContent(final ICitizenDataView citizen, final AbstractWindowSkeleton window)
@@ -413,7 +417,9 @@ public class CitizenWindowUtils
         {
             final double value = citizen.getHappinessHandler().getModifier(name).getFactor(null);
             if (value == 1.0)
+            {
                 continue;
+            }
             final Image image = new Image();
             image.setSize(11, 11);
             image.setPosition(45, yPos);
@@ -488,44 +494,44 @@ public class CitizenWindowUtils
 
             final Skill primary = moduleView.getPrimarySkill();
             windowCitizen.findPaneOfTypeByID(PRIMARY_SKILL_LABEL, Text.class)
-              .setText(Component.translatable(PARTIAL_SKILL_NAME + primary.name().toLowerCase(Locale.US)).append(" (100% XP)"));
+                .setText(Component.translatable(PARTIAL_SKILL_NAME + primary.name().toLowerCase(Locale.US)).append(" (100% XP)"));
             windowCitizen.findPaneOfTypeByID(PRIMARY_SKILL_LABEL + IMAGE_APPENDIX, Image.class)
-              .setImage(new ResourceLocation(BASE_IMG_SRC + primary.name().toLowerCase(Locale.US) + ".png"), false);
+                .setImage(new ResourceLocation(BASE_IMG_SRC + primary.name().toLowerCase(Locale.US) + ".png"), false);
 
             if (primary.getComplimentary() != null && primary.getAdverse() != null)
             {
                 windowCitizen.findPaneOfTypeByID(PRIMARY_SKILL_COM, Text.class)
-                  .setText(Component.translatable(PARTIAL_SKILL_NAME + primary.getComplimentary().name().toLowerCase(Locale.US)).append(" ("
-                                  + PRIMARY_DEPENDENCY_SHARE + "% XP)"));
+                    .setText(Component.translatable(PARTIAL_SKILL_NAME + primary.getComplimentary().name().toLowerCase(Locale.US)).append(" ("
+                        + PRIMARY_DEPENDENCY_SHARE + "% XP)"));
                 windowCitizen.findPaneOfTypeByID(PRIMARY_SKILL_COM + IMAGE_APPENDIX, Image.class)
-                  .setImage(new ResourceLocation(BASE_IMG_SRC + primary.getComplimentary().name().toLowerCase(Locale.US) + ".png"), false);
+                    .setImage(new ResourceLocation(BASE_IMG_SRC + primary.getComplimentary().name().toLowerCase(Locale.US) + ".png"), false);
 
                 windowCitizen.findPaneOfTypeByID(PRIMARY_SKILL_ADV, Text.class)
-                  .setText(Component.translatable(PARTIAL_SKILL_NAME + primary.getAdverse().name().toLowerCase(Locale.US)).append(" (-"
-                                  + PRIMARY_DEPENDENCY_SHARE + "% XP)"));
+                    .setText(Component.translatable(PARTIAL_SKILL_NAME + primary.getAdverse().name().toLowerCase(Locale.US)).append(" (-"
+                        + PRIMARY_DEPENDENCY_SHARE + "% XP)"));
                 windowCitizen.findPaneOfTypeByID(PRIMARY_SKILL_ADV + IMAGE_APPENDIX, Image.class)
-                  .setImage(new ResourceLocation(BASE_IMG_SRC + primary.getAdverse().name().toLowerCase(Locale.US) + ".png"), false);
+                    .setImage(new ResourceLocation(BASE_IMG_SRC + primary.getAdverse().name().toLowerCase(Locale.US) + ".png"), false);
             }
 
             final Skill secondary = moduleView.getSecondarySkill();
             windowCitizen.findPaneOfTypeByID(SECONDARY_SKILL_LABEL, Text.class)
-              .setText(Component.translatable(PARTIAL_SKILL_NAME + secondary.name().toLowerCase(Locale.US)).append(" (50% XP)"));
+                .setText(Component.translatable(PARTIAL_SKILL_NAME + secondary.name().toLowerCase(Locale.US)).append(" (50% XP)"));
             windowCitizen.findPaneOfTypeByID(SECONDARY_SKILL_LABEL + IMAGE_APPENDIX, Image.class)
-              .setImage(new ResourceLocation(BASE_IMG_SRC + secondary.name().toLowerCase(Locale.US) + ".png"), false);
+                .setImage(new ResourceLocation(BASE_IMG_SRC + secondary.name().toLowerCase(Locale.US) + ".png"), false);
 
             if (secondary.getComplimentary() != null && secondary.getAdverse() != null)
             {
                 windowCitizen.findPaneOfTypeByID(SECONDARY_SKILL_COM, Text.class)
-                  .setText(Component.translatable(PARTIAL_SKILL_NAME + secondary.getComplimentary().name().toLowerCase(Locale.US)).append(" ("
-                                  + SECONDARY_DEPENDENCY_SHARE + "% XP)"));
+                    .setText(Component.translatable(PARTIAL_SKILL_NAME + secondary.getComplimentary().name().toLowerCase(Locale.US)).append(" ("
+                        + SECONDARY_DEPENDENCY_SHARE + "% XP)"));
                 windowCitizen.findPaneOfTypeByID(SECONDARY_SKILL_COM + IMAGE_APPENDIX, Image.class)
-                  .setImage(new ResourceLocation(BASE_IMG_SRC + secondary.getComplimentary().name().toLowerCase(Locale.US) + ".png"), false);
+                    .setImage(new ResourceLocation(BASE_IMG_SRC + secondary.getComplimentary().name().toLowerCase(Locale.US) + ".png"), false);
 
                 windowCitizen.findPaneOfTypeByID(SECONDARY_SKILL_ADV, Text.class)
-                  .setText(Component.translatable(PARTIAL_SKILL_NAME + secondary.getAdverse().name().toLowerCase(Locale.US)).append(" (-"
-                                  + SECONDARY_DEPENDENCY_SHARE + "% XP)"));
+                    .setText(Component.translatable(PARTIAL_SKILL_NAME + secondary.getAdverse().name().toLowerCase(Locale.US)).append(" (-"
+                        + SECONDARY_DEPENDENCY_SHARE + "% XP)"));
                 windowCitizen.findPaneOfTypeByID(SECONDARY_SKILL_ADV + IMAGE_APPENDIX, Image.class)
-                  .setImage(new ResourceLocation(BASE_IMG_SRC + secondary.getAdverse().name().toLowerCase(Locale.US) + ".png"), false);
+                    .setImage(new ResourceLocation(BASE_IMG_SRC + secondary.getAdverse().name().toLowerCase(Locale.US) + ".png"), false);
             }
         }
         else

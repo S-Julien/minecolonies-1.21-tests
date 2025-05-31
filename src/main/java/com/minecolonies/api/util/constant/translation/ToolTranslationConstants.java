@@ -40,13 +40,13 @@ public class ToolTranslationConstants
     public static final String TOOL_TYPE_LIGHTER     = "com.minecolonies.coremod.tooltype.lighter";
 
     @NonNls
-    public static final String TOOL_RALLY_BANNER_ACTIVATED   = "item.minecolonies.banner_rally_guards.activated";
+    public static final String TOOL_RALLY_BANNER_ACTIVATED      = "item.minecolonies.banner_rally_guards.activated";
     @NonNls
-    public static final String TOOL_RALLY_BANNER_DEACTIVATED = "item.minecolonies.banner_rally_guards.deactivated";
+    public static final String TOOL_RALLY_BANNER_DEACTIVATED    = "item.minecolonies.banner_rally_guards.deactivated";
     @NonNls
-    public static final String TOOL_RALLY_BANNER_NO_GUARDS   = "item.minecolonies.banner_rally_guards.activated.noguards";
+    public static final String TOOL_RALLY_BANNER_NO_GUARDS      = "item.minecolonies.banner_rally_guards.activated.noguards";
     @NonNls
-    public static final String TOOL_RALLY_BANNER_NEEDS_RESEARCH   = "item.minecolonies.banner_rally_guards.activated.needsresearch";
+    public static final String TOOL_RALLY_BANNER_NEEDS_RESEARCH = "item.minecolonies.banner_rally_guards.activated.needsresearch";
 
     @NonNls
     public static final String TOOL_GENERIC_SCROLL_HIGHLIGHT_DESCRIPTION = "item.minecolonies.scroll_highlight.tip";

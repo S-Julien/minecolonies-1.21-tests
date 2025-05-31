@@ -44,9 +44,10 @@ public class TriggerSettingMessage extends AbstractBuildingServerMessage<Abstrac
 
     /**
      * Settings constructor.
+     *
      * @param building the building involving the setting.
-     * @param key the unique key of it.
-     * @param value the value of the setting.
+     * @param key      the unique key of it.
+     * @param value    the value of the setting.
      */
     public TriggerSettingMessage(final IBuildingView building, final ISettingKey<?> key, final ISetting value, final int moduleID)
     {

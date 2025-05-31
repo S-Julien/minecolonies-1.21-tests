@@ -22,5 +22,4 @@ public class BlockHutDyer extends AbstractBlockHut<BlockHutDyer>
     {
         return ModBuildings.dyer.get();
     }
-
 }

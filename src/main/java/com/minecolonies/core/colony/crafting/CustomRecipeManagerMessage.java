@@ -31,7 +31,7 @@ public class CustomRecipeManagerMessage implements IMessage
     /**
      * Add or Update a CustomRecipeManager on the client.
      *
-     * @param buf               the bytebuffer.
+     * @param buf the bytebuffer.
      */
     public CustomRecipeManagerMessage(final FriendlyByteBuf buf)
     {

@@ -23,8 +23,8 @@ public class SimpleNotificationInteraction extends StandardInteraction
     private boolean active = true;
 
     public SimpleNotificationInteraction(
-      final Component inquiry,
-      final IChatPriority priority)
+        final Component inquiry,
+        final IChatPriority priority)
     {
         super(inquiry, null, priority);
     }
@@ -55,7 +55,7 @@ public class SimpleNotificationInteraction extends StandardInteraction
         if (response.getContents() instanceof TranslatableContents)
         {
             if (((TranslatableContents) response.getContents()).getKey().equals(INTERACTION_R_OKAY)
-                  || ((TranslatableContents) response.getContents()).getKey().equals(INTERACTION_R_IGNORE))
+                || ((TranslatableContents) response.getContents()).getKey().equals(INTERACTION_R_IGNORE))
             {
                 active = false;
             }

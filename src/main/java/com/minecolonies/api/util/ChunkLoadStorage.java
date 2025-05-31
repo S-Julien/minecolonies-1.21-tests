@@ -91,16 +91,16 @@ public class ChunkLoadStorage
         this.dimension = new ResourceLocation(compound.getString(TAG_DIMENSION));
 
         owningChanges.addAll(NBTUtils.streamCompound(compound.getList(TAG_CLAIM_LIST, Tag.TAG_COMPOUND))
-          .map(tempCompound -> tempCompound.getShort(TAG_COLONY_ID)).collect(Collectors.toList()));
+            .map(tempCompound -> tempCompound.getShort(TAG_COLONY_ID)).collect(Collectors.toList()));
         coloniesToAdd.addAll(NBTUtils.streamCompound(compound.getList(TAG_COLONIES_TO_ADD, Tag.TAG_COMPOUND))
-                               .map(tempCompound -> tempCompound.getShort(TAG_COLONY_ID)).collect(Collectors.toList()));
+            .map(tempCompound -> tempCompound.getShort(TAG_COLONY_ID)).collect(Collectors.toList()));
         coloniesToRemove.addAll(NBTUtils.streamCompound(compound.getList(TAG_COLONIES_TO_REMOVE, Tag.TAG_COMPOUND))
-                                  .map(tempCompound -> tempCompound.getShort(TAG_COLONY_ID)).collect(Collectors.toList()));
+            .map(tempCompound -> tempCompound.getShort(TAG_COLONY_ID)).collect(Collectors.toList()));
 
         claimingBuilding.addAll(NBTUtils.streamCompound(compound.getList(TAG_BUILDINGS_CLAIM, Tag.TAG_COMPOUND))
-                                  .map(ChunkLoadStorage::readTupleFromNbt).collect(Collectors.toList()));
+            .map(ChunkLoadStorage::readTupleFromNbt).collect(Collectors.toList()));
         unClaimingBuilding.addAll(NBTUtils.streamCompound(compound.getList(TAG_BUILDINGS_UNCLAIM, Tag.TAG_COMPOUND))
-                                    .map(ChunkLoadStorage::readTupleFromNbt).collect(Collectors.toList()));
+            .map(ChunkLoadStorage::readTupleFromNbt).collect(Collectors.toList()));
     }
 
     /**
@@ -210,12 +210,12 @@ public class ChunkLoadStorage
         }
         final ChunkLoadStorage storage = (ChunkLoadStorage) o;
         return xz == storage.xz &&
-                 dimension == storage.dimension &&
-                 Objects.equals(owningChanges, storage.owningChanges) &&
-                 Objects.equals(coloniesToRemove, storage.coloniesToRemove) &&
-                 Objects.equals(coloniesToAdd, storage.coloniesToAdd) &&
-                 Objects.equals(claimingBuilding, storage.claimingBuilding) &&
-                 Objects.equals(unClaimingBuilding, storage.unClaimingBuilding);
+            dimension == storage.dimension &&
+            Objects.equals(owningChanges, storage.owningChanges) &&
+            Objects.equals(coloniesToRemove, storage.coloniesToRemove) &&
+            Objects.equals(coloniesToAdd, storage.coloniesToAdd) &&
+            Objects.equals(claimingBuilding, storage.claimingBuilding) &&
+            Objects.equals(unClaimingBuilding, storage.unClaimingBuilding);
     }
 
     @Override

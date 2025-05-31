@@ -24,7 +24,7 @@ public class AbstractTileEntityNamedGrave extends BlockEntity
     /**
      * The position it faces.
      */
-    public static final DirectionProperty FACING       = HorizontalDirectionalBlock.FACING;
+    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
     /**
      * The text displayed on the name plate

@@ -5,14 +5,14 @@ package com.minecolonies.api.colony.requestsystem.requestable.deliveryman;
  */
 public abstract class AbstractDeliverymanRequestable implements IDeliverymanRequestable
 {
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
-    protected static final String NBT_PRIORITY = "Priority";
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
+    protected static final String NBT_PRIORITY              = "Priority";
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
 
-    public static final    int MAX_BUILDING_PRIORITY     = 10;
-    protected static final int DEFAULT_DELIVERY_PRIORITY = 13;
-    private static final   int MAX_AGING_PRIORITY        = 14;
-    private static final int PLAYER_ACTION_PRIORITY    = 15;
+    public static final    int    MAX_BUILDING_PRIORITY     = 10;
+    protected static final int    DEFAULT_DELIVERY_PRIORITY = 13;
+    private static final   int    MAX_AGING_PRIORITY        = 14;
+    private static final   int    PLAYER_ACTION_PRIORITY    = 15;
 
     protected int priority = 0;
 

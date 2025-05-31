@@ -171,7 +171,7 @@ public class WindowBarracksBuilding extends AbstractWindowModuleBuilding<Buildin
         }
         final Component directionDest = BlockPosUtil.calcDirection(building.getPosition(), pos).getLongText();
         return Component.translatable(distanceDesc)
-                 .append(" ")
-                 .append(directionDest);
+            .append(" ")
+            .append(directionDest);
     }
 }

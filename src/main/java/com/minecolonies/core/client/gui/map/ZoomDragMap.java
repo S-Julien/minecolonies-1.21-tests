@@ -57,7 +57,7 @@ public class ZoomDragMap extends View
     protected boolean childIsVisible(@NotNull final Pane child)
     {
         return calcInverseAbsoluteX(child.getX()) < getInteriorWidth() && calcInverseAbsoluteY(child.getY()) < getInteriorHeight()
-                 && calcInverseAbsoluteX(child.getX() + child.getWidth()) >= 0 && calcInverseAbsoluteY(child.getY() + child.getHeight()) >= 0;
+            && calcInverseAbsoluteX(child.getX() + child.getWidth()) >= 0 && calcInverseAbsoluteY(child.getY() + child.getHeight()) >= 0;
     }
 
     /**
@@ -214,7 +214,8 @@ public class ZoomDragMap extends View
     }
 
     @Override
-    public boolean mouseEventProcessor(final double mx,
+    public boolean mouseEventProcessor(
+        final double mx,
         final double my,
         final MouseEventCallback panePredicate,
         final MouseEventCallback eventCallbackPositive,

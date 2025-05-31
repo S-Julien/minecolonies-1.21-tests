@@ -111,7 +111,7 @@ public class EntityAIBreakDoor extends BreakDoorGoal
 
             fasterBreakPerXNearby /= 2;
             breakChance = (int) Math.max(1,
-              hardness / (1 + (mob.level.getEntitiesOfClass(AbstractEntityMinecoloniesRaider.class, mob.getBoundingBox().inflate(5)).size() / fasterBreakPerXNearby)));
+                hardness / (1 + (mob.level.getEntitiesOfClass(AbstractEntityMinecoloniesRaider.class, mob.getBoundingBox().inflate(5)).size() / fasterBreakPerXNearby)));
 
             // Alert nearby guards
             if (this.mob.getRandom().nextInt(breakChance) == 0 && mob instanceof AbstractEntityMinecoloniesRaider raider && mob.level.getBlockState(doorPos)

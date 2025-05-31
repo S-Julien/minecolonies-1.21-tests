@@ -129,14 +129,14 @@ public abstract class AbstractEntityAIHerder<J extends AbstractJob<?, J>, B exte
     {
         super(job);
         super.registerTargets(
-          new AITarget(IDLE, START_WORKING, 1),
-          new AITarget(START_WORKING, this::startWorkingAtOwnBuilding, TICKS_SECOND),
-          new AITarget(PREPARING, this::prepareForHerding, TICKS_SECOND),
-          new AITarget(DECIDE, this::decideWhatToDo, DECIDING_DELAY),
-          new AITarget(HERDER_BREED, this::breedAnimals, BREEDING_DELAY),
-          new AITarget(HERDER_BUTCHER, this::butcherAnimals, BUTCHER_DELAY),
-          new AITarget(HERDER_PICKUP, this::pickupItems, TICKS_SECOND),
-          new AITarget(HERDER_FEED, this::feedAnimal, TICKS_SECOND)
+            new AITarget(IDLE, START_WORKING, 1),
+            new AITarget(START_WORKING, this::startWorkingAtOwnBuilding, TICKS_SECOND),
+            new AITarget(PREPARING, this::prepareForHerding, TICKS_SECOND),
+            new AITarget(DECIDE, this::decideWhatToDo, DECIDING_DELAY),
+            new AITarget(HERDER_BREED, this::breedAnimals, BREEDING_DELAY),
+            new AITarget(HERDER_BUTCHER, this::butcherAnimals, BUTCHER_DELAY),
+            new AITarget(HERDER_PICKUP, this::pickupItems, TICKS_SECOND),
+            new AITarget(HERDER_FEED, this::feedAnimal, TICKS_SECOND)
         );
         worker.setCanPickUpLoot(true);
     }
@@ -217,8 +217,8 @@ public abstract class AbstractEntityAIHerder<J extends AbstractJob<?, J>, B exte
             }
 
             final boolean hasBreedingItem =
-              InventoryUtils.getItemCountInItemHandler((worker.getInventoryCitizen()),
-                (ItemStack stack) -> ItemStackUtils.compareItemStackListIgnoreStackSize(module.getBreedingItems(), stack)) > 1;
+                InventoryUtils.getItemCountInItemHandler((worker.getInventoryCitizen()),
+                    (ItemStack stack) -> ItemStackUtils.compareItemStackListIgnoreStackSize(module.getBreedingItems(), stack)) > 1;
 
             if (ColonyConstants.rand.nextDouble() < 0.1 && !searchForItemsInArea().isEmpty())
             {
@@ -710,7 +710,7 @@ public abstract class AbstractEntityAIHerder<J extends AbstractJob<?, J>, B exte
     private int getToolSlot(final EquipmentTypeEntry toolType)
     {
         final int slot = InventoryUtils.getFirstSlotOfItemHandlerContainingEquipment(getInventory(), toolType,
-          TOOL_LEVEL_WOOD_OR_GOLD, building.getMaxEquipmentLevel());
+            TOOL_LEVEL_WOOD_OR_GOLD, building.getMaxEquipmentLevel());
 
         if (slot == -1)
         {

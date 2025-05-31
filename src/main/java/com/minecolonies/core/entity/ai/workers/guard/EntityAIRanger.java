@@ -51,9 +51,9 @@ public class EntityAIRanger extends AbstractEntityAIGuard<JobRanger, AbstractBui
         {
             // Pickup arrows and request arrows
             InventoryUtils.transferXOfFirstSlotInProviderWithIntoNextFreeSlotInItemHandler(building,
-              item -> item.getItem() instanceof ArrowItem,
-              64,
-              worker.getInventoryCitizen());
+                item -> item.getItem() instanceof ArrowItem,
+                64,
+                worker.getInventoryCitizen());
 
             if (InventoryUtils.getItemCountInItemHandler(worker.getInventoryCitizen(), item -> item.getItem() instanceof ArrowItem) < 16)
             {
@@ -76,8 +76,8 @@ public class EntityAIRanger extends AbstractEntityAIGuard<JobRanger, AbstractBui
         {
             // Moves the ranger randomly to close edges, for better vision to mobs
             ((MinecoloniesAdvancedPathNavigate) worker.getNavigation()).setPathJob(new PathJobWalkRandomEdge(world, buildingGuards.getGuardPos(), 20, worker),
-              null,
-              1.0, true);
+                null,
+                1.0, true);
         }
     }
 }

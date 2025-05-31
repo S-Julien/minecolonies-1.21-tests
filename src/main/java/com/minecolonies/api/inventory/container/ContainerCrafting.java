@@ -172,10 +172,10 @@ public class ContainerCrafting extends AbstractContainerMenu
             for (int j = 0; j < INVENTORY_COLUMNS; j++)
             {
                 addSlot(new Slot(
-                  inv,
-                  j + i * INVENTORY_COLUMNS + INVENTORY_COLUMNS,
-                  PLAYER_INVENTORY_INITIAL_X_OFFSET + j * PLAYER_INVENTORY_OFFSET_EACH,
-                  PLAYER_INVENTORY_INITIAL_Y_OFFSET_CRAFTING + i * PLAYER_INVENTORY_OFFSET_EACH
+                    inv,
+                    j + i * INVENTORY_COLUMNS + INVENTORY_COLUMNS,
+                    PLAYER_INVENTORY_INITIAL_X_OFFSET + j * PLAYER_INVENTORY_OFFSET_EACH,
+                    PLAYER_INVENTORY_INITIAL_Y_OFFSET_CRAFTING + i * PLAYER_INVENTORY_OFFSET_EACH
                 ));
             }
         }
@@ -183,9 +183,9 @@ public class ContainerCrafting extends AbstractContainerMenu
         for (i = 0; i < INVENTORY_COLUMNS; i++)
         {
             addSlot(new Slot(
-              inv, i,
-              PLAYER_INVENTORY_INITIAL_X_OFFSET + i * PLAYER_INVENTORY_OFFSET_EACH,
-              PLAYER_INVENTORY_HOTBAR_OFFSET_CRAFTING
+                inv, i,
+                PLAYER_INVENTORY_INITIAL_X_OFFSET + i * PLAYER_INVENTORY_OFFSET_EACH,
+                PLAYER_INVENTORY_HOTBAR_OFFSET_CRAFTING
             ));
         }
 
@@ -209,11 +209,11 @@ public class ContainerCrafting extends AbstractContainerMenu
         {
             final ServerPlayer player = (ServerPlayer) inv.player;
             final List<CraftingRecipe> recipes = player.server.getRecipeManager().getRecipesFor(RecipeType.CRAFTING, craftMatrix, world)
-                    .stream().filter(recipe -> recipe.isSpecial()
-                            || !world.getGameRules().getBoolean(GameRules.RULE_LIMITED_CRAFTING)
-                            || player.getRecipeBook().contains(recipe)
-                            || player.isCreative())
-                    .toList();
+                .stream().filter(recipe -> recipe.isSpecial()
+                    || !world.getGameRules().getBoolean(GameRules.RULE_LIMITED_CRAFTING)
+                    || player.getRecipeBook().contains(recipe)
+                    || player.isCreative())
+                .toList();
             if (recipes.isEmpty())
             {
                 this.switchableSlot.set(0);
@@ -224,7 +224,7 @@ public class ContainerCrafting extends AbstractContainerMenu
                 this.switchableSlot.set(recipes.size());
                 this.recipeIndexSlot.set(this.recipeIndexSlot.get() % recipes.size());
                 final ItemStack stack = recipes.get(this.recipeIndexSlot.get())
-                        .assemble(this.craftMatrix, this.world.registryAccess());
+                    .assemble(this.craftMatrix, this.world.registryAccess());
                 this.craftResultSlot.set(stack);
             }
         }
@@ -262,8 +262,8 @@ public class ContainerCrafting extends AbstractContainerMenu
         {
             // 1 is shift-click
             if (mode == ClickType.PICKUP
-                  || mode == ClickType.PICKUP_ALL
-                  || mode == ClickType.SWAP)
+                || mode == ClickType.PICKUP_ALL
+                || mode == ClickType.SWAP)
             {
                 final Slot slot = this.slots.get(slotId);
                 handleSlotClick(slot, this.getCarried());
@@ -338,8 +338,8 @@ public class ContainerCrafting extends AbstractContainerMenu
                 }
             }
             else if ((index < total_slots
-                        && !this.moveItemStackTo(itemstack1, total_crafting_slots, HOTBAR_START, false))
-                       || !this.moveItemStackTo(itemstack1, total_crafting_slots, total_slots, false))
+                && !this.moveItemStackTo(itemstack1, total_crafting_slots, HOTBAR_START, false))
+                || !this.moveItemStackTo(itemstack1, total_crafting_slots, total_slots, false))
             {
                 return ItemStack.EMPTY;
             }
@@ -417,6 +417,7 @@ public class ContainerCrafting extends AbstractContainerMenu
 
     /**
      * Get for the remaining items.
+     *
      * @return
      */
     public List<ItemStack> getRemainingItems()
@@ -426,9 +427,9 @@ public class ContainerCrafting extends AbstractContainerMenu
         {
             List<ItemStack> ri = iRecipe.get().getRemainingItems(this.craftMatrix);
             remainingItems.clear();
-            for(int i = 0; i< ri.size(); i++)
+            for (int i = 0; i < ri.size(); i++)
             {
-                if(!ri.get(i).isEmpty())
+                if (!ri.get(i).isEmpty())
                 {
                     remainingItems.add(ri.get(i));
                 }
@@ -439,6 +440,7 @@ public class ContainerCrafting extends AbstractContainerMenu
 
     /**
      * Getter for the module id.
+     *
      * @return the id.
      */
     public int getModuleId()

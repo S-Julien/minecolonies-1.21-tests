@@ -61,11 +61,11 @@ public abstract class AbstractShipRaidEvent implements IColonyRaidEvent, IColony
     /**
      * NBT Tags
      */
-    public static final String TAG_DAYS_LEFT     = "pirateDaysLeft";
-    public static final String TAG_SPAWNER_COUNT = "spawnerCount";
-    public static final String TAG_POS           = "pos";
-    public static final String TAG_SPAWNERS      = "spawners";
-    public static final String TAG_SHIPSIZE      = "shipSize";
+    public static final String TAG_DAYS_LEFT                = "pirateDaysLeft";
+    public static final String TAG_SPAWNER_COUNT            = "spawnerCount";
+    public static final String TAG_POS                      = "pos";
+    public static final String TAG_SPAWNERS                 = "spawners";
+    public static final String TAG_SHIPSIZE                 = "shipSize";
     public static final String TAG_SHIPROTATION             = "shipRotation";
     public static final String TAG_RAIDER_THRESHOLD_TRACKER = "raiderkillthresholdtracker";
     public static final String TAG_MAX_RAIDER_COUNT         = "maxRaiderCount";
@@ -182,7 +182,7 @@ public abstract class AbstractShipRaidEvent implements IColonyRaidEvent, IColony
         status = EventStatus.PREPARING;
 
         ServerFutureProcessor.queueBlueprint(new ServerFutureProcessor.BlueprintProcessingData(StructurePacks.getBlueprintFuture(STORAGE_STYLE,
-          "decorations" + ShipBasedRaiderUtils.SHIP_FOLDER + shipSize.schematicPrefix + this.getShipDesc() + ".blueprint"), colony.getWorld(), (blueprint -> {
+            "decorations" + ShipBasedRaiderUtils.SHIP_FOLDER + shipSize.schematicPrefix + this.getShipDesc() + ".blueprint"), colony.getWorld(), (blueprint -> {
             blueprint.setRotationMirror(RotationMirror.of(BlockPosUtil.getRotationFromRotations(shipRotation), Mirror.NONE), colony.getWorld());
 
             if (spawnPathResult != null && spawnPathResult.isDone())
@@ -214,8 +214,8 @@ public abstract class AbstractShipRaidEvent implements IColonyRaidEvent, IColony
             updateRaidBar();
 
             MessageUtils.format(RAID_EVENT_MESSAGE_PIRATE + shipSize.messageID, BlockPosUtil.calcDirection(colony.getCenter(), spawnPoint).getLongText(), colony.getName())
-              .withPriority(MessagePriority.DANGER)
-              .sendTo(colony).forManagers();
+                .withPriority(MessagePriority.DANGER)
+                .sendTo(colony).forManagers();
             colony.markDirty();
         })));
     }
@@ -259,7 +259,8 @@ public abstract class AbstractShipRaidEvent implements IColonyRaidEvent, IColony
         {
             for (final Tuple<EntityType<?>, BlockPos> entry : respawns)
             {
-                final BlockPos spawnPos = ShipBasedRaiderUtils.getLoadedPositionTowardsCenter(entry.getB(), colony, MAX_LANDING_DISTANCE, spawnPoint, MIN_CENTER_DISTANCE, 10, this.isUnderWater());
+                final BlockPos spawnPos =
+                    ShipBasedRaiderUtils.getLoadedPositionTowardsCenter(entry.getB(), colony, MAX_LANDING_DISTANCE, spawnPoint, MIN_CENTER_DISTANCE, 10, this.isUnderWater());
                 if (spawnPos != null)
                 {
                     RaiderMobUtils.spawn(entry.getA(), 1, spawnPos, colony.getWorld(), colony, id);
@@ -270,13 +271,14 @@ public abstract class AbstractShipRaidEvent implements IColonyRaidEvent, IColony
         }
 
         spawners.removeIf(spawner -> colony.getWorld() != null
-                                       && WorldUtil.isBlockLoaded(colony.getWorld(), spawner)
-                                       && colony.getWorld().getBlockState(spawner).getBlock() != Blocks.SPAWNER);
+            && WorldUtil.isBlockLoaded(colony.getWorld(), spawner)
+            && colony.getWorld().getBlockState(spawner).getBlock() != Blocks.SPAWNER);
 
         // Spawns landing troops.
         if (raiders.size() < spawners.size() * 2)
         {
-            BlockPos spawnPos = ShipBasedRaiderUtils.getLoadedPositionTowardsCenter(spawnPoint, colony, MAX_LANDING_DISTANCE, spawnPoint, MIN_CENTER_DISTANCE, 10, this.isUnderWater());
+            BlockPos spawnPos =
+                ShipBasedRaiderUtils.getLoadedPositionTowardsCenter(spawnPoint, colony, MAX_LANDING_DISTANCE, spawnPoint, MIN_CENTER_DISTANCE, 10, this.isUnderWater());
             if (spawnPos != null)
             {
                 // Find nice position on the ship
@@ -306,6 +308,7 @@ public abstract class AbstractShipRaidEvent implements IColonyRaidEvent, IColony
 
     /**
      * If this is an underwater ship based event.
+     *
      * @return true if so.
      */
     public boolean isUnderWater()
@@ -317,7 +320,7 @@ public abstract class AbstractShipRaidEvent implements IColonyRaidEvent, IColony
     public void onFinish()
     {
         MessageUtils.format(PIRATES_SAILING_OFF_MESSAGE, BlockPosUtil.calcDirection(colony.getCenter(), spawnPoint).getLongText())
-          .sendTo(colony).forManagers();
+            .sendTo(colony).forManagers();
         for (final Entity entity : raiders.keySet())
         {
             entity.remove(Entity.RemovalReason.DISCARDED);
@@ -350,7 +353,7 @@ public abstract class AbstractShipRaidEvent implements IColonyRaidEvent, IColony
             colony.getRaiderManager().onRaidEventFinished(this);
             daysToGo = 1;
             MessageUtils.format(INDIVIDUAL_RAID_FINISH + "." + this.getEventTypeID().getPath() + ColonyConstants.rand.nextInt(3),
-              BlockPosUtil.calcDirection(colony.getCenter(), spawnPoint).getLongText()).sendTo(colony, true).forManagers();
+                BlockPosUtil.calcDirection(colony.getCenter(), spawnPoint).getLongText()).sendTo(colony, true).forManagers();
         }
     }
 
@@ -369,7 +372,7 @@ public abstract class AbstractShipRaidEvent implements IColonyRaidEvent, IColony
     {
         spawnerThresholdKillTracker++;
 
-        if (!spawners.isEmpty() && spawnerThresholdKillTracker > maxRaiderCount/maxSpawners)
+        if (!spawners.isEmpty() && spawnerThresholdKillTracker > maxRaiderCount / maxSpawners)
         {
             colony.getWorld().removeBlock(spawners.remove(0), false);
             raidBar.setProgress((float) spawners.size() / maxSpawners);
@@ -576,7 +579,7 @@ public abstract class AbstractShipRaidEvent implements IColonyRaidEvent, IColony
         {
             return !spawners.isEmpty() || !raiders.isEmpty() || !respawns.isEmpty();
         }
-        return getStatus() == EventStatus.PROGRESSING ||getStatus() == EventStatus.PREPARING;
+        return getStatus() == EventStatus.PROGRESSING || getStatus() == EventStatus.PREPARING;
     }
 
     @Override

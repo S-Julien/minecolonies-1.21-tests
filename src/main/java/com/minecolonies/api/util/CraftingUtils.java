@@ -42,7 +42,7 @@ public final class CraftingUtils
     {
         //Calculate the initial crafting count from the request and the storage output.
         int craftingCount = (int) Math.ceil(
-          Math.max(ItemStackUtils.getSize(outputStack), ItemStackUtils.getSize(storage.getPrimaryOutput())) / (double) ItemStackUtils.getSize(storage.getPrimaryOutput()));
+            Math.max(ItemStackUtils.getSize(outputStack), ItemStackUtils.getSize(storage.getPrimaryOutput())) / (double) ItemStackUtils.getSize(storage.getPrimaryOutput()));
 
         //Now check if we excede an ingredients max stack size.
         for (final ItemStorage ingredientStorage : storage.getCleanedInput())
@@ -116,6 +116,7 @@ public final class CraftingUtils
     {
         return getIngredientValidatorBasedOnTags(crafterJobName, false);
     }
+
     /**
      * Generates an {@link OptionalPredicate} that reports whether a particular
      * stack is allowed, banned, or undecided when used as a crafting ingredient
@@ -129,7 +130,7 @@ public final class CraftingUtils
     {
         return stack ->
         {
-            if(includeDoRules)
+            if (includeDoRules)
             {
                 final TagKey<Item> includedDoIngredients = ModTags.crafterDoIngredient.get(crafterJobName);
                 if (includedDoIngredients != null && stack.is(includedDoIngredients))
@@ -160,15 +161,15 @@ public final class CraftingUtils
      * the provided recipe includes products and/or ingredients that are
      * marked as compatible or incompatible with this job.
      *
-     * @param recipe The recipe to check.
+     * @param recipe         The recipe to check.
      * @param crafterJobName The name of the crafting job (defines which tags to check).
      * @return True if the recipe is compatible, false if not compatible,
-     *         or empty if no decision either way.
+     * or empty if no decision either way.
      */
     public static Optional<Boolean> isRecipeCompatibleBasedOnTags(@NotNull final IGenericRecipe recipe, @NotNull final String crafterJobName)
     {
         return OptionalPredicate.combine(recipe.matchesOutput(getProductValidatorBasedOnTags(crafterJobName)),
-                () -> recipe.matchesInput(getIngredientValidatorBasedOnTags(crafterJobName)));
+            () -> recipe.matchesInput(getIngredientValidatorBasedOnTags(crafterJobName)));
     }
 
     /**
@@ -177,13 +178,14 @@ public final class CraftingUtils
      * @param displayParams the display parameters.
      * @param consumer      the action to perform.
      */
-    public static void forEachCreativeTabItems(@NotNull final CreativeModeTab.ItemDisplayParameters displayParams,
-                                               @NotNull final BiConsumer<CreativeModeTab, Collection<ItemStack>> consumer)
+    public static void forEachCreativeTabItems(
+        @NotNull final CreativeModeTab.ItemDisplayParameters displayParams,
+        @NotNull final BiConsumer<CreativeModeTab, Collection<ItemStack>> consumer)
     {
         final HolderLookup.RegistryLookup<CreativeModeTab> registry = displayParams.holders().lookup(Registries.CREATIVE_MODE_TAB).get();
         final Map<CreativeModeTab, ResourceKey<CreativeModeTab>> tabKeys = registry.listElements()
-                .distinct()     // some mods are dumb
-                .collect(Collectors.toMap(Holder::get, Holder.Reference::key));
+            .distinct()     // some mods are dumb
+            .collect(Collectors.toMap(Holder::get, Holder.Reference::key));
 
         for (final CreativeModeTab tab : CreativeModeTabs.allTabs())
         {
@@ -196,7 +198,7 @@ public final class CraftingUtils
                     try
                     {
                         onCreativeModeTabBuildContents(tab, Objects.requireNonNull(tabKeys.get(tab), "unregistered tab"),
-                                tab.displayItemsGenerator, displayParams, (stack, vis) -> stacks.add(stack));
+                            tab.displayItemsGenerator, displayParams, (stack, vis) -> stacks.add(stack));
                     }
                     catch (final Throwable ex)
                     {
@@ -216,26 +218,35 @@ public final class CraftingUtils
     /**
      * Extracted from Forge {@link ForgeHooksClient} to avoid classloading problems (since we call on server).
      */
-    private static void onCreativeModeTabBuildContents(CreativeModeTab tab, ResourceKey<CreativeModeTab> tabKey, CreativeModeTab.DisplayItemsGenerator originalGenerator, CreativeModeTab.ItemDisplayParameters params, CreativeModeTab.Output output)
+    private static void onCreativeModeTabBuildContents(
+        CreativeModeTab tab,
+        ResourceKey<CreativeModeTab> tabKey,
+        CreativeModeTab.DisplayItemsGenerator originalGenerator,
+        CreativeModeTab.ItemDisplayParameters params,
+        CreativeModeTab.Output output)
     {
         final var entries = new MutableHashedLinkedMap<ItemStack, CreativeModeTab.TabVisibility>(ItemStackLinkedSet.TYPE_AND_TAG,
-                (key, left, right) -> {
-                    //throw new IllegalStateException("Accidentally adding the same item stack twice " + key.getDisplayName().getString() + " to a Creative Mode Tab: " + tab.getDisplayName().getString());
-                    // Vanilla adds enchanting books twice in both visibilities.
-                    // This is just code cleanliness for them. For us lets just increase the visibility and merge the entries.
-                    return CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS;
-                }
+            (key, left, right) -> {
+                //throw new IllegalStateException("Accidentally adding the same item stack twice " + key.getDisplayName().getString() + " to a Creative Mode Tab: " + tab.getDisplayName().getString());
+                // Vanilla adds enchanting books twice in both visibilities.
+                // This is just code cleanliness for them. For us lets just increase the visibility and merge the entries.
+                return CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS;
+            }
         );
 
         originalGenerator.accept(params, (stack, vis) -> {
             if (stack.getCount() != 1)
+            {
                 throw new IllegalArgumentException("The stack count must be 1");
+            }
             entries.put(stack, vis);
         });
 
         ModLoader.get().postEvent(new BuildCreativeModeTabContentsEvent(tab, tabKey, params, entries));
 
         for (var entry : entries)
+        {
             output.accept(entry.getKey(), entry.getValue());
+        }
     }
 }

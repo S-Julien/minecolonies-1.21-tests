@@ -14,7 +14,7 @@ import java.util.function.Consumer;
  */
 public abstract class CustomRecipeAndLootTableProvider implements DataProvider
 {
-    private final ChildRecipeProvider recipeProvider;
+    private final ChildRecipeProvider    recipeProvider;
     private final ChildLootTableProvider lootTableProvider;
 
     protected CustomRecipeAndLootTableProvider(@NotNull final PackOutput packOutput)
@@ -24,6 +24,7 @@ public abstract class CustomRecipeAndLootTableProvider implements DataProvider
     }
 
     protected abstract void registerRecipes(@NotNull final Consumer<FinishedRecipe> consumer);
+
     protected abstract void registerTables(@NotNull final SimpleLootTableProvider.LootTableRegistrar registrar);
 
     @NotNull

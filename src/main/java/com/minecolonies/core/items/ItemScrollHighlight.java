@@ -61,9 +61,9 @@ public class ItemScrollHighlight extends AbstractItemScroll
             if (ctx.getLevel().random.nextInt(10) == 0)
             {
                 ctx.getPlayer()
-                  .displayClientMessage(Component.translatable(
-                    "minecolonies.scroll.failed" + (ctx.getLevel().random.nextInt(FAIL_RESPONSES_TOTAL) + 1)).setStyle(Style.EMPTY.withColor(
-                    ChatFormatting.GOLD)), true);
+                    .displayClientMessage(Component.translatable(
+                        "minecolonies.scroll.failed" + (ctx.getLevel().random.nextInt(FAIL_RESPONSES_TOTAL) + 1)).setStyle(Style.EMPTY.withColor(
+                        ChatFormatting.GOLD)), true);
                 ctx.getPlayer().addEffect(new MobEffectInstance(MobEffects.GLOWING, TICKS_SECOND * 300));
                 SoundUtils.playSoundForPlayer((ServerPlayer) ctx.getPlayer(), SoundEvents.ENDER_CHEST_OPEN, 0.3f, 1.0f);
                 return InteractionResult.SUCCESS;
@@ -101,7 +101,7 @@ public class ItemScrollHighlight extends AbstractItemScroll
 
     @Override
     public void appendHoverText(
-      @NotNull final ItemStack stack, @Nullable final Level worldIn, @NotNull final List<Component> tooltip, @NotNull final TooltipFlag flagIn)
+        @NotNull final ItemStack stack, @Nullable final Level worldIn, @NotNull final List<Component> tooltip, @NotNull final TooltipFlag flagIn)
     {
         final MutableComponent guiHint = Component.translatable(TOOL_GENERIC_SCROLL_HIGHLIGHT_DESCRIPTION);
         guiHint.setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GREEN));

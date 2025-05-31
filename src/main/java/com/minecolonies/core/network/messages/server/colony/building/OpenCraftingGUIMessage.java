@@ -41,7 +41,8 @@ public class OpenCraftingGUIMessage extends AbstractBuildingServerMessage<IBuild
 
     /**
      * Creates an open inventory message for a building.
-     * @param id the string id.
+     *
+     * @param id       the string id.
      * @param building {@link AbstractBuildingView}
      */
     public OpenCraftingGUIMessage(@NotNull final AbstractBuildingView building, final int id)
@@ -114,24 +115,24 @@ public class OpenCraftingGUIMessage extends AbstractBuildingServerMessage<IBuild
             else
             {
                 net.minecraftforge.network.NetworkHooks.openScreen(player,
-                  new MenuProvider()
-                  {
-                      @NotNull
-                      @Override
-                      public Component getDisplayName()
-                      {
-                          return Component.literal("Crafting GUI");
-                      }
+                    new MenuProvider()
+                    {
+                        @NotNull
+                        @Override
+                        public Component getDisplayName()
+                        {
+                            return Component.literal("Crafting GUI");
+                        }
 
-                      @NotNull
-                      @Override
-                      public AbstractContainerMenu createMenu(final int id, @NotNull final Inventory inv, @NotNull final Player player)
-                      {
-                          return new ContainerCrafting(id, inv, module.canLearn(ModCraftingTypes.LARGE_CRAFTING.get()), building.getID(), module.getProducer().getRuntimeID());
-                      }
-                  },
-                  buffer -> new FriendlyByteBuf(buffer.writeBoolean(module.canLearn(ModCraftingTypes.LARGE_CRAFTING.get()))).writeBlockPos(building.getID())
-                    .writeInt(module.getProducer().getRuntimeID()));
+                        @NotNull
+                        @Override
+                        public AbstractContainerMenu createMenu(final int id, @NotNull final Inventory inv, @NotNull final Player player)
+                        {
+                            return new ContainerCrafting(id, inv, module.canLearn(ModCraftingTypes.LARGE_CRAFTING.get()), building.getID(), module.getProducer().getRuntimeID());
+                        }
+                    },
+                    buffer -> new FriendlyByteBuf(buffer.writeBoolean(module.canLearn(ModCraftingTypes.LARGE_CRAFTING.get()))).writeBlockPos(building.getID())
+                        .writeInt(module.getProducer().getRuntimeID()));
             }
         }
     }

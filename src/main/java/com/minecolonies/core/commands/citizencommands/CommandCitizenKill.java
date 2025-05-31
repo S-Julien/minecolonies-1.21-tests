@@ -67,9 +67,10 @@ public class CommandCitizenKill implements IMCColonyOfficerCommand
 
         context.getSource().sendSuccess(() -> Component.translatable(CommandTranslationConstants.COMMAND_CITIZEN_INFO, citizenData.getId(), citizenData.getName()), true);
         final BlockPos position = optionalEntityCitizen.get().blockPosition();
-        context.getSource().sendSuccess(() -> Component.translatable(CommandTranslationConstants.COMMAND_CITIZEN_INFO_POSITION, position.getX(), position.getY(), position.getZ()), true);
         context.getSource()
-          .sendSuccess(() -> Component.translatable(CommandTranslationConstants.COMMAND_CITIZEN_KILL_SUCCESS, position.getX(), position.getY(), position.getZ()), true);
+            .sendSuccess(() -> Component.translatable(CommandTranslationConstants.COMMAND_CITIZEN_INFO_POSITION, position.getX(), position.getY(), position.getZ()), true);
+        context.getSource()
+            .sendSuccess(() -> Component.translatable(CommandTranslationConstants.COMMAND_CITIZEN_KILL_SUCCESS, position.getX(), position.getY(), position.getZ()), true);
 
         optionalEntityCitizen.get().die(context.getSource().getLevel().damageSources().source(DamageSourceKeys.CONSOLE));
 
@@ -89,7 +90,7 @@ public class CommandCitizenKill implements IMCColonyOfficerCommand
     public LiteralArgumentBuilder<CommandSourceStack> build()
     {
         return IMCCommand.newLiteral(getName())
-                 .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1))
-                         .then(IMCCommand.newArgument(CITIZENID_ARG, IntegerArgumentType.integer(1)).executes(this::checkPreConditionAndExecute)));
+            .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1))
+                .then(IMCCommand.newArgument(CITIZENID_ARG, IntegerArgumentType.integer(1)).executes(this::checkPreConditionAndExecute)));
     }
 }

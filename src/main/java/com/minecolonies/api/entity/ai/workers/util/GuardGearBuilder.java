@@ -29,10 +29,10 @@ public final class GuardGearBuilder
      * @return the list of items.
      */
     public static List<GuardGear> buildGearForLevel(
-      final int minArmorLevel,
-      final int maxArmorLevel,
-      final Tuple<Integer, Integer> levelRange,
-      final Tuple<Integer, Integer> buildingLevelRange)
+        final int minArmorLevel,
+        final int maxArmorLevel,
+        final Tuple<Integer, Integer> levelRange,
+        final Tuple<Integer, Integer> buildingLevelRange)
     {
         final List<GuardGear> armorList = new ArrayList<>();
         armorList.add(new GuardGear(ModEquipmentTypes.boots.get(), EquipmentSlot.FEET, minArmorLevel, maxArmorLevel, levelRange, buildingLevelRange));

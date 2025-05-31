@@ -42,7 +42,7 @@ public interface IModuleContainer<T>
      *
      * @return the module or empty if not existent.
      */
-     <M extends IBuildingModule, V extends IBuildingModuleView> M getModule(final BuildingEntry.ModuleProducer<M,V> producer);
+    <M extends IBuildingModule, V extends IBuildingModuleView> M getModule(final BuildingEntry.ModuleProducer<M, V> producer);
 
     /**
      * Get the first module with a particular class or interface.

@@ -131,8 +131,8 @@ public class MineNode
             if (hasDoubles)
             {
                 parent = new Vec2i(
-                  Mth.floor(compound.getDouble(TAG_PARENTX)),
-                  Mth.floor(compound.getDouble(TAG_PARENTZ)));
+                    Mth.floor(compound.getDouble(TAG_PARENTX)),
+                    Mth.floor(compound.getDouble(TAG_PARENTZ)));
             }
             else
             {
@@ -219,10 +219,10 @@ public class MineNode
     public String toString()
     {
         return "Node{" + "x=" + x
-                 + ", z=" + z
-                 + ", style=" + style
-                 + ", status=" + status
-                 + '}';
+            + ", z=" + z
+            + ", style=" + style
+            + ", status=" + status
+            + '}';
     }
 
     /**
@@ -358,7 +358,7 @@ public class MineNode
         }
         final MineNode node = (MineNode) o;
         return x == node.x &&
-                 z == node.z;
+            z == node.z;
     }
 
     @Override
@@ -409,7 +409,7 @@ public class MineNode
          * List of all valid types.
          */
         public static final ImmutableList<NodeType> SIDE_NODES =
-          ImmutableList.of(TUNNEL, CROSSROAD, BEND_RIGHT, BEND_LEFT, CROSS_THREE_LEFT_RIGHT, CROSS_THREE_TOP_LEFT, CROSS_THREE_TOP_RIGHT);
+            ImmutableList.of(TUNNEL, CROSSROAD, BEND_RIGHT, BEND_LEFT, CROSS_THREE_LEFT_RIGHT, CROSS_THREE_TOP_LEFT, CROSS_THREE_TOP_RIGHT);
 
         /**
          * The schematic string.

@@ -25,6 +25,7 @@ public class ClickGuiButtonCriterionInstance extends AbstractCriterionTriggerIns
 
     /**
      * Construct the check with a single button condition
+     *
      * @param buttonId the button to be clicked to succeed
      */
     public ClickGuiButtonCriterionInstance(final String buttonId)
@@ -36,7 +37,8 @@ public class ClickGuiButtonCriterionInstance extends AbstractCriterionTriggerIns
 
     /**
      * Construct the check more specifically
-     * @param buttonId the button to be clicked to succeed
+     *
+     * @param buttonId       the button to be clicked to succeed
      * @param windowResource the window id of the button to be clicked
      */
     public ClickGuiButtonCriterionInstance(final String buttonId, final String windowResource)
@@ -49,7 +51,8 @@ public class ClickGuiButtonCriterionInstance extends AbstractCriterionTriggerIns
 
     /**
      * Performs the check for the conditions
-     * @param buttonId the id of the button that was just clicked
+     *
+     * @param buttonId       the id of the button that was just clicked
      * @param windowResource the blockui window id to check
      * @return whether the check succeeded
      */
@@ -68,8 +71,9 @@ public class ClickGuiButtonCriterionInstance extends AbstractCriterionTriggerIns
     }
 
     @NotNull
-    public static ClickGuiButtonCriterionInstance deserializeFromJson(@NotNull final JsonObject jsonObject,
-                                                                      @NotNull final DeserializationContext context)
+    public static ClickGuiButtonCriterionInstance deserializeFromJson(
+        @NotNull final JsonObject jsonObject,
+        @NotNull final DeserializationContext context)
     {
         if (jsonObject.has("button_id"))
         {

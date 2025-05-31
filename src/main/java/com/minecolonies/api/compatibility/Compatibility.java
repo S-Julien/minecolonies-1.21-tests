@@ -31,7 +31,7 @@ public final class Compatibility
         throw new IllegalAccessError("Utility class");
     }
 
-    public static IBeehiveCompat beeHiveCompat = new IBeehiveCompat() {};
+    public static IBeehiveCompat   beeHiveCompat      = new IBeehiveCompat() {};
     public static SlimeTreeProxy   tinkersSlimeCompat = new SlimeTreeProxy();
     public static TinkersToolProxy tinkersCompat      = new TinkersToolProxy();
     public static DynamicTreeProxy dynamicTreesCompat = new DynamicTreeProxy();
@@ -116,11 +116,12 @@ public final class Compatibility
 
     /**
      * Check if a certain item stack is a tinkers tool of the given tool type.
-     * @param stack the stack to check for.
+     *
+     * @param stack    the stack to check for.
      * @param toolType the tool type.
      * @return true if so.
      */
-    public static boolean isTinkersTool(@Nullable final ItemStack stack, final EquipmentTypeEntry toolType) { return tinkersCompat.isTinkersTool(stack, toolType); }
+    public static boolean isTinkersTool(@Nullable final ItemStack stack, final EquipmentTypeEntry toolType) {return tinkersCompat.isTinkersTool(stack, toolType);}
 
     /**
      * Calculate the actual attack damage of the tinkers weapon.

@@ -10,6 +10,7 @@ public interface IReproductionManager
 {
     /**
      * On colony tick operation.
+     *
      * @param colony the colony ticking.
      */
     void onColonyTick(@NotNull final IColony colony);

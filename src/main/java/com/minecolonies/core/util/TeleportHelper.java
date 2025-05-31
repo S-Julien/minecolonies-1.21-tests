@@ -54,11 +54,11 @@ public final class TeleportHelper
         citizen.getNavigation().stop();
         citizen.stopRiding();
         citizen.moveTo(
-          spawnPoint.getX() + MIDDLE_BLOCK_OFFSET,
-          spawnPoint.getY(),
-          spawnPoint.getZ() + MIDDLE_BLOCK_OFFSET,
-          citizen.getRotationYaw(),
-          citizen.getRotationPitch());
+            spawnPoint.getX() + MIDDLE_BLOCK_OFFSET,
+            spawnPoint.getY(),
+            spawnPoint.getZ() + MIDDLE_BLOCK_OFFSET,
+            citizen.getRotationYaw(),
+            citizen.getRotationPitch());
         return true;
     }
 
@@ -141,10 +141,10 @@ public final class TeleportHelper
         final ServerLevel world = player.getServer().getLevel(colony.getDimension());
 
         position = BlockPosUtil.findAround(world,
-          position,
-          5,
-          5,
-          (predWorld, predPos) -> predWorld.getBlockState(predPos).isAir() && predWorld.getBlockState(predPos.above()).isAir());
+            position,
+            5,
+            5,
+            (predWorld, predPos) -> predWorld.getBlockState(predPos).isAir() && predWorld.getBlockState(predPos.above()).isAir());
 
         if (position == null)
         {

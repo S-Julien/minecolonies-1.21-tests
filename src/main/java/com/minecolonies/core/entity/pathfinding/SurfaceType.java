@@ -67,10 +67,10 @@ public enum SurfaceType
         }
 
         if (block instanceof FenceBlock
-              || block instanceof WallBlock
-              || block instanceof AbstractBlockMinecoloniesDefault
-              || block instanceof BambooStalkBlock
-              || block instanceof BambooSaplingBlock)
+            || block instanceof WallBlock
+            || block instanceof AbstractBlockMinecoloniesDefault
+            || block instanceof BambooStalkBlock
+            || block instanceof BambooSaplingBlock)
         {
             return SurfaceType.NOT_PASSABLE;
         }
@@ -119,10 +119,10 @@ public enum SurfaceType
         }
 
         if ((BlockUtils.isAnySolid(blockState) && ShapeUtil.max(shape, Direction.Axis.X) - ShapeUtil.min(shape, Direction.Axis.X) > 0.75
-               && (ShapeUtil.max(shape, Direction.Axis.Z) - ShapeUtil.min(shape, Direction.Axis.Z)) > 0.75)
-              || (blockState.getBlock() == Blocks.SNOW && blockState.getValue(SnowLayerBlock.LAYERS) > 1)
-              || block instanceof FloatingCarpetBlock
-              || block instanceof CarpetBlock)
+            && (ShapeUtil.max(shape, Direction.Axis.Z) - ShapeUtil.min(shape, Direction.Axis.Z)) > 0.75)
+            || (blockState.getBlock() == Blocks.SNOW && blockState.getValue(SnowLayerBlock.LAYERS) > 1)
+            || block instanceof FloatingCarpetBlock
+            || block instanceof CarpetBlock)
         {
             return SurfaceType.WALKABLE;
         }

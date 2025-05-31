@@ -44,6 +44,7 @@ public class HappinessRewardTemplate implements IQuestRewardTemplate
 
     /**
      * Create the reward.
+     *
      * @param jsonObject the json to read from.
      * @return the reward object.
      */
@@ -62,11 +63,13 @@ public class HappinessRewardTemplate implements IQuestRewardTemplate
     {
         if (this.target == 0)
         {
-            ((CitizenData) colonyQuest.getQuestGiver()).getCitizenHappinessHandler().addModifier(new ExpirationBasedHappinessModifier(QUEST, 2.0, new StaticHappinessSupplier(qty), days));
+            ((CitizenData) colonyQuest.getQuestGiver()).getCitizenHappinessHandler()
+                .addModifier(new ExpirationBasedHappinessModifier(QUEST, 2.0, new StaticHappinessSupplier(qty), days));
         }
         else
         {
-            ((CitizenData) colonyQuest.getParticipant(this.target)).getCitizenHappinessHandler().addModifier(new ExpirationBasedHappinessModifier(QUEST, 2.0, new StaticHappinessSupplier(qty), days));
+            ((CitizenData) colonyQuest.getParticipant(this.target)).getCitizenHappinessHandler()
+                .addModifier(new ExpirationBasedHappinessModifier(QUEST, 2.0, new StaticHappinessSupplier(qty), days));
         }
     }
 }

@@ -28,9 +28,9 @@ public class ItemMilkyBread extends AbstractItemMinecolonies
      * Setup the food definition
      */
     private static FoodProperties milkBread = (new FoodProperties.Builder())
-                                        .nutrition(5)
-                                        .saturationMod(0.6F)
-                                        .build(); 
+        .nutrition(5)
+        .saturationMod(0.6F)
+        .build();
 
     /**
      * Sets the name, creative tab, and registers the Milk Bread item.
@@ -42,23 +42,24 @@ public class ItemMilkyBread extends AbstractItemMinecolonies
         super("milky_bread", properties.stacksTo(STACKSIZE).food(milkBread));
     }
 
-   /**
-    * Remove the potion effects like Milk
-    */
+    /**
+     * Remove the potion effects like Milk
+     */
     @Override
-    public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
-        
+    public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving)
+    {
+
         if (!worldIn.isClientSide)
         {
             entityLiving.curePotionEffects(new ItemStack(Items.MILK_BUCKET));
         }
 
         return super.finishUsingItem(stack, worldIn, entityLiving);
-    }    
+    }
 
     @Override
     public void appendHoverText(
-    @NotNull final ItemStack stack, @Nullable final Level worldIn, @NotNull final List<Component> tooltip, @NotNull final TooltipFlag flagIn)
+        @NotNull final ItemStack stack, @Nullable final Level worldIn, @NotNull final List<Component> tooltip, @NotNull final TooltipFlag flagIn)
     {
         final MutableComponent guiHint = Component.translatable(TranslationConstants.COM_MINECOLONIES_COREMOD_MILKY_BREAD_TOOLTIP_GUI);
         guiHint.setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY));

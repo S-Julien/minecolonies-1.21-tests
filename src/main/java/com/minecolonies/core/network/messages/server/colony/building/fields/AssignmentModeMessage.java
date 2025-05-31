@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class AssignmentModeMessage extends AbstractBuildingServerMessage<IBuilding>
 {
-    private int id;
+    private int     id;
     private boolean assignmentMode;
 
     /**
@@ -31,7 +31,7 @@ public class AssignmentModeMessage extends AbstractBuildingServerMessage<IBuildi
      * @param assignmentMode assignmentMode of the particular farmer.
      * @param building       the building we're executing on.
      */
-    public AssignmentModeMessage(@NotNull final IBuildingView building, final boolean assignmentMode , final int runtimeID)
+    public AssignmentModeMessage(@NotNull final IBuildingView building, final boolean assignmentMode, final int runtimeID)
     {
         super(building);
         this.assignmentMode = assignmentMode;
@@ -57,7 +57,7 @@ public class AssignmentModeMessage extends AbstractBuildingServerMessage<IBuildi
     {
         if (building.hasModule(BuildingExtensionsModule.class))
         {
-            ((BuildingExtensionsModule)building.getModule(id)).setAssignManually(assignmentMode);
+            ((BuildingExtensionsModule) building.getModule(id)).setAssignManually(assignmentMode);
         }
     }
 }

@@ -33,6 +33,7 @@ public class StateQuestTriggerTemplate implements IQuestTriggerTemplate
 
     /**
      * Create a new state quest trigger.
+     *
      * @param paths the path to the state to match.
      * @param match the state to match.
      * @param count the number of matches we have to find.
@@ -46,15 +47,15 @@ public class StateQuestTriggerTemplate implements IQuestTriggerTemplate
 
     /**
      * Create a new trigger directly from json.
+     *
      * @param questTriggerJson the json associated to this trigger.
      */
     public static StateQuestTriggerTemplate createStateTrigger(final JsonObject questTriggerJson)
     {
         final JsonObject subObj = questTriggerJson.get(STATE_ID).getAsJsonObject();
         return new StateQuestTriggerTemplate(subObj.get(PATH_ID).getAsString().split("/"),
-          subObj.get(MATCH_ID),
-          subObj.has(COUNT_ID) ? subObj.get(COUNT_ID).getAsInt() : 1);
-
+            subObj.get(MATCH_ID),
+            subObj.has(COUNT_ID) ? subObj.get(COUNT_ID).getAsInt() : 1);
     }
 
     @Override

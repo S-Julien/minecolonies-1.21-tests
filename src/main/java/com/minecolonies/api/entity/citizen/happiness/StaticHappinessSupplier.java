@@ -17,6 +17,7 @@ public class StaticHappinessSupplier implements IHappinessSupplierWrapper
 
     /**
      * Create a new static supplier.
+     *
      * @param value the static value to supply.
      */
     public StaticHappinessSupplier(final double value)

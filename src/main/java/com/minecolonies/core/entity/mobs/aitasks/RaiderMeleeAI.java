@@ -46,8 +46,8 @@ public class RaiderMeleeAI<T extends AbstractEntityMinecoloniesMonster & IThreat
     private static final double BASE_COMBAT_SPEED    = 1.2;
 
     public RaiderMeleeAI(
-      final T owner,
-      final ITickRateStateMachine<IState> stateMachine)
+        final T owner,
+        final ITickRateStateMachine<IState> stateMachine)
     {
         super(owner, stateMachine);
     }
@@ -58,7 +58,9 @@ public class RaiderMeleeAI<T extends AbstractEntityMinecoloniesMonster & IThreat
         double damageToBeDealt = user.getAttribute(MOB_ATTACK_DAMAGE.get()).getValue();
         if (user.getName().getContents() instanceof TranslatableContents translatableContents)
         {
-            target.hurt(target.level.damageSources().source(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(Constants.MOD_ID, translatableContents.getKey().replace("entity.minecolonies.", ""))), user), (float) damageToBeDealt);
+            target.hurt(target.level.damageSources()
+                .source(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(Constants.MOD_ID, translatableContents.getKey().replace("entity.minecolonies.", ""))),
+                    user), (float) damageToBeDealt);
         }
         else
         {

@@ -33,9 +33,9 @@ public class StudyItemListener extends SimpleJsonResourceReloadListener
     /**
      * Json constants
      */
-    private static final String KEY_ITEM                  = "item";
+    private static final String KEY_ITEM = "item";
     private static final String KEY_SKILL_INCREASE_CHANCE = "skill_increase_chance";
-    private static final String KEY_BREAK_CHANCE          = "break_chance";
+    private static final String KEY_BREAK_CHANCE = "break_chance";
 
     /**
      * The current list of study items.
@@ -49,7 +49,10 @@ public class StudyItemListener extends SimpleJsonResourceReloadListener
      * @param skillIncreaseChance chance for skill to increase after using the item.
      * @param breakChance         chance for the item to be used up after using it.
      */
-    public record StudyItem(Item item, int skillIncreaseChance, int breakChance)
+    public record StudyItem(
+        Item item,
+        int skillIncreaseChance,
+        int breakChance)
     {
     }
 
@@ -84,9 +87,9 @@ public class StudyItemListener extends SimpleJsonResourceReloadListener
 
     @Override
     protected void apply(
-      final @NotNull Map<ResourceLocation, JsonElement> jsonElementMap,
-      final @NotNull ResourceManager resourceManager,
-      final @NotNull ProfilerFiller profiler)
+        final @NotNull Map<ResourceLocation, JsonElement> jsonElementMap,
+        final @NotNull ResourceManager resourceManager,
+        final @NotNull ProfilerFiller profiler)
     {
         final Map<ResourceLocation, StudyItem> newItems = new HashMap<>();
         for (final Map.Entry<ResourceLocation, JsonElement> entry : jsonElementMap.entrySet())
@@ -121,11 +124,11 @@ public class StudyItemListener extends SimpleJsonResourceReloadListener
         if (raw != clamped)
         {
             Log.getLogger()
-              .warn(
-                "Parsing study item for Library contains a problem. Expected value for {} exceeded the range of [0,100], actual values was {}. Value was automatically clamped to {}.",
-                field,
-                raw,
-                clamped);
+                .warn(
+                    "Parsing study item for Library contains a problem. Expected value for {} exceeded the range of [0,100], actual values was {}. Value was automatically clamped to {}.",
+                    field,
+                    raw,
+                    clamped);
         }
         return clamped;
     }

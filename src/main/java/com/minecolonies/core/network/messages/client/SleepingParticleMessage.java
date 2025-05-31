@@ -62,11 +62,11 @@ public class SleepingParticleMessage implements IMessage
     public void onExecute(final NetworkEvent.Context ctxIn, final boolean isLogicalServer)
     {
         Minecraft.getInstance().level.addParticle(ModParticleTypesInitializer.SLEEPINGPARTICLE_TYPE,
-          x,
-          y,
-          z,
-          1.0f,
-          1.0f,
-          1.0f);
+            x,
+            y,
+            z,
+            1.0f,
+            1.0f,
+            1.0f);
     }
 }

@@ -22,6 +22,7 @@ public class ToolModuleView extends AbstractBuildingModuleView
 
     /**
      * The tool of the worker.
+     *
      * @param tool the item.
      */
     public ToolModuleView(final Item tool)
@@ -57,6 +58,7 @@ public class ToolModuleView extends AbstractBuildingModuleView
 
     /**
      * Get the correct tool.
+     *
      * @return the tool to give.
      */
     public Item getTool()

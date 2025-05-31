@@ -16,7 +16,7 @@ public final class RecipeTypeEntry
 {
 
     private final Function<IRecipeStorage, AbstractRecipeType<IRecipeStorage>> recipeTypeProducer;
-    private final ResourceLocation registryName;
+    private final ResourceLocation                                             registryName;
 
     /**
      * Builder for a {@link AbstractRecipeType}.
@@ -24,7 +24,7 @@ public final class RecipeTypeEntry
     public static final class Builder
     {
         private Function<IRecipeStorage, AbstractRecipeType<IRecipeStorage>> recipeTypeProducer;
-        private ResourceLocation                registryName;
+        private ResourceLocation                                             registryName;
 
         /**
          * Setter the for the producer.
@@ -76,7 +76,7 @@ public final class RecipeTypeEntry
     }
 
     private RecipeTypeEntry(
-      final Function<IRecipeStorage, AbstractRecipeType<IRecipeStorage>> recipeTypeProducer, final ResourceLocation registryName)
+        final Function<IRecipeStorage, AbstractRecipeType<IRecipeStorage>> recipeTypeProducer, final ResourceLocation registryName)
     {
         super();
         this.recipeTypeProducer = recipeTypeProducer;

@@ -62,15 +62,16 @@ public class DefaultCrusherCraftingProvider extends CustomRecipeProvider
         crush(consumer, "tuff2", new ItemStack(Items.COBBLED_DEEPSLATE), new ItemStack(Items.TUFF), withTheDepths, withGildedHammer);
     }
 
-    private void crush(@NotNull final Consumer<FinishedRecipe> consumer,
-                       @NotNull final String name,
-                       @NotNull final ItemStack input,
-                       @NotNull final ItemStack output,
-                       @NotNull final Rule... rules)
+    private void crush(
+        @NotNull final Consumer<FinishedRecipe> consumer,
+        @NotNull final String name,
+        @NotNull final ItemStack input,
+        @NotNull final ItemStack output,
+        @NotNull final Rule... rules)
     {
         final CustomRecipeBuilder builder = CustomRecipeBuilder.create(CRUSHER, MODULE_CUSTOM, name)
-                .inputs(List.of(new ItemStorage(input)))
-                .result(output);
+            .inputs(List.of(new ItemStorage(input)))
+            .result(output);
         for (final Rule rule : rules)
         {
             rule.accept(builder);

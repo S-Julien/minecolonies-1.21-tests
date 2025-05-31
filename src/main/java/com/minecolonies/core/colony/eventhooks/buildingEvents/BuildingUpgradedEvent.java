@@ -27,7 +27,7 @@ public class BuildingUpgradedEvent extends AbstractBuildingEvent
 
     /**
      * Creates a new building upgraded event.
-     * 
+     *
      * @param eventPos      the position of the hut block of the building.
      * @param buildingName  the name of the building.
      * @param buildingLevel the level of the building after this event.

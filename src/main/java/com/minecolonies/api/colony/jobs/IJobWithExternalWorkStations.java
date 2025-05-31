@@ -12,6 +12,7 @@ public interface IJobWithExternalWorkStations
 {
     /**
      * Get a list of potential external workstations.
+     *
      * @return list of stations the citizen is working at.
      */
     List<IBuilding> getWorkStations();

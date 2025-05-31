@@ -87,7 +87,10 @@ public class StandardDataStoreManager implements IDataStoreManager
 
         @NotNull
         @Override
-        public StandardDataStoreManager getNewInstance(@NotNull final IFactoryController factoryController, @NotNull final FactoryVoidInput factoryVoidInput, @NotNull final Object... context) throws IllegalArgumentException
+        public StandardDataStoreManager getNewInstance(
+            @NotNull final IFactoryController factoryController,
+            @NotNull final FactoryVoidInput factoryVoidInput,
+            @NotNull final Object... context) throws IllegalArgumentException
         {
             return new StandardDataStoreManager();
         }

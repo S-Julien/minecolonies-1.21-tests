@@ -15,8 +15,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class CreateBuildRequestCriterionInstance extends AbstractCriterionTriggerInstance
 {
-    private String        hutName;
-    private int           level = -1;
+    private String hutName;
+    private int    level = -1;
 
     public CreateBuildRequestCriterionInstance()
     {
@@ -25,6 +25,7 @@ public class CreateBuildRequestCriterionInstance extends AbstractCriterionTrigge
 
     /**
      * Construct the check with a single condition
+     *
      * @param hutName the hut that has to be requested to succeed
      */
     public CreateBuildRequestCriterionInstance(final String hutName)
@@ -36,8 +37,9 @@ public class CreateBuildRequestCriterionInstance extends AbstractCriterionTrigge
 
     /**
      * Construct the check with a more specific condition
+     *
      * @param hutName the hut that has to be requested to succeed
-     * @param level the level that the request should complete
+     * @param level   the level that the request should complete
      */
     public CreateBuildRequestCriterionInstance(final String hutName, final int level)
     {
@@ -49,8 +51,9 @@ public class CreateBuildRequestCriterionInstance extends AbstractCriterionTrigge
 
     /**
      * Performs the check for the conditions
+     *
      * @param structureName the id of the structure that was just requested
-     * @param level the level that the structure will be once completed, or 0
+     * @param level         the level that the structure will be once completed, or 0
      * @return whether the check succeeded
      */
     public boolean test(final String structureName, final int level)
@@ -69,8 +72,9 @@ public class CreateBuildRequestCriterionInstance extends AbstractCriterionTrigge
     }
 
     @NotNull
-    public static CreateBuildRequestCriterionInstance deserializeFromJson(@NotNull final JsonObject jsonObject,
-                                                                          @NotNull final DeserializationContext context)
+    public static CreateBuildRequestCriterionInstance deserializeFromJson(
+        @NotNull final JsonObject jsonObject,
+        @NotNull final DeserializationContext context)
     {
         if (jsonObject.has("hut_name"))
         {

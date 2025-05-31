@@ -27,9 +27,9 @@ public class BuildingBuiltEvent extends AbstractBuildingEvent
 
     /**
      * Creates a new building built event.
-     * 
-     * @param eventPos      the position of the hut block of the building.
-     * @param buildingName  the name of the building.
+     *
+     * @param eventPos     the position of the hut block of the building.
+     * @param buildingName the name of the building.
      */
     public BuildingBuiltEvent(final BlockPos eventPos, final String buildingName)
     {

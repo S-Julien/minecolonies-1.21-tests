@@ -42,10 +42,10 @@ public class InteractionClose extends AbstractColonyServerMessage
      * @param key       the key of the handler.
      */
     public InteractionClose(
-      final int colonyId,
-      final int citizenId,
-      final ResourceKey<Level> dimension,
-      @NotNull final Component key)
+        final int colonyId,
+        final int citizenId,
+        final ResourceKey<Level> dimension,
+        @NotNull final Component key)
     {
         super(dimension, colonyId);
         this.citizenId = citizenId;

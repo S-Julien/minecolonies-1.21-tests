@@ -149,9 +149,9 @@ public class LocalResearchTree implements ILocalResearchTree
                 if (MinecoloniesAPIProxy.getInstance().getConfig().getServer().researchCreativeCompletion.get())
                 {
                     colony.getResearchManager()
-                      .getResearchTree()
-                      .getResearch(research.getBranch(), research.getId())
-                      .setProgress(IGlobalResearchTree.getInstance().getBranchData(research.getBranch()).getBaseTime(research.getDepth()));
+                        .getResearchTree()
+                        .getResearch(research.getBranch(), research.getId())
+                        .setProgress(IGlobalResearchTree.getInstance().getBranchData(research.getBranch()).getBaseTime(research.getDepth()));
                 }
                 colony.getResearchManager().markDirty();
                 SoundUtils.playSuccessSound(player, player.blockPosition());
@@ -207,9 +207,9 @@ public class LocalResearchTree implements ILocalResearchTree
                 if (MinecoloniesAPIProxy.getInstance().getConfig().getServer().researchCreativeCompletion.get())
                 {
                     colony.getResearchManager()
-                      .getResearchTree()
-                      .getResearch(research.getBranch(), research.getId())
-                      .setProgress(IGlobalResearchTree.getInstance().getBranchData(research.getBranch()).getBaseTime(research.getDepth()));
+                        .getResearchTree()
+                        .getResearch(research.getBranch(), research.getId())
+                        .setProgress(IGlobalResearchTree.getInstance().getBranchData(research.getBranch()).getBaseTime(research.getDepth()));
                     colony.getResearchManager().markDirty();
                 }
             }
@@ -229,8 +229,8 @@ public class LocalResearchTree implements ILocalResearchTree
         if (research.getState() == ResearchState.IN_PROGRESS)
         {
             MessageUtils.format("com.minecolonies.coremod.research.stopped",
-                MutableComponent.create(IGlobalResearchTree.getInstance().getResearch(research.getBranch(), research.getId()).getName()))
-              .sendTo(player);
+                    MutableComponent.create(IGlobalResearchTree.getInstance().getResearch(research.getBranch(), research.getId()).getName()))
+                .sendTo(player);
             SoundUtils.playSuccessSound(player, player.blockPosition());
             removeResearch(research.getBranch(), research.getId());
             colony.getResearchManager().markDirty();
@@ -255,11 +255,11 @@ public class LocalResearchTree implements ILocalResearchTree
                 for (final ItemStorage cost : costList)
                 {
                     final int count = InventoryUtils.getItemCountInItemHandler(playerInv,
-                      stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(stack, cost.getItemStack(), !cost.ignoreDamageValue(), !cost.ignoreNBT()));
+                        stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(stack, cost.getItemStack(), !cost.ignoreDamageValue(), !cost.ignoreNBT()));
                     if (count < cost.getAmount())
                     {
                         MessageUtils.format("com.minecolonies.coremod.research.costnotavailable",
-                          MutableComponent.create(IGlobalResearchTree.getInstance().getResearch(research.getBranch(), research.getId()).getName())).sendTo(player);
+                            MutableComponent.create(IGlobalResearchTree.getInstance().getResearch(research.getBranch(), research.getId()).getName())).sendTo(player);
                         SoundUtils.playErrorSound(player, player.blockPosition());
                         return;
                     }
@@ -267,7 +267,7 @@ public class LocalResearchTree implements ILocalResearchTree
                 for (ItemStorage cost : costList)
                 {
                     final List<Integer> slotsWithMaterial = InventoryUtils.findAllSlotsInItemHandlerWith(playerInv,
-                      stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(stack, cost.getItemStack(), !cost.ignoreDamageValue(), !cost.ignoreNBT()));
+                        stack -> ItemStackUtils.compareItemStacksIgnoreStackSize(stack, cost.getItemStack(), !cost.ignoreDamageValue(), !cost.ignoreNBT()));
                     int amount = cost.getAmount();
                     for (Integer slotNum : slotsWithMaterial)
                     {
@@ -280,8 +280,8 @@ public class LocalResearchTree implements ILocalResearchTree
                 }
             }
             MessageUtils.format("com.minecolonies.coremod.research.undo",
-                MutableComponent.create(IGlobalResearchTree.getInstance().getResearch(research.getBranch(), research.getId()).getName()))
-              .sendTo(player);
+                    MutableComponent.create(IGlobalResearchTree.getInstance().getResearch(research.getBranch(), research.getId()).getName()))
+                .sendTo(player);
             SoundUtils.playSuccessSound(player, player.blockPosition());
             removeResearch(research.getBranch(), research.getId());
             resetEffects(colony);
@@ -364,55 +364,56 @@ public class LocalResearchTree implements ILocalResearchTree
         isComplete.clear();
         maxLevelResearchCompleted.clear();
         NBTUtils.streamCompound(compound.getList(TAG_RESEARCH_TREE, Tag.TAG_COMPOUND))
-          .map(researchCompound -> (ILocalResearch) StandardFactoryController.getInstance().deserialize(researchCompound))
-          .forEach(research -> {
-              /// region Updated ID helper.
-              if (!MinecoloniesAPIProxy.getInstance().getGlobalResearchTree().hasResearch(research.getBranch(), research.getId()))
-              {
-                  if (research.getBranch().getNamespace().contains("minecraft"))
-                  {
-                      final ResearchState currentState = research.getState();
-                      final int progress = research.getProgress();
-                      research = new LocalResearch(new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, research.getId().getPath()),
-                        new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, research.getBranch().getPath()), research.getDepth());
-                      research.setState(currentState);
-                      research.setProgress(progress);
-                  }
-                  else
-                  {
-                      if (MinecoloniesAPIProxy.getInstance().getConfig().getServer().researchDebugLog.get())
-                      {
-                          Log.getLogger().warn("Research " + research.getId() + " was in colony save file, but was not in CompatMap.");
-                      }
-                  }
-              }
-              /// endregion
+            .map(researchCompound -> (ILocalResearch) StandardFactoryController.getInstance().deserialize(researchCompound))
+            .forEach(research -> {
+                /// region Updated ID helper.
+                if (!MinecoloniesAPIProxy.getInstance().getGlobalResearchTree().hasResearch(research.getBranch(), research.getId()))
+                {
+                    if (research.getBranch().getNamespace().contains("minecraft"))
+                    {
+                        final ResearchState currentState = research.getState();
+                        final int progress = research.getProgress();
+                        research = new LocalResearch(new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, research.getId().getPath()),
+                            new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, research.getBranch().getPath()), research.getDepth());
+                        research.setState(currentState);
+                        research.setProgress(progress);
+                    }
+                    else
+                    {
+                        if (MinecoloniesAPIProxy.getInstance().getConfig().getServer().researchDebugLog.get())
+                        {
+                            Log.getLogger().warn("Research " + research.getId() + " was in colony save file, but was not in CompatMap.");
+                        }
+                    }
+                }
+                /// endregion
 
-              if (research.getState() == ResearchState.FINISHED)
-              {
-                  // Even after correction, we do still need to check for presence; it's possible for someone to have old save data and remove the research,
-                  // or to have a different research that was in a now-removed data pack.  But those will get just thrown away.
-                  if (MinecoloniesAPIProxy.getInstance().getGlobalResearchTree().hasResearch(research.getBranch(), research.getId()))
-                  {
-                      for (final IResearchEffect effect : MinecoloniesAPIProxy.getInstance()
-                        .getGlobalResearchTree()
-                        .getResearch(research.getBranch(), research.getId())
-                        .getEffects())
-                      {
-                          effects.applyEffect(effect);
-                      }
-                  }
-                  else
-                  {
-                      if (MinecoloniesAPIProxy.getInstance().getConfig().getServer().researchDebugLog.get())
-                      {
-                          Log.getLogger()
-                            .warn("Research " + research.getId() + " was in colony save file, but not found as valid current research.  Progress on this research may be reset.");
-                      }
-                  }
-              }
-              addResearch(research.getBranch(), research);
-          });
+                if (research.getState() == ResearchState.FINISHED)
+                {
+                    // Even after correction, we do still need to check for presence; it's possible for someone to have old save data and remove the research,
+                    // or to have a different research that was in a now-removed data pack.  But those will get just thrown away.
+                    if (MinecoloniesAPIProxy.getInstance().getGlobalResearchTree().hasResearch(research.getBranch(), research.getId()))
+                    {
+                        for (final IResearchEffect effect : MinecoloniesAPIProxy.getInstance()
+                            .getGlobalResearchTree()
+                            .getResearch(research.getBranch(), research.getId())
+                            .getEffects())
+                        {
+                            effects.applyEffect(effect);
+                        }
+                    }
+                    else
+                    {
+                        if (MinecoloniesAPIProxy.getInstance().getConfig().getServer().researchDebugLog.get())
+                        {
+                            Log.getLogger()
+                                .warn(
+                                    "Research " + research.getId() + " was in colony save file, but not found as valid current research.  Progress on this research may be reset.");
+                        }
+                    }
+                }
+                addResearch(research.getBranch(), research);
+            });
     }
 
     @Override

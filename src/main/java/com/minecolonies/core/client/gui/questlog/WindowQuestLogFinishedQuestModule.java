@@ -33,8 +33,8 @@ public class WindowQuestLogFinishedQuestModule implements WindowQuestLogQuestMod
         if (quest.template().getMaxOccurrence() > 1)
         {
             setText(row,
-              LABEL_COMPLETED_COUNT,
-              Component.translatable(QUEST_LOG_COMPLETED_MULTIPLE_TEXT, quest.finishedCount(), quest.template().getMaxOccurrence()).withStyle(ChatFormatting.GOLD));
+                LABEL_COMPLETED_COUNT,
+                Component.translatable(QUEST_LOG_COMPLETED_MULTIPLE_TEXT, quest.finishedCount(), quest.template().getMaxOccurrence()).withStyle(ChatFormatting.GOLD));
         }
         else
         {
@@ -57,9 +57,9 @@ public class WindowQuestLogFinishedQuestModule implements WindowQuestLogQuestMod
         if (label.getRenderedTextWidth() > label.getWidth())
         {
             PaneBuilders.tooltipBuilder()
-              .append(component)
-              .hoverPane(label)
-              .build();
+                .append(component)
+                .hoverPane(label)
+                .build();
         }
     }
 }

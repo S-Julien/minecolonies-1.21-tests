@@ -56,12 +56,14 @@ public interface ISchematicProvider extends INBTSerializable<CompoundTag>
 
     /**
      * Set the parent building position
+     *
      * @param pos
      */
     void setParent(BlockPos pos);
 
     /**
      * Get the child building positions
+     *
      * @return
      */
     Set<BlockPos> getChildren();

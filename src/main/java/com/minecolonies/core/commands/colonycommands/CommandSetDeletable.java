@@ -39,7 +39,7 @@ public class CommandSetDeletable implements IMCOPCommand
 
         colony.setCanBeAutoDeleted(BoolArgumentType.getBool(context, DELETEABLE_ARG));
         context.getSource()
-          .sendSuccess(() -> Component.translatable(COMMAND_COLONY_DELETABLE_SUCCESS, colonyID, BoolArgumentType.getBool(context, DELETEABLE_ARG)), true);
+            .sendSuccess(() -> Component.translatable(COMMAND_COLONY_DELETABLE_SUCCESS, colonyID, BoolArgumentType.getBool(context, DELETEABLE_ARG)), true);
         return 1;
     }
 
@@ -56,7 +56,7 @@ public class CommandSetDeletable implements IMCOPCommand
     public LiteralArgumentBuilder<CommandSourceStack> build()
     {
         return IMCCommand.newLiteral(getName())
-                 .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1))
-                         .then(IMCCommand.newArgument(DELETEABLE_ARG, BoolArgumentType.bool()).executes(this::checkPreConditionAndExecute)));
+            .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1))
+                .then(IMCCommand.newArgument(DELETEABLE_ARG, BoolArgumentType.bool()).executes(this::checkPreConditionAndExecute)));
     }
 }

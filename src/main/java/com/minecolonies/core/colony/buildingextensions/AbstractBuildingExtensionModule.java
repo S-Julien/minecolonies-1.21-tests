@@ -58,7 +58,7 @@ public abstract class AbstractBuildingExtensionModule implements IBuildingExtens
      * Constructor used in NBT deserialization.
      *
      * @param buildingExtensionEntry the type of building extension.
-     * @param position  the position of the building extension.
+     * @param position               the position of the building extension.
      */
     protected AbstractBuildingExtensionModule(final @NotNull BuildingExtensionRegistries.BuildingExtensionEntry buildingExtensionEntry, final @NotNull BlockPos position)
     {
@@ -84,13 +84,13 @@ public abstract class AbstractBuildingExtensionModule implements IBuildingExtens
     public <T extends IBuildingExtensionModule> T getFirstModuleOccurance(final Class<T> clazz)
     {
         return ModuleContainerUtils.getFirstModuleOccurance(modules,
-          clazz,
-          "The module of class: " + clazz.toString() + "should never be null! Building extension:" + getBuildingExtensionType().getRegistryName() + " pos:" + getPosition());
+            clazz,
+            "The module of class: " + clazz.toString() + "should never be null! Building extension:" + getBuildingExtensionType().getRegistryName() + " pos:" + getPosition());
     }
 
     @Override
     public <M extends IBuildingModule, V extends IBuildingModuleView> @NotNull M getModule(
-      final BuildingEntry.ModuleProducer<M, V> producer)
+        final BuildingEntry.ModuleProducer<M, V> producer)
     {
         throw new RuntimeException("Not implemented");
     }
@@ -106,9 +106,9 @@ public abstract class AbstractBuildingExtensionModule implements IBuildingExtens
     public <T extends IBuildingExtensionModule> T getModuleMatching(final Class<T> clazz, final Predicate<? super T> modulePredicate)
     {
         return ModuleContainerUtils.getModuleMatching(modules,
-          clazz,
-          modulePredicate,
-          "no matching module for building extension:" + getBuildingExtensionType().getRegistryName() + " pos:" + getPosition().toShortString());
+            clazz,
+            modulePredicate,
+            "no matching module for building extension:" + getBuildingExtensionType().getRegistryName() + " pos:" + getPosition().toShortString());
     }
 
     @NotNull

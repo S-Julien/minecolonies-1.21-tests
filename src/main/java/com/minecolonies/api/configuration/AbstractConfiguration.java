@@ -82,10 +82,10 @@ public abstract class AbstractConfiguration
     }
 
     protected static <T> ConfigValue<List<? extends T>> defineList(
-      final Builder builder,
-      final String key,
-      final List<? extends T> defaultValue,
-      final Predicate<Object> elementValidator)
+        final Builder builder,
+        final String key,
+        final List<? extends T> defaultValue,
+        final Predicate<Object> elementValidator)
     {
         return buildBase(builder, key, "").defineList(key, defaultValue, elementValidator);
     }

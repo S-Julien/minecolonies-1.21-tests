@@ -14,6 +14,7 @@ public class ColonyWorldRenderMacros
 {
     /**
      * Render a wireframe box.
+     *
      * @param poseStack         pose stack
      * @param bufferSource      buffer source
      * @param bounds            bounding box to draw
@@ -21,8 +22,9 @@ public class ColonyWorldRenderMacros
      * @param color             line color (ARGB)
      * @param showThroughBlocks true to render through existing blocks, false to only render in air
      */
-    public static void renderLineBox(final PoseStack poseStack, final MultiBufferSource.BufferSource bufferSource,
-                                     final AABB bounds, final float width, final int color, final boolean showThroughBlocks)
+    public static void renderLineBox(
+        final PoseStack poseStack, final MultiBufferSource.BufferSource bufferSource,
+        final AABB bounds, final float width, final int color, final boolean showThroughBlocks)
     {
         final float halfLine = width / 2.0f;
         final float minX = (float) (bounds.minX - halfLine);
@@ -47,17 +49,18 @@ public class ColonyWorldRenderMacros
         if (showThroughBlocks)
         {
             renderLineBox(poseStack, bufferSource.getBuffer(RenderTypes.LINES_INSIDE_BLOCKS),
-                    minX, minY, minZ, minX2, minY2, minZ2, maxX, maxY, maxZ, maxX2, maxY2, maxZ2,
-                    red / 2, green / 2, blue / 2, alpha / 2);
+                minX, minY, minZ, minX2, minY2, minZ2, maxX, maxY, maxZ, maxX2, maxY2, maxZ2,
+                red / 2, green / 2, blue / 2, alpha / 2);
         }
 
         renderLineBox(poseStack, bufferSource.getBuffer(RenderTypes.LINES_OUTSIDE_BLOCKS),
-                minX, minY, minZ, minX2, minY2, minZ2, maxX, maxY, maxZ, maxX2, maxY2, maxZ2,
-                red, green, blue, alpha);
+            minX, minY, minZ, minX2, minY2, minZ2, maxX, maxY, maxZ, maxX2, maxY2, maxZ2,
+            red, green, blue, alpha);
     }
 
     /**
      * Call after a series of {@link #renderLineBox(PoseStack, MultiBufferSource.BufferSource, AABB, float, int, boolean)}
+     *
      * @param bufferSource buffer source
      */
     public static void endRenderLineBox(final MultiBufferSource.BufferSource bufferSource)
@@ -68,6 +71,7 @@ public class ColonyWorldRenderMacros
 
     /**
      * Render a wireframe box.
+     *
      * @param poseStack pose stack
      * @param buffer    buffer
      * @param minX      min X
@@ -87,12 +91,13 @@ public class ColonyWorldRenderMacros
      * @param blue      blue
      * @param alpha     alpha
      */
-    private static void renderLineBox(final PoseStack poseStack, final VertexConsumer buffer,
-                                      final float minX, final float minY, final float minZ,
-                                      final float minX2, final float minY2, final float minZ2,
-                                      final float maxX, final float maxY, final float maxZ,
-                                      final float maxX2, final float maxY2, final float maxZ2,
-                                      final int red, final int green, final int blue, final int alpha)
+    private static void renderLineBox(
+        final PoseStack poseStack, final VertexConsumer buffer,
+        final float minX, final float minY, final float minZ,
+        final float minX2, final float minY2, final float minZ2,
+        final float maxX, final float maxY, final float maxZ,
+        final float maxX2, final float maxY2, final float maxZ2,
+        final int red, final int green, final int blue, final int alpha)
     {
         buffer.defaultColor(red, green, blue, alpha);
         WorldRenderMacros.populateRenderLineBox(minX, minY, minZ, minX2, minY2, minZ2, maxX, maxY, maxZ, maxX2, maxY2, maxZ2, poseStack.last().pose(), buffer);

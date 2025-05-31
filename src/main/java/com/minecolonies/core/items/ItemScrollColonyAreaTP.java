@@ -54,8 +54,8 @@ public class ItemScrollColonyAreaTP extends AbstractItemScroll
         {
             // Fail chance
             player.displayClientMessage(Component.translatable(
-              "minecolonies.scroll.failed" + (world.random.nextInt(FAIL_RESPONSES_TOTAL) + 1)).setStyle(Style.EMPTY.withColor(
-              ChatFormatting.GOLD)), true);
+                "minecolonies.scroll.failed" + (world.random.nextInt(FAIL_RESPONSES_TOTAL) + 1)).setStyle(Style.EMPTY.withColor(
+                ChatFormatting.GOLD)), true);
 
             itemStack.shrink(1);
             if (!ItemStackUtils.isEmpty(itemStack))
@@ -109,13 +109,13 @@ public class ItemScrollColonyAreaTP extends AbstractItemScroll
             for (final Entity player : getAffectedPlayers(sPlayer))
             {
                 Network.getNetwork()
-                  .sendToTrackingEntity(new VanillaParticleMessage(player.getX(), player.getY(), player.getZ(), ParticleTypes.INSTANT_EFFECT),
-                    player);
+                    .sendToTrackingEntity(new VanillaParticleMessage(player.getX(), player.getY(), player.getZ(), ParticleTypes.INSTANT_EFFECT),
+                        player);
             }
 
             Network.getNetwork()
-              .sendToPlayer(new VanillaParticleMessage(sPlayer.getX(), sPlayer.getY(), sPlayer.getZ(), ParticleTypes.INSTANT_EFFECT),
-                sPlayer);
+                .sendToPlayer(new VanillaParticleMessage(sPlayer.getX(), sPlayer.getY(), sPlayer.getZ(), ParticleTypes.INSTANT_EFFECT),
+                    sPlayer);
         }
     }
 
@@ -129,7 +129,7 @@ public class ItemScrollColonyAreaTP extends AbstractItemScroll
 
     @Override
     public void appendHoverText(
-      @NotNull final ItemStack stack, @Nullable final Level worldIn, @NotNull final List<Component> tooltip, @NotNull final TooltipFlag flagIn)
+        @NotNull final ItemStack stack, @Nullable final Level worldIn, @NotNull final List<Component> tooltip, @NotNull final TooltipFlag flagIn)
     {
         final MutableComponent guiHint = Component.translatable(TOOL_COLONY_TELEPORT_AREA_SCROLL_DESCRIPTION);
         guiHint.setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GREEN));

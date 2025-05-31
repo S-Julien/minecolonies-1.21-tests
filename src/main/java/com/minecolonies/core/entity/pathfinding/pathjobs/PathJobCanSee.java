@@ -30,10 +30,10 @@ public class PathJobCanSee extends AbstractPathJob implements ISearchPathJob
     private final BlockPos searchAroundPos;
 
     public PathJobCanSee(
-      final Mob searchingEntity,
-      final LivingEntity lookTarget,
-      final Level world,
-      @NotNull final BlockPos searchAroundPos, final int range)
+        final Mob searchingEntity,
+        final LivingEntity lookTarget,
+        final Level world,
+        @NotNull final BlockPos searchAroundPos, final int range)
     {
         super(world, PathfindingUtils.prepareStart(searchingEntity), range, new PathResult<PathJobCanSee>(), searchingEntity);
 
@@ -56,8 +56,8 @@ public class PathJobCanSee extends AbstractPathJob implements ISearchPathJob
         }
 
         return canSeeTargetFromPos(tempWorldPos.set(n.x, n.y, n.z))
-                 && SurfaceType.getSurfaceType(world, cachedBlockLookup.getBlockState(n.x, n.y - 1, n.z), tempWorldPos.set(n.x, n.y - 1, n.z), getPathingOptions())
-                      == SurfaceType.WALKABLE;
+            && SurfaceType.getSurfaceType(world, cachedBlockLookup.getBlockState(n.x, n.y - 1, n.z), tempWorldPos.set(n.x, n.y - 1, n.z), getPathingOptions())
+            == SurfaceType.WALKABLE;
     }
 
     /**

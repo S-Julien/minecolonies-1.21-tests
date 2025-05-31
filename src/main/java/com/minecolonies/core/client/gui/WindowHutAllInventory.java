@@ -136,10 +136,10 @@ public class WindowHutAllInventory extends AbstractWindowSkeleton
                     final int color = 0x80000000 | (Mth.clamp((int) (0xff * (2.0f - count / 32.0f)), 0, 255) << 16)
                         | (Mth.clamp((int) (0xff * count / 32.0f), 0, 255) << 8);
                     HighlightManager.addHighlight("inventoryHighlight", blockPos.toString(),
-                      new TimedBoxRenderData(blockPos)
-                        .setDuration(Duration.ofSeconds(60))
-                        .addText("" + count)
-                        .setColor(color));
+                        new TimedBoxRenderData(blockPos)
+                            .setDuration(Duration.ofSeconds(60))
+                            .addText("" + count)
+                            .setColor(color));
                 }
             }
         }
@@ -226,10 +226,10 @@ public class WindowHutAllInventory extends AbstractWindowSkeleton
             filterItems.add(storage);
         });
         final Predicate<ItemStorage> filterPredicate = stack -> filter.isEmpty()
-                                                                  || stack.getItemStack().getDescriptionId().toLowerCase(Locale.US).contains(filter.toLowerCase(Locale.US))
-                                                                  || getString(stack.getItemStack())
-                                                                       .toLowerCase(Locale.US)
-                                                                       .contains(filter.toLowerCase(Locale.US));
+            || stack.getItemStack().getDescriptionId().toLowerCase(Locale.US).contains(filter.toLowerCase(Locale.US))
+            || getString(stack.getItemStack())
+            .toLowerCase(Locale.US)
+            .contains(filter.toLowerCase(Locale.US));
 
         allItems.clear();
         if (filter.isEmpty())
@@ -269,6 +269,7 @@ public class WindowHutAllInventory extends AbstractWindowSkeleton
 
     /**
      * Get identifying string from itemstack.
+     *
      * @param stack the stack to gen the string from.
      * @return a single string.
      */

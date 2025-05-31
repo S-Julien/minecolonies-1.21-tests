@@ -38,12 +38,12 @@ public class SpearItemTileEntityRenderer extends BlockEntityWithoutLevelRenderer
 
     @Override
     public void renderByItem(
-      final ItemStack stack,
-      final ItemDisplayContext displayContext,
-      final PoseStack matrixStack,
-      final MultiBufferSource buffer,
-      final int combinedLight,
-      final int combinedOverlay)
+        final ItemStack stack,
+        final ItemDisplayContext displayContext,
+        final PoseStack matrixStack,
+        final MultiBufferSource buffer,
+        final int combinedLight,
+        final int combinedOverlay)
     {
         matrixStack.pushPose();
         model.renderToBuffer(matrixStack, ItemRenderer.getFoilBuffer(buffer, model.renderType(TEXTURE), false, stack.hasFoil()), combinedLight, combinedOverlay, 1, 1, 1, 1);

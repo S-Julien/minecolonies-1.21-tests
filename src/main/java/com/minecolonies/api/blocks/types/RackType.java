@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 public enum RackType implements StringRepresentable
 {
     EMPTY("blockrackemptysingle", "emptysingle", false),
-    FULL( "blockrackfullsingle", "fullsingle", false),
+    FULL("blockrackfullsingle", "fullsingle", false),
     EMPTY_DOUBLE("blockrackempty", "empty", true),
     FULL_DOUBLE("blockrackfull", "full", true),
     NO_RENDER("blockrackair", "dontrender", true);

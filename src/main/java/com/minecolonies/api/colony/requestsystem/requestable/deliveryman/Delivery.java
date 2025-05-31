@@ -23,20 +23,20 @@ public class Delivery extends AbstractDeliverymanRequestable
      * Set of type tokens belonging to this class.
      */
     private final static Set<TypeToken<?>>
-      TYPE_TOKENS = ReflectionUtils.getSuperClasses(TypeToken.of(Delivery.class)).stream().filter(type -> !type.equals(TypeConstants.OBJECT)).collect(Collectors.toSet());
+        TYPE_TOKENS = ReflectionUtils.getSuperClasses(TypeToken.of(Delivery.class)).stream().filter(type -> !type.equals(TypeConstants.OBJECT)).collect(Collectors.toSet());
 
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
-    private static final String NBT_START  = "Start";
-    private static final String NBT_TARGET = "Target";
-    private static final String NBT_STACK  = "Stack";
-    ////// --------------------------- NBTConstants --------------------------- \\\\\\
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
+    private static final String    NBT_START  = "Start";
+    private static final String    NBT_TARGET = "Target";
+    private static final String    NBT_STACK  = "Stack";
+    /// /// --------------------------- NBTConstants --------------------------- \\\\\\
 
     @NotNull
-    private final ILocation start;
+    private final        ILocation start;
     @NotNull
-    private final ILocation target;
+    private final        ILocation target;
     @NotNull
-    private final ItemStack stack;
+    private final        ItemStack stack;
 
     /**
      * Constructor for Delivery requests
@@ -171,11 +171,11 @@ public class Delivery extends AbstractDeliverymanRequestable
     public String toString()
     {
         return "Delivery{" +
-                 "start=" + start +
-                 ", target=" + target +
-                 ", stack=" + stack +
-                 ", priority=" + priority +
-                 '}';
+            "start=" + start +
+            ", target=" + target +
+            ", stack=" + stack +
+            ", priority=" + priority +
+            '}';
     }
 
     @Override

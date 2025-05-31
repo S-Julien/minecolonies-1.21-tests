@@ -97,12 +97,12 @@ public class LocalizedParticleEffectMessage implements IMessage
             final Vec3 randomPos = new Vec3((RAND.nextDouble() - 0.5D) * 0.1D, RAND.nextDouble() * 0.1D + 0.1D, 0.0D);
             final Vec3 randomOffset = new Vec3((RAND.nextDouble() - 0.5D) * 0.1D, RAND.nextDouble() - 0.5D * 0.1D, (RAND.nextDouble() - 0.5D) * 0.1D);
             world.addParticle(new ItemParticleOption(ParticleTypes.ITEM, localStack),
-              posX + randomOffset.x,
-              posY + randomOffset.y,
-              posZ + randomOffset.z,
-              randomPos.x,
-              randomPos.y + 0.05D,
-              randomPos.z);
+                posX + randomOffset.x,
+                posY + randomOffset.y,
+                posZ + randomOffset.z,
+                randomPos.x,
+                randomPos.y + 0.05D,
+                randomPos.z);
         }
     }
 }

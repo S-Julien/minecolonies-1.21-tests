@@ -58,26 +58,32 @@ public class CitizenHappinessHandler implements ICitizenHappinessHandler
 
         // Add time based modifiers. These modifiers change their value over time.
         addModifier(new TimeBasedHappinessModifier(HOMELESSNESS,
-          3.0,
-          new DynamicHappinessSupplier(HOUSING_FUNCTION),
-         new Tuple<>(COMPLAIN_DAYS_WITHOUT_HOUSE, 0.75), new Tuple<>(DEMANDS_DAYS_WITHOUT_HOUSE, 0.5)));
+            3.0,
+            new DynamicHappinessSupplier(HOUSING_FUNCTION),
+            new Tuple<>(COMPLAIN_DAYS_WITHOUT_HOUSE, 0.75), new Tuple<>(DEMANDS_DAYS_WITHOUT_HOUSE, 0.5)));
 
         addModifier(new TimeBasedHappinessModifier(UNEMPLOYMENT,
-          2.0,
-          new DynamicHappinessSupplier(UNEMPLOYMENT_FUNCTION),
-          new Tuple<>(COMPLAIN_DAYS_WITHOUT_JOB, 0.75), new Tuple<>(DEMANDS_DAYS_WITHOUT_JOB, 0.5)));
+            2.0,
+            new DynamicHappinessSupplier(UNEMPLOYMENT_FUNCTION),
+            new Tuple<>(COMPLAIN_DAYS_WITHOUT_JOB, 0.75), new Tuple<>(DEMANDS_DAYS_WITHOUT_JOB, 0.5)));
 
         addModifier(new TimeBasedHappinessModifier(HEALTH,
-          2.0,
-          new DynamicHappinessSupplier(HEALTH_FUNCTION),
-          new Tuple<>(COMPLAIN_DAYS_SICK, 0.5), new Tuple<>(DEMANDS_CURE_SICK, 0.1)));
+            2.0,
+            new DynamicHappinessSupplier(HEALTH_FUNCTION),
+            new Tuple<>(COMPLAIN_DAYS_SICK, 0.5), new Tuple<>(DEMANDS_CURE_SICK, 0.1)));
 
         addModifier(new TimeBasedHappinessModifier(IDLEATJOB,
-          1.0,
-          new DynamicHappinessSupplier(IDLEATJOB_FUNCTION),
-          new Tuple<>(IDLE_AT_JOB_COMPLAINS_DAYS, 0.5), new Tuple<>(IDLE_AT_JOB_DEMANDS_DAYS, 0.1)));
+            1.0,
+            new DynamicHappinessSupplier(IDLEATJOB_FUNCTION),
+            new Tuple<>(IDLE_AT_JOB_COMPLAINS_DAYS, 0.5), new Tuple<>(IDLE_AT_JOB_DEMANDS_DAYS, 0.1)));
 
-        addModifier(new TimeBasedHappinessModifier(SLEPTTONIGHT, 1.5, new DynamicHappinessSupplier(SLEPTTONIGHT_FUNCTION), (modifier, d) -> true, new Tuple<>(0, 2d), new Tuple<>(2, 1.6d), new Tuple<>(3, 1d)));
+        addModifier(new TimeBasedHappinessModifier(SLEPTTONIGHT,
+            1.5,
+            new DynamicHappinessSupplier(SLEPTTONIGHT_FUNCTION),
+            (modifier, d) -> true,
+            new Tuple<>(0, 2d),
+            new Tuple<>(2, 1.6d),
+            new Tuple<>(3, 1d)));
     }
 
     /**
@@ -144,7 +150,9 @@ public class CitizenHappinessHandler implements ICitizenHappinessHandler
             {
                 final double factor = happinessModifier.getFactor(citizenData);
                 if (factor == 1.0)
+                {
                     continue;
+                }
                 total += factor * happinessModifier.getWeight();
                 totalWeight += happinessModifier.getWeight();
             }
@@ -277,6 +285,7 @@ public class CitizenHappinessHandler implements ICitizenHappinessHandler
      * 3: 3 Types food baked potato + mushroom soup + 1 Minecolonies food
      * 4: 4 Types food baked potato + mushroom soup + 2 Minecolonies food
      * 5: 5 Types food baked potato + mushroom soup + 3 Minecolonies food
+     *
      * @param citizenData the citizen.
      * @return the factor.
      */
@@ -298,15 +307,15 @@ public class CitizenHappinessHandler implements ICitizenHappinessHandler
     }
 
     /**
-     *  Get the mystical site happiness modifier from the colony.
-     *      Mystical site happiness is never negative :
-     *      Supply vary from 1 to 3.5 max (1 + (Mystical site lvl 5 / 2))
+     * Get the mystical site happiness modifier from the colony.
+     * Mystical site happiness is never negative :
+     * Supply vary from 1 to 3.5 max (1 + (Mystical site lvl 5 / 2))
      *
      * @param colony the colony.
      * @return the factor.
      */
     public static double getMysticalSiteFactor(final IColony colony)
     {
-        return Math.max(1, ((double)colony.getBuildingManager().getMysticalSiteMaxBuildingLevel() / 2.0));
+        return Math.max(1, ((double) colony.getBuildingManager().getMysticalSiteMaxBuildingLevel() / 2.0));
     }
 }

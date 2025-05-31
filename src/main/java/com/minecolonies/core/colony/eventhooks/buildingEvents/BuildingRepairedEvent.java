@@ -29,9 +29,9 @@ public class BuildingRepairedEvent extends AbstractBuildingEvent
     /**
      * Creates a new building repaired event.
      *
-     * @param eventPos      the position of the hut block of the building.
-     * @param buildingName  the name of the building.
-     * @param level         the level of the repaired building
+     * @param eventPos     the position of the hut block of the building.
+     * @param buildingName the name of the building.
+     * @param level        the level of the repaired building
      */
     public BuildingRepairedEvent(final BlockPos eventPos, final String buildingName, final int level)
     {

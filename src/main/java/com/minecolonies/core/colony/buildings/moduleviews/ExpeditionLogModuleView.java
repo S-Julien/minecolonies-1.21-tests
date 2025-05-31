@@ -14,8 +14,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class ExpeditionLogModuleView extends AbstractBuildingModuleView
 {
-    private boolean updated;
-    private boolean unlocked;
+    private boolean       updated;
+    private boolean       unlocked;
     private ExpeditionLog log = new ExpeditionLog();
 
     @Override

@@ -59,12 +59,12 @@ public class PrivateBrewingTeachingTransferHandler implements IRecipeTransferHan
     @Nullable
     @Override
     public IRecipeTransferError transferRecipe(
-            @NotNull final ContainerCraftingBrewingstand craftingGUIBuilding,
-            @NotNull final IJeiBrewingRecipe recipe,
-            @NotNull final IRecipeSlotsView recipeSlots,
-            @NotNull final Player player,
-            final boolean maxTransfer,
-            final boolean doTransfer)
+        @NotNull final ContainerCraftingBrewingstand craftingGUIBuilding,
+        @NotNull final IJeiBrewingRecipe recipe,
+        @NotNull final IRecipeSlotsView recipeSlots,
+        @NotNull final Player player,
+        final boolean maxTransfer,
+        final boolean doTransfer)
     {
         final IRecipeSlotView potionSlot = recipeSlots.getSlotViews(RecipeIngredientRole.INPUT).get(0);
         final IRecipeSlotView inputSlot = recipeSlots.getSlotViews(RecipeIngredientRole.INPUT).get(3);

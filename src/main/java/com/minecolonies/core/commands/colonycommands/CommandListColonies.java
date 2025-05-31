@@ -99,30 +99,30 @@ public class CommandListColonies implements IMCCommand
         for (final IColony colony : coloniesPage)
         {
             context.getSource().sendSuccess(() -> Component.literal(String.format(
-                ID_AND_NAME_TEXT, colony.getID(), colony.getName()) + " " + MAYOR_TEXT + colony.getPermissions().getOwnerName())
-                                                    .setStyle(Style.EMPTY.withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
-              String.format(COMMAND_COLONY_INFO, colony.getID())))), true);
+                    ID_AND_NAME_TEXT, colony.getID(), colony.getName()) + " " + MAYOR_TEXT + colony.getPermissions().getOwnerName())
+                .setStyle(Style.EMPTY.withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
+                    String.format(COMMAND_COLONY_INFO, colony.getID())))), true);
             final BlockPos center = colony.getCenter();
 
             final MutableComponent teleport = Component.literal("Citizens:" + colony.getCitizenManager().getCurrentCitizenCount() + " ")
-                                                .append(Component.literal(COORDINATES_TEXT + String.format(COORDINATES_XYZ, center.getX(), center.getY(), center.getZ()))
-                                                          .setStyle(Style.EMPTY.withBold(true).withColor(ChatFormatting.GOLD).withClickEvent(
-                                                            new ClickEvent(ClickEvent.Action.RUN_COMMAND, TELEPORT_COMMAND + colony.getID()))));
+                .append(Component.literal(COORDINATES_TEXT + String.format(COORDINATES_XYZ, center.getX(), center.getY(), center.getZ()))
+                    .setStyle(Style.EMPTY.withBold(true).withColor(ChatFormatting.GOLD).withClickEvent(
+                        new ClickEvent(ClickEvent.Action.RUN_COMMAND, TELEPORT_COMMAND + colony.getID()))));
 
             context.getSource().sendSuccess(() -> teleport, true);
         }
 
         final Component prevButton = Component.literal(PREV_PAGE).setStyle(Style.EMPTY.withBold(true).withColor(ChatFormatting.GOLD).withClickEvent(
-          new ClickEvent(ClickEvent.Action.RUN_COMMAND, LIST_COMMAND_SUGGESTED + prevPage)));
+            new ClickEvent(ClickEvent.Action.RUN_COMMAND, LIST_COMMAND_SUGGESTED + prevPage)));
 
         final Component nextButton = Component.literal(NEXT_PAGE).setStyle(Style.EMPTY.withBold(true).withColor(ChatFormatting.GOLD).withClickEvent(
-          new ClickEvent(ClickEvent.Action.RUN_COMMAND, LIST_COMMAND_SUGGESTED + nextPage)
+            new ClickEvent(ClickEvent.Action.RUN_COMMAND, LIST_COMMAND_SUGGESTED + nextPage)
         ));
 
         final MutableComponent beginLine = Component.literal(PAGE_LINE);
         final MutableComponent endLine = Component.literal(PAGE_LINE);
         context.getSource()
-          .sendSuccess(() -> beginLine.append(prevButton).append(Component.literal(PAGE_LINE_DIVIDER)).append(nextButton).append(endLine), true);
+            .sendSuccess(() -> beginLine.append(prevButton).append(Component.literal(PAGE_LINE_DIVIDER)).append(nextButton).append(endLine), true);
         return 1;
     }
 
@@ -139,6 +139,6 @@ public class CommandListColonies implements IMCCommand
     public LiteralArgumentBuilder<CommandSourceStack> build()
     {
         return IMCCommand.newLiteral(getName())
-                 .then(IMCCommand.newArgument(START_PAGE_ARG, IntegerArgumentType.integer(1)).executes(this::executeWithPage)).executes(this::checkPreConditionAndExecute);
+            .then(IMCCommand.newArgument(START_PAGE_ARG, IntegerArgumentType.integer(1)).executes(this::executeWithPage)).executes(this::checkPreConditionAndExecute);
     }
 }

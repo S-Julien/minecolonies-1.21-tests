@@ -69,7 +69,7 @@ public class ToggleBannerRallyGuardsMessage implements IMessage
     {
         final ServerPlayer player = ctxIn.getSender();
         final int slot = InventoryUtils.findFirstSlotInItemHandlerWith(new InvWrapper(player.getInventory()),
-          (itemStack -> ItemStackUtils.compareItemStacksIgnoreStackSize(itemStack, banner)));
+            (itemStack -> ItemStackUtils.compareItemStacksIgnoreStackSize(itemStack, banner)));
 
         if (slot == -1)
         {

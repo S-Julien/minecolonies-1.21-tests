@@ -38,7 +38,11 @@ public class ItemLargeBottle extends Item
 
     @NotNull
     @Override
-    public InteractionResult interactLivingEntity(@NotNull final ItemStack stack, @NotNull final Player player, @NotNull final LivingEntity entity, @NotNull final InteractionHand hand)
+    public InteractionResult interactLivingEntity(
+        @NotNull final ItemStack stack,
+        @NotNull final Player player,
+        @NotNull final LivingEntity entity,
+        @NotNull final InteractionHand hand)
     {
         if (entity instanceof Cow && !entity.isBaby())
         {

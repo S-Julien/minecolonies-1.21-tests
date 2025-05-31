@@ -71,7 +71,7 @@ public class CustomVisitorListener extends SimpleJsonResourceReloadListener
 
     @Override
     protected void apply(
-      final Map<ResourceLocation, JsonElement> jsonElementMap, final ResourceManager resourceManager, final ProfilerFiller profiler)
+        final Map<ResourceLocation, JsonElement> jsonElementMap, final ResourceManager resourceManager, final ProfilerFiller profiler)
     {
         visitorDataPack = ImmutableList.of();
         for (final Map.Entry<ResourceLocation, JsonElement> entry : jsonElementMap.entrySet())
@@ -211,7 +211,7 @@ public class CustomVisitorListener extends SimpleJsonResourceReloadListener
         /**
          * Skill settings.
          */
-        private String primarySkill = null;
+        private String primarySkill   = null;
         private String secondarySkill = null;
 
         /**

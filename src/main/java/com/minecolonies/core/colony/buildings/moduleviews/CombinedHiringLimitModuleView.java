@@ -7,6 +7,7 @@ public class CombinedHiringLimitModuleView extends WorkerBuildingModuleView
 {
     /**
      * Check if the module is full.
+     *
      * @return true if so.
      */
     public boolean isFull()

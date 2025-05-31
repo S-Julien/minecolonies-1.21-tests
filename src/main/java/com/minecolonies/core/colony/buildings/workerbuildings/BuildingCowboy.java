@@ -57,7 +57,7 @@ public class BuildingCowboy extends AbstractBuilding
     /**
      * Milking amount setting.
      */
-    public static final ISettingKey<IntSetting> MILKING_AMOUNT  = new SettingKey<>(IntSetting.class, new ResourceLocation(MOD_ID, "milking_amount"));
+    public static final ISettingKey<IntSetting> MILKING_AMOUNT = new SettingKey<>(IntSetting.class, new ResourceLocation(MOD_ID, "milking_amount"));
 
     /**
      * Stewing amount setting.
@@ -67,13 +67,12 @@ public class BuildingCowboy extends AbstractBuilding
     /**
      * Milking days setting.
      */
-    public static final ISettingKey<IntSetting> MILKING_DAYS  = new SettingKey<>(IntSetting.class, new ResourceLocation(MOD_ID, "milking_days"));
+    public static final ISettingKey<IntSetting> MILKING_DAYS = new SettingKey<>(IntSetting.class, new ResourceLocation(MOD_ID, "milking_days"));
 
     /**
      * Milking days setting.
      */
-    public static final ISettingKey<StringSetting> MILK_ITEM  = new SettingKey<>(StringSetting.class, new ResourceLocation(MOD_ID, "milk_item"));
-
+    public static final ISettingKey<StringSetting> MILK_ITEM = new SettingKey<>(StringSetting.class, new ResourceLocation(MOD_ID, "milk_item"));
 
     /**
      * Instantiates the building.
@@ -111,6 +110,7 @@ public class BuildingCowboy extends AbstractBuilding
 
     /**
      * Get the milking input item.
+     *
      * @return the input item.
      */
     public ItemStack getMilkInputItem()
@@ -124,6 +124,7 @@ public class BuildingCowboy extends AbstractBuilding
 
     /**
      * Get the milking output item.
+     *
      * @return the output item.
      */
     public ItemStack getMilkOutputItem()
@@ -186,24 +187,24 @@ public class BuildingCowboy extends AbstractBuilding
             if (animal instanceof MushroomCow)
             {
                 recipes.add(GenericRecipe.builder()
-                        .withOutputs(List.of(Items.MUSHROOM_STEW.getDefaultInstance(),
-                                Items.SUSPICIOUS_STEW.getDefaultInstance()))
-                        .withInputs(List.of(List.of(Items.BOWL.getDefaultInstance())))
-                        .withRequiredEntity(animal.getType())
-                        .build());
+                    .withOutputs(List.of(Items.MUSHROOM_STEW.getDefaultInstance(),
+                        Items.SUSPICIOUS_STEW.getDefaultInstance()))
+                    .withInputs(List.of(List.of(Items.BOWL.getDefaultInstance())))
+                    .withRequiredEntity(animal.getType())
+                    .build());
             }
             else if (animal instanceof Cow)
             {
                 recipes.add(GenericRecipe.builder()
-                        .withOutput(Items.MILK_BUCKET)
-                        .withInputs(List.of(List.of(Items.BUCKET.getDefaultInstance())))
-                        .withRequiredEntity(animal.getType())
-                        .build());
+                    .withOutput(Items.MILK_BUCKET)
+                    .withInputs(List.of(List.of(Items.BUCKET.getDefaultInstance())))
+                    .withRequiredEntity(animal.getType())
+                    .build());
                 recipes.add(GenericRecipe.builder()
-                        .withOutput(ModItems.large_milk_bottle)
-                        .withInputs(List.of(List.of(ModItems.large_empty_bottle.getDefaultInstance())))
-                        .withRequiredEntity(animal.getType())
-                        .build());
+                    .withOutput(ModItems.large_milk_bottle)
+                    .withInputs(List.of(List.of(ModItems.large_empty_bottle.getDefaultInstance())))
+                    .withRequiredEntity(animal.getType())
+                    .build());
             }
 
             return recipes;

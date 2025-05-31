@@ -147,6 +147,7 @@ public class ItemNbtCalculator implements DataProvider
 
     /**
      * Serialize a checked nbt key to json.
+     *
      * @param keyObject the key object to serialize.
      * @return the output json.
      */
@@ -208,6 +209,7 @@ public class ItemNbtCalculator implements DataProvider
 
     /**
      * Create a checked nbt key from nbt.
+     *
      * @param key the key to retrieve.
      * @param tag the tag to deserialize it from.
      * @return a new checked nbt key.
@@ -233,6 +235,7 @@ public class ItemNbtCalculator implements DataProvider
 
     /**
      * Create a checked nbt key from json.
+     *
      * @param jsonObject the object to serialize it from.
      * @return the output key.
      */

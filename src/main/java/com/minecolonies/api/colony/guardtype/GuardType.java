@@ -61,17 +61,17 @@ public class GuardType
      * @param primarySkill         primary skill.
      * @param secondarySkill       secondary skill.
      * @param workerSoundName      worker sound name.
-     * @param clazz                  the class of the job.
+     * @param clazz                the class of the job.
      */
     public GuardType(
-      final Supplier<JobEntry> jobEntry,
-      final String jobTranslationKey,
-      final String buttonTranslationKey,
-      final Skill primarySkill,
-      final Skill secondarySkill,
-      final String workerSoundName,
-      final Class<IJob<?>> clazz,
-      final ResourceLocation registryName)
+        final Supplier<JobEntry> jobEntry,
+        final String jobTranslationKey,
+        final String buttonTranslationKey,
+        final Skill primarySkill,
+        final Skill secondarySkill,
+        final String workerSoundName,
+        final Class<IJob<?>> clazz,
+        final ResourceLocation registryName)
     {
         super();
         this.jobEntry = jobEntry;
@@ -146,6 +146,7 @@ public class GuardType
 
     /**
      * Check if the job is of this type.
+     *
      * @param job the job to check.
      * @return true if so.
      */
@@ -161,12 +162,12 @@ public class GuardType
     {
         private Supplier<JobEntry> jobEntry;
         private String             jobTranslationKey;
-        private String                          buttonTranslationKey;
-        private Skill                           primarySkill;
-        private Skill                           secondarySkill;
-        private String                          workerSoundName;
-        private ResourceLocation                registryName;
-        private Class<IJob<?>>                  clazz;
+        private String             buttonTranslationKey;
+        private Skill              primarySkill;
+        private Skill              secondarySkill;
+        private String             workerSoundName;
+        private ResourceLocation   registryName;
+        private Class<IJob<?>>     clazz;
 
         public Builder setJobEntry(final Supplier<JobEntry> jobEntry)
         {

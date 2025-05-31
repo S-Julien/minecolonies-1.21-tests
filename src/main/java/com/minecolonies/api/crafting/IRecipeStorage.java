@@ -35,6 +35,7 @@ public interface IRecipeStorage
     /**
      * Get the cleaned up list of the recipes. Air gets removed and equal items get put together.
      * This returns an list of immutable itemStorage elements that cannot be tempered with.
+     *
      * @return the list.
      */
     List<ItemStorage> getCleanedInput();
@@ -64,9 +65,9 @@ public interface IRecipeStorage
      * Method to check if with the help of inventories this recipe can be fulfilled.
      * Also check if the inventory has enough to fulfill the existing requirements.
      *
-     * @param qty         the quantity to craft.
+     * @param qty                  the quantity to craft.
      * @param existingRequirements map of existing requirements (pending requests).
-     * @param inventories the inventories to check.
+     * @param inventories          the inventories to check.
      * @return true if possible, else false.
      */
     boolean canFullFillRecipe(final int qty, final Map<ItemStorage, Integer> existingRequirements, @NotNull final IItemHandler... inventories);
@@ -75,10 +76,10 @@ public interface IRecipeStorage
      * Method to check if with the help of inventories this recipe can be fulfilled.
      * Also check if the inventory has enough to fulfill the existing requirements.
      *
-     * @param qty         the quantity to craft.
+     * @param qty                  the quantity to craft.
      * @param existingRequirements map of existing requirements (pending requests).
-     * @param citizen the citizen inventory to check.
-     * @param building the building inv to check.
+     * @param citizen              the citizen inventory to check.
+     * @param building             the building inv to check.
      * @return true if possible, else false.
      */
     boolean canFullFillRecipe(final int qty, final Map<ItemStorage, Integer> existingRequirements, @NotNull final List<IItemHandler> citizen, @NotNull final IBuilding building);
@@ -118,7 +119,7 @@ public interface IRecipeStorage
     /**
      * Check for space, remove items, and possibly insert crafted items, returning a copy of the crafted items.
      *
-     * @param context loot context
+     * @param context  loot context
      * @param handlers the handlers to use
      * @return copy of the crafted items if successful, null on failure
      */
@@ -140,18 +141,21 @@ public interface IRecipeStorage
     /**
      * Get which type this recipe is
      * This type comes from the RecipeTypes registry
+     *
      * @return The recipe type
      */
     AbstractRecipeType<IRecipeStorage> getRecipeType();
 
     /**
      * Get a list of alternates to getPrimaryOutput
+     *
      * @return a list if Itemstacks that this recipe can produce instead of getPrimaryOutput
      */
     List<ItemStack> getAlternateOutputs();
 
     /**
      * Get the classic version of this recipe with GetPrimaryOutput targeted correctly from the chosen alternate
+     *
      * @param requiredOutput Which output wanted
      * @return the RecipeStorage that is "right" for that output
      */
@@ -159,6 +163,7 @@ public interface IRecipeStorage
 
     /**
      * Get the classic version of this recipe with GetPrimaryOutput targeted correctly from the chosen alternate
+     *
      * @param stackPredicate Predicate to select the right stack
      * @return the RecipeStorage that is "right" for that output
      */
@@ -166,36 +171,42 @@ public interface IRecipeStorage
 
     /**
      * Source of the recipe, ie registry name.
+     *
      * @return
      */
     ResourceLocation getRecipeSource();
 
     /**
      * Get the secondary (leave behind in grid) outputs
+     *
      * @return list of items that weren't consumed during crafting
      */
     List<ItemStack> getSecondaryOutputs();
 
     /**
      * Get the tools and Secondary Output (leave behind in grid)
+     *
      * @return list of items that weren't consumed during crafting
      */
     List<ItemStack> getCraftingToolsAndSecondaryOutputs();
 
     /**
      * Get the tools (leave behind in grid)
+     *
      * @return list of items that weren't consumed during crafting
      */
     List<ItemStack> getCraftingTools();
 
     /**
      * Get the additional tool needed beyond the recipe (if any)
+     *
      * @return the required tool
      */
     EquipmentTypeEntry getRequiredTool();
 
-    /** 
+    /**
      * Get the location/id of the Loot table used for optional outputs
+     *
      * @return the resource location for the table
      */
     ResourceLocation getLootTable();

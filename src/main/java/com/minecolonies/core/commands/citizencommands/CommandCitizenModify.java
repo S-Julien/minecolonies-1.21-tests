@@ -52,30 +52,31 @@ public class CommandCitizenModify implements IMCColonyOfficerCommand
     public LiteralArgumentBuilder<CommandSourceStack> build()
     {
         return IMCCommand.newLiteral(getName())
-                .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1))
-                        .then(IMCCommand.newArgument(CITIZENID_ARG, IntegerArgumentType.integer(1))
-                                .then(IMCCommand.newLiteral("saturation")
-                                        .then(IMCCommand.newLiteral("=")
-                                                .then(IMCCommand.newArgument(VALUE_ARG, DoubleArgumentType.doubleArg(0, MAX_SATURATION))
-                                                        .suggests((ctx, builder) -> SharedSuggestionProvider.suggest(List.of("0.0", String.valueOf(MAX_SATURATION)), builder))
-                                                        .executes(ctx -> adjust(ctx, citizen -> citizen.setSaturation(DoubleArgumentType.getDouble(ctx, VALUE_ARG)),
-                                                                citizen -> String.valueOf(citizen.getSaturation())))))
-                                        .then(IMCCommand.newLiteral("+")
-                                                .then(IMCCommand.newArgument(VALUE_ARG, DoubleArgumentType.doubleArg(0, MAX_SATURATION))
-                                                        .suggests((ctx, builder) -> SharedSuggestionProvider.suggest(List.of("1.0"), builder))
-                                                        .executes(ctx -> adjust(ctx, citizen -> citizen.increaseSaturation(DoubleArgumentType.getDouble(ctx, VALUE_ARG)),
-                                                                citizen -> String.valueOf(citizen.getSaturation())))))
-                                        .then(IMCCommand.newLiteral("-")
-                                                .then(IMCCommand.newArgument(VALUE_ARG, DoubleArgumentType.doubleArg(0, MAX_SATURATION))
-                                                        .suggests((ctx, builder) -> SharedSuggestionProvider.suggest(List.of("1.0"), builder))
-                                                        .executes(ctx -> adjust(ctx, citizen -> citizen.decreaseSaturation(DoubleArgumentType.getDouble(ctx, VALUE_ARG)),
-                                                                citizen -> String.valueOf(citizen.getSaturation())))))
-                                )));
+            .then(IMCCommand.newArgument(COLONYID_ARG, IntegerArgumentType.integer(1))
+                .then(IMCCommand.newArgument(CITIZENID_ARG, IntegerArgumentType.integer(1))
+                    .then(IMCCommand.newLiteral("saturation")
+                        .then(IMCCommand.newLiteral("=")
+                            .then(IMCCommand.newArgument(VALUE_ARG, DoubleArgumentType.doubleArg(0, MAX_SATURATION))
+                                .suggests((ctx, builder) -> SharedSuggestionProvider.suggest(List.of("0.0", String.valueOf(MAX_SATURATION)), builder))
+                                .executes(ctx -> adjust(ctx, citizen -> citizen.setSaturation(DoubleArgumentType.getDouble(ctx, VALUE_ARG)),
+                                    citizen -> String.valueOf(citizen.getSaturation())))))
+                        .then(IMCCommand.newLiteral("+")
+                            .then(IMCCommand.newArgument(VALUE_ARG, DoubleArgumentType.doubleArg(0, MAX_SATURATION))
+                                .suggests((ctx, builder) -> SharedSuggestionProvider.suggest(List.of("1.0"), builder))
+                                .executes(ctx -> adjust(ctx, citizen -> citizen.increaseSaturation(DoubleArgumentType.getDouble(ctx, VALUE_ARG)),
+                                    citizen -> String.valueOf(citizen.getSaturation())))))
+                        .then(IMCCommand.newLiteral("-")
+                            .then(IMCCommand.newArgument(VALUE_ARG, DoubleArgumentType.doubleArg(0, MAX_SATURATION))
+                                .suggests((ctx, builder) -> SharedSuggestionProvider.suggest(List.of("1.0"), builder))
+                                .executes(ctx -> adjust(ctx, citizen -> citizen.decreaseSaturation(DoubleArgumentType.getDouble(ctx, VALUE_ARG)),
+                                    citizen -> String.valueOf(citizen.getSaturation())))))
+                    )));
     }
 
-    private int adjust(@NotNull final CommandContext<CommandSourceStack> context,
-                       @NotNull final Consumer<ICitizenData> action,
-                       @NotNull final Function<ICitizenData, String> valueProvider)
+    private int adjust(
+        @NotNull final CommandContext<CommandSourceStack> context,
+        @NotNull final Consumer<ICitizenData> action,
+        @NotNull final Function<ICitizenData, String> valueProvider)
     {
         return execute(context, citizen ->
         {
@@ -88,8 +89,9 @@ public class CommandCitizenModify implements IMCColonyOfficerCommand
         });
     }
 
-    private int execute(@NotNull final CommandContext<CommandSourceStack> context,
-                        @NotNull final ToIntFunction<ICitizenData> action)
+    private int execute(
+        @NotNull final CommandContext<CommandSourceStack> context,
+        @NotNull final ToIntFunction<ICitizenData> action)
     {
         try
         {

@@ -65,8 +65,9 @@ public class QuestInstance implements IQuestInstance
 
     /**
      * Create a new colony quest.
-     * @param questTemplateID the global id of the quest.
-     * @param colony the colony it belongs to.
+     *
+     * @param questTemplateID   the global id of the quest.
+     * @param colony            the colony it belongs to.
      * @param triggerReturnData the trigger return data that made this quest available.
      */
     public QuestInstance(final ResourceLocation questTemplateID, final IColony colony, final List<ITriggerReturnData<?>> triggerReturnData)
@@ -94,6 +95,7 @@ public class QuestInstance implements IQuestInstance
 
     /**
      * Create an empty colony quest obj to deserialize the data from.
+     *
      * @param colony the colony it is assigned to.
      */
     public QuestInstance(final IColony colony)
@@ -137,7 +139,7 @@ public class QuestInstance implements IQuestInstance
     @Override
     public boolean isValid(final IColony colony)
     {
-        if (questGiver == Integer.MIN_VALUE || colony.getCitizenManager().getCivilian(questGiver) == null )
+        if (questGiver == Integer.MIN_VALUE || colony.getCitizenManager().getCivilian(questGiver) == null)
         {
             return false;
         }
@@ -202,7 +204,7 @@ public class QuestInstance implements IQuestInstance
 
         // Always when advancing an objective, get the rewards from the current objective.
         final List<Integer> rewards = questObjectiveTemplate.getRewardUnlocks();
-        if(!rewards.isEmpty())
+        if (!rewards.isEmpty())
         {
             questData.unlockQuestRewards(colony, player, this, rewards);
         }
@@ -322,7 +324,7 @@ public class QuestInstance implements IQuestInstance
     @Override
     public IQuestParticipant getParticipant(final int target)
     {
-        return colony.getCitizenManager().getCivilian(questParticipants.get(target-1));
+        return colony.getCitizenManager().getCivilian(questParticipants.get(target - 1));
     }
 
     @Override

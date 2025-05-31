@@ -49,14 +49,15 @@ public class GuardTaskSetting extends StringSettingWithDesc
     /**
      * Create a new guard task list setting.
      */
-    public GuardTaskSetting(final String...list)
+    public GuardTaskSetting(final String... list)
     {
         super(list);
     }
 
     /**
      * Create a new string list setting.
-     * @param settings the overall list of settings.
+     *
+     * @param settings     the overall list of settings.
      * @param currentIndex the current selected index.
      */
     public GuardTaskSetting(final List<String> settings, final int currentIndex)
@@ -153,8 +154,8 @@ public class GuardTaskSetting extends StringSettingWithDesc
             component = Component.translatable("com.minecolonies.coremod.job.guard.assignmine");
         }
         PaneBuilders.tooltipBuilder()
-          .append(component)
-          .hoverPane(button)
-          .build();
+            .append(component)
+            .hoverPane(button)
+            .build();
     }
 }

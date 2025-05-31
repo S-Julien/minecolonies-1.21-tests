@@ -76,12 +76,12 @@ public class EntityAICombatTraining extends AbstractEntityAITraining<JobCombatTr
         //Tasks: Wander around, Find shooting position, go to shooting position, shoot, verify shot
         super(job);
         super.registerTargets(
-          new AITarget(COMBAT_TRAINING, this::decideOnTrainingType, 20),
-          new AITarget(FIND_TRAINING_PARTNER, this::findTrainingPartner, 20),
-          new AITarget(KNIGHT_TRAIN_WITH_PARTNER, this::trainWithPartner, 20),
-          new AITarget(FIND_DUMMY_PARTNER, this::findDummyPartner, 20),
-          new AITarget(KNIGHT_ATTACK_DUMMY, this::attackDummy, 20),
-          new AITarget(KNIGHT_ATTACK_PROTECT, this::attack, TRAININGS_DELAY)
+            new AITarget(COMBAT_TRAINING, this::decideOnTrainingType, 20),
+            new AITarget(FIND_TRAINING_PARTNER, this::findTrainingPartner, 20),
+            new AITarget(KNIGHT_TRAIN_WITH_PARTNER, this::trainWithPartner, 20),
+            new AITarget(FIND_DUMMY_PARTNER, this::findDummyPartner, 20),
+            new AITarget(KNIGHT_ATTACK_DUMMY, this::attackDummy, 20),
+            new AITarget(KNIGHT_ATTACK_PROTECT, this::attack, TRAININGS_DELAY)
         );
     }
 
@@ -276,7 +276,7 @@ public class EntityAICombatTraining extends AbstractEntityAITraining<JobCombatTr
             if (worker.getRandom().nextBoolean())
             {
                 final int shieldSlot = InventoryUtils.findFirstSlotInItemHandlerWith(getInventory(),
-                  Items.SHIELD);
+                    Items.SHIELD);
                 if (shieldSlot != -1)
                 {
                     worker.playSound(SoundEvents.SHIELD_BLOCK, (float) BASIC_VOLUME, (float) SoundUtils.getRandomPitch(worker.getRandom()));

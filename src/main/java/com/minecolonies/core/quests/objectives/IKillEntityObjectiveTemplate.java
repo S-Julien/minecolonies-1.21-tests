@@ -13,7 +13,7 @@ public interface IKillEntityObjectiveTemplate
      * Callback for entity kill event
      *
      * @param progressData the objective data.
-     * @param player the involved player.
+     * @param player       the involved player.
      */
     void onEntityKill(IObjectiveInstance progressData, final IQuestInstance colonyQuest, final Player player);
 }

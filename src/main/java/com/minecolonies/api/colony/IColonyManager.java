@@ -432,6 +432,7 @@ public interface IColonyManager
 
     /**
      * Open the new reactivation window.
+     *
      * @param pos the pos to open it at.
      */
     void openReactivationWindow(final BlockPos pos);

@@ -57,6 +57,7 @@ public enum EventType
 
     /**
      * Get the id.
+     *
      * @return the id.
      */
     public String getId()

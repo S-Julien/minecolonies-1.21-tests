@@ -14,6 +14,7 @@ public class BooleanTriggerReturnData implements ITriggerReturnData<Boolean>
 
     /**
      * Create a new return data obj.
+     *
      * @param match the match to return.
      */
     public BooleanTriggerReturnData(final boolean match)

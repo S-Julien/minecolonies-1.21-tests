@@ -15,7 +15,7 @@ import java.util.function.Function;
 public final class InteractionResponseHandlerEntry
 {
     private final Function<ICitizen, IInteractionResponseHandler> responseHandlerProducer;
-    private ResourceLocation                                registryName;
+    private       ResourceLocation                                registryName;
 
     /**
      * Builder for a {@link InteractionResponseHandlerEntry}.

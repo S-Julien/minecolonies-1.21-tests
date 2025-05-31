@@ -23,12 +23,12 @@ public class EmptyTileEntitySpecialRenderer implements BlockEntityRenderer<Abstr
 
     @Override
     public void render(
-      @NotNull final AbstractTileEntityColonyBuilding tileEntity,
-      final float v,
-      @NotNull final PoseStack matrixStack,
-      @NotNull final MultiBufferSource iRenderTypeBuffer,
-      final int i,
-      final int i1)
+        @NotNull final AbstractTileEntityColonyBuilding tileEntity,
+        final float v,
+        @NotNull final PoseStack matrixStack,
+        @NotNull final MultiBufferSource iRenderTypeBuffer,
+        final int i,
+        final int i1)
     {
 
     }

@@ -56,27 +56,27 @@ public interface IColonyEvent extends INBTSerializable<CompoundTag>
     /**
      * Onupdate function, called every 25s / 500 ticks. Comes from colony then goes to the eventmanager and then to the event.
      */
-    default void onUpdate() { }
+    default void onUpdate() {}
 
     /**
      * Actions which are done on the start of the event.
      */
-    default void onStart() { }
+    default void onStart() {}
 
     /**
      * Actions which are done on the finish/removal of the event.
      */
-    default void onFinish() { }
+    default void onFinish() {}
 
     /**
      * Called by tileentities relevant to the event on invalidation.
      *
      * @param te the broken Tile entity.
      */
-    default void onTileEntityBreak(final BlockEntity te) { }
+    default void onTileEntityBreak(final BlockEntity te) {}
 
     /**
      * Called on night fall, to execute special day-based logic.
      */
-    default void onNightFall() { }
+    default void onNightFall() {}
 }

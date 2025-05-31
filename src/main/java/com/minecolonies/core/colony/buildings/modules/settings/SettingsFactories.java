@@ -137,7 +137,7 @@ public class SettingsFactories
             compound.putInt(TAG_VALUE, storage.getCurrentIndex());
 
             final ListTag list = new ListTag();
-            for (final String setting: storage.getSettings())
+            for (final String setting : storage.getSettings())
             {
                 final CompoundTag compoundNBT = new CompoundTag();
                 compoundNBT.putString(TAG_VALUE, setting);
@@ -167,7 +167,7 @@ public class SettingsFactories
         {
             packetBuffer.writeInt(input.getCurrentIndex());
             packetBuffer.writeInt(input.getSettings().size());
-            for (final String setting: input.getSettings())
+            for (final String setting : input.getSettings())
             {
                 packetBuffer.writeUtf(setting);
             }

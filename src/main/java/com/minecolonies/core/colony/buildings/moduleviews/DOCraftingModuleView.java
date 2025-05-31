@@ -27,6 +27,7 @@ public class DOCraftingModuleView extends CraftingModuleView
 
     /**
      * Gets the ingredient validator for this module.
+     *
      * @return a predicate that reports whether the given ingredient is valid for this module.
      */
     public @NotNull OptionalPredicate<ItemStack> getIngredientValidator()

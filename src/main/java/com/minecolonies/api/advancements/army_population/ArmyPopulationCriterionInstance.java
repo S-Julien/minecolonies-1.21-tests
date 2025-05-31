@@ -19,6 +19,7 @@ public class ArmyPopulationCriterionInstance extends AbstractCriterionTriggerIns
 
     /**
      * Registers a deserialized advancement trigger with this criterion condition
+     *
      * @param populationCount the current army size
      */
     public ArmyPopulationCriterionInstance(final int populationCount)
@@ -30,6 +31,7 @@ public class ArmyPopulationCriterionInstance extends AbstractCriterionTriggerIns
 
     /**
      * Perform the check comparing the current population to the advancement condition
+     *
      * @param populationCount the current population
      * @return whether the check passed
      */
@@ -40,8 +42,9 @@ public class ArmyPopulationCriterionInstance extends AbstractCriterionTriggerIns
     }
 
     @NotNull
-    public static ArmyPopulationCriterionInstance deserializeFromJson(@NotNull final JsonObject object,
-                                                                      @NotNull final DeserializationContext context)
+    public static ArmyPopulationCriterionInstance deserializeFromJson(
+        @NotNull final JsonObject object,
+        @NotNull final DeserializationContext context)
     {
         final int populationCount = GsonHelper.getAsInt(object, "population_count");
         return new ArmyPopulationCriterionInstance(populationCount);

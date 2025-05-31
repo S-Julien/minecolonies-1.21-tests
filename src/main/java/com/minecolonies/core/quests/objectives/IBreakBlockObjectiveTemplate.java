@@ -13,7 +13,7 @@ public interface IBreakBlockObjectiveTemplate
      * Callback for block break event
      *
      * @param blockMiningProgressData the objective data.
-     * @param player the involved player.
+     * @param player                  the involved player.
      */
     void onBlockBreak(IObjectiveInstance blockMiningProgressData, final IQuestInstance colonyQuest, final Player player);
 }

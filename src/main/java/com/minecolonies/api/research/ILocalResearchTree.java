@@ -50,7 +50,7 @@ public interface ILocalResearchTree
      *
      * @return true if complete or if no such research is loaded, false if not completed.
      */
-     boolean hasCompletedResearch(final ResourceLocation researchId);
+    boolean hasCompletedResearch(final ResourceLocation researchId);
 
     /**
      * Finish a research and remove it from the inProgress list.
@@ -61,18 +61,19 @@ public interface ILocalResearchTree
 
     /**
      * Attempt to begin a research.
-     * @param player     the player(s) making the request (and to apply costs toward)
-     * @param colony     the colony doing the research
-     * @param research   the research.
+     *
+     * @param player   the player(s) making the request (and to apply costs toward)
+     * @param colony   the colony doing the research
+     * @param research the research.
      */
     void attemptBeginResearch(final Player player, final IColony colony, final IGlobalResearch research);
 
     /**
      * Reset a research, and optionally undo its effects.  If the research is begun but incomplete, cancel it.
      *
-     * @param player     the player to notify of research cancellation results.
-     * @param colony     the colony to remove effects from, or null if no effect reset is desired.
-     * @param research   the local research descriptor.
+     * @param player   the player to notify of research cancellation results.
+     * @param colony   the colony to remove effects from, or null if no effect reset is desired.
+     * @param research the local research descriptor.
      */
     void attemptResetResearch(Player player, @Nullable final IColony colony, ILocalResearch research);
 
@@ -100,6 +101,7 @@ public interface ILocalResearchTree
 
     /**
      * Check if a given research is complete.
+     *
      * @param location the unique id.
      * @return true if so.
      */

@@ -43,6 +43,7 @@ public class RelationshipRewardTemplate implements IQuestRewardTemplate
 
     /**
      * Create the reward.
+     *
      * @param jsonObject the json to read from.
      * @return the reward object.
      */
@@ -55,6 +56,7 @@ public class RelationshipRewardTemplate implements IQuestRewardTemplate
 
         return new RelationshipRewardTemplate(target1, target2, type);
     }
+
     @Override
     public void applyReward(final IColony colony, final Player player, final IQuestInstance colonyQuest)
     {
@@ -93,8 +95,8 @@ public class RelationshipRewardTemplate implements IQuestRewardTemplate
                 else
                 {
                     if (citTarget1.getPartner() != null && citTarget2.getPartner() != null
-                          && citTarget1.getPartner().getId() == citTarget2.getId()
-                          && citTarget2.getPartner().getId() == citTarget1.getId())
+                        && citTarget1.getPartner().getId() == citTarget2.getId()
+                        && citTarget2.getPartner().getId() == citTarget1.getId())
                     {
                         citTarget1.setPartner(0);
                         citTarget2.setPartner(0);

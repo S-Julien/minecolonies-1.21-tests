@@ -14,6 +14,7 @@ public interface IQuestTemplate
 {
     /**
      * This is where we actually check if the colony fulfills the quest requirements.
+     *
      * @param colony the colony to check.
      * @return the colony quest instance if successful.
      */
@@ -21,12 +22,14 @@ public interface IQuestTemplate
 
     /**
      * Timeout in ingame days until an available quest or in progress quest gets deleted.
+     *
      * @return the timeout.
      */
     int getQuestTimeout();
 
     /**
      * How often we can redo this quest.
+     *
      * @return the number.
      */
     int getMaxOccurrence();
@@ -43,6 +46,7 @@ public interface IQuestTemplate
 
     /**
      * Get the objective at a given index.
+     *
      * @param index the index of the objective.
      * @return the current objective.
      */
@@ -50,18 +54,21 @@ public interface IQuestTemplate
 
     /**
      * Get the objective count of this quest.
+     *
      * @return the count.
      */
     int getObjectiveCount();
 
     /**
      * The name of the quest.
+     *
      * @return the name of the quest.
      */
     Component getName();
 
     /**
      * Get the list of parent quests.
+     *
      * @return the list of parent quests.
      */
     List<ResourceLocation> getParents();

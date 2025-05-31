@@ -42,6 +42,7 @@ public interface IBuildingWorkerModule
 
     /**
      * Getter for the job entry.
+     *
      * @return the entry.
      */
     JobEntry getJobEntry();

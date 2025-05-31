@@ -44,7 +44,7 @@ public class BuildingBeekeeper extends AbstractBuilding
      * The beekeeper mode.
      */
     public static final ISettingKey<BeekeeperCollectionSetting> MODE =
-      new SettingKey<>(BeekeeperCollectionSetting.class, new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, "beekeeper"));
+        new SettingKey<>(BeekeeperCollectionSetting.class, new ResourceLocation(com.minecolonies.api.util.constant.Constants.MOD_ID, "beekeeper"));
 
     /**
      * Both setting options.
@@ -74,7 +74,7 @@ public class BuildingBeekeeper extends AbstractBuilding
         super(c, l);
         keepX.put(stack -> Items.SHEARS == stack.getItem(), new Tuple<>(1, true));
         keepX.put(stack -> Items.GLASS_BOTTLE == stack.getItem(), new Tuple<>(4, true));
-        keepX.put(stack -> stack.is(ItemTags.FLOWERS), new Tuple<>(STACKSIZE,true));
+        keepX.put(stack -> stack.is(ItemTags.FLOWERS), new Tuple<>(STACKSIZE, true));
     }
 
     /**
@@ -105,8 +105,8 @@ public class BuildingBeekeeper extends AbstractBuilding
     {
         super.deserializeNBT(compound);
         NBTUtils.streamCompound(compound.getList(NbtTagConstants.TAG_HIVES, Tag.TAG_COMPOUND))
-          .map(NbtUtils::readBlockPos)
-          .forEach(this.hives::add);
+            .map(NbtUtils::readBlockPos)
+            .forEach(this.hives::add);
     }
 
     @Override
@@ -138,7 +138,6 @@ public class BuildingBeekeeper extends AbstractBuilding
         }
         return super.canEat(stack);
     }
-
 
     /**
      * Get the hives/nests positions that belong to this beekeper
@@ -252,8 +251,8 @@ public class BuildingBeekeeper extends AbstractBuilding
             }
 
             return IColonyManager.getInstance().getCompatibilityManager().getImmutableFlowers().stream()
-              .map(flower -> new ItemStack(flower.getItem(), 2))
-              .collect(Collectors.toList());
+                .map(flower -> new ItemStack(flower.getItem(), 2))
+                .collect(Collectors.toList());
         }
 
         @NotNull
@@ -263,16 +262,16 @@ public class BuildingBeekeeper extends AbstractBuilding
             final List<IGenericRecipe> recipes = new ArrayList<>(); // we don't kill the bees so don't use the default
 
             recipes.add(GenericRecipe.builder()
-                    .withOutput(Items.HONEYCOMB)
-                    .withRequiredTool(ModEquipmentTypes.shears.get())
-                    .withRequiredEntity(animal.getType())
-                    .build());
+                .withOutput(Items.HONEYCOMB)
+                .withRequiredTool(ModEquipmentTypes.shears.get())
+                .withRequiredEntity(animal.getType())
+                .build());
 
             recipes.add(GenericRecipe.builder()
-                    .withOutput(Items.HONEY_BOTTLE)
-                    .withInputs(List.of(List.of(Items.GLASS_BOTTLE.getDefaultInstance())))
-                    .withRequiredEntity(animal.getType())
-                    .build());
+                .withOutput(Items.HONEY_BOTTLE)
+                .withInputs(List.of(List.of(Items.GLASS_BOTTLE.getDefaultInstance())))
+                .withRequiredEntity(animal.getType())
+                .build());
 
             return recipes;
         }

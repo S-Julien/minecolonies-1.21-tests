@@ -116,16 +116,20 @@ public interface IBuildingExtension extends IModuleContainer<IBuildingExtensionM
 
     /**
      * Get the unique extension id.
+     *
      * @return the unique id.
      */
     ExtensionId getId();
 
     /**
      * Unique extension id.
-     * @param pos the pos it's at.
+     *
+     * @param pos   the pos it's at.
      * @param entry it's entry type.
      */
-    record ExtensionId(BlockPos pos, BuildingExtensionRegistries.BuildingExtensionEntry entry)
+    record ExtensionId(
+        BlockPos pos,
+        BuildingExtensionRegistries.BuildingExtensionEntry entry)
     {
         public Tag serializeNBT()
         {
@@ -137,7 +141,8 @@ public interface IBuildingExtension extends IModuleContainer<IBuildingExtensionM
 
         public static ExtensionId deserializeNBT(final CompoundTag nbt)
         {
-            return new ExtensionId(BlockPosUtil.read(nbt, TAG_POS), BuildingExtensionRegistries.getBuildingExtensionRegistry().getValue(ResourceLocation.tryParse(nbt.getString(TAG_ID))));
+            return new ExtensionId(BlockPosUtil.read(nbt, TAG_POS),
+                BuildingExtensionRegistries.getBuildingExtensionRegistry().getValue(ResourceLocation.tryParse(nbt.getString(TAG_ID))));
         }
     }
 }

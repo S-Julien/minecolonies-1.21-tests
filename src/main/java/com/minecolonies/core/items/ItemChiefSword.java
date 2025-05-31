@@ -39,7 +39,7 @@ public class ItemChiefSword extends SwordItem implements IChiefSwordItem
         if (entityIn instanceof Player && isSelected)
         {
             RaiderMobUtils.getBarbariansCloseToEntity(entityIn, GLOW_EFFECT_DISTANCE)
-              .forEach(entity -> entity.addEffect(new MobEffectInstance(GLOW_EFFECT, GLOW_EFFECT_DURATION, GLOW_EFFECT_MULTIPLIER)));
+                .forEach(entity -> entity.addEffect(new MobEffectInstance(GLOW_EFFECT, GLOW_EFFECT_DURATION, GLOW_EFFECT_MULTIPLIER)));
         }
     }
 

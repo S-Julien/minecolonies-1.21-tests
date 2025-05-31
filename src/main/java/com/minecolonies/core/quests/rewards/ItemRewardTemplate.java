@@ -27,6 +27,7 @@ public class ItemRewardTemplate implements IQuestRewardTemplate
 
     /**
      * Setup the item reward.
+     *
      * @param item the item.
      */
     public ItemRewardTemplate(final ItemStack item)
@@ -36,6 +37,7 @@ public class ItemRewardTemplate implements IQuestRewardTemplate
 
     /**
      * Create the reward.
+     *
      * @param jsonObject the json to read from.
      * @return the reward object.
      */
@@ -59,6 +61,7 @@ public class ItemRewardTemplate implements IQuestRewardTemplate
         item.setCount(quantity);
         return new ItemRewardTemplate(item);
     }
+
     @Override
     public void applyReward(final IColony colony, final Player player, final IQuestInstance colonyQuest)
     {

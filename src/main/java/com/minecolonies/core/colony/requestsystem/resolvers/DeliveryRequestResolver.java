@@ -16,8 +16,8 @@ import org.jetbrains.annotations.NotNull;
 public class DeliveryRequestResolver extends DeliverymenRequestResolver<Delivery>
 {
     public DeliveryRequestResolver(
-      @NotNull final ILocation location,
-      @NotNull final IToken<?> token)
+        @NotNull final ILocation location,
+        @NotNull final IToken<?> token)
     {
         super(location, token);
     }
@@ -39,5 +39,4 @@ public class DeliveryRequestResolver extends DeliverymenRequestResolver<Delivery
     {
         return TypeConstants.DELIVERY;
     }
-
 }

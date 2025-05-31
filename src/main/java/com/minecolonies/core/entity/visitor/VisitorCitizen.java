@@ -111,7 +111,7 @@ public class VisitorCitizen extends AbstractEntityCitizen
     /**
      * The location used for requests
      */
-    private ILocation              location = null;
+    private ILocation location = null;
 
     /**
      * Constructor for a new citizen typed entity.
@@ -577,9 +577,9 @@ public class VisitorCitizen extends AbstractEntityCitizen
                 final String deathLocation = BlockPosUtil.getString(blockPosition());
 
                 MessageUtils.format(MESSAGE_INFO_COLONY_VISITOR_DIED, getCitizenData().getName(), cause.getMsgId(), deathLocation)
-                  .withPriority(MessagePriority.DANGER)
-                  .sendTo(colony)
-                  .forManagers();
+                    .withPriority(MessagePriority.DANGER)
+                    .sendTo(colony)
+                    .forManagers();
             }
         }
     }

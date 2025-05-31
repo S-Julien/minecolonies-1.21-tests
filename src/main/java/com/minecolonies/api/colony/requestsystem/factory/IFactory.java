@@ -31,6 +31,7 @@ public interface IFactory<Input, Output>
 
     /**
      * Get a serialization id for the factory.
+     *
      * @return the short id.
      */
     short getSerializationId();

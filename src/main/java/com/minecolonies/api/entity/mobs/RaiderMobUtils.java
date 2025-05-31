@@ -42,7 +42,7 @@ public final class RaiderMobUtils
     /**
      * Mob attribute, used for custom attack damage
      */
-    public final static RegistryObject<Attribute> MOB_ATTACK_DAMAGE = ATTRIBUTES.register("mc_mob_damage", () -> new RangedAttribute( "mc_mob_damage", 2.0, 1.0, 20));
+    public final static RegistryObject<Attribute> MOB_ATTACK_DAMAGE = ATTRIBUTES.register("mc_mob_damage", () -> new RangedAttribute("mc_mob_damage", 2.0, 1.0, 20));
 
     /**
      * Damage increased by 1 for every 200 raid level difficulty
@@ -74,9 +74,9 @@ public final class RaiderMobUtils
 
         // Base damage
         final double attackDamage =
-          ATTACK_DAMAGE +
-            difficultyModifier *
-              Math.min(raidLevel / DAMAGE_PER_X_RAID_LEVEL, MAX_RAID_LEVEL_DAMAGE);
+            ATTACK_DAMAGE +
+                difficultyModifier *
+                    Math.min(raidLevel / DAMAGE_PER_X_RAID_LEVEL, MAX_RAID_LEVEL_DAMAGE);
 
         // Base health
         final double baseHealth = getHealthBasedOnRaidLevel(raidLevel) * difficultyModifier;
@@ -106,12 +106,12 @@ public final class RaiderMobUtils
      * @param eventID        the event id.
      */
     public static void spawn(
-      final EntityType<?> entityToSpawn,
-      final int numberOfSpawns,
-      final BlockPos spawnLocation,
-      final Level world,
-      final IColony colony,
-      final int eventID)
+        final EntityType<?> entityToSpawn,
+        final int numberOfSpawns,
+        final BlockPos spawnLocation,
+        final Level world,
+        final IColony colony,
+        final int eventID)
     {
         if (spawnLocation != null && entityToSpawn != null && world != null && numberOfSpawns > 0)
         {
@@ -211,11 +211,11 @@ public final class RaiderMobUtils
     public static List<AbstractEntityMinecoloniesRaider> getBarbariansCloseToEntity(final Entity entity, final double distanceFromEntity)
     {
         return CompatibilityUtils.getWorldFromEntity(entity).getEntitiesOfClass(
-          AbstractEntityMinecoloniesRaider.class,
-          entity.getBoundingBox().expandTowards(
-            distanceFromEntity,
-            3.0D,
-            distanceFromEntity),
-          Entity::isAlive);
+            AbstractEntityMinecoloniesRaider.class,
+            entity.getBoundingBox().expandTowards(
+                distanceFromEntity,
+                3.0D,
+                distanceFromEntity),
+            Entity::isAlive);
     }
 }

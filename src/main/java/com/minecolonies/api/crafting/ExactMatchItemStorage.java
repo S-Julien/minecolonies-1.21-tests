@@ -28,8 +28,12 @@ public class ExactMatchItemStorage extends ItemStorage
         }
         if (comparisonObject instanceof final ExactMatchItemStorage that)
         {
-            return ItemStackUtils.compareItemStacksIgnoreStackSize(that.getItemStack(), this.getItemStack(), !(super.shouldIgnoreDamageValue || that.shouldIgnoreDamageValue), !(this.shouldIgnoreNBTValue || that.shouldIgnoreNBTValue), false, true);
-
+            return ItemStackUtils.compareItemStacksIgnoreStackSize(that.getItemStack(),
+                this.getItemStack(),
+                !(super.shouldIgnoreDamageValue || that.shouldIgnoreDamageValue),
+                !(this.shouldIgnoreNBTValue || that.shouldIgnoreNBTValue),
+                false,
+                true);
         }
         return false;
     }

@@ -11,6 +11,7 @@ public interface ICreatesResolversModule extends IBuildingModule
 {
     /**
      * Get a list of resolvers for this building.
+     *
      * @return the list of resolvers.
      */
     List<IRequestResolver<?>> createResolvers();

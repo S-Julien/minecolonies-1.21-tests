@@ -29,8 +29,8 @@ public abstract class AbstractModuleWindow extends AbstractWindowSkeleton implem
     /**
      * Constructor for the window of the the filterable lists.
      *
-     * @param building   {@link AbstractBuildingView}.
-     * @param res        the resource String.
+     * @param building {@link AbstractBuildingView}.
+     * @param res      the resource String.
      */
     public AbstractModuleWindow(final IBuildingView building, final String res)
     {
@@ -50,7 +50,7 @@ public abstract class AbstractModuleWindow extends AbstractWindowSkeleton implem
             }
         }
 
-            //todo We have to move this to 0 as soon as we're finished with modularization and remove the switch views in favor of a sidenav xml.
+        //todo We have to move this to 0 as soon as we're finished with modularization and remove the switch views in favor of a sidenav xml.
         if (building.getAllModuleViews().size() > 0 && anyVisible)
         {
             final ButtonImage image = new ButtonImage();
@@ -76,7 +76,10 @@ public abstract class AbstractModuleWindow extends AbstractWindowSkeleton implem
 
         for (IBuildingModuleView view : building.getAllModuleViews())
         {
-            if (!view.isPageVisible()) continue;
+            if (!view.isPageVisible())
+            {
+                continue;
+            }
 
             final ButtonImage image = new ButtonImage();
             image.setImage(new ResourceLocation("minecolonies:textures/gui/modules/tab_side" + (random.nextInt(3) + 1) + ".png"), false);

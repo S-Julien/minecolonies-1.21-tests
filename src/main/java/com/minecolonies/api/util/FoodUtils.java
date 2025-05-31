@@ -51,7 +51,8 @@ public class FoodUtils
 
     /**
      * Check if that food can be eaten at a given building level.
-     * @param stack the stack to check.
+     *
+     * @param stack         the stack to check.
      * @param buildingLevel the respective building level.
      * @return true if so.
      */
@@ -67,6 +68,7 @@ public class FoodUtils
 
     /**
      * Calculate the given max building level for a given food.
+     *
      * @param resource the stack to check.
      * @return the building level.
      */
@@ -77,8 +79,9 @@ public class FoodUtils
 
     /**
      * Calculate the actual food value for a citizen consuming a given food.
-     * @param foodStack the food to consume.
-     * @param itemFood the food properties of that food.
+     *
+     * @param foodStack     the food to consume.
+     * @param itemFood      the food properties of that food.
      * @param researchBonus the bonus from research (0 for no bonus).
      * @return the saturation adjustment to apply when consuming this food.
      */
@@ -95,8 +98,9 @@ public class FoodUtils
 
     /**
      * Calculate the actual food value for a citizen consuming a given food.
+     *
      * @param foodStack the food to consume.
-     * @param citizen the citizen consuming the food.
+     * @param citizen   the citizen consuming the food.
      * @return the saturation adjustment to apply when consuming this food.
      */
     public static double getFoodValue(final ItemStack foodStack, final AbstractEntityCitizen citizen)
@@ -108,9 +112,10 @@ public class FoodUtils
 
     /**
      * Get the best food for a given citizen from a given inventory and return the index where it is.
+     *
      * @param inventoryCitizen the inventory to check.
-     * @param citizenData the citizen data the food is for.
-     * @param menu the menu that has to be matched. or null
+     * @param citizenData      the citizen data the food is for.
+     * @param menu             the menu that has to be matched. or null
      * @return the matching inv slot, or -1.
      */
     public static int getBestFoodForCitizen(final InventoryCitizen inventoryCitizen, final ICitizenData citizenData, @Nullable final Set<ItemStorage> menu)
@@ -119,7 +124,9 @@ public class FoodUtils
         int bestScore = Integer.MAX_VALUE;
         int bestSlot = -1;
         Item bestItem = null;
-        final boolean restaurantExists = citizenData.getColony().getBuildingManager().getBestBuilding(citizenData.getWorkBuilding() == null ? citizenData.getHomePosition() : citizenData.getWorkBuilding().getPosition(), BuildingCook.class) != null;
+        final boolean restaurantExists = citizenData.getColony()
+            .getBuildingManager()
+            .getBestBuilding(citizenData.getWorkBuilding() == null ? citizenData.getHomePosition() : citizenData.getWorkBuilding().getPosition(), BuildingCook.class) != null;
 
         final ICitizenFoodHandler foodHandler = citizenData.getCitizenFoodHandler();
         final ICitizenFoodHandler.CitizenFoodStats foodStats = foodHandler.getFoodHappinessStats();
@@ -140,8 +147,8 @@ public class FoodUtils
 
                 // If the quality and diversity requirement would be fulfilled, already go ahead with this food. Don't need to check others.
                 if ((localScore < 0 && isMinecolfood)
-                || (localScore < 0 && foodStats.quality() > qualityRequirement * 2)
-                || (isMinecolfood && foodStats.diversity() > diversityRequirement * 2))
+                    || (localScore < 0 && foodStats.quality() > qualityRequirement * 2)
+                    || (isMinecolfood && foodStats.diversity() > diversityRequirement * 2))
                 {
                     return i;
                 }
@@ -157,8 +164,8 @@ public class FoodUtils
 
         // If we're not at the restaurant and are the brink of complaining about food, go to the restaurant instead of eating the food you got in the inventory.
         if (restaurantExists && menu == null &&
-              ((bestScore >= 0 && foodStats.diversity() <= diversityRequirement)
-              || (!(bestItem instanceof IMinecoloniesFoodItem) && foodStats.quality() <= qualityRequirement)))
+            ((bestScore >= 0 && foodStats.diversity() <= diversityRequirement)
+                || (!(bestItem instanceof IMinecoloniesFoodItem) && foodStats.quality() <= qualityRequirement)))
         {
             return -1;
         }
@@ -168,8 +175,9 @@ public class FoodUtils
 
     /**
      * Get the best food for a given citizen from a given inventory and return the index where it is.
+     *
      * @param citizenData the citizen data the food is for.
-     * @param menu the menu that has to be matched or null.
+     * @param menu        the menu that has to be matched or null.
      * @return the matching inv slot, or -1.
      */
     public static ItemStorage checkForFoodInBuilding(final ICitizenData citizenData, @Nullable final Set<ItemStorage> menu, final IBuilding building)
@@ -214,7 +222,8 @@ public class FoodUtils
                                 continue;
                             }
 
-                            if (isMinecolfood && !criticalQuality && MathUtils.RANDOM.nextInt(Math.max(1, ((IMinecoloniesFoodItem) storage.getItem()).getTier() + 2 - homeBuildingLevel)) <= 0)
+                            if (isMinecolfood && !criticalQuality
+                                && MathUtils.RANDOM.nextInt(Math.max(1, ((IMinecoloniesFoodItem) storage.getItem()).getTier() + 2 - homeBuildingLevel)) <= 0)
                             {
                                 bestScore = localScore;
                                 bestStorage = storage;
@@ -226,8 +235,8 @@ public class FoodUtils
 
                             // If the quality and diversity requirement would be fulfilled, already go ahead with this food. Don't need to check others.
                             if ((localScore < 0 && isMinecolfood)
-                                  || (localScore < 0 && foodStats.quality() > qualityRequirement * 2)
-                                  || (isMinecolfood && foodStats.diversity() > diversityRequirement * 2))
+                                || (localScore < 0 && foodStats.quality() > qualityRequirement * 2)
+                                || (isMinecolfood && foodStats.diversity() > diversityRequirement * 2))
                             {
                                 return new ItemStorage(storage.getItemStack().copy());
                             }
@@ -246,11 +255,16 @@ public class FoodUtils
 
     /**
      * Get the best food for a given citizen from a given inventory and return the index where it is.
+     *
      * @param citizenData the citizen data the food is for.
-     * @param menu the menu that has to be matched or null.
+     * @param menu        the menu that has to be matched or null.
      * @return the matching inv slot, or -1.
      */
-    public static boolean hasBestOptionInInv(final InventoryCitizen inventoryCitizen, final ICitizenData citizenData, @Nullable final Set<ItemStorage> menu, final IBuilding building)
+    public static boolean hasBestOptionInInv(
+        final InventoryCitizen inventoryCitizen,
+        final ICitizenData citizenData,
+        @Nullable final Set<ItemStorage> menu,
+        final IBuilding building)
     {
         final int invSlot = getBestFoodForCitizen(inventoryCitizen, citizenData, menu);
         // Smaller score is better.
@@ -273,7 +287,8 @@ public class FoodUtils
         {
             final ItemStack stack = inventoryCitizen.getStackInSlot(invSlot);
             final boolean isMinecolfood = stack.getItem() instanceof IMinecoloniesFoodItem;
-            bestInvScore = foodHandler.checkLastEaten(stack.getItem()) * (isMinecolfood ? 1 : 2);;
+            bestInvScore = foodHandler.checkLastEaten(stack.getItem()) * (isMinecolfood ? 1 : 2);
+            ;
 
             // Already good enough food in inventory? Skip building check.
             if ((bestInvScore < 0 && isMinecolfood) && (criticalDiversity || criticalQuality))
@@ -294,7 +309,7 @@ public class FoodUtils
                         if ((menu == null || menu.contains(storage)) && FoodUtils.canEat(storage.getItemStack(), citizenData.getHomeBuilding(), citizenData.getWorkBuilding()))
                         {
                             final boolean isMinecolfood = storage.getItem() instanceof IMinecoloniesFoodItem;
-                            final int localScore = foodHandler.checkLastEaten(storage.getItem())  * (isMinecolfood ? 1 : 2);
+                            final int localScore = foodHandler.checkLastEaten(storage.getItem()) * (isMinecolfood ? 1 : 2);
 
                             // If this is great food and we're at critical levels, go with it!
                             if ((localScore < 0 && isMinecolfood) && (criticalDiversity || criticalQuality))
@@ -307,7 +322,8 @@ public class FoodUtils
                                 continue;
                             }
 
-                            if (isMinecolfood && !criticalQuality && MathUtils.RANDOM.nextInt(Math.max(1, ((IMinecoloniesFoodItem) storage.getItem()).getTier() + 2 - homeBuildingLevel)) <= 0)
+                            if (isMinecolfood && !criticalQuality
+                                && MathUtils.RANDOM.nextInt(Math.max(1, ((IMinecoloniesFoodItem) storage.getItem()).getTier() + 2 - homeBuildingLevel)) <= 0)
                             {
                                 bestScore = localScore;
                                 bestStorage = storage;
@@ -339,6 +355,7 @@ public class FoodUtils
 
     /**
      * Get the min food quality requirement.
+     *
      * @param buildingLevel the building level to take into account.
      * @return the food quality requirement in number of items.
      */
@@ -349,6 +366,7 @@ public class FoodUtils
 
     /**
      * Get the min food diversity requirement.
+     *
      * @param buildingLevel the building level to take into account.
      * @return the food diversity requirement in number of items.
      */

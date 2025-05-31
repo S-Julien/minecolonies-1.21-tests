@@ -31,7 +31,7 @@ public class ColonyPatrolPointRenderer
 
     /**
      * Renders the guard scepter objects into the world.
-     * 
+     *
      * @param ctx rendering context
      */
     static void render(final WorldEventContext ctx)

@@ -23,8 +23,9 @@ public class SettingKey<T extends ISetting> implements ISettingKey<T>
 
     /**
      * Create a new settings key.
+     *
      * @param type the specific ISetting class.
-     * @param id the unique id.
+     * @param id   the unique id.
      */
     public SettingKey(final Class<T> type, final ResourceLocation id)
     {

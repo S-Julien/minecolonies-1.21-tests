@@ -49,7 +49,7 @@ public class WindowSelectRes extends AbstractWindowSkeleton
     /**
      * Predicate to test for.
      */
-    private final Predicate<ItemStack>           test;
+    private final Predicate<ItemStack> test;
 
     /**
      * The consumer that receives the block quantity.
@@ -157,8 +157,8 @@ public class WindowSelectRes extends AbstractWindowSkeleton
         for (final ItemStack stack : ItemStackUtils.allItemsPlusInventory(Minecraft.getInstance().player))
         {
             if (test.test(stack) && (this.filter.isEmpty()
-                                       || stack.getDescriptionId().toLowerCase(Locale.US).contains(this.filter.toLowerCase(Locale.US))
-                                       || stack.getHoverName().getString().toLowerCase(Locale.US).contains(filter.toLowerCase(Locale.US))))
+                || stack.getDescriptionId().toLowerCase(Locale.US).contains(this.filter.toLowerCase(Locale.US))
+                || stack.getHoverName().getString().toLowerCase(Locale.US).contains(filter.toLowerCase(Locale.US))))
             {
                 this.allItems.add(stack);
             }

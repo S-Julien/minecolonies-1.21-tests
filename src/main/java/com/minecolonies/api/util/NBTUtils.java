@@ -28,13 +28,13 @@ public class NBTUtils
     public static Collector<CompoundTag, ?, ListTag> toListNBT()
     {
         return Collectors.collectingAndThen(
-          Collectors.toList(),
-          list -> {
-              final ListTag tagList = new ListTag();
-              tagList.addAll(list);
+            Collectors.toList(),
+            list -> {
+                final ListTag tagList = new ListTag();
+                tagList.addAll(list);
 
-              return tagList;
-          });
+                return tagList;
+            });
     }
 
     private static class TagListIterator implements Iterator<Tag>
