@@ -54,6 +54,7 @@ public class ServerConfiguration extends AbstractConfiguration
     public final ForgeConfigSpec.BooleanValue canPlayerUseHomeTPCommand;
     public final ForgeConfigSpec.BooleanValue canPlayerUseShowColonyInfoCommand;
     public final ForgeConfigSpec.BooleanValue canPlayerUseKillCitizensCommand;
+    public final ForgeConfigSpec.BooleanValue canPlayerUseModifyCitizensCommand;
     public final ForgeConfigSpec.BooleanValue canPlayerUseAddOfficerCommand;
     public final ForgeConfigSpec.BooleanValue canPlayerUseDeleteColonyCommand;
     public final ForgeConfigSpec.BooleanValue canPlayerUseResetCommand;
@@ -88,16 +89,16 @@ public class ServerConfiguration extends AbstractConfiguration
      *  ------------------- ######## Permission Settings ######## ------------------- *
      *  ----------------------------------------------------------------------------- */
 
-    public final ForgeConfigSpec.BooleanValue                        enableColonyProtection;
-    public final ForgeConfigSpec.EnumValue<Explosions>               turnOffExplosionsInColonies;
+    public final ForgeConfigSpec.BooleanValue          enableColonyProtection;
+    public final ForgeConfigSpec.EnumValue<Explosions> turnOffExplosionsInColonies;
 
     /*  -------------------------------------------------------------------------------- *
      *  ------------------- ######## Compatibility Settings ######## ------------------- *
      *  -------------------------------------------------------------------------------- */
 
-    public final ForgeConfigSpec.BooleanValue                        auditCraftingTags;
-    public final ForgeConfigSpec.BooleanValue                        debugInventories;
-    public final ForgeConfigSpec.BooleanValue                        blueprintBuildMode;
+    public final ForgeConfigSpec.BooleanValue auditCraftingTags;
+    public final ForgeConfigSpec.BooleanValue debugInventories;
+    public final ForgeConfigSpec.BooleanValue blueprintBuildMode;
 
     /*  ------------------------------------------------------------------------------ *
      *  ------------------- ######## Pathfinding Settings ######## ------------------- *
@@ -112,6 +113,12 @@ public class ServerConfiguration extends AbstractConfiguration
      *  --------------------------------------------------------------------------------- */
 
     public final ForgeConfigSpec.BooleanValue creativeResolve;
+
+    /*  --------------------------------------------------------------------------------- *
+     *  ------------------- ######## Debugging Settings ######## ------------------- *
+     *  --------------------------------------------------------------------------------- */
+
+    public final ForgeConfigSpec.BooleanValue netherWorkerTakesDamage;
 
     /**
      * Builds server configuration.
@@ -144,7 +151,7 @@ public class ServerConfiguration extends AbstractConfiguration
         swapToCategory(builder, "research");
         researchCreativeCompletion = defineBoolean(builder, "researchcreativecompletion", true);
         researchDebugLog = defineBoolean(builder, "researchdebuglog", false);
-        researchResetCost = defineList(builder, "researchresetcost", Arrays.asList("minecolonies:ancienttome:1"), s -> s instanceof String);
+        researchResetCost = defineList(builder, "researchresetcost", List.of("minecolonies:ancienttome:1"), s -> s instanceof String);
 
         swapToCategory(builder, "commands");
 
@@ -154,6 +161,7 @@ public class ServerConfiguration extends AbstractConfiguration
         canPlayerUseHomeTPCommand = defineBoolean(builder, "canplayerusehometpcommand", false);
         canPlayerUseShowColonyInfoCommand = defineBoolean(builder, "canplayeruseshowcolonyinfocommand", true);
         canPlayerUseKillCitizensCommand = defineBoolean(builder, "canplayerusekillcitizenscommand", false);
+        canPlayerUseModifyCitizensCommand = defineBoolean(builder, "canplayerusemodifycitizenscommand", false);
         canPlayerUseAddOfficerCommand = defineBoolean(builder, "canplayeruseaddofficercommand", true);
         canPlayerUseDeleteColonyCommand = defineBoolean(builder, "canplayerusedeletecolonycommand", false);
         canPlayerUseResetCommand = defineBoolean(builder, "canplayeruseresetcommand", false);
@@ -200,6 +208,10 @@ public class ServerConfiguration extends AbstractConfiguration
         swapToCategory(builder, "requestSystem");
 
         creativeResolve = defineBoolean(builder, "creativeresolve", false);
+
+        swapToCategory(builder, "debugging");
+
+        netherWorkerTakesDamage = defineBoolean(builder, "netherworkertakesdamage", true);
 
         finishCategory(builder);
     }
