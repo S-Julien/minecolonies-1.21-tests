@@ -220,7 +220,7 @@ public class EntityAIWorkAlchemist extends AbstractEntityAICrafting<JobAlchemist
     {
         final List<ItemStack> localItems = new ArrayList<>();
         final ItemStack tool = worker.getMainHandItem();
-        localItems.addAll(BlockPosUtil.getBlockDrops(world, blockToMine, ItemStackUtils.getFortuneOf(tool), tool, worker));
+        localItems.addAll(BlockPosUtil.getBlockDrops(world, blockToMine, ItemStackUtils.getFortuneOf(tool, worker.level()), tool, worker));
 
         return localItems;
     }
