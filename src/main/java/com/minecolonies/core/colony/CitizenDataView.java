@@ -180,6 +180,11 @@ public class CitizenDataView implements ICitizenDataView
     protected UUID textureUUID;
 
     /**
+     * Flag is citizen is sick.
+     */
+    private boolean isSick;
+
+    /**
      * Set View id.
      *
      * @param id the id to set.
@@ -428,6 +433,7 @@ public class CitizenDataView implements ICitizenDataView
         {
             textureUUID = buf.readUUID();
         }
+        this.isSick = buf.readBoolean();
     }
 
     @Override
@@ -648,5 +654,11 @@ public class CitizenDataView implements ICitizenDataView
         }
 
         return currentHat;
+    }
+
+    @Override
+    public boolean isSick()
+    {
+        return this.isSick;
     }
 }

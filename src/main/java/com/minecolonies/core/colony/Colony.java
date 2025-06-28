@@ -101,7 +101,7 @@ public class Colony implements IColony
     /**
      * List of loaded chunks for the colony.
      */
-    private ConcurrentHashMap<Long, Long> loadedChunks = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Long, Long> loadedChunks = new ConcurrentHashMap<>();
 
     /**
      * List of loaded chunks for the colony.
@@ -113,12 +113,12 @@ public class Colony implements IColony
     /**
      * List of chunks that have to be be force loaded.
      */
-    private Set<Long> pendingChunks = new HashSet<>();
+    private final Set<Long> pendingChunks = new HashSet<>();
 
     /**
      * List of chunks pending for unloading, which have their tickets removed
      */
-    private Set<Long> pendingToUnloadChunks = new HashSet<>();
+    private final Set<Long> pendingToUnloadChunks = new HashSet<>();
 
     /**
      * List of waypoints of the colony.
@@ -184,6 +184,8 @@ public class Colony implements IColony
      * Quest manager for this colony
      */
     private IQuestManager questManager;
+
+    private final TravellingManager travellingManager = new TravellingManager(this);
 
     /**
      * Expedition manager for this colony
@@ -286,8 +288,8 @@ public class Colony implements IColony
      * The colony flag, as a list of patterns.
      */
     private ListTag colonyFlag = new BannerPattern.Builder()
-      .addPattern(BannerPatterns.BASE, DyeColor.WHITE)
-      .toListTag();
+        .addPattern(BannerPatterns.BASE, DyeColor.WHITE)
+        .toListTag();
 
     /**
      * The last time the mercenaries were used.
@@ -373,7 +375,7 @@ public class Colony implements IColony
         researchManager = new ResearchManager(this);
         colonyStateMachine = new TickRateStateMachine<>(INACTIVE, e ->
         {
-            Log.getLogger().warn("Exception triggered in colony:"+getID()+" in dimension:"+getDimension().location(), e);
+            Log.getLogger().warn("Exception triggered in colony:" + getID() + " in dimension:" + getDimension().location(), e);
             colonyStateMachine.setCurrentDelay(20 * 60 * 5);
         });
 
@@ -388,6 +390,7 @@ public class Colony implements IColony
 
         colonyStateMachine.addTransition(new TickingTransition<>(ACTIVE, this::updateSubscribers, () -> ACTIVE, UPDATE_SUBSCRIBERS_INTERVAL));
         colonyStateMachine.addTransition(new TickingTransition<>(ACTIVE, this::tickRequests, () -> ACTIVE, UPDATE_RS_INTERVAL));
+        colonyStateMachine.addTransition(new TickingTransition<>(ACTIVE, this::tickTravellers, () -> ACTIVE, UPDATE_TRAVELING_INTERVAL));
         colonyStateMachine.addTransition(new TickingTransition<>(ACTIVE, this::checkDayTime, () -> ACTIVE, UPDATE_DAYTIME_INTERVAL));
         colonyStateMachine.addTransition(new TickingTransition<>(ACTIVE, this::updateWayPoints, () -> ACTIVE, CHECK_WAYPOINT_EVERY));
         colonyStateMachine.addTransition(new TickingTransition<>(ACTIVE, this::worldTickSlow, () -> ACTIVE, MAX_TICKRATE));
@@ -443,6 +446,20 @@ public class Colony implements IColony
         if (getRequestManager() != null)
         {
             getRequestManager().tick();
+        }
+        return false;
+    }
+
+    /**
+     * Ticks the travelling manager.
+     *
+     * @return false
+     */
+    private boolean tickTravellers()
+    {
+        if (getTravelingManager() != null)
+        {
+            return !getTravelingManager().onTick();
         }
         return false;
     }
@@ -596,6 +613,7 @@ public class Colony implements IColony
             }
 
             citizenManager.updateCitizenSleep(false);
+            eventDescManager.computeNews();
         }
         else if (!isDay && WorldUtil.isDayTime(world))
         {
@@ -824,13 +842,18 @@ public class Colony implements IColony
             this.nameStyle = compound.getString(TAG_COL_NAME_STYLE);
         }
 
-        if (compound.contains(BuildingModules.TOWNHALL_SETTINGS.key))
+        if (compound.contains(BuildingModules.TOWNHALL_SETTINGS.key) && settingsModule != null)
         {
             settingsModule.deserializeNBT(compound.getCompound(BuildingModules.TOWNHALL_SETTINGS.key));
         }
 
         this.day = compound.getInt(COLONY_DAY);
         this.colonyTag = compound;
+
+        if (compound.contains(NbtTagConstants.TAG_TRAVELLING_DATA))
+        {
+            this.travellingManager.deserializeNBT(compound.getCompound(NbtTagConstants.TAG_TRAVELLING_DATA));
+        }
     }
 
     /**
@@ -943,6 +966,8 @@ public class Colony implements IColony
         final CompoundTag settings = new CompoundTag();
         settingsModule.serializeNBT(settings);
         compound.put(BuildingModules.TOWNHALL_SETTINGS.key, settings);
+
+        compound.put(TAG_TRAVELLING_DATA, travellingManager.serializeNBT());
 
         this.colonyTag = compound;
 
@@ -1173,8 +1198,9 @@ public class Colony implements IColony
                     {
                         final Block worldBlock = world.getBlockState(entry.getKey()).getBlock();
                         if (
-                          ((worldBlock != (entry.getValue().getBlock()) && entry.getValue().getBlock() != ModBlocks.blockWayPoint) && worldBlock != ModBlocks.blockConstructionTape)
-                            || (world.isEmptyBlock(entry.getKey().below()) && !BlockUtils.isAnySolid(entry.getValue())))
+                            ((worldBlock != (entry.getValue().getBlock()) && entry.getValue().getBlock() != ModBlocks.blockWayPoint)
+                                && worldBlock != ModBlocks.blockConstructionTape)
+                                || (world.isEmptyBlock(entry.getKey().below()) && !BlockUtils.isAnySolid(entry.getValue())))
                         {
                             wayPoints.remove(entry.getKey());
                             markDirty();
@@ -1585,6 +1611,12 @@ public class Colony implements IColony
         return packageManager;
     }
 
+    @Override
+    public TravellingManager getTravelingManager()
+    {
+        return travellingManager;
+    }
+
     /**
      * Get all visiting players.
      *
@@ -1704,8 +1736,8 @@ public class Colony implements IColony
                 if (attackingPlayer.addGuard(IEntityCitizen))
                 {
                     MessageUtils.format(COLONY_ATTACK_GUARD_GROUP_SIZE_MESSAGE, attackingPlayer.getPlayer().getName(), attackingPlayer.getGuards().size())
-                      .sendTo(this)
-                      .forManagers();
+                        .sendTo(this)
+                        .forManagers();
                 }
                 return;
             }
@@ -1816,7 +1848,7 @@ public class Colony implements IColony
     public void addLoadedChunk(final long chunkPos, final LevelChunk chunk)
     {
         if (world instanceof ServerLevel
-              && getConfig().getServer().forceLoadColony.get())
+            && getConfig().getServer().forceLoadColony.get())
         {
             if (this.forceLoadTimer > 0)
             {
@@ -1948,6 +1980,7 @@ public class Colony implements IColony
 
     /**
      * Gets the colonies settings
+     *
      * @return
      */
     public ISettingsModule getSettings()

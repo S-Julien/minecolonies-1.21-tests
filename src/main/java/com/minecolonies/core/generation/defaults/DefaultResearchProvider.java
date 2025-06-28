@@ -6,6 +6,7 @@ import com.minecolonies.api.items.ModItems;
 import com.minecolonies.api.items.ModTags;
 import com.minecolonies.api.research.AbstractResearchProvider;
 import com.minecolonies.api.research.ResearchBranchType;
+import com.minecolonies.api.research.util.ResearchConstants;
 import com.minecolonies.api.util.constant.CitizenConstants;
 import com.minecolonies.api.util.constant.Constants;
 import net.minecraft.data.PackOutput;
@@ -25,11 +26,10 @@ import static com.minecolonies.api.research.util.ResearchConstants.*;
  * Note that this does not validate that the resulting research tree is coherent:
  * programmers should make sure that research parents and effects exist, that depth is 1 or one level above the parent depth,
  * and that cost and requirement identifiers match real items.
- *
- * Avoid changing research resource locations here unless necessary.
+ * <p>Avoid changing research resource locations here unless necessary.
  * If such a change is required, add the old and new ResearchIds to ResearchCompatMap.
  * ResearchIDs are stored to disk, and if not present on a GlobalResearchTree during colony load, will be lost.
- * Effect and Branch ResourceLocations are not stored to disk, but changing them may cause confusion with outside data packs.
+ * Effect and Branch ResourceLocations are not stored to disk, but changing them may cause confusion with outside data packs.</p>
  */
 public class DefaultResearchProvider extends AbstractResearchProvider
 {
@@ -101,10 +101,10 @@ public class DefaultResearchProvider extends AbstractResearchProvider
         effects.add(new ResearchEffect(PODZOL_CHANCE).setTranslatedName("Composters Get +%3$s%% More Podzol").setLevels(new double[] {1, 2}));
         effects.add(new ResearchEffect(RECIPES).setTranslatedName("Workers Can Learn +%3$s%% More Recipes").setLevels(new double[] {0.25, 0.5, 1, 2}));
         effects.add(new ResearchEffect(REGENERATION).setTranslatedName("Citizen Regeneration +%3$s%%").setLevels(new double[] {0.1, 0.25, 0.5, 1, 2}));
-        effects.add(new ResearchEffect(SATURATION).setTranslatedName("Citizen Saturation Per Meal +%3$s%%").setLevels(new double[] {0.1, 0.25, 0.5, 1, 2}));
+        effects.add(new ResearchEffect(SATURATION).setTranslatedName("Citizen Saturation Per Meal +%3$s%%").setLevels(new double[] {0.1, 0.2, 0.3, 0.4, 0.5}));
         effects.add(new ResearchEffect(TEACHING).setTranslatedName("XP Gain When Studying +%3$s%%").setLevels(new double[] {0.05, 0.1, 0.25, 0.5, 1}));
         effects.add(new ResearchEffect(TOOL_DURABILITY).setTranslatedName("Citizen Tools +%3$s%% Durability").setLevels(new double[] {0.05, 0.1, 0.25, 0.5, 0.9}));
-        effects.add(new ResearchEffect(WALKING).setTranslatedName("Citizen Walk Speed +%3$s%%").setLevels(new double[] {0.05, 0.1, 0.15, 0.25}));
+        effects.add(new ResearchEffect(WALKING).setTranslatedName("Citizen Walk Speed +%3$s%%").setLevels(new double[] {0.05, 0.1, 0.15, 0.2, 0.25}));
         effects.add(new ResearchEffect(WORK_LONGER).setTranslatedName("Citizen Work Day +%sH").setLevels(new double[] {1, 2}));
         effects.add(new ResearchEffect(RESURRECT_CHANCE).setTranslatedName("Improve Resurrection Chance by +%3$s%%").setLevels(new double[] {0.01, 0.03}));
         effects.add(new ResearchEffect(GRAVE_DECAY_BONUS).setTranslatedName("Citizen Graves Take %s More Minutes to Decay").setLevels(new double[] {2, 5}));
@@ -143,6 +143,7 @@ public class DefaultResearchProvider extends AbstractResearchProvider
         effects.add(new ResearchEffect(STANDARD).setTranslatedName("Place Rallying Banner at location"));
         effects.add(new ResearchEffect(MORE_AIR).setTranslatedName("Citizens can stay longer underwater"));
         effects.add(new ResearchEffect(MIN_ORDER).setTranslatedName("Buildings wait a bit longer before placing orders"));
+        effects.add(new ResearchEffect(GREEN_REVOLUTION).setTranslatedName("Crops grow outward in offshoots"));
 
         // Building-focused unlocks are derived from the block hut name.  Do not manually add ResourceLocations as a string, as some building blocks have surprising names.
         effects.add(new ResearchEffect(ModBuildings.archery.get().getBuildingBlock()).setTranslatedName("Unlocks Archery").setLevels(new double[] {5}));
@@ -177,6 +178,7 @@ public class DefaultResearchProvider extends AbstractResearchProvider
         effects.add(new ResearchEffect(THE_DEPTHS).setTranslatedName("Crusher Learns Deepslate and Tuff Recipes"));
         effects.add(new ResearchEffect(MORE_SCROLLS).setTranslatedName("Enchanter Learns Scroll Recipes to Locate Workers and Summon Guards"));
         effects.add(new ResearchEffect(PLATE_ARMOR).setTranslatedName("Blacksmith Learns Plate Armor Recipes"));
+        effects.add(new ResearchEffect(BUILDERS_ASSISTANT_HAMMER).setTranslatedName("Blacksmith Learns Advanced Builder's Assistant Hammer Recipes"));
 
         //Sifter Mesh triggers
         effects.add(new ResearchEffect(SIFTER_STRING).setTranslatedName("Fletcher Learns How to Make String Meshes for the Sifter"));
@@ -364,49 +366,31 @@ public class DefaultResearchProvider extends AbstractResearchProvider
           .addEffect(LEVELING, 5)
           .addToList(r);
 
-        final Research rails = new Research(new ResourceLocation(Constants.MOD_ID, "civilian/rails"), CIVIL).setParentResearch(keen)
-                                 .setTranslatedName("Rails")
-                                 .setTranslatedSubtitle("Research is progressing right on track.")
-                                 .setSortOrder(3)
-                                 .setIcon(Items.DETECTOR_RAIL)
-                                 .addBuildingRequirement(ModBuildings.DELIVERYMAN_ID, 3)
-                                 .addItemCost(Items.RAIL, 64)
-                                 .addEffect(RAILS, 1)
-                                 .addToList(r);
-        final Research nimble = new Research(new ResourceLocation(Constants.MOD_ID, "civilian/nimble"), CIVIL).setParentResearch(rails)
-                                  .setTranslatedName("Nimble")
-                                  .setTranslatedSubtitle("Not that we get time to exercise. It must be the morning commute.")
+        final Research haste = new Research(new ResourceLocation(Constants.MOD_ID, "civilian/haste"), CIVIL).setParentResearch(keen)
+                                  .setTranslatedName("Haste")
+                                  .setTranslatedSubtitle("We have got to hurry up!")
                                   .setIcon(new ResourceLocation("minecolonies:textures/icons/research/speed1.png"))
                                   .addBuildingRequirement(ModBuildings.TOWNHALL_ID, 3)
                                   .addItemCost(Items.RABBIT_FOOT, 1)
                                   .addEffect(WALKING, 1)
+                                  .setSortOrder(3)
                                   .addToList(r);
-        new Research(new ResourceLocation(Constants.MOD_ID, "civilian/vines"), CIVIL).setParentResearch(keen)
-                                 .setTranslatedName("Aaaiooooiooo")
-                                 .setTranslatedSubtitle("Me Tarzan, you Jane.")
-                                 .setSortOrder(4)
-                                 .setIcon(Items.VINE)
-                                 .addBuildingRequirement(ModBuildings.HOME_ID, 3)
-                                 .addItemCost(Items.VINE, 64)
-                                 .addEffect(VINES, 1)
-                                 .addToList(r);
-        new Research(new ResourceLocation(Constants.MOD_ID, "civilian/moq"), CIVIL).setParentResearch(rails)
-                .setTranslatedName("Minimum Order Quantity")
-                .setTranslatedSubtitle("Work smarter, not harder.")
-                .setSortOrder(10)
-                .setIcon(ModItems.clipboard)
-                .addBuildingRequirement(ModBuildings.DELIVERYMAN_ID, 9)
-                .addItemCost(ModItems.clipboard, 1)
-                .addItemCost(Items.BOOK, 16)
-                .addEffect(MIN_ORDER, 1)
-                .addToList(r);
+        final Research nimble = new Research(new ResourceLocation(Constants.MOD_ID, "civilian/nimble"), CIVIL).setParentResearch(haste)
+                                  .setTranslatedName("Nimble")
+                                  .setTranslatedSubtitle("Not that we get time to exercise. It must be the morning commute.")
+                                  .setIcon(new ResourceLocation("minecolonies:textures/icons/research/speed1.png"))
+                                  .addBuildingRequirement(ModBuildings.TOWNHALL_ID, 3)
+                                  .addItemCost(Items.RABBIT_FOOT, 4)
+                                  .addEffect(WALKING, 2)
+                                  .setSortOrder(3)
+                                  .addToList(r);
         final Research agile = new Research(new ResourceLocation(Constants.MOD_ID, "civilian/agile"), CIVIL).setParentResearch(nimble)
                                  .setTranslatedName("Agile")
                                  .setTranslatedSubtitle("So this is how it feels to be young again...")
                                  .setIcon(new ResourceLocation("minecolonies:textures/icons/research/speed2.png"))
                                  .addBuildingRequirement(ModBuildings.TOWNHALL_ID, 4)
-                                 .addItemCost(Items.RABBIT_FOOT, 10)
-                                 .addEffect(WALKING, 2)
+                                 .addItemCost(Items.RABBIT_FOOT, 8)
+                                 .addEffect(WALKING, 3)
                                  .addToList(r);
         final Research swift = new Research(new ResourceLocation(Constants.MOD_ID, "civilian/swift"), CIVIL).setParentResearch(agile)
                                  .setTranslatedName("Swift")
@@ -414,14 +398,32 @@ public class DefaultResearchProvider extends AbstractResearchProvider
                                  .setIcon(new ResourceLocation("minecolonies:textures/icons/research/speed3.png"))
                                  .addBuildingRequirement(ModBuildings.TOWNHALL_ID, 5)
                                  .addItemCost(Items.RABBIT_FOOT, 32)
-                                 .addEffect(WALKING, 3)
+                                 .addEffect(WALKING, 4)
                                  .addToList(r);
         new Research(new ResourceLocation(Constants.MOD_ID, "civilian/athlete"), CIVIL).setParentResearch(swift)
           .setTranslatedName("Athlete")
           .setTranslatedSubtitle("Try thinking as fast as your feet now!")
           .setIcon(new ResourceLocation("minecolonies:textures/icons/research/speed4.png"))
           .addItemCost(Items.RABBIT_FOOT, 64)
-          .addEffect(WALKING, 4)
+          .addEffect(WALKING, 5)
+          .addToList(r);
+        new Research(new ResourceLocation(Constants.MOD_ID, "civilian/rails"), CIVIL).setParentResearch(keen)
+          .setTranslatedName("Rails")
+          .setTranslatedSubtitle("Research is progressing right on track.")
+          .setSortOrder(4)
+          .setIcon(Items.DETECTOR_RAIL)
+          .addBuildingRequirement(ModBuildings.DELIVERYMAN_ID, 3)
+          .addItemCost(Items.RAIL, 64)
+          .addEffect(RAILS, 1)
+          .addToList(r);
+        new Research(new ResourceLocation(Constants.MOD_ID, "civilian/vines"), CIVIL).setParentResearch(keen)
+          .setTranslatedName("Aaaiooooiooo")
+          .setTranslatedSubtitle("Me Tarzan, you Jane.")
+          .setSortOrder(5)
+          .setIcon(Items.VINE)
+          .addBuildingRequirement(ModBuildings.HOME_ID, 3)
+          .addItemCost(Items.VINE, 64)
+          .addEffect(VINES, 1)
           .addToList(r);
 
         // Primary Research #3
@@ -1328,6 +1330,16 @@ public class DefaultResearchProvider extends AbstractResearchProvider
           .addEffect(PLANTATION_NETHER, 1)
           .addToList(r);
 
+        new Research(new ResourceLocation(Constants.MOD_ID, "technology/greenrevolution"), TECH).setParentResearch(biodegradable)
+            .setTranslatedName("Green Revolution")
+            .setTranslatedSubtitle("I can feel it in the soil!")
+            .setSortOrder(3)
+            .setIcon(ModItems.compost)
+            .addBuildingRequirement(ModBuildings.FARMER_ID, 4)
+            .addItemCost(ModItems.compost, 32)
+            .addEffect(GREEN_REVOLUTION, 1)
+            .addToList(r);
+
         final Research bonemeal = new Research(new ResourceLocation(Constants.MOD_ID, "technology/bonemeal"), TECH).setParentResearch(biodegradable)
                                     .setTranslatedName("Bonemeal")
                                     .setTranslatedSubtitle("And to think this stuff feeds our plants...")
@@ -1595,14 +1607,25 @@ public class DefaultResearchProvider extends AbstractResearchProvider
           .addToList(r);
 
         new Research(new ResourceLocation(Constants.MOD_ID, "technology/warehousemaster"), TECH).setParentResearch(memoryAid)
-                                      .setTranslatedName("Warehouse Master")
-                                      .setTranslatedSubtitle("So many items to choose from!")
-                                      .setIcon(ModBlocks.blockRack.asItem())
-                                      .addBuildingRequirement(ModBuildings.SAWMILL_ID, 3)
-                                      .addItemCost(ModBlocks.blockRack.asItem(), 3)
-                                      .addEffect(RECIPE_MODE, 1)
-                                      .setSortOrder(2)
-                                      .addToList(r);
+          .setTranslatedName("Warehouse Master")
+          .setTranslatedSubtitle("So many items to choose from!")
+          .setIcon(ModBlocks.blockRack.asItem())
+          .addBuildingRequirement(ModBuildings.SAWMILL_ID, 3)
+          .addItemCost(ModBlocks.blockRack.asItem(), 3)
+          .addEffect(RECIPE_MODE, 1)
+          .setSortOrder(2)
+          .addToList(r);
+
+        new Research(new ResourceLocation(Constants.MOD_ID, "civilian/moq"), TECH).setParentResearch(memoryAid)
+          .setTranslatedName("Minimum Order Quantity")
+          .setTranslatedSubtitle("Work smarter, not harder.")
+          .setIcon(ModItems.clipboard)
+          .addBuildingRequirement(ModBuildings.DELIVERYMAN_ID, 9)
+          .addItemCost(ModItems.clipboard, 1)
+          .addItemCost(Items.BOOK, 16)
+          .addEffect(MIN_ORDER, 1)
+          .setSortOrder(3)
+          .addToList(r);
 
         new Research(new ResourceLocation(Constants.MOD_ID, "technology/buildermodes"), TECH).setParentResearch(memoryAid)
           .setTranslatedName("Builder Modes")
@@ -1611,7 +1634,7 @@ public class DefaultResearchProvider extends AbstractResearchProvider
           .addBuildingRequirement(ModBuildings.BUILDER_ID, 3)
           .addItemCost(Items.DIAMOND_AXE, 1)
           .addEffect(BUILDER_MODE, 1)
-          .setSortOrder(3)
+          .setSortOrder(4)
           .addToList(r);
 
         final Research deepPockets = new Research(new ResourceLocation(Constants.MOD_ID, "technology/deeppockets"), TECH).setParentResearch(cheatSheet)
@@ -1621,6 +1644,7 @@ public class DefaultResearchProvider extends AbstractResearchProvider
                                        .addBuildingRequirement(ModBuildings.LIBRARY_ID, 4)
                                        .addItemCost(Items.EMERALD, 64)
                                        .addEffect(CITIZEN_INV_SLOTS, 1)
+                                       .setNoReset()
                                        .addToList(r);
         final Research loaded = new Research(new ResourceLocation(Constants.MOD_ID, "technology/loaded"), TECH).setParentResearch(deepPockets)
                                   .setTranslatedName("Loaded")
@@ -1628,6 +1652,7 @@ public class DefaultResearchProvider extends AbstractResearchProvider
                                   .addBuildingRequirement(ModBuildings.LIBRARY_ID, 5)
                                   .addItemCost(Items.EMERALD, 128)
                                   .addEffect(CITIZEN_INV_SLOTS, 2)
+                                  .setNoReset()
                                   .addToList(r);
         new Research(new ResourceLocation(Constants.MOD_ID, "technology/heavilyloaded"), TECH).setParentResearch(loaded)
           .setTranslatedName("Heavily Loaded")
@@ -1635,6 +1660,7 @@ public class DefaultResearchProvider extends AbstractResearchProvider
           .setNoReset()
           .addItemCost(Items.EMERALD, 256)
           .addEffect(CITIZEN_INV_SLOTS, 3)
+          .setNoReset()
           .addToList(r);
 
         // Primary Research #6
@@ -1697,6 +1723,13 @@ public class DefaultResearchProvider extends AbstractResearchProvider
                                        .addItemCost(Items.ANVIL, 1)
                                        .addEffect(ModBuildings.blacksmith.get().getBuildingBlock(), 1)
                                        .addToList(r);
+        new Research(new ResourceLocation(Constants.MOD_ID, "technology/assistanthammers"), TECH).setParentResearch(hittingIron)
+            .setTranslatedName("Professional Assistant")
+            .setIcon(ModItems.assistantHammer_Diamond)
+            .addBuildingRequirement(ModBuildings.BLACKSMITH_ID, 1)
+            .addItemCost(Items.IRON_BLOCK, 2)
+            .addEffect(ResearchConstants.BUILDERS_ASSISTANT_HAMMER, 1)
+            .addToList(r);
         final Research strong = new Research(new ResourceLocation(Constants.MOD_ID, "technology/strong"), TECH).setParentResearch(hittingIron)
                                   .setTranslatedName("Strong")
                                   .setIcon(Items.WOODEN_PICKAXE)

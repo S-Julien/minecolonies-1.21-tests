@@ -3,23 +3,22 @@ package com.minecolonies.core.colony.workorders;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.ldtteam.structurize.blueprints.v1.Blueprint;
-import com.ldtteam.structurize.storage.StructurePacks;
 import com.minecolonies.api.colony.ICitizenData;
 import com.minecolonies.api.colony.IColony;
-import com.minecolonies.api.colony.jobs.IJob;
-import com.minecolonies.api.colony.workorders.IWorkManager;
-import com.minecolonies.api.colony.workorders.IWorkOrder;
-import com.minecolonies.api.colony.workorders.IWorkOrderView;
-import com.minecolonies.api.colony.workorders.WorkOrderType;
+import com.minecolonies.api.colony.workorders.*;
 import com.minecolonies.api.util.BlockPosUtil;
+import com.minecolonies.api.util.ColonyUtils;
 import com.minecolonies.api.util.Log;
 import com.minecolonies.api.util.Tuple;
+import com.minecolonies.api.util.constant.Constants;
 import com.minecolonies.core.colony.buildings.workerbuildings.BuildingBuilder;
 import com.minecolonies.core.colony.workorders.view.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,14 +26,16 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
+import static com.minecolonies.api.util.constant.NbtTagConstants.TAG_STAGE;
 import static com.minecolonies.api.util.constant.Suppression.UNUSED_METHOD_PARAMETERS_SHOULD_BE_REMOVED;
 
 /**
  * General information between WorkOrders.
  */
-public abstract class AbstractWorkOrder implements IWorkOrder
+public abstract class AbstractWorkOrder implements IBuilderWorkOrder
 {
     /**
      * NBT for storage.
@@ -57,6 +58,7 @@ public abstract class AbstractWorkOrder implements IWorkOrder
     private static final String TAG_ITERATOR            = "iterator";
     private static final String TAG_IS_CLEARED          = "cleared";
     private static final String TAG_IS_REQUESTED        = "requested";
+    private static final String TAG_BB = "bb";
 
     /**
      * Bimap of workOrder from string to class.
@@ -92,7 +94,7 @@ public abstract class AbstractWorkOrder implements IWorkOrder
     /**
      * Which building has claimed this work order.
      */
-    private BlockPos claimedBy;
+    private BlockPos claimedBy = BlockPos.ZERO;
 
     /**
      * The structurize schematic name.
@@ -140,6 +142,11 @@ public abstract class AbstractWorkOrder implements IWorkOrder
     private int amountOfResources;
 
     /**
+     * The building stage this workorder is in
+     */
+    private int stage = 0;
+
+    /**
      * The iterator type (building method) of this work order.
      */
     private String iteratorType;
@@ -158,6 +165,26 @@ public abstract class AbstractWorkOrder implements IWorkOrder
      * Internal flag to see if anything has been changed.
      */
     protected boolean changed;
+
+    /**
+     * The workorder area
+     */
+    protected AABB box = Constants.EMPTY_AABB;
+
+    /**
+     * The blueprint of this workorders schematic
+     */
+    protected Blueprint blueprint = null;
+
+    /**
+     * The loading future of the blueprint
+     */
+    protected CompletableFuture<Blueprint> future = null;
+
+    /**
+     * Colony this workorder is in
+     */
+    protected IColony colony = null;
 
     /**
      * Add a given Work Order mapping.
@@ -196,9 +223,9 @@ public abstract class AbstractWorkOrder implements IWorkOrder
      * @param manager  the work manager.
      * @return {@link IWorkOrder} from the NBT
      */
-    public static IWorkOrder createFromNBT(@NotNull final CompoundTag compound, final WorkManager manager)
+    public static IServerWorkOrder createFromNBT(@NotNull final CompoundTag compound, final WorkManager manager)
     {
-        @Nullable IWorkOrder order = null;
+        @Nullable IServerWorkOrder order = null;
         @Nullable Class<? extends IWorkOrder> oclass = null;
 
         try
@@ -217,7 +244,7 @@ public abstract class AbstractWorkOrder implements IWorkOrder
             if (oclass != null)
             {
                 final Constructor<?> constructor = oclass.getDeclaredConstructor();
-                order = (IWorkOrder) constructor.newInstance();
+                order = (IServerWorkOrder) constructor.newInstance();
             }
         }
         catch (NoSuchMethodException | InstantiationException | InvocationTargetException | IllegalAccessException e)
@@ -231,6 +258,8 @@ public abstract class AbstractWorkOrder implements IWorkOrder
             return null;
         }
 
+        order.setColony(manager.getColony());
+
         try
         {
             order.read(compound, manager);
@@ -238,7 +267,7 @@ public abstract class AbstractWorkOrder implements IWorkOrder
         catch (final RuntimeException ex)
         {
             Log.getLogger().error(String.format("A WorkOrder %s(%s) has thrown an exception during loading, its state cannot be restored. Report this to the mod author",
-              compound.getString(TAG_TYPE), oclass.getName()), ex);
+                compound.getString(TAG_TYPE), oclass.getName()), ex);
             return null;
         }
 
@@ -284,7 +313,7 @@ public abstract class AbstractWorkOrder implements IWorkOrder
         catch (final RuntimeException ex)
         {
             Log.getLogger().error(String.format("A WorkOrder.View for #%d has thrown an exception during loading, its state cannot be restored. Report this to the mod author",
-              orderView.getId()), ex);
+                orderView.getID()), ex);
             return null;
         }
 
@@ -301,15 +330,15 @@ public abstract class AbstractWorkOrder implements IWorkOrder
     }
 
     protected AbstractWorkOrder(
-      String packName,
-      String path,
-      String translationKey,
-      WorkOrderType workOrderType,
-      BlockPos location,
-      int rotation,
-      boolean isMirrored,
-      int currentLevel,
-      int targetLevel)
+        String packName,
+        String path,
+        String translationKey,
+        WorkOrderType workOrderType,
+        BlockPos location,
+        int rotation,
+        boolean isMirrored,
+        int currentLevel,
+        int targetLevel)
     {
         this();
         this.packName = packName;
@@ -356,37 +385,18 @@ public abstract class AbstractWorkOrder implements IWorkOrder
     @Override
     public final void setClaimedBy(BlockPos claimedBy)
     {
-        this.claimedBy = claimedBy;
-    }
-
-    @Override
-    public final void setClaimedBy(@Nullable ICitizenData citizen)
-    {
         changed = true;
-        claimedBy = (citizen != null && citizen.getWorkBuilding() != null) ? citizen.getWorkBuilding().getPosition() : null;
+        this.claimedBy = claimedBy;
+        if (claimedBy == null)
+        {
+            this.claimedBy = BlockPos.ZERO;
+        }
     }
 
     @Override
     public final boolean isClaimed()
     {
-        return claimedBy != null;
-    }
-
-    @Override
-    public final boolean isClaimedBy(@NotNull ICitizenData citizen)
-    {
-        if (citizen.getWorkBuilding() != null)
-        {
-            return citizen.getWorkBuilding().getPosition().equals(claimedBy);
-        }
-        return false;
-    }
-
-    @Override
-    public final void clearClaimedBy()
-    {
-        changed = true;
-        claimedBy = null;
+        return !BlockPos.ZERO.equals(claimedBy);
     }
 
     @Override
@@ -402,9 +412,25 @@ public abstract class AbstractWorkOrder implements IWorkOrder
     }
 
     @Override
-    public Future<Blueprint> getBlueprintFuture()
+    public void loadBlueprint(final Level world, final Consumer<Blueprint> afterLoad)
     {
-        return StructurePacks.getBlueprintFuture(getStructurePack(), getStructurePath());
+        if (blueprint != null)
+        {
+            afterLoad.accept(blueprint);
+        }
+        else if (future == null || future.isDone())
+        {
+            future = ColonyUtils.queueBlueprintLoad(world, getStructurePack(), getStructurePath(), blueprint ->
+                {
+                    setBlueprint(blueprint, world);
+                    afterLoad.accept(blueprint);
+                },
+                e -> afterLoad.accept(null));
+        }
+        else
+        {
+            afterLoad.accept(null);
+        }
     }
 
     @Override
@@ -524,13 +550,59 @@ public abstract class AbstractWorkOrder implements IWorkOrder
         return Component.translatable(getTranslationKey());
     }
 
-    /**
-     * Whether this work order can be made by a builder.
-     *
-     * @param job
-     * @return a boolean.
-     */
-    public abstract boolean canBeMadeBy(final IJob<?> job);
+    @Override
+    public void setBlueprint(final Blueprint blueprint, final Level world)
+    {
+        if (blueprint != null && blueprint != this.blueprint)
+        {
+            this.blueprint = blueprint;
+            changed = true;
+            final net.minecraft.util.Tuple<BlockPos, BlockPos> corners
+                = ColonyUtils.calculateCorners(location,
+                world,
+                blueprint,
+                getRotation(),
+                isMirrored());
+
+            box = new AABB(corners.getA(), corners.getB());
+        }
+    }
+
+    @Override
+    public Blueprint getBlueprint()
+    {
+        return blueprint;
+    }
+
+    @Override
+    public void clearBlueprint()
+    {
+        blueprint = null;
+        future = null;
+    }
+
+    @Override
+    public AABB getBoundingBox()
+    {
+        if (box == Constants.EMPTY_AABB && colony != null && colony.getWorld() != null)
+        {
+            loadBlueprint(colony.getWorld(), b -> clearBlueprint());
+        }
+
+        return box;
+    }
+
+    @Override
+    public IColony getColony()
+    {
+        return colony;
+    }
+
+    @Override
+    public void setColony(final IColony colony)
+    {
+        this.colony = colony;
+    }
 
     /**
      * Whether the work order can be built or not.
@@ -599,6 +671,17 @@ public abstract class AbstractWorkOrder implements IWorkOrder
         iteratorType = compound.getString(TAG_ITERATOR);
         cleared = compound.getBoolean(TAG_IS_CLEARED);
         requested = compound.getBoolean(TAG_IS_REQUESTED);
+
+        if (compound.contains(TAG_STAGE))
+        {
+            stage = compound.getInt(TAG_STAGE);
+        }
+
+        if (compound.contains(TAG_BB))
+        {
+            CompoundTag tag = (CompoundTag) compound.get(TAG_BB);
+            box = new AABB(tag.getInt("minx"), tag.getInt("miny"), tag.getInt("minz"), tag.getInt("maxx"), tag.getInt("maxy"), tag.getInt("maxz"));
+        }
     }
 
     /**
@@ -612,10 +695,7 @@ public abstract class AbstractWorkOrder implements IWorkOrder
         compound.putInt(TAG_TH_PRIORITY, priority);
         compound.putString(TAG_TYPE, getMappingName());
         compound.putInt(TAG_ID, id);
-        if (claimedBy != null)
-        {
-            BlockPosUtil.write(compound, TAG_CLAIMED_BY_BUILDING, claimedBy);
-        }
+        BlockPosUtil.write(compound, TAG_CLAIMED_BY_BUILDING, claimedBy);
         compound.putString(TAG_STRUCTURE_PACK, packName);
         compound.putString(TAG_STRUCTURE_PATH, path);
         compound.putString(TAG_TRANSLATION_KEY, translationKey);
@@ -629,6 +709,19 @@ public abstract class AbstractWorkOrder implements IWorkOrder
         compound.putString(TAG_ITERATOR, iteratorType);
         compound.putBoolean(TAG_IS_CLEARED, cleared);
         compound.putBoolean(TAG_IS_REQUESTED, requested);
+        compound.putInt(TAG_STAGE, stage);
+
+        if (box != Constants.EMPTY_AABB)
+        {
+            CompoundTag tag = new CompoundTag();
+            tag.putInt("minx", (int) box.minX);
+            tag.putInt("miny", (int) box.minY);
+            tag.putInt("minz", (int) box.minZ);
+            tag.putInt("maxx", (int) box.maxX);
+            tag.putInt("maxy", (int) box.maxY);
+            tag.putInt("maxz", (int) box.maxZ);
+            compound.put(TAG_BB, tag);
+        }
     }
 
     /**
@@ -642,7 +735,7 @@ public abstract class AbstractWorkOrder implements IWorkOrder
         buf.writeUtf(getMappingName());
         buf.writeInt(id);
         buf.writeInt(priority);
-        buf.writeBlockPos(claimedBy == null ? BlockPos.ZERO : claimedBy);
+        buf.writeBlockPos(claimedBy);
         buf.writeUtf(packName);
         buf.writeUtf(path);
         buf.writeUtf(translationKey);
@@ -652,10 +745,13 @@ public abstract class AbstractWorkOrder implements IWorkOrder
         buf.writeBoolean(isMirrored);
         buf.writeInt(currentLevel);
         buf.writeInt(targetLevel);
-        buf.writeInt(amountOfResources);
-        buf.writeUtf(iteratorType);
-        buf.writeBoolean(cleared);
-        buf.writeBoolean(requested);
+        buf.writeInt(stage);
+        buf.writeDouble(getBoundingBox().minX);
+        buf.writeDouble(getBoundingBox().minY);
+        buf.writeDouble(getBoundingBox().minZ);
+        buf.writeDouble(getBoundingBox().maxX);
+        buf.writeDouble(getBoundingBox().maxY);
+        buf.writeDouble(getBoundingBox().maxZ);
     }
 
     private String getMappingName()
@@ -748,5 +844,21 @@ public abstract class AbstractWorkOrder implements IWorkOrder
     public boolean tooFarFromAnyBuilder(final IColony colony, final int level)
     {
         return false;
+    }
+
+    @Override
+    public int getStage()
+    {
+        return stage;
+    }
+
+    @Override
+    public void setStage(final int stage)
+    {
+        if (stage != this.stage)
+        {
+            changed = true;
+            this.stage = stage;
+        }
     }
 }

@@ -34,6 +34,7 @@ public final class ModBuildingsInitializer
           .addBuildingModuleProducer(ARCHERY_WORK_HOME)
           .addBuildingModuleProducer(BED)
           .addBuildingModuleProducer(MIN_STOCK)
+          .addBuildingModuleProducer(STATS_MODULE)
           .createBuildingEntry());
 
         ModBuildings.bakery = DEFERRED_REGISTER.register(ModBuildings.BAKERY_ID, () -> new BuildingEntry.Builder()
@@ -49,7 +50,7 @@ public final class ModBuildingsInitializer
           .addBuildingModuleProducer(FURNACE)
           .addBuildingModuleProducer(MIN_STOCK)
           .addBuildingModuleProducer(ITEMLIST_FUEL)
-
+          .addBuildingModuleProducer(STATS_MODULE)
           .createBuildingEntry());
 
         ModBuildings.barracks = DEFERRED_REGISTER.register(ModBuildings.BARRACKS_ID, () -> new BuildingEntry.Builder()
@@ -130,6 +131,7 @@ public final class ModBuildingsInitializer
           .addBuildingModuleProducer(COMPOSTER_WORK)
           .addBuildingModuleProducer(COMPOSTER_SETTINGS)
           .addBuildingModuleProducer(ITEMLIST_COMPOSTABLE)
+          .addBuildingModuleProducer(STATS_MODULE)
           .createBuildingEntry());
 
         ModBuildings.cook = DEFERRED_REGISTER.register(ModBuildings.COOK_ID, () -> new BuildingEntry.Builder()
@@ -142,6 +144,7 @@ public final class ModBuildingsInitializer
           .addBuildingModuleProducer(ITEMLIST_FUEL)
           .addBuildingModuleProducer(RESTAURANT_MENU)
           .addBuildingModuleProducer(MIN_STOCK)
+          .addBuildingModuleProducer(STATS_MODULE)
           .createBuildingEntry());
 
         ModBuildings.cowboy = DEFERRED_REGISTER.register(ModBuildings.COWBOY_ID, () -> new BuildingEntry.Builder()
@@ -386,6 +389,7 @@ public final class ModBuildingsInitializer
           .addBuildingModuleProducer(FLORIST_WORK)
           .addBuildingModuleProducer(FLORIST_ITEMS)
           .addBuildingModuleProducer(MIN_STOCK)
+          .addBuildingModuleProducer(STATS_MODULE)
           .createBuildingEntry());
 
         ModBuildings.enchanter = DEFERRED_REGISTER.register(ModBuildings.ENCHANTER_ID, () -> new BuildingEntry.Builder()
@@ -415,6 +419,7 @@ public final class ModBuildingsInitializer
           .setRegistryName(new ResourceLocation(Constants.MOD_ID, ModBuildings.HOSPITAL_ID))
           .addBuildingModuleProducer(HEALER_WORK)
           .addBuildingModuleProducer(MIN_STOCK)
+          .addBuildingModuleProducer(STATS_MODULE)
           .createBuildingEntry());
 
         ModBuildings.stash = DEFERRED_REGISTER.register(ModBuildings.STASH_ID, () -> new BuildingEntry.Builder()
@@ -544,6 +549,7 @@ public final class ModBuildingsInitializer
           .addBuildingModuleProducer(BEEKEEPER_SETTINGS)
           .addBuildingModuleProducer(ITEMLIST_FLOWER)
           .addBuildingModuleProducer(MIN_STOCK)
+          .addBuildingModuleProducer(STATS_MODULE)
           .createBuildingEntry());
 
         ModBuildings.mysticalSite = DEFERRED_REGISTER.register(ModBuildings.MYSTICAL_SITE_ID, () -> new BuildingEntry.Builder()
@@ -606,6 +612,7 @@ public final class ModBuildingsInitializer
           .addBuildingModuleProducer(ALCHEMIST_CRAFT)
           .addBuildingModuleProducer(ALCHEMIST_BREW)
           .addBuildingModuleProducer(CRAFT_TASK_VIEW)
+          .addBuildingModuleProducer(STATS_MODULE)
           .createBuildingEntry());
 
         ModBuildings.kitchen = DEFERRED_REGISTER.register(ModBuildings.KITCHEN_ID, () -> new BuildingEntry.Builder()

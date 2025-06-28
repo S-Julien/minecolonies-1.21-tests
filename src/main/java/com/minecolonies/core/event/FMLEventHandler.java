@@ -53,6 +53,7 @@ public class FMLEventHandler
         event.addListener(new ItemNbtListener());
         event.addListener(new StudyItemListener());
         event.addListener(new DiseasesListener());
+        event.addListener(new RecruitmentItemsListener());
         event.addListener(new ColonyExpeditionTypeListener());
         event.addListener(new ExpeditionEncounterListener());
     }

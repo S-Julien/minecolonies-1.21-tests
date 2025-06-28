@@ -238,6 +238,12 @@ public interface ICitizenDataView extends ICitizen
     ItemStack getDisplayArmor(EquipmentSlot equipmentSlot);
 
     /**
+     * Check if sick.
+     * @return true if so.
+     */
+    boolean isSick();
+
+    /**
      * Get the colony this citizen belongs to.
      *
      * @return the colony view.
