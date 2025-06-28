@@ -193,11 +193,6 @@ public class Colony implements IColony
     private final IColonyExpeditionManager expeditionManager = new ColonyExpeditionManager(this);
 
     /**
-     * The traveling manager used for traveling large distances
-     */
-    private final TravelingManager travelingManager = new TravelingManager(this);
-
-    /**
      * The Positions which players can freely interact.
      */
     private ImmutableSet<BlockPos> freePositions = ImmutableSet.of();
@@ -481,7 +476,6 @@ public class Colony implements IColony
         workManager.onColonyTick(this);
         reproductionManager.onColonyTick(this);
         questManager.onColonyTick();
-        travelingManager.onTick();
 
         final long currTime = System.currentTimeMillis();
         if (lastOnlineTime != 0)
@@ -749,7 +743,6 @@ public class Colony implements IColony
         eventDescManager.deserializeNBT(compound.getCompound(NbtTagConstants.TAG_EVENT_DESC_MANAGER));
 
         expeditionManager.deserializeNBT(compound.getCompound(NbtTagConstants.TAG_EXPEDITION_MANAGER));
-        travelingManager.deserializeNBT(compound.getCompound(NbtTagConstants.TAG_TRAVELING_MANAGER));
 
         if (compound.contains(TAG_RESEARCH))
         {
@@ -915,7 +908,6 @@ public class Colony implements IColony
         compound.put(TAG_QUEST_MANAGER, questManager.serializeNBT());
         compound.put(NbtTagConstants.TAG_EVENT_DESC_MANAGER, eventDescManager.serializeNBT());
         compound.put(NbtTagConstants.TAG_EXPEDITION_MANAGER, expeditionManager.serializeNBT());
-        compound.put(NbtTagConstants.TAG_TRAVELING_MANAGER, travelingManager.serializeNBT());
 
         raidManager.write(compound);
 
@@ -1964,12 +1956,6 @@ public class Colony implements IColony
     public IColonyExpeditionManager getExpeditionManager()
     {
         return expeditionManager;
-    }
-
-    @Override
-    public ITravelingManager getTravelingManager()
-    {
-        return travelingManager;
     }
 
     @Override

@@ -24,15 +24,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -194,11 +186,11 @@ public class TavernBuildingModule extends AbstractBuildingModule implements IDef
             return null;
         }
 
-        final IVisitorData newCitizen = (IVisitorData) building.getColony().getVisitorManager().createAndRegisterCivilianData();
+        final IVisitorData newCitizen = building.getColony().getVisitorManager().createAndRegisterVisitorData(ModVisitorTypes.visitor.get());
         newCitizen.setBedPos(building.getPosition());
         newCitizen.setHomeBuilding(building);
         newCitizen.getCitizenSkillHandler().init(cost.recruitLevel());
-        newCitizen.setRecruitCosts(cost.itemStack());
+        newCitizen.setExtraDataValue(EXTRA_DATA_RECRUIT_COST, cost.itemStack());
 
         BlockPos spawnPos = BlockPosUtil.findSpawnPosAround(building.getColony().getWorld(), building.getPosition());
         if (spawnPos == null)
@@ -206,7 +198,7 @@ public class TavernBuildingModule extends AbstractBuildingModule implements IDef
             spawnPos = building.getPosition();
         }
 
-        building.getColony().getVisitorManager().spawnOrCreateCivilian(newCitizen, building.getColony().getWorld(), spawnPos, true);
+        building.getColony().getVisitorManager().spawnOrCreateVisitor(newCitizen.getVisitorType(), newCitizen, building.getColony().getWorld(), spawnPos);
         if (newCitizen.getEntity().isPresent())
         {
             newCitizen.getEntity().get().setItemSlot(EquipmentSlot.FEET, cost.boots().getDefaultInstance());

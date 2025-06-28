@@ -941,7 +941,7 @@ public class CitizenData implements ICitizenData
 
         if (nextRespawnPos != null)
         {
-            ICitizenData data = colony.getCitizenManager().spawnOrCreateCivilian(this, colony.getWorld(), nextRespawnPos, true);
+            ICitizenData data = colony.getCitizenManager().spawnOrCreateCitizen(this, colony.getWorld(), nextRespawnPos, true);
             data.getEntity().ifPresent(entity -> {
                 entity.getCitizenJobHandler().setModelDependingOnJob(data.getJob());
                 if (!spawnVisible)

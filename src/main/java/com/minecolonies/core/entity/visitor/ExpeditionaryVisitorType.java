@@ -22,7 +22,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.StreamSupport;
 
 import static com.minecolonies.api.util.constant.Constants.TICKS_SECOND;
 import static com.minecolonies.api.util.constant.ExpeditionConstants.EXPEDITION_FINISHED_LEAVING_MESSAGE;
@@ -109,11 +108,17 @@ public class ExpeditionaryVisitorType implements IVisitorType
             }
         }
 
-        if (expeditionStatus == ExpeditionStatus.FINISHED && entity.get().getInventoryCitizen().isEmpty() && StreamSupport.stream(entity.get()
-                                                                                                                                    .getInventoryCitizen()
-                                                                                                                                    .getIterableArmorAndHandInv()
-                                                                                                                                    .spliterator(), false)
-                                                                                                               .allMatch(ItemStack::isEmpty))
+        boolean hasTools = false;
+        for (ItemStack stack : entity.get().getInventoryCitizen().getIterableArmorAndHandInv())
+        {
+            if (!stack.isEmpty())
+            {
+                hasTools = true;
+                break;
+            }
+        }
+
+        if (expeditionStatus == ExpeditionStatus.FINISHED && entity.get().getInventoryCitizen().isEmpty() && !hasTools)
         {
             visitor.getColony().getVisitorManager().removeCivilian(visitor);
             MessageUtils.format(EXPEDITION_FINISHED_LEAVING_MESSAGE, visitor.getName()).sendTo(visitor.getColony()).forManagers();

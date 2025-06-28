@@ -33,8 +33,8 @@ public class EntityAIExpeditionary implements IState
         this.visitor = entity;
 
         ITickRateStateMachine<IState> stateMachine = entity.getEntityStateController();
-        stateMachine.addTransition(new TickingTransition<>(EntityState.INIT, this::isEntityLoaded, () -> VisitorState.WANDERING, 50));
-        stateMachine.addTransition(new TickingTransition<>(VisitorState.WANDERING, () -> true, this::wander, 50));
+        stateMachine.addTransition(new TickingTransition<>(EntityState.INIT, this::isEntityLoaded, () -> ExpeditionaryState.WANDERING, 50));
+        stateMachine.addTransition(new TickingTransition<>(ExpeditionaryState.WANDERING, () -> true, this::wander, 50));
     }
 
     /**
@@ -57,7 +57,7 @@ public class EntityAIExpeditionary implements IState
      *
      * @return next state
      */
-    private VisitorState wander()
+    private ExpeditionaryState wander()
     {
         final IRegisteredStructureManager buildingManager = visitor.getCitizenColonyHandler().getColony().getBuildingManager();
         if (buildingManager.hasTownHall())
@@ -69,13 +69,13 @@ public class EntityAIExpeditionary implements IState
             EntityNavigationUtils.walkToRandomPos(this.visitor, 10, DEFAULT_SPEED);
         }
 
-        return VisitorState.WANDERING;
+        return ExpeditionaryState.WANDERING;
     }
 
     /**
      * States of the expeditionary AI.
      */
-    public enum VisitorState implements IState
+    public enum ExpeditionaryState implements IState
     {
         WANDERING
     }

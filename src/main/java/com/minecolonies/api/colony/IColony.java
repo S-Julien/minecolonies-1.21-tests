@@ -488,13 +488,6 @@ public interface IColony
     IColonyExpeditionManager getExpeditionManager();
 
     /**
-     * Get the traveling manager used for traveling large distances.
-     *
-     * @return the travelling manager.
-     */
-    ITravelingManager getTravelingManager();
-
-    /**
      * Get citizen from colony.
      *
      * @param id the id of the cit.

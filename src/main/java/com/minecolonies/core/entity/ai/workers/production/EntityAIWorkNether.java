@@ -166,7 +166,8 @@ public class EntityAIWorkNether extends AbstractEntityAICrafting<JobNetherWorker
         worker.getCitizenData().getColony().getTravelingManager().startTravellingTo(
             worker.getCitizenData(),
             building.getPortalLocation(),
-            job.getCraftedResults().size() * 20 //One second of travelling time per item, task or adventure that we complete, maybe parameterize in the config.
+            job.getCraftedResults().size() * 20, //One second of travelling time per item, task or adventure that we complete, maybe parameterize in the config.
+            true
         );
 
         worker.remove(Entity.RemovalReason.DISCARDED);

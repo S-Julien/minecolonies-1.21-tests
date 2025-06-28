@@ -56,7 +56,6 @@ public final class NbtTagConstants
     public static final String TAG_QUEST_MANAGER          = "quest_manager";
     public static final String TAG_GRAVE_MANAGER          = "graveManager";
     public static final String TAG_EXPEDITION_MANAGER     = "expedition_manager";
-    public static final String TAG_TRAVELING_MANAGER      = "traveling_manager";
     public static final String TAG_COLONY_ID              = "colony";
     public static final String TAG_CITIZEN                = "citizen";
     public static final String TAG_HELD_ITEM_SLOT         = "HeldItemSlot";
@@ -735,24 +734,17 @@ public final class NbtTagConstants
     public static final String TAG_SUPPLIER      = "supplier";
 
     /**
-     * Traveling nbt tags.
-     */
-    public static final String TAG_INITIAL_TRAVEL_TIME   = "initialTravelTime";
-    public static final String TAG_REMAINING_TRAVEL_TIME = "remainingTravelTime";
-    public static final String TAG_CAN_RECALL            = "canRecall";
-    public static final String TRAVELER_DATA             = "travelerData";
-
-    /**
      * Supplycamp related things.
      */
     public static final String TAG_SAW_STORY  = "sawstory";
     public static final String TAG_RANDOM_KEY = "randkey";
 
-    public static final String TAG_LAST_FOODS          = "lastfoods";
-    public static final String TRAVELER_DATA           = "travelerData";
-    public static final String TAG_INITIAL_TRAVEL_TIME = "initialTravelTime";
+    public static final String TAG_LAST_FOODS            = "lastfoods";
+    public static final String TRAVELER_DATA             = "travelerData";
+    public static final String TAG_INITIAL_TRAVEL_TIME   = "initialTravelTime";
     public static final String TAG_REMAINING_TRAVEL_TIME = "remainingTravelTime";
-    public static final String TAG_TRAVELLING_DATA     = "travellingData";
+    public static final String TAG_CAN_RECALL            = "canRecall";
+    public static final String TAG_TRAVELLING_DATA       = "travellingData";
 
     /**
      * Farmer building related things.

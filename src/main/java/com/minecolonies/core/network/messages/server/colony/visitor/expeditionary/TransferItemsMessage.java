@@ -18,8 +18,6 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import net.minecraftforge.network.NetworkEvent.Context;
 
-import java.util.Optional;
-
 /**
  * Network message for transferring items to the expeditionary.
  */
@@ -80,28 +78,27 @@ public class TransferItemsMessage extends AbstractColonyServerMessage
             return;
         }
 
-        final Optional<ColonyExpeditionRequirement> requirement = colonyExpeditionType.requirements().stream()
-                                                                    .filter(f -> f.getId().equals(requirementId))
-                                                                    .findFirst();
-        if (requirement.isPresent())
+        for (ColonyExpeditionRequirement requirement : colonyExpeditionType.requirements())
         {
-            final IItemHandler inventoryHandler = new InvWrapper(expeditionSheetContainerManager);
-
-            final RequirementHandler handler = requirement.get().createHandler(inventoryHandler);
-            final int needed = handler.getAmount() - handler.getAmountAvailable();
-
-            if (needed > 0)
+            if (requirement.getId().equals(requirementId))
             {
-                if (ctxIn.getSender().isCreative())
+                final IItemHandler inventoryHandler = new InvWrapper(expeditionSheetContainerManager);
+                final RequirementHandler handler = requirement.createHandler(inventoryHandler);
+                final int needed = handler.getAmount() - handler.getAmountAvailable();
+
+                if (needed > 0)
                 {
-                    InventoryUtils.addItemStackToItemHandler(inventoryHandler, handler.getDefaultItemStack().copyWithCount(needed));
-                }
-                else
-                {
-                    InventoryUtils.transferItemStackIntoNextFreeSlotFromItemHandler(new InvWrapper(ctxIn.getSender().getInventory()),
-                      handler.getItemPredicate(),
-                      needed,
-                      inventoryHandler);
+                    if (ctxIn.getSender().isCreative())
+                    {
+                        InventoryUtils.addItemStackToItemHandler(inventoryHandler, handler.getDefaultItemStack().copyWithCount(needed));
+                    }
+                    else
+                    {
+                        InventoryUtils.transferItemStackIntoNextFreeSlotFromItemHandler(new InvWrapper(ctxIn.getSender().getInventory()),
+                            handler.getItemPredicate(),
+                            needed,
+                            inventoryHandler);
+                    }
                 }
             }
         }

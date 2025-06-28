@@ -251,11 +251,6 @@ public final class ColonyView implements IColonyView
     private final IColonyExpeditionManager expeditionManager;
 
     /**
-     * Client side traveling manager.
-     */
-    private final ITravelingManager travelingManager;
-
-    /**
      * Day in the colony.
      */
     private int day;
@@ -271,7 +266,6 @@ public final class ColonyView implements IColonyView
         this.researchManager = new ResearchManager(this);
         this.questManager = new QuestManager(this);
         this.expeditionManager = new ColonyExpeditionManager(this);
-        this.travelingManager = new TravelingManager(this);
     }
 
     /**
@@ -929,7 +923,9 @@ public final class ColonyView implements IColonyView
         this.questManager.deserializeNBT(buf.readNbt());
         this.day = buf.readInt();
         this.travellingManager.deserializeNBT(buf.readNbt());
-        this.expeditionManager.deserializeNBT(buf.readNbt());
+        if (buf.readBoolean()) {
+            this.expeditionManager.deserializeNBT(buf.readNbt());
+        }
         return null;
     }
 
@@ -1641,11 +1637,5 @@ public final class ColonyView implements IColonyView
     public IColonyExpeditionManager getExpeditionManager()
     {
         return expeditionManager;
-    }
-
-    @Override
-    public ITravelingManager getTravelingManager()
-    {
-        return travelingManager;
     }
 }
