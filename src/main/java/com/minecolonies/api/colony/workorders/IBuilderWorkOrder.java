@@ -2,9 +2,8 @@ package com.minecolonies.api.colony.workorders;
 
 import com.minecolonies.api.colony.ICitizenData;
 import com.minecolonies.api.colony.IColony;
-
+import com.minecolonies.core.entity.ai.workers.util.BuildingProgressStage;
 import net.minecraft.core.BlockPos;
-
 import org.jetbrains.annotations.NotNull;
 
 public interface IBuilderWorkOrder extends IServerWorkOrder
@@ -111,6 +110,13 @@ public interface IBuilderWorkOrder extends IServerWorkOrder
     boolean canBuild(@NotNull ICitizenData citizen);
 
     /**
+     * Sets the building stage of the workorder
+     *
+     * @param stageIndex
+     */
+    void setStage(int stageIndex);
+
+    /**
      * Checks if a builder may accept this workOrder while ignoring the distance to the builder.
      *
      * @param builderLocation position of the builders own hut.
@@ -118,4 +124,11 @@ public interface IBuilderWorkOrder extends IServerWorkOrder
      * @return true if so.
      */
     public boolean canBuildIgnoringDistance(@NotNull ICitizenData citizen, @NotNull final BlockPos builderLocation, final int builderLevel);
+
+    /**
+     * Sets the building stage of the workorder
+     *
+     * @param stage
+     */
+    void setStage(BuildingProgressStage stage);
 }
