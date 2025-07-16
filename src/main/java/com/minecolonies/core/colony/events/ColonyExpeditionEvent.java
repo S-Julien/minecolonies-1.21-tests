@@ -391,8 +391,10 @@ public class ColonyExpeditionEvent implements IColonyEvent
             return EventStatus.STARTING;
         }
 
+        // TODO: Remove the second condition
         if (endTime < colony.getWorld().getGameTime() && remainingItems.isEmpty())
         {
+            remainingItems.clear();
             return EventStatus.DONE;
         }
 
@@ -450,11 +452,26 @@ public class ColonyExpeditionEvent implements IColonyEvent
             // Calculate the end time
             final int randomTimeOffset = expeditionType.difficulty().getRandomTime();
             final int randomTime = random.nextInt(-randomTimeOffset, randomTimeOffset);
+            final int fullExpeditionTime = (expeditionType.difficulty().getBaseTime() + randomTime) * 1200;
 
             endTime = world.getGameTime() + 1; // TODO: expeditionType.getDifficulty().getBaseTime() + randomTime;
 
             // Generate the loot table
             remainingItems = new ArrayDeque<>(processLootTable(expeditionType.lootTable(), expeditionType));
+
+            // Add all members to the travelling manager and de-spawn them.
+            final BlockPos townHallReturnPosition =
+                BlockPosUtil.findSpawnPosAround(colony.getWorld(), colony.getBuildingManager().getTownHall().getPosition());
+            for (final IExpeditionMember<?> member : expedition.getActiveMembers())
+            {
+                colony.getTravelingManager().startTravellingTo(member.getId(), townHallReturnPosition, fullExpeditionTime + 1200, false);
+
+                final ICivilianData memberData = member.resolveCivilianData(colony);
+                if (memberData != null)
+                {
+                    memberData.getEntity().ifPresent(entity -> entity.remove(RemovalReason.DISCARDED));
+                }
+            }
         }
     }
 

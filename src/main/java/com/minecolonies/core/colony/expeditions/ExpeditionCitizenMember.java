@@ -3,6 +3,7 @@ package com.minecolonies.core.colony.expeditions;
 import com.minecolonies.api.colony.ICitizenData;
 import com.minecolonies.api.colony.IColony;
 import com.minecolonies.api.colony.expeditions.IExpeditionMember;
+import com.minecolonies.api.colony.guardtype.registry.IGuardTypeDataManager;
 import com.minecolonies.api.equipment.ModEquipmentTypes;
 import com.minecolonies.api.equipment.registry.EquipmentTypeEntry;
 import com.minecolonies.api.inventory.InventoryCitizen;
@@ -87,7 +88,7 @@ public final class ExpeditionCitizenMember implements IExpeditionMember<ICitizen
         this.name = citizenData.getName();
         this.maxHealth = citizenData.getEntity().orElseThrow().getMaxHealth();
         this.inventory = citizenData.getInventory();
-        this.weaponType = citizenData.getJob().getPrimaryWeaponType();
+        this.weaponType = IGuardTypeDataManager.getInstance().getFrom(citizenData.getJob().getJobRegistryEntry().getKey()).getPrimaryWeapon();
         this.health = this.maxHealth;
     }
 

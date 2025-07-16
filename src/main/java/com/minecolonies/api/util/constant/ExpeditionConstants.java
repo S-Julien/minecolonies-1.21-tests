@@ -29,6 +29,8 @@ public class ExpeditionConstants
     @NonNls
     public static final String EXPEDITION_INTERACTION_INQUIRY_PREPARE                  = "com.minecolonies.core.expedition.interaction.inquiry.prepare";
     @NonNls
+    public static final String EXPEDITION_INTERACTION_INQUIRY_ONGOING                  = "com.minecolonies.core.expedition.interaction.inquiry.ongoing";
+    @NonNls
     public static final String EXPEDITION_INTERACTION_INQUIRY_FINISHED                 = "com.minecolonies.core.expedition.interaction.inquiry.finished";
     @NonNls
     public static final String EXPEDITION_INTERACTION_RESPONSE_CREATED_ACCEPT          = "com.minecolonies.core.expedition.interaction.response.created.accept";
@@ -39,9 +41,9 @@ public class ExpeditionConstants
     @NonNls
     public static final String EXPEDITION_INTERACTION_RESPONSE_ACCEPTED_GET_SHEET      = "com.minecolonies.core.expedition.interaction.response.accepted.get_sheet";
     @NonNls
-    public static final String EXPEDITION_INTERACTION_RESPONSE_ACCEPTED_NOT_INTERESTED = "com.minecolonies.core.expedition.interaction.response.accepted.not_interested";
-    @NonNls
     public static final String EXPEDITION_INTERACTION_RESPONSE_ACCEPTED_NOT_NOW        = "com.minecolonies.core.expedition.interaction.response.accepted.not_now";
+    @NonNls
+    public static final String EXPEDITION_INTERACTION_RESPONSE_ONGOING_OK              = "com.minecolonies.core.expedition.interaction.response.ongoing.ok";
     @NonNls
     public static final String EXPEDITION_INTERACTION_RESPONSE_FINISHED_VIEW_RESULTS   = "com.minecolonies.core.expedition.interaction.response.finished.view_results";
     @NonNls

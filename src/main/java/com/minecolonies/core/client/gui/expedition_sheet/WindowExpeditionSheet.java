@@ -12,6 +12,10 @@ import com.ldtteam.blockui.views.ScrollingList.DataProvider;
 import com.ldtteam.blockui.views.View;
 import com.minecolonies.api.colony.ICitizenDataView;
 import com.minecolonies.api.colony.IColonyView;
+import com.minecolonies.api.colony.guardtype.GuardType;
+import com.minecolonies.api.colony.guardtype.registry.IGuardTypeDataManager;
+import com.minecolonies.api.colony.jobs.ModJobs;
+import com.minecolonies.api.colony.jobs.registry.JobEntry;
 import com.minecolonies.api.colony.managers.interfaces.expeditions.ColonyExpedition.GuardsComparator;
 import com.minecolonies.api.equipment.registry.EquipmentTypeEntry;
 import com.minecolonies.api.util.InventoryUtils;
@@ -37,6 +41,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -136,11 +141,22 @@ public class WindowExpeditionSheet extends AbstractWindowSkeleton
         requirements.sort(resourceComparator);
 
         guardsComparator = new GuardsComparator(container.getMembers());
-        guards = colonyView.getCitizens().values().stream()
-                   .filter(f -> f.getJobView() != null && f.getJobView().isGuard() && f.getJobView().isCombatGuard() && !f.getColony()
-                                                                                                                           .getTravelingManager()
-                                                                                                                           .isTravelling(f.getId()))
-                   .collect(Collectors.toList());
+        guards = new ArrayList<>();
+        for (final ICitizenDataView citizen : colonyView.getCitizens().values())
+        {
+            if (colonyView.getTravelingManager().isTravelling(citizen))
+            {
+                continue;
+            }
+
+            for (final JobEntry jobEntry : ModJobs.getExpeditionMembersList())
+            {
+                if (citizen.getJobView() != null && citizen.getJobView().getEntry().equals(jobEntry))
+                {
+                    guards.add(citizen);
+                }
+            }
+        }
         guards.sort(guardsComparator);
 
         itemsList = findPaneOfTypeByID(ID_EXPEDITION_ITEMS, ScrollingList.class);
@@ -294,16 +310,21 @@ public class WindowExpeditionSheet extends AbstractWindowSkeleton
 
                 rowPane.findPaneOfTypeByID(ID_EXPEDITION_GUARDS_NAME, Text.class).setText(guard.getJobComponent().append(": ").append(Component.literal(guard.getName())));
 
-                final EquipmentTypeEntry primaryWeapon = guard.getJobView().getPrimaryWeapon();
-                if (primaryWeapon != null)
+                renderGuardEquipment(ItemStack.EMPTY, ID_EXPEDITION_GUARDS_WEAPON, rowPane);
+                if (guard.getJobView() != null)
                 {
-                    final int weaponSlot = InventoryUtils.getFirstSlotOfItemHandlerContainingEquipment(guard.getInventory(), guard.getJobView().getPrimaryWeapon(), 0, 5);
-                    renderGuardEquipment(guard.getInventory().getStackInSlot(weaponSlot), ID_EXPEDITION_GUARDS_WEAPON, rowPane);
+                    final GuardType guardType = IGuardTypeDataManager.getInstance().getFrom(guard.getJobView().getEntry().getKey());
+                    if (guardType != null)
+                    {
+                        final EquipmentTypeEntry primaryWeapon = guardType.getPrimaryWeapon();
+                        if (primaryWeapon != null)
+                        {
+                            final int weaponSlot = InventoryUtils.getFirstSlotOfItemHandlerContainingEquipment(guard.getInventory(), guardType.getPrimaryWeapon(), 0, 5);
+                            renderGuardEquipment(guard.getInventory().getStackInSlot(weaponSlot), ID_EXPEDITION_GUARDS_WEAPON, rowPane);
+                        }
+                    }
                 }
-                else
-                {
-                    renderGuardEquipment(ItemStack.EMPTY, ID_EXPEDITION_GUARDS_WEAPON, rowPane);
-                }
+
                 renderGuardEquipment(guard.getInventory().getArmorInSlot(EquipmentSlot.HEAD), ID_EXPEDITION_GUARDS_HELMET, rowPane);
                 renderGuardEquipment(guard.getInventory().getArmorInSlot(EquipmentSlot.CHEST), ID_EXPEDITION_GUARDS_CHESTPLATE, rowPane);
                 renderGuardEquipment(guard.getInventory().getArmorInSlot(EquipmentSlot.LEGS), ID_EXPEDITION_GUARDS_LEGGINGS, rowPane);

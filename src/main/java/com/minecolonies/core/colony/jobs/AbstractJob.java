@@ -15,8 +15,6 @@ import com.minecolonies.api.colony.requestsystem.token.IToken;
 import com.minecolonies.api.entity.ai.ITickingStateAI;
 import com.minecolonies.api.entity.ai.statemachine.states.AIWorkerState;
 import com.minecolonies.api.entity.citizen.AbstractEntityCitizen;
-import com.minecolonies.api.equipment.ModEquipmentTypes;
-import com.minecolonies.api.equipment.registry.EquipmentTypeEntry;
 import com.minecolonies.api.util.BlockPosUtil;
 import com.minecolonies.api.util.ItemStackUtils;
 import com.minecolonies.api.util.Log;
@@ -239,14 +237,6 @@ public abstract class AbstractJob<AI extends AbstractAISkeleton<J> & ITickingSta
             StandardFactoryController.getInstance().serialize(buffer, token);
         }
         buffer.writeRegistryId(IJobRegistry.getInstance(), getJobRegistryEntry());
-        buffer.writeBoolean(isGuard());
-        buffer.writeBoolean(isCombatGuard());
-        final EquipmentTypeEntry primaryWeaponType = getPrimaryWeaponType();
-        buffer.writeBoolean(primaryWeaponType != null);
-        if (primaryWeaponType != null)
-        {
-            buffer.writeRegistryId(ModEquipmentTypes.getRegistry(), primaryWeaponType);
-        }
     }
 
     /**

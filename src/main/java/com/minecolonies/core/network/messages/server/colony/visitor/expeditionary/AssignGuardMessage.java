@@ -3,6 +3,8 @@ package com.minecolonies.core.network.messages.server.colony.visitor.expeditiona
 import com.minecolonies.api.colony.ICitizenData;
 import com.minecolonies.api.colony.ICitizenDataView;
 import com.minecolonies.api.colony.IColony;
+import com.minecolonies.api.colony.jobs.ModJobs;
+import com.minecolonies.api.colony.jobs.registry.JobEntry;
 import com.minecolonies.core.items.ItemExpeditionSheet.ExpeditionSheetContainerManager;
 import com.minecolonies.core.network.messages.server.AbstractColonyServerMessage;
 import net.minecraft.network.FriendlyByteBuf;
@@ -66,14 +68,23 @@ public class AssignGuardMessage extends AbstractColonyServerMessage
             return;
         }
 
-
-        if (!guard.getJob().isGuard() || !guard.getJob().isCombatGuard())
-        {
-            return;
-        }
-
         final ExpeditionSheetContainerManager expeditionSheetContainerManager = new ExpeditionSheetContainerManager(ctxIn.getSender().getItemInHand(hand));
-        expeditionSheetContainerManager.toggleMember(guard.getId(), assign);
+
+        if (assign)
+        {
+            for (final JobEntry jobEntry : ModJobs.getExpeditionMembersList())
+            {
+                if (guard.getJob().getJobRegistryEntry().equals(jobEntry))
+                {
+                    expeditionSheetContainerManager.toggleMember(guard.getId(), true);
+                    break;
+                }
+            }
+        }
+        else
+        {
+            expeditionSheetContainerManager.toggleMember(guard.getId(), false);
+        }
     }
 
     @Override

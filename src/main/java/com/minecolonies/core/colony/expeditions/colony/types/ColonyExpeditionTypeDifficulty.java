@@ -163,7 +163,7 @@ public enum ColonyExpeditionTypeDifficulty
     }
 
     /**
-     * Get the base amount of ticks the expedition will take.
+     * Get the base amount of time (in minutes) the expedition will take.
      *
      * @return the amount of time.
      */
@@ -173,7 +173,7 @@ public enum ColonyExpeditionTypeDifficulty
     }
 
     /**
-     * Get the amount of random time that can be added/removed from the base time.
+     * Get the amount of random time (in minutes) that can be added/removed from the base time.
      *
      * @return the amount of time.
      */

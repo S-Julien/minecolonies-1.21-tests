@@ -6,9 +6,7 @@ import com.minecolonies.api.colony.jobs.IJobView;
 import com.minecolonies.api.colony.jobs.registry.JobEntry;
 import com.minecolonies.api.colony.requestsystem.StandardFactoryController;
 import com.minecolonies.api.colony.requestsystem.token.IToken;
-import com.minecolonies.api.equipment.registry.EquipmentTypeEntry;
 import net.minecraft.network.FriendlyByteBuf;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -34,22 +32,6 @@ public class DefaultJobView implements IJobView
     private JobEntry entry;
 
     /**
-     * Whether this job is a guard job.
-     */
-    private boolean isGuard;
-
-    /**
-     * Whether this job is a guard job that actively engages in combat.
-     */
-    private boolean isCombatGuard;
-
-    /**
-     * The equipment type that the guard will use for their primary weapon.
-     */
-    @Nullable
-    private EquipmentTypeEntry primaryWeaponType;
-
-    /**
      * Instantiate the default job view.
      * @param iColonyView the colony it belongs to.
      * @param iCitizenDataView the citizen it belongs to.
@@ -69,12 +51,6 @@ public class DefaultJobView implements IJobView
             asyncRequests.add(StandardFactoryController.getInstance().deserialize(buffer));
         }
         entry = buffer.readRegistryId();
-        isGuard = buffer.readBoolean();
-        isCombatGuard = buffer.readBoolean();
-        if (buffer.readBoolean())
-        {
-            primaryWeaponType = buffer.readRegistryIdSafe(EquipmentTypeEntry.class);
-        }
     }
 
     @Override
@@ -87,25 +63,6 @@ public class DefaultJobView implements IJobView
     public JobEntry getEntry()
     {
         return entry;
-    }
-
-    @Override
-    public boolean isGuard()
-    {
-        return isGuard;
-    }
-
-    @Override
-    public boolean isCombatGuard()
-    {
-        return isCombatGuard;
-    }
-
-    @Override
-    @Nullable
-    public EquipmentTypeEntry getPrimaryWeapon()
-    {
-        return primaryWeaponType;
     }
 
     /**
