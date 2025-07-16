@@ -7,6 +7,7 @@ import com.minecolonies.api.colony.buildings.modules.IAssignsJob;
 import com.minecolonies.api.colony.jobs.registry.JobEntry;
 import com.minecolonies.api.colony.requestsystem.token.IToken;
 import com.minecolonies.api.entity.ai.ITickingStateAI;
+import com.minecolonies.api.entity.ai.JobStatus;
 import com.minecolonies.api.entity.citizen.AbstractEntityCitizen;
 import com.minecolonies.api.equipment.registry.EquipmentTypeEntry;
 import net.minecraft.core.BlockPos;
@@ -125,7 +126,7 @@ public interface IJob<AI extends ITickingStateAI> extends INBTSerializable<Compo
      */
     default void initEntityValues(AbstractEntityCitizen citizen)
     {
-        citizen.getCitizenData().setIdleAtJob(false);
+        citizen.getCitizenData().setJobStatus(JobStatus.IDLE);
     }
 
     /**

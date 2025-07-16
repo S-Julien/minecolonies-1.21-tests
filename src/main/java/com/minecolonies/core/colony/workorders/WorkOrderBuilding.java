@@ -1,6 +1,7 @@
 package com.minecolonies.core.colony.workorders;
 
 import com.minecolonies.api.advancements.AdvancementTriggers;
+import com.minecolonies.api.blocks.AbstractBlockHut;
 import com.minecolonies.api.colony.ICitizenData;
 import com.minecolonies.api.colony.IColony;
 import com.minecolonies.api.colony.buildings.IBuilding;
@@ -160,7 +161,7 @@ public class WorkOrderBuilding extends AbstractWorkOrder
         //  - OR the WorkOrder is not farther away than 100 blocks from any builder and not manually assigned
 
         final IBuilding building = citizen.getWorkBuilding();
-        return canBuildIgnoringDistance(building.getPosition(), building.getBuildingLevel())
+        return canBuildIgnoringDistance(citizen, building.getPosition(), building.getBuildingLevel())
                  && (citizen.getWorkBuilding().getPosition().distSqr(getLocation()) <= MAX_DISTANCE_SQ
                  || (isClaimed() && getClaimedBy().equals(building.getPosition())));
     }
@@ -172,7 +173,8 @@ public class WorkOrderBuilding extends AbstractWorkOrder
      * @param builderLevel    level of the builders hut.
      * @return true if so.
      */
-    private boolean canBuildIgnoringDistance(@NotNull final BlockPos builderLocation, final int builderLevel)
+    @Override
+    public boolean canBuildIgnoringDistance(@NotNull ICitizenData citizen, @NotNull final BlockPos builderLocation, final int builderLevel)
     {
         //  A Build WorkOrder may be fulfilled by a Builder as long as any ONE of the following is true:
         //  - The Builder's Work AbstractBuilding is built
@@ -253,7 +255,7 @@ public class WorkOrderBuilding extends AbstractWorkOrder
             if (building != null)
             {
                 AdvancementUtils.TriggerAdvancementPlayersForColony(colony,
-                        player -> AdvancementTriggers.COMPLETE_BUILD_REQUEST.trigger(player, building.getBuildingType().getBuildingBlock().getBlueprintName(), this.getTargetLevel()));
+                        player -> AdvancementTriggers.COMPLETE_BUILD_REQUEST.trigger(player, building.getBuildingType().getRegistryName().getPath(), this.getTargetLevel()));
             }
         }
     }
