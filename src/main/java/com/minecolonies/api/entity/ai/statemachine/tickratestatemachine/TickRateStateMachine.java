@@ -3,10 +3,12 @@ package com.minecolonies.api.entity.ai.statemachine.tickratestatemachine;
 import com.minecolonies.api.entity.ai.statemachine.basestatemachine.BasicStateMachine;
 import com.minecolonies.api.entity.ai.statemachine.states.AIBlockingEventType;
 import com.minecolonies.api.entity.ai.statemachine.states.IState;
+import com.minecolonies.api.util.Log;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;
+import java.util.logging.Logger;
 
 /**
  * Statemachine with an added tickrate limiting of transitions, allowing transitions to be checked at a lower rate. Default tickrate is 20 tps (Minecraft default).
@@ -143,6 +145,10 @@ public class TickRateStateMachine<S extends IState> extends BasicStateMachine<IT
         if (executedTransition != null)
         {
             executedTransition.setTicksToUpdate(ticksToNext);
+        }
+        else
+        {
+            Log.getLogger().error("TickRateStateMachine::setCurrentDelay: executedTransition is null");
         }
     }
 }
