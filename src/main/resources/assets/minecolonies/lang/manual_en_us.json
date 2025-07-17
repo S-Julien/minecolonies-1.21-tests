@@ -2936,6 +2936,7 @@
   "com.minecolonies.core.expedition.interaction.response.accepted.start": "I have completed all the requirements, you can start the expedition.",
   "com.minecolonies.core.expedition.interaction.response.accepted.get_sheet": "I lost my Expedition Guide, could you give me a new one?",
   "com.minecolonies.core.expedition.interaction.response.accepted.not_now": "Maybe Later",
+  "com.minecolonies.core.expedition.interaction.response.accepted.not_interested": "I'm not interested",
   "com.minecolonies.core.expedition.interaction.response.ongoing.ok": "Alright",
   "com.minecolonies.core.expedition.interaction.response.finished.view_results": "View Loot",
   "com.minecolonies.core.expedition.interaction.response.finished.not_interested": "I'm not interested",

@@ -43,6 +43,8 @@ public class ExpeditionConstants
     @NonNls
     public static final String EXPEDITION_INTERACTION_RESPONSE_ACCEPTED_NOT_NOW        = "com.minecolonies.core.expedition.interaction.response.accepted.not_now";
     @NonNls
+    public static final String EXPEDITION_INTERACTION_RESPONSE_ACCEPTED_NOT_INTERESTED = "com.minecolonies.core.expedition.interaction.response.accepted.not_interested";
+    @NonNls
     public static final String EXPEDITION_INTERACTION_RESPONSE_ONGOING_OK              = "com.minecolonies.core.expedition.interaction.response.ongoing.ok";
     @NonNls
     public static final String EXPEDITION_INTERACTION_RESPONSE_FINISHED_VIEW_RESULTS   = "com.minecolonies.core.expedition.interaction.response.finished.view_results";

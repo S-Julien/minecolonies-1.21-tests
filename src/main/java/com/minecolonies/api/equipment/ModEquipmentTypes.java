@@ -15,7 +15,6 @@ import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryObject;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 import java.util.function.Consumer;
@@ -248,15 +247,5 @@ public class ModEquipmentTypes
             }
         }
         return true;
-    }
-
-    @NotNull
-    public static EquipmentTypeEntry[] getAllWeapons()
-    {
-        return new EquipmentTypeEntry[] {
-          sword.get(),
-          bow.get(),
-          axe.get(),
-        };
     }
 }

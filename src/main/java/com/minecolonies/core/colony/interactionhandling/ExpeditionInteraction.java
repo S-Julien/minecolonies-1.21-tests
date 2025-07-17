@@ -75,7 +75,7 @@ public class ExpeditionInteraction extends ServerCitizenInteraction
     private static final Component prepareFinishAnswer   = Component.translatable(EXPEDITION_INTERACTION_RESPONSE_ACCEPTED_START);
     private static final Component prepareGetSheetAnswer = Component.translatable(EXPEDITION_INTERACTION_RESPONSE_ACCEPTED_GET_SHEET);
     private static final Component prepareLaterAnswer    = Component.translatable(EXPEDITION_INTERACTION_RESPONSE_ACCEPTED_NOT_NOW);
-    private static final Component prepareCancelAnswer   = Component.translatable(EXPEDITION_INTERACTION_RESPONSE_CREATED_ACCEPT);
+    private static final Component prepareCancelAnswer   = Component.translatable(EXPEDITION_INTERACTION_RESPONSE_ACCEPTED_NOT_INTERESTED);
     private static final Component ongoingOkAnswer       = Component.translatable(EXPEDITION_INTERACTION_RESPONSE_ONGOING_OK);
     private static final Component finishedViewAnswer    = Component.translatable(EXPEDITION_INTERACTION_RESPONSE_FINISHED_VIEW_RESULTS);
     private static final Component finishedLaterAnswer   = Component.translatable(EXPEDITION_INTERACTION_RESPONSE_FINISHED_NOT_NOW);

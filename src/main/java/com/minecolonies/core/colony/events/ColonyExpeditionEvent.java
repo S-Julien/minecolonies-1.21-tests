@@ -30,10 +30,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.CombatRules;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ArmorItem;
@@ -233,22 +231,6 @@ public class ColonyExpeditionEvent implements IColonyEvent
             amount *= expeditionType.difficulty().getMobEncounterMultiplier();
         }
 
-        // Determine the mob type
-        MobType mobType = MobType.UNDEFINED;
-        try
-        {
-            final Entity entity = encounter.entityType().create(colony.getWorld());
-            if (entity instanceof Mob mob)
-            {
-                mobType = mob.getMobType();
-            }
-            entity.remove(RemovalReason.DISCARDED);
-        }
-        catch (Exception ex)
-        {
-            Log.getLogger().warn("Failure attempting to spawn", ex);
-        }
-
         for (int i = 0; i < amount; i++)
         {
             double encounterHealth = encounter.health();
@@ -265,7 +247,7 @@ public class ColonyExpeditionEvent implements IColonyEvent
                 }
 
                 final ItemStack weapon = attacker.getPrimaryWeapon();
-                encounterHealth -= CombatRules.getDamageAfterAbsorb(getWeaponDamage(weapon, mobType), encounter.armor(), 0);
+                encounterHealth -= CombatRules.getDamageAfterAbsorb(getWeaponDamage(weapon, MobType.UNDEFINED), encounter.armor(), 0);
                 if (weapon.hurt(1, random, null))
                 {
                     InventoryUtils.removeStackFromItemHandler(attacker.getInventory(), weapon, weapon.getMaxStackSize());

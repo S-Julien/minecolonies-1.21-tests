@@ -3,7 +3,8 @@ package com.minecolonies.core.colony.expeditions;
 import com.minecolonies.api.colony.IColony;
 import com.minecolonies.api.colony.IVisitorData;
 import com.minecolonies.api.colony.expeditions.IExpeditionMember;
-import com.minecolonies.api.equipment.ModEquipmentTypes;
+import com.minecolonies.api.colony.guardtype.GuardType;
+import com.minecolonies.api.colony.guardtype.registry.IGuardTypeRegistry;
 import com.minecolonies.api.equipment.registry.EquipmentTypeEntry;
 import com.minecolonies.api.inventory.InventoryCitizen;
 import com.minecolonies.api.util.InventoryUtils;
@@ -124,9 +125,13 @@ public final class ExpeditionVisitorMember implements IExpeditionMember<IVisitor
     {
         if (cachedWeaponSlot == null)
         {
-            for (final EquipmentTypeEntry entry : ModEquipmentTypes.getAllWeapons())
+            for (final GuardType entry : IGuardTypeRegistry.getInstance().getValues())
             {
-                cachedWeaponSlot = InventoryUtils.getFirstSlotOfItemHandlerContainingEquipment(inventory, entry, 0, 5);
+                final EquipmentTypeEntry primaryWeapon = entry.getPrimaryWeapon();
+                if (primaryWeapon != null)
+                {
+                    cachedWeaponSlot = InventoryUtils.getFirstSlotOfItemHandlerContainingEquipment(inventory, primaryWeapon, 0, 5);
+                }
             }
         }
 
