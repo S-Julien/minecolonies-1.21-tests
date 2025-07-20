@@ -54,6 +54,7 @@ public final class ModBuildings
     public static final String MYSTICAL_SITE_ID  = "mysticalsite";
     public static final String GRAVEYARD_ID      = "graveyard";
     public static final String NETHERWORKER_ID   = "netherworker";
+    public static final String ARCHEOLOGIST_ID = "archeologist";
     public static final String SIMPLE_QUARRY_ID  = "simplequarry";
     public static final String MEDIUM_QUARRY_ID  = "mediumquarry";
     public static final String LARGE_QUARRY_ID   = "largequarry";
@@ -108,6 +109,7 @@ public final class ModBuildings
     public static RegistryObject<BuildingEntry> mysticalSite;
     public static RegistryObject<BuildingEntry> graveyard;
     public static RegistryObject<BuildingEntry> netherWorker;
+    public static RegistryObject<BuildingEntry> archeologist;
     public static RegistryObject<BuildingEntry> simpleQuarry;
     public static RegistryObject<BuildingEntry> mediumQuarry;
     //public static RegistryObject<BuildingEntry> largeQuarry;

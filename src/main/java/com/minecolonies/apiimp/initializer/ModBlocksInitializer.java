@@ -105,6 +105,7 @@ public final class ModBlocksInitializer
         ModBlocks.blockHutMysticalSite = new BlockHutMysticalSite().registerBlock(registry);
         ModBlocks.blockHutGraveyard = new BlockHutGraveyard().registerBlock(registry);
         ModBlocks.blockHutNetherWorker = new BlockHutNetherWorker().registerBlock(registry);
+        ModBlocks.blockHutArcheologist = new BlockHutArcheologist().registerBlock(registry);
         ModBlocks.blockHutAlchemist = new BlockHutAlchemist().registerBlock(registry);
         ModBlocks.blockHutKitchen = new BlockHutKitchen().registerBlock(registry);
 
@@ -214,6 +215,7 @@ public final class ModBlocksInitializer
         ModBlocks.blockHutMysticalSite.registerBlockItem(registry, new Item.Properties());
         ModBlocks.blockHutGraveyard.registerBlockItem(registry, new Item.Properties());
         ModBlocks.blockHutNetherWorker.registerBlockItem(registry, new Item.Properties());
+        ModBlocks.blockHutArcheologist.registerBlockItem(registry, new Item.Properties());
         ModBlocks.blockHutAlchemist.registerBlockItem(registry, new Item.Properties());
         ModBlocks.blockHutKitchen.registerBlockItem(registry, new Item.Properties());
 

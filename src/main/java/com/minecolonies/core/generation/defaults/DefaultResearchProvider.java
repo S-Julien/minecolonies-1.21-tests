@@ -1409,6 +1409,16 @@ public class DefaultResearchProvider extends AbstractResearchProvider
                                     .addEffect(ModBuildings.netherWorker.get().getBuildingBlock(), 1)
                                     .addToList(r);
 
+        /*
+        final Research archeologist = new Research(new ResourceLocation(Constants.MOD_ID, "technology/archeologist"), TECH).setParentResearch(moreScrolls)
+            .setTranslatedName("Analyze the past")
+            .setTranslatedSubtitle("The death tell no tales, or do they?")
+            .setSortOrder(1)
+            .setIcon(ModBlocks.blockHutArcheologist.asItem())
+            .addItemCost(ItemTags.DECORATED_POT_SHERDS, 4)
+            .addEffect(ModBuildings.archeologist.get().getBuildingBlock(), 1)
+            .addToList(r);*/
+
         final Research alchemist = new Research(new ResourceLocation(Constants.MOD_ID, "technology/alchemist"), TECH).setParentResearch(netherminer)
           .setTranslatedName("Magic Potions")
           .setTranslatedSubtitle("These Romans are crazy")

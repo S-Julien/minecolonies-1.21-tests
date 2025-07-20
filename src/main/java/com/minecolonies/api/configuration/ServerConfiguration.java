@@ -119,6 +119,7 @@ public class ServerConfiguration extends AbstractConfiguration
      *  --------------------------------------------------------------------------------- */
 
     public final ForgeConfigSpec.BooleanValue netherWorkerTakesDamage;
+    public final ForgeConfigSpec.BooleanValue archeologistWorkerTakesDamage;
 
     /**
      * Builds server configuration.
@@ -212,6 +213,8 @@ public class ServerConfiguration extends AbstractConfiguration
         swapToCategory(builder, "debugging");
 
         netherWorkerTakesDamage = defineBoolean(builder, "netherworkertakesdamage", true);
+
+        archeologistWorkerTakesDamage = defineBoolean(builder, "archeologistworkertakesdamage", true);
 
         finishCategory(builder);
     }

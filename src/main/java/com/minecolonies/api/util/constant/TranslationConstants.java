@@ -295,6 +295,8 @@ public final class TranslationConstants
     @NonNls
     public static final String NETHERMINER_NO_FOOD                                                  = "com.minecolonies.coremod.netherminer.nofood";
     @NonNls
+    public static final String ARCHEOLOGIST_NO_FOOD                                                 = "com.minecolonies.coremod.archeologist.nofood";
+    @NonNls
     public static final String SIFTER_NO_MESH                                                       = "com.minecolonies.coremod.sifter.nomesh";
     @NonNls
     public static final String COM_MINECOLONIES_CANT_TAKE_EQUIPPED                                  = "com.minecolonies.coremod.general.canttakeequipped";

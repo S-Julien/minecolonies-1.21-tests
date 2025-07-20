@@ -667,12 +667,31 @@ public enum AIWorkerState implements IAIState
     /**
      * Harvest all blocks placed in the water.
      */
-    CONCRETE_MIXER_HARVESTING(true);
+    CONCRETE_MIXER_HARVESTING(true),
+
+/*
+### Nether Worker ###
+     */
+
+    /**
+     * Let the archeologist start on his expedition
+     */
+    ARCHEOLOGIST_EXPEDITION_LEAVE(true),
+
+    /**
+     * Let the archeologist be on his expedition
+     */
+    ARCHEOLOGIST_EXPEDITION_AWAY(true),
+
+    /**
+     * Let the archeologist return from hist expedition
+     */
+    ARCHEOLOGIST_EXPEDITION_RETURN(true);
 
     /**
      * Is it okay to eat.
      */
-    private boolean isOkayToEat;
+    private final boolean isOkayToEat;
 
     /**
      * Create a new one.

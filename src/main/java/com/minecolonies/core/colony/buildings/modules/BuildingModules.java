@@ -79,6 +79,9 @@ public class BuildingModules
     public static final BuildingEntry.ModuleProducer<RestaurantMenuModule, RestaurantMenuModuleView> NETHERMINER_MENU =
       new BuildingEntry.ModuleProducer<>("netherminer_menu", () -> new RestaurantMenuModule(false, building -> 1), () -> RestaurantMenuModuleView::new);
 
+    public static final BuildingEntry.ModuleProducer<RestaurantMenuModule, RestaurantMenuModuleView> ARCHEOLOGIST_MENU =
+        new BuildingEntry.ModuleProducer<>("archeologist_menu", () -> new RestaurantMenuModule(false, building -> 1), () -> RestaurantMenuModuleView::new);
+
     public static final BuildingEntry.ModuleProducer<ItemListModule,ItemListModuleView> ITEMLIST_SAPLING =
       new BuildingEntry.ModuleProducer<>("itemlist_sapling", () -> new ItemListModule(SAPLINGS_LIST),
         () -> () -> new ItemListModuleView(SAPLINGS_LIST, RequestSystemTranslationConstants.REQUESTS_TYPE_SAPLINGS, true,
@@ -570,4 +573,13 @@ public class BuildingModules
         , () -> SettingsModuleView::new);
     public static final BuildingEntry.ModuleProducer<ExpeditionLogModule,ExpeditionLogModuleView> NETHERWORKER_EXPEDITION =
       new BuildingEntry.ModuleProducer<>("netherworker_expedition", () -> new ExpeditionLogModule(ResearchConstants.NETHER_LOG), () -> ExpeditionLogModuleView::new);
+
+    public static final BuildingEntry.ModuleProducer<CraftingWorkerBuildingModule, WorkerBuildingModuleView>  ARCHEOLOGIST_WORK       =
+        new BuildingEntry.ModuleProducer<>("archeologist_work",
+            () -> new CraftingWorkerBuildingModule(ModJobs.archeologist.get(), Skill.Adaptability, Skill.Strength, false, (b) -> 1),
+            () -> WorkerBuildingModuleView::new);
+    public static final BuildingEntry.ModuleProducer<BuildingArcheologist.CraftingModule, CraftingModuleView> ARCHEOLOGIST_CRAFT      =
+        new BuildingEntry.ModuleProducer<>("archeologist_craft", () -> new BuildingArcheologist.CraftingModule(ModJobs.archeologist.get()), () -> CraftingModuleView::new);
+    public static final BuildingEntry.ModuleProducer<ExpeditionLogModule, ExpeditionLogModuleView>            ARCHEOLGOIST_EXPEDITION =
+        new BuildingEntry.ModuleProducer<>("archeologist_expedition", () -> new ExpeditionLogModule(ResearchConstants.ARCHEOLOGIST_LOG), () -> ExpeditionLogModuleView::new);
 }

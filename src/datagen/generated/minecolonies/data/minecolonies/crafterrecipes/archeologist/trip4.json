@@ -1,0 +1,51 @@
+{
+  "type": "recipe",
+  "additional-output": [
+    {
+      "item": "minecraft:bone"
+    },
+    {
+      "item": "minecraft:gunpowder"
+    },
+    {
+      "item": "minecraft:suspicious_sand"
+    },
+    {
+      "item": "minecraft:suspicious_gravel"
+    },
+    {
+      "item": "minecraft:totem_of_undying"
+    },
+    {
+      "item": "minecraft:arrow"
+    },
+    {
+      "item": "minecraft:bone"
+    },
+    {
+      "item": "minecraft:suspicious_stew"
+    },
+    {
+      "item": "minecraft:ender_pearl"
+    }
+  ],
+  "crafter": "archeologist_custom",
+  "inputs": [
+    {
+      "count": 64,
+      "item": "minecraft:cobblestone"
+    },
+    {
+      "count": 32,
+      "item": "minecraft:torch"
+    },
+    {
+      "count": 16,
+      "item": "minecraft:ladder"
+    }
+  ],
+  "intermediate": "minecraft:air",
+  "loot-table": "minecolonies:recipes/archeologist/trip4",
+  "max-building-level": 4,
+  "min-building-level": 4
+}

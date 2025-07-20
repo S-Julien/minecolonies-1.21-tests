@@ -66,6 +66,7 @@ public final class ModBlocks
     public static AbstractBlockHut<? extends AbstractBlockHut<?>> blockHutMysticalSite;
     public static AbstractBlockHut<? extends AbstractBlockHut<?>> blockHutGraveyard;
     public static AbstractBlockHut<? extends AbstractBlockHut<?>> blockHutNetherWorker;
+    public static AbstractBlockHut<? extends AbstractBlockHut<?>> blockHutArcheologist;
     public static AbstractBlockHut<? extends AbstractBlockHut<?>> blockSimpleQuarry;
     public static AbstractBlockHut<? extends AbstractBlockHut<?>> blockMediumQuarry;
     //public static AbstractBlockHut<? extends AbstractBlockHut<?>> blockLargeQuarry;
@@ -172,6 +173,7 @@ public final class ModBlocks
           blockStash,
           blockHutGraveyard,
           blockHutNetherWorker,
+            blockHutArcheologist,
           blockHutAlchemist,
           blockHutKitchen,
           blockSimpleQuarry,

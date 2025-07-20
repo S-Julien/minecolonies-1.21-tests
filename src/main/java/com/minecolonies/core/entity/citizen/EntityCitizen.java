@@ -46,10 +46,7 @@ import com.minecolonies.core.colony.Colony;
 import com.minecolonies.core.colony.buildings.AbstractBuildingGuards;
 import com.minecolonies.core.colony.buildings.modules.WorkerBuildingModule;
 import com.minecolonies.core.colony.eventhooks.citizenEvents.CitizenDiedEvent;
-import com.minecolonies.core.colony.jobs.AbstractJobGuard;
-import com.minecolonies.core.colony.jobs.JobKnight;
-import com.minecolonies.core.colony.jobs.JobNetherWorker;
-import com.minecolonies.core.colony.jobs.JobRanger;
+import com.minecolonies.core.colony.jobs.*;
 import com.minecolonies.core.datalistener.DiseasesListener;
 import com.minecolonies.core.entity.ai.minimal.*;
 import com.minecolonies.core.entity.ai.workers.AbstractEntityAIBasic;
@@ -222,7 +219,7 @@ public class EntityCitizen extends AbstractEntityCitizen implements IThreatTable
     /**
      * The citizen AI
      */
-    private ITickRateStateMachine<IState> citizenAI = new TickRateStateMachine<>(CitizenAIState.IDLE, e -> {}, ENTITY_AI_TICKRATE);
+    private final ITickRateStateMachine<IState> citizenAI = new TickRateStateMachine<>(CitizenAIState.IDLE, e -> {}, ENTITY_AI_TICKRATE);
 
     /**
      * Maximum air supply
@@ -1303,7 +1300,7 @@ public class EntityCitizen extends AbstractEntityCitizen implements IThreatTable
             if (attackerColony != null && citizenColonyHandler.getColonyOrRegister() != null)
             {
                 final IPermissions permission = attackerColony.getPermissions();
-                citizenColonyHandler.getColonyOrRegister().getPermissions().addPlayer(permission.getOwner(), permission.getOwnerName(), permission.getRank(permission.HOSTILE_RANK_ID));
+                citizenColonyHandler.getColonyOrRegister().getPermissions().addPlayer(permission.getOwner(), permission.getOwnerName(), permission.getRank(IPermissions.HOSTILE_RANK_ID));
             }
         }
 
@@ -1347,6 +1344,12 @@ public class EntityCitizen extends AbstractEntityCitizen implements IThreatTable
 
         //If we are in simulation, don't cap damage
         if (citizenJobHandler.getColonyJob() instanceof JobNetherWorker && citizenData != null && damageSource.typeHolder().is(DamageSourceKeys.NETHER))
+        {
+            damageInc = damage;
+        }
+
+        //If we are on expedition, don't cap damage
+        if (citizenJobHandler.getColonyJob() instanceof JobArcheologist && citizenData != null && damageSource.typeHolder().is(DamageSourceKeys.EXPEDITION))
         {
             damageInc = damage;
         }
@@ -1711,9 +1714,8 @@ public class EntityCitizen extends AbstractEntityCitizen implements IThreatTable
     @Override
     public boolean equals(final Object obj)
     {
-        if (obj instanceof EntityCitizen)
+        if (obj instanceof final EntityCitizen citizen)
         {
-            final EntityCitizen citizen = (EntityCitizen) obj;
             return citizen.citizenColonyHandler.getColonyId() == this.citizenColonyHandler.getColonyId() && citizen.citizenId == this.citizenId;
         }
         return false;

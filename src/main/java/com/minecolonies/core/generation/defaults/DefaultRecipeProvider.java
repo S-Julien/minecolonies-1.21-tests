@@ -110,6 +110,7 @@ public class DefaultRecipeProvider extends RecipeProvider
         registerHutRecipe1(consumer, ModBlocks.blockHutTownHall, buildTool.get());
         registerHutRecipe1(consumer, ModBlocks.blockHutWareHouse, Tags.Items.CHESTS);
         registerHutRecipe1(consumer, ModBlocks.blockHutNetherWorker, Items.OBSIDIAN);
+        //registerHutRecipe1(consumer, ModBlocks.blockHutArcheologist, Items.BRUSH);
         registerHutRecipe1(consumer, ModBlocks.blockHutAlchemist, Items.BREWING_STAND);
         registerHutRecipe1(consumer, ModBlocks.blockHutKitchen, Items.SMOKER);
 

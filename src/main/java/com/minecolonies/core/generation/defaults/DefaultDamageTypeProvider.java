@@ -32,6 +32,7 @@ public class DefaultDamageTypeProvider extends JsonCodecProvider<DamageType>
                 Map.entry(DamageSourceKeys.DEFAULT.location(), damage("default")),
                 Map.entry(DamageSourceKeys.DESPAWN.location(), damage("despawn")),
                 Map.entry(DamageSourceKeys.NETHER.location(), damage("nether")),
+            Map.entry(DamageSourceKeys.EXPEDITION.location(), damage("expedition")),
 
                 Map.entry(DamageSourceKeys.GUARD.location(), damage("entity.minecolonies.guard")),
                 Map.entry(DamageSourceKeys.GUARD_PVP.location(), damage("entity.minecolonies.guardpvp")),

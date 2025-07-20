@@ -595,6 +595,19 @@ public final class ModBuildingsInitializer
           .addBuildingModuleProducer(MIN_STOCK)
           .createBuildingEntry());
 
+        ModBuildings.archeologist = DEFERRED_REGISTER.register(ModBuildings.ARCHEOLOGIST_ID, () -> new BuildingEntry.Builder()
+            .setBuildingBlock(ModBlocks.blockHutArcheologist)
+            .setBuildingProducer(BuildingArcheologist::new)
+            .setBuildingViewProducer(() -> EmptyView::new)
+            .setRegistryName(new ResourceLocation(Constants.MOD_ID, ModBuildings.ARCHEOLOGIST_ID))
+            .addBuildingModuleProducer(ARCHEOLOGIST_WORK)
+            .addBuildingModuleProducer(ARCHEOLOGIST_CRAFT)
+            .addBuildingModuleProducer(ARCHEOLGOIST_EXPEDITION)
+            .addBuildingModuleProducer(ARCHEOLOGIST_MENU)
+            .addBuildingModuleProducer(CRAFT_TASK_VIEW)
+            .addBuildingModuleProducer(MIN_STOCK)
+            .createBuildingEntry());
+
         ModBuildings.simpleQuarry = DEFERRED_REGISTER.register(ModBuildings.SIMPLE_QUARRY_ID, () -> new BuildingEntry.Builder()
           .setBuildingBlock(ModBlocks.blockSimpleQuarry)
           .setBuildingProducer((colony, blockPos) -> new DefaultBuildingInstance(colony, blockPos, ModBuildings.SIMPLE_QUARRY_ID, 1)).setBuildingViewProducer(() -> EmptyView::new)

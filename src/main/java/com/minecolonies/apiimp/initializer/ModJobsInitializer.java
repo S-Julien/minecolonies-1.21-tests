@@ -305,6 +305,12 @@ public final class ModJobsInitializer
                                                                                                         .setJobViewProducer(() -> CrafterJobView::new)
                                                                                                         .setRegistryName(ModJobs.CHEF_ID)
                                                                                                         .createJobEntry());
+
+        ModJobs.archeologist = register(DEFERRED_REGISTER, ModJobs.ARCHEOLOGIST_ID.getPath(), () -> new JobEntry.Builder()
+            .setJobProducer(JobArcheologist::new)
+            .setJobViewProducer(() -> CrafterJobView::new)
+            .setRegistryName(ModJobs.ARCHEOLOGIST_ID)
+            .createJobEntry());
     }
 
     /**

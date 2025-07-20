@@ -197,6 +197,16 @@ public class InteractionValidatorInitializer
               return citizen.getWorkBuilding().getModule(RESTAURANT_MENU).getMenu().isEmpty();
           });
 
+        InteractionValidatorRegistry.registerStandardPredicate(Component.translatable(ARCHEOLOGIST_NO_FOOD),
+            citizen -> {
+                if (!(citizen.getWorkBuilding() instanceof BuildingArcheologist))
+                {
+                    return false;
+                }
+
+                return citizen.getWorkBuilding().getModule(RESTAURANT_MENU).getMenu().isEmpty();
+            });
+
         InteractionValidatorRegistry.registerStandardPredicate(Component.translatable(SIFTER_NO_MESH),
           citizen -> {
             if (!(citizen.getWorkBuilding() instanceof BuildingSifter))
@@ -215,7 +225,7 @@ public class InteractionValidatorInitializer
           citizen -> citizen.getWorkBuilding() instanceof BuildingBeekeeper && citizen.getJob(JobBeekeeper.class).checkForBeeInteraction());
 
         InteractionValidatorRegistry.registerStandardPredicate(Component.translatable(NO_WORKERS_TO_DRAIN_SET),
-          citizen -> citizen.getWorkBuilding() instanceof BuildingEnchanter && ((BuildingEnchanter) citizen.getWorkBuilding()).getModule(BuildingModules.ENCHANTER_STATIONS).getBuildingsToGatherFrom().isEmpty());
+          citizen -> citizen.getWorkBuilding() instanceof BuildingEnchanter && citizen.getWorkBuilding().getModule(BuildingModules.ENCHANTER_STATIONS).getBuildingsToGatherFrom().isEmpty());
 
         InteractionValidatorRegistry.registerStandardPredicate(Component.translatable(NO_PLANT_GROUND_FLORIST),
           citizen -> citizen.getWorkBuilding() instanceof BuildingFlorist && ((BuildingFlorist) citizen.getWorkBuilding()).getPlantGround().isEmpty());
@@ -242,7 +252,7 @@ public class InteractionValidatorInitializer
               if (buildingMiner instanceof BuildingMiner && citizen.getColony() != null && citizen.getColony().getWorld() != null && citizen.getJob() instanceof JobMiner)
               {
                   return getLastLadder(((BuildingMiner) buildingMiner).getLadderLocation(), citizen.getColony().getWorld()) < ((BuildingMiner) buildingMiner).getDepthLimit(citizen.getColony().getWorld())
-                           && ((BuildingMiner) buildingMiner).getModule(BuildingModules.MINER_LEVELS).getNumberOfLevels() == 0;
+                           && buildingMiner.getModule(BuildingModules.MINER_LEVELS).getNumberOfLevels() == 0;
               }
               return false;
           });
