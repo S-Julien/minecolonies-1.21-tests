@@ -8,6 +8,7 @@ import com.minecolonies.api.colony.buildings.modules.stat.IStat;
 import com.minecolonies.api.colony.interactionhandling.ChatPriority;
 import com.minecolonies.api.sounds.TavernSounds;
 import com.minecolonies.api.util.BlockPosUtil;
+import com.minecolonies.api.util.MathUtils;
 import com.minecolonies.core.client.gui.huts.WindowHutLiving;
 import com.minecolonies.core.colony.buildings.views.LivingBuildingView;
 import com.minecolonies.core.colony.eventhooks.citizenEvents.VisitorSpawnedEvent;
@@ -19,7 +20,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.nbt.ListTag;
@@ -48,14 +48,6 @@ public class TavernBuildingModule extends AbstractBuildingModule implements IDef
      * Schematic name
      */
     public static final String TAG_VISITOR_ID = "visitor";
-
-    /**
-     * Skill levels
-     */
-    public static final int LEATHER_SKILL_LEVEL = 20;
-    public static final int GOLD_SKILL_LEVEL    = 25;
-    public static final int IRON_SKILL_LEVEL    = 30;
-    public static final int DIAMOND_SKILL_LEVEL = 35;
 
     /**
      * Music interval
@@ -151,9 +143,10 @@ public class TavernBuildingModule extends AbstractBuildingModule implements IDef
         if (building.getBuildingLevel() > 0 && externalCitizens.size() < 3 * building.getBuildingLevel() && noVisitorTime <= 0)
         {
             spawnVisitorInternal();
-            noVisitorTime =
-              colony.getWorld().getRandom().nextInt(3000) + (6000 / building.getBuildingLevel()) * colony.getCitizenManager().getCurrentCitizenCount() / colony.getCitizenManager()
-                                                                                                                                                  .getMaxCitizens();
+            noVisitorTime = colony.getWorld().getRandom().nextInt(3000)
+                + (6000 / building.getBuildingLevel())
+                * colony.getCitizenManager().getCurrentCitizenCount()
+                / colony.getCitizenManager().getMaxCitizens();
         }
     }
 
@@ -184,8 +177,7 @@ public class TavernBuildingModule extends AbstractBuildingModule implements IDef
     @Nullable
     public IVisitorData spawnVisitor()
     {
-        final int recruitLevel = building.getColony().getWorld().random.nextInt(10 * building.getBuildingLevel()) + 15;
-        final RecruitmentItemsListener.RecruitCost cost = RecruitmentItemsListener.getRandomRecruitCost(building.getColony().getWorld().getRandom(), recruitLevel);
+        final RecruitmentItemsListener.RecruitCost cost = RecruitmentItemsListener.getRandomRecruitCost(building.getBuildingLevel());
         if (cost == null)
         {
             return null;
@@ -194,8 +186,11 @@ public class TavernBuildingModule extends AbstractBuildingModule implements IDef
         final IVisitorData newCitizen = (IVisitorData) building.getColony().getVisitorManager().createAndRegisterCivilianData();
         newCitizen.setBedPos(building.getPosition());
         newCitizen.setHomeBuilding(building);
-        newCitizen.getCitizenSkillHandler().init(recruitLevel);
-        newCitizen.setRecruitCosts(cost.toItemStack(recruitLevel));
+        newCitizen.getCitizenSkillHandler().init(cost.recruitLevel());
+
+        final ItemStack recruitCostItem = cost.recruitItem().copy();
+        recruitCostItem.setCount(recruitCostItem.getCount() + MathUtils.RANDOM.nextInt(3));
+        newCitizen.setRecruitCosts(recruitCostItem);
 
         BlockPos spawnPos = BlockPosUtil.findSpawnPosAround(building.getColony().getWorld(), building.getPosition());
         if (spawnPos == null)
@@ -206,44 +201,12 @@ public class TavernBuildingModule extends AbstractBuildingModule implements IDef
         building.getColony().getVisitorManager().spawnOrCreateCivilian(newCitizen, building.getColony().getWorld(), spawnPos, true);
         if (newCitizen.getEntity().isPresent())
         {
-            newCitizen.getEntity().get().setItemSlot(EquipmentSlot.FEET, getBoots(recruitLevel));
+            newCitizen.getEntity().get().setItemSlot(EquipmentSlot.FEET, cost.boots());
         }
         building.getColony().getEventDescriptionManager().addEventDescription(new VisitorSpawnedEvent(spawnPos, newCitizen.getName()));
 
         externalCitizens.add(newCitizen.getId());
         return newCitizen;
-    }
-
-    /**
-     * Get the boots for the given recruit level.
-     *
-     * @param recruitLevel the input recruit level.
-     * @return the itemstack for the boots.
-     */
-    private ItemStack getBoots(final int recruitLevel)
-    {
-        ItemStack boots = ItemStack.EMPTY;
-        if (recruitLevel > LEATHER_SKILL_LEVEL)
-        {
-            // Leather
-            boots = new ItemStack(Items.LEATHER_BOOTS);
-        }
-        if (recruitLevel > GOLD_SKILL_LEVEL)
-        {
-            // Gold
-            boots = new ItemStack(Items.GOLDEN_BOOTS);
-        }
-        if (recruitLevel > IRON_SKILL_LEVEL)
-        {
-            // Iron
-            boots = new ItemStack(Items.IRON_BOOTS);
-        }
-        if (recruitLevel > DIAMOND_SKILL_LEVEL)
-        {
-            // Diamond
-            boots = new ItemStack(Items.DIAMOND_BOOTS);
-        }
-        return boots;
     }
 
     @Override

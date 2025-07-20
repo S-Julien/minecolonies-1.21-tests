@@ -59,6 +59,7 @@ public class GatherDataHandler
         generator.addProvider(event.includeServer(), new DefaultBiomeTagsProvider(generator.getPackOutput(), provider, event.getExistingFileHelper()));
         generator.addProvider(event.includeServer(), new DefaultLootModifiersProvider(generator.getPackOutput(), provider));
         generator.addProvider(event.includeServer(), new DefaultDataMapsProvider(generator.getPackOutput(), provider));
+        generator.addProvider(event.includeServer(), new DefaultRecruitmentItemsProvider(generator.getPackOutput()));
 
         // workers
         generator.addProvider(event.includeServer(), new DefaultAlchemistCraftingProvider(generator.getPackOutput(), provider));
