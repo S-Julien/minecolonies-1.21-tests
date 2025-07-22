@@ -21,6 +21,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
+import static com.minecolonies.core.generation.DataGeneratorConstants.COLONY_RECRUITMENT_ITEMS_DIR;
+
 /**
  * Loads and listens to recruitment costs data.
  */
@@ -77,7 +79,7 @@ public class RecruitmentItemsListener extends SimpleJsonResourceReloadListener
      */
     public RecruitmentItemsListener()
     {
-        super(GSON, "recruitment_items");
+        super(GSON, COLONY_RECRUITMENT_ITEMS_DIR);
     }
 
     /**
