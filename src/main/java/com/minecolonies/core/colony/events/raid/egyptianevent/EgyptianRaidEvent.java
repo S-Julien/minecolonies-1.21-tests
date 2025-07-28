@@ -15,6 +15,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -53,7 +54,7 @@ public class EgyptianRaidEvent extends HordeRaidEvent
     public void onStart()
     {
         super.onStart();
-        PlayAudioMessage.sendToAll(getColony(), true, false, new PlayAudioMessage(RaidSounds.DESERT_RAID_WARNING));
+        PlayAudioMessage.sendToAll(getColony(), true, false, new PlayAudioMessage(RaidSounds.DESERT_RAID_WARNING, SoundSource.HOSTILE));
     }
 
     @Override
@@ -70,7 +71,7 @@ public class EgyptianRaidEvent extends HordeRaidEvent
 
         if (--musicCooldown <= 0)
         {
-            PlayAudioMessage.sendToAll(getColony(), true, true, new PlayAudioMessage(RaidSounds.DESERT_RAID));
+            PlayAudioMessage.sendToAll(getColony(), true, true, new PlayAudioMessage(RaidSounds.DESERT_RAID, SoundSource.HOSTILE));
             musicCooldown = 12;
         }
     }
