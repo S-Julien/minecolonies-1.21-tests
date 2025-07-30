@@ -161,6 +161,7 @@ public class ColonyConnectionManager implements IColonyConnectionManager
                 MessageUtils.format(Component.translatable(COM_MINECOLONIES_SIGN_DISRUPTED, nextNode.getPosition())).sendTo(this.colony).forManagers();
             }
         }
+        pendingColonyConnections.remove(connectionPoint);
     }
 
     @Override
@@ -197,7 +198,10 @@ public class ColonyConnectionManager implements IColonyConnectionManager
             {
                 if (pendingConnection.getValue().getCachedPathResult().isPathReachingDestination())
                 {
-                    pendingColonyConnections.remove(pendingConnection.getKey());
+                    if (pendingColonyConnections.remove(pendingConnection.getKey()) == null)
+                    {
+                        return;
+                    }
                     final ColonyConnectionNode connection = colonyConnections.get(pendingConnection.getValue().getPreviousNode());
                     if (pendingConnection.getValue().getPendingConnectionType() == PendingConnectionNode.PendingConnectionType.DEFAULT)
                     {
