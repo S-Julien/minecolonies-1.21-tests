@@ -1,0 +1,19 @@
+{
+  "branch": "minecolonies:combat",
+  "costs": [
+    {
+      "count": 64,
+      "item": "minecraft:iron_sword"
+    }
+  ],
+  "effects": [
+    {
+      "id": "minecolonies:effects/add_astages_stage",
+      "stage": "mystage"
+    }
+  ],
+  "icon": "minecraft:iron_sword",
+  "parentResearch": "minecolonies:combat/strength",
+  "researchLevel": 3,
+  "subtitle": "com.minecolonies.research.combat.example.subtitle"
+}

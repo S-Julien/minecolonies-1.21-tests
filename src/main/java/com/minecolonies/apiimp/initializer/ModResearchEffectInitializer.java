@@ -4,6 +4,7 @@ import com.minecolonies.api.research.ModResearchEffects;
 import com.minecolonies.api.util.constant.Constants;
 import com.minecolonies.apiimp.CommonMinecoloniesAPIImpl;
 import com.minecolonies.core.research.GlobalResearchEffect;
+import com.minecolonies.core.research.AStagesResearchEffect;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -20,6 +21,7 @@ public class ModResearchEffectInitializer
     static
     {
         globalResearchEffect = create(GLOBAL_EFFECT_ID, GlobalResearchEffect::new);
+        astagesResearchEffect = create(ASTAGES_EFFECT_ID, AStagesResearchEffect::new);
     }
     private ModResearchEffectInitializer()
     {

@@ -4,6 +4,7 @@ import com.minecolonies.api.colony.permissions.*;
 import com.minecolonies.api.util.ColonyUtils;
 import com.minecolonies.api.util.Utils;
 import com.minecolonies.core.colony.Colony;
+import com.minecolonies.core.event.AStagesResearchEventHandler;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -693,6 +694,7 @@ public class Permissions implements IPermissions
 
         if (player != null)
         {
+            final Rank oldRank = player.getRank();
             player.setRank(rank);
 
             if (rank.isColonyManager())
@@ -702,6 +704,19 @@ public class Permissions implements IPermissions
             else
             {
                 checkFullyAbandoned();
+            }
+
+            // Handle AStages research effects for permission changes
+            final ServerPlayer serverPlayer = ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayer(id);
+            if (serverPlayer != null && colony != null)
+            {
+                final boolean wasManager = oldRank.isColonyManager();
+                final boolean isManager = rank.isColonyManager();
+                
+                if (wasManager != isManager)
+                {
+                    AStagesResearchEventHandler.onColonyPermissionChange(colony, serverPlayer, isManager);
+                }
             }
 
             markDirty();
@@ -827,6 +842,13 @@ public class Permissions implements IPermissions
             fullyAbandoned = false;
         }
 
+        // Handle AStages research effects for new players
+        final ServerPlayer serverPlayer = ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayer(gameprofile.getId());
+        if (serverPlayer != null && colony != null && rank.isColonyManager())
+        {
+            AStagesResearchEventHandler.onColonyPermissionChange(colony, serverPlayer, true);
+        }
+
         markDirty();
         return true;
     }
@@ -842,6 +864,13 @@ public class Permissions implements IPermissions
         final ColonyPlayer player = players.get(id);
         if (player != null && player.getRank().getId() != OWNER_RANK_ID && players.remove(id) != null)
         {
+            // Handle AStages research effects for removed players
+            final ServerPlayer serverPlayer = ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayer(id);
+            if (serverPlayer != null && colony != null && player.getRank().isColonyManager())
+            {
+                AStagesResearchEventHandler.onColonyPermissionChange(colony, serverPlayer, false);
+            }
+            
             checkFullyAbandoned();
             markDirty();
             return true;

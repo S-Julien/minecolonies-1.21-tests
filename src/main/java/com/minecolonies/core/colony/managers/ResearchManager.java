@@ -45,7 +45,7 @@ public class ResearchManager implements IResearchManager
     /**
      * The active research effects of the colony.
      */
-    private final IResearchEffectManager effects = new ResearchEffectManager();
+    private final IResearchEffectManager effects;
 
     /**
      * The research Ids of any research set to start automatically when unhidden.
@@ -114,6 +114,7 @@ public class ResearchManager implements IResearchManager
     public ResearchManager(IColony colony)
     {
         this.colony = colony;
+        this.effects = new ResearchEffectManager(colony);
         autoStartResearch.addAll(MinecoloniesAPIProxy.getInstance().getGlobalResearchTree().getAutostartResearches());
         this.tree = new LocalResearchTree(colony);
     }

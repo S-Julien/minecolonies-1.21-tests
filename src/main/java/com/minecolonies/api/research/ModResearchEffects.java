@@ -11,8 +11,10 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 public class ModResearchEffects
 {
     public static final ResourceLocation GLOBAL_EFFECT_ID = new ResourceLocation(Constants.MOD_ID, "global");
+    public static final ResourceLocation ASTAGES_EFFECT_ID = new ResourceLocation(Constants.MOD_ID, "astages");
 
     public static DeferredHolder<ResearchEffectEntry, ResearchEffectEntry> globalResearchEffect;
+    public static DeferredHolder<ResearchEffectEntry, ResearchEffectEntry> astagesResearchEffect;
 
     public ModResearchEffects() {throw new IllegalStateException("Tried to initialize: ModResearchEffects, but this is a Utility class.");}
 

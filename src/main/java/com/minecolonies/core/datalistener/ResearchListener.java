@@ -113,6 +113,11 @@ public class ResearchListener extends SimpleJsonResourceReloadListener
     public static final String RESEARCH_EFFECTS_EFFECT_ID_PROP = "id";
 
     /**
+     * The property name for the AStages stage parameter in research effects.
+     */
+    public static final String RESEARCH_EFFECTS_ASTAGES_STAGE_PROP = "stage";
+
+    /**
      * The property name of a single research effect its level.
      */
     public static final String RESEARCH_EFFECTS_LEVEL_PROP = "level";
@@ -290,7 +295,7 @@ public class ResearchListener extends SimpleJsonResourceReloadListener
             final List<SizedIngredient> costs = parseResearchCosts(researchId,
                 GsonHelper.getAsJsonArray(researchJson, RESEARCH_COSTS_PROP, new JsonArray()),
                 GsonHelper.getAsJsonArray(researchJson, RESEARCH_REQUIREMENTS_PROP, new JsonArray()));
-            final List<GlobalResearchEffect> effects =
+            final List<IResearchEffect> effects =
                 parseResearchEffects(researchId, GsonHelper.getAsJsonArray(researchJson, RESEARCH_EFFECTS_PROP, new JsonArray()), effectCategories);
 
             final GlobalResearch research = new GlobalResearch(researchId, parent, branch, name, subtitle, depth, sortOrder, onlyChild, hidden, autostart, instant, immutable);
@@ -413,12 +418,12 @@ public class ResearchListener extends SimpleJsonResourceReloadListener
      * @param researchId               a json object to retrieve the ID from.
      * @param researchEffectCategories the Map of {@link ResearchEffectCategory} used to convert ResearchEffectIds into absolute effects and descriptions.
      */
-    private List<GlobalResearchEffect> parseResearchEffects(
+    private List<IResearchEffect> parseResearchEffects(
         final ResourceLocation researchId,
         final JsonArray researchEffectsArray,
         final Map<ResourceLocation, ResearchEffectCategory> researchEffectCategories)
     {
-        final List<GlobalResearchEffect> effects = new ArrayList<>();
+        final List<IResearchEffect> effects = new ArrayList<>();
         for (int index = 0; index < researchEffectsArray.size(); index++)
         {
             final JsonElement researchEffectElement = researchEffectsArray.get(index);
@@ -460,6 +465,22 @@ public class ResearchListener extends SimpleJsonResourceReloadListener
                 else
                 {
                     Log.getLogger().warn("Research '{}' effect #{} is empty.", researchId, index);
+                    continue;
+                }
+            }
+
+            // Check if this is an AStages effect
+            if (effectId.toString().equals("minecolonies:effects/add_astages_stage"))
+            {
+                if (researchEffectJson.has(RESEARCH_EFFECTS_ASTAGES_STAGE_PROP))
+                {
+                    final String stage = GsonHelper.getAsString(researchEffectJson, RESEARCH_EFFECTS_ASTAGES_STAGE_PROP);
+                    effects.add(new AStagesResearchEffect(effectId, stage));
+                    continue;
+                }
+                else
+                {
+                    Log.getLogger().warn("Research '{}' effect #{} AStages effect is missing required '{}' property.", researchId, index, RESEARCH_EFFECTS_ASTAGES_STAGE_PROP);
                     continue;
                 }
             }
