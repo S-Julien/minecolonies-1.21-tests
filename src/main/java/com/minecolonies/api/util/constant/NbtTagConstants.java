@@ -37,8 +37,6 @@ public final class NbtTagConstants
     public static final String STACK                   = "stack";
     public static final String SLOT                    = "slot";
     public static final String TAG_CONNECTION_MANAGER  = "connectionmanager";
-    public static final String TAG_KNIGHT              = "knight";
-    public static final String TAG_ARCHER              = "archer";
 
     /**
      * @deprecated Superseeded by request-based pickup system.

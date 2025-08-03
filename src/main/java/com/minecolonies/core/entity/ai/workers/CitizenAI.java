@@ -113,7 +113,7 @@ public class CitizenAI implements IStateAI
     private IState decideAiTask()
     {
         IState next = calculateNextState();
-        if (next == null || next == lastState && citizen.getCitizenAI().getState() != CitizenAIState.IDLE)
+        if (next == null || next == lastState)
         {
             return null;
         }
@@ -244,8 +244,11 @@ public class CitizenAI implements IStateAI
             return CitizenAIState.IDLE;
         }
 
-        if (citizen.getCitizenJobHandler().getColonyJob() != null)
+        if (citizen.getCitizenJobHandler().getColonyJob() != null
+            && citizen.getCitizenJobHandler().getColonyJob().hasWorkToDo()
+            && citizen.getCitizenData().getLeisureTime() <= 0)
         {
+            citizen.setVisibleStatusIfNone(WORKING);
             return CitizenAIState.WORK;
         }
 

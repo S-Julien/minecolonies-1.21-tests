@@ -176,6 +176,12 @@ public class EntityAIWorkFarmer extends AbstractEntityAICrafting<JobFarmer, Buil
     }
 
     @Override
+    public boolean hasWorkToDo()
+    {
+        return true;
+    }
+
+    @Override
     protected int getActionsDoneUntilDumping()
     {
         return MAX_BLOCKS_MINED;

@@ -92,6 +92,12 @@ public class EntityAIWorkSifter extends AbstractEntityAICrafting<JobSifter, Buil
         return SIFT;
     }
 
+    @Override
+    public boolean hasWorkToDo()
+    {
+        return super.hasWorkToDo() || building.getCurrentDailyQuantity() < building.getMaxDailyQuantity();
+    }
+
     /**
      * The sifting process.
      *
@@ -99,10 +105,8 @@ public class EntityAIWorkSifter extends AbstractEntityAICrafting<JobSifter, Buil
      */
     protected IAIState sift()
     {
-        final BuildingSifter sifterBuilding = building;
-
         // Go idle if we can't do any more today
-        if (sifterBuilding.getCurrentDailyQuantity() >= sifterBuilding.getMaxDailyQuantity())
+        if (building.getCurrentDailyQuantity() >= building.getMaxDailyQuantity())
         {
             return IDLE;
         }
@@ -125,7 +129,7 @@ public class EntityAIWorkSifter extends AbstractEntityAICrafting<JobSifter, Buil
 
         if (currentRecipeStorage == null)
         {
-            if (InventoryUtils.hasBuildingEnoughElseCount(sifterBuilding, i -> i.is(ModTags.meshes), 1) == 0)
+            if (InventoryUtils.hasBuildingEnoughElseCount(building, i -> i.is(ModTags.meshes), 1) == 0)
             {
                 if (InventoryUtils.getItemCountInProvider(worker, i -> i.is(ModTags.meshes)) > 0)
                 {
@@ -183,14 +187,14 @@ public class EntityAIWorkSifter extends AbstractEntityAICrafting<JobSifter, Buil
         if (progress > MAX_LEVEL - (getEffectiveSkillLevel(getSecondarySkillLevel()) / 2))
         {
             progress = 0;
-            sifterBuilding.setCurrentDailyQuantity(sifterBuilding.getCurrentDailyQuantity() + 1);
-            if (sifterBuilding.getCurrentDailyQuantity() >= sifterBuilding.getMaxDailyQuantity() || worker.getRandom().nextInt(ONE_HUNDRED_PERCENT) < CHANCE_TO_DUMP_INV)
+            building.setCurrentDailyQuantity(building.getCurrentDailyQuantity() + 1);
+            if (building.getCurrentDailyQuantity() >= building.getMaxDailyQuantity() || worker.getRandom().nextInt(ONE_HUNDRED_PERCENT) < CHANCE_TO_DUMP_INV)
             {
                 incrementActionsDoneAndDecSaturation();
             }
 
             StatsUtil.trackStatByName(building, ITEM_USED, inputItem.getHoverName(), inputItem.getCount()); 
-            List<ItemStack> outputs = currentRecipeStorage.fullfillRecipeAndCopy(getLootContext(), sifterBuilding.getHandlers(), true);
+            List<ItemStack> outputs = currentRecipeStorage.fullfillRecipeAndCopy(getLootContext(), building.getHandlers(), true);
             if (outputs == null)
             {
                 currentRecipeStorage = null;
@@ -206,8 +210,8 @@ public class EntityAIWorkSifter extends AbstractEntityAICrafting<JobSifter, Buil
             worker.getCitizenExperienceHandler().addExperience(0.2);
         }
 
-        new LocalizedParticleEffectMessage(meshItem, sifterBuilding.getID()).sendToTrackingEntity(worker);
-        new LocalizedParticleEffectMessage(inputItem, sifterBuilding.getID().below()).sendToTrackingEntity(worker);
+        new LocalizedParticleEffectMessage(meshItem, building.getID()).sendToTrackingEntity(worker);
+        new LocalizedParticleEffectMessage(inputItem, building.getID().below()).sendToTrackingEntity(worker);
 
         worker.swing(InteractionHand.MAIN_HAND);
         SoundUtils.playSoundAtCitizen(world, building.getID(), SoundEvents.LEASH_KNOT_BREAK);
