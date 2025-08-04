@@ -64,6 +64,7 @@ import static com.minecolonies.api.util.constant.Constants.TICKS_SECOND;
 import static com.minecolonies.api.util.constant.EquipmentLevelConstants.TOOL_LEVEL_WOOD_OR_GOLD;
 import static com.minecolonies.api.util.constant.StatisticsConstants.*;
 import static com.minecolonies.api.util.constant.TranslationConstants.NO_FREE_FIELDS;
+import static com.minecolonies.core.colony.buildings.modules.BuildingModules.FARMER_FIELDS;
 import static com.minecolonies.core.colony.buildings.modules.BuildingModules.STATS_MODULE;
 
 /**
@@ -880,5 +881,16 @@ public class EntityAIWorkFarmer extends AbstractEntityAICrafting<JobFarmer, Buil
     public AbstractEntityCitizen getCitizen()
     {
         return worker;
+    }
+
+    @Override
+    public boolean canGoIdle()
+    {
+        if (building.getModule(FARMER_FIELDS).getBuildingExtensionToWorkOn() == null)
+        {
+            return true;
+        }
+
+        return super.hasWorkToDo();
     }
 }
