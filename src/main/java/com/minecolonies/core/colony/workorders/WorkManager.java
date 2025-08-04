@@ -390,6 +390,11 @@ public class WorkManager implements IWorkManager
                 order.resetChange();
             }
 
+            if (order.isClaimed() && getColony().getBuildingManager().getBuildings().get(order.getClaimedBy()) == null)
+            {
+                order.setClaimedBy(BlockPos.ZERO);
+            }
+
             tryAssignWorkOrder(order, (b) -> order.getClaimedBy().equals(b.getPosition()));
         }
 
@@ -423,11 +428,15 @@ public class WorkManager implements IWorkManager
                         continue;
                     }
 
-                    if (order.getClaimedBy().equals(building.getPosition()))
+                    if (order.isClaimed())
                     {
-                        abstractJobStructure.setWorkOrder(order);
-                        order.setClaimedBy(building.getID());
-                        return;
+                        if (order.getClaimedBy().equals(building.getPosition()))
+                        {
+                            abstractJobStructure.setWorkOrder(order);
+                            order.setClaimedBy(building.getID());
+                            return;
+                        }
+                        continue;
                     }
 
                     final StringSetting setting = building.getSetting(MODE);
