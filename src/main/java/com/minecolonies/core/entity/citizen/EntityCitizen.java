@@ -381,7 +381,6 @@ public class EntityCitizen extends AbstractEntityCitizen implements IThreatTable
 
         if (!level().isClientSide && getCitizenData() != null)
         {
-            citizenData.update(TICKS_SECOND * 3);
             citizenData.setInteractedRecently(player.getUUID());
             final ColonyViewCitizenViewMessage message = new ColonyViewCitizenViewMessage((Colony) getCitizenData().getColony(), getCitizenData());
             message.sendToPlayer((ServerPlayer) player);
