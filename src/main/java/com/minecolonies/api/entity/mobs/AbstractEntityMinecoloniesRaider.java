@@ -31,6 +31,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.portal.DimensionTransition;
+import net.neoforged.neoforge.common.util.FakePlayer;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -427,7 +428,7 @@ public abstract class AbstractEntityMinecoloniesRaider extends AbstractEntityMin
     @Override
     public boolean hurt(@NotNull final DamageSource damageSource, final float damage)
     {
-        if (damageSource.getDirectEntity() == null)
+        if (damageSource.getDirectEntity() == null || damageSource.getDirectEntity() instanceof FakePlayer)
         {
             if (envDamageImmunity || tempEnvDamageImmunity)
             {

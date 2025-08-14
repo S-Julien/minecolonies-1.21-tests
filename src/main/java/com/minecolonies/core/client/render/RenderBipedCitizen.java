@@ -110,7 +110,7 @@ public class RenderBipedCitizen extends MobRenderer<AbstractEntityCitizen, Citiz
     {
         super.renderNameTag(entityIn, str, matrixStack, buffer, packedLight, partialTick);
 
-        if (entityIn.getCitizenDataView() != null && entityIn.getCitizenDataView().hasVisibleInteractions())
+        if (entityIn.getCitizenDataView() != null && entityIn.getCitizenDataView().hasVisibleStatus())
         {
             double distance = this.entityRenderDispatcher.distanceToSqr(entityIn.getX(), entityIn.getY(), entityIn.getZ());
             if (distance <= 4096.0D)
@@ -124,7 +124,7 @@ public class RenderBipedCitizen extends MobRenderer<AbstractEntityCitizen, Citiz
 
                 final Matrix4f pose = matrixStack.last().pose();
 
-                VertexConsumer r = buffer.getBuffer(RenderTypes.worldEntityIcon(entityIn.getCitizenDataView().getInteractionIcon()));
+                VertexConsumer r = buffer.getBuffer(RenderTypes.worldEntityIcon(entityIn.getCitizenDataView().getStatusIcon()));
                 r.addVertex(pose, -5, 0, 0).setUv(0, 0);
                 r.addVertex(pose, -5, 10, 0).setUv(0, 1);
                 r.addVertex(pose, 5, 10, 0).setUv(1, 1);

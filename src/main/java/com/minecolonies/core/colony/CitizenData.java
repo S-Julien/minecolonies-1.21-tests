@@ -344,6 +344,11 @@ public class CitizenData implements ICitizenData
     private UUID textureUUID;
 
     /**
+     * Citizen leisure time in ticks.
+     */
+    private int leisureTime;
+
+    /**
      * Create a CitizenData given an ID. Used as a super-constructor or during loading.
      *
      * @param id     ID of the Citizen.
@@ -933,18 +938,18 @@ public class CitizenData implements ICitizenData
         }
 
         //Check if we are traveling, we don't spawn an entity if we are traveling.
-        if (getColony().getTravelingManager().isTravelling(this))
+        if (getColony().getTravellingManager().isTravelling(this))
         {
             return;
         }
 
         boolean spawnVisible;
         //Okey we are either just done traveling or the entity disappeared, lets check if we just finished traveling.
-        final Optional<BlockPos> travelingTargetCandidate = getColony().getTravelingManager().getTravellingTargetFor(this);
+        final Optional<BlockPos> travelingTargetCandidate = getColony().getTravellingManager().getTravellingTargetFor(this);
         if (travelingTargetCandidate.isPresent())
         {
             //We just finished traveling, lets spawn the entity by setting the nextRespawnPosition.
-            getColony().getTravelingManager().finishTravellingFor(this);
+            getColony().getTravellingManager().finishTravellingFor(this);
             nextRespawnPos = travelingTargetCandidate.get();
             spawnVisible = false;
             lastPosition = nextRespawnPos;
@@ -1194,6 +1199,7 @@ public class CitizenData implements ICitizenData
     public void setAsleep(final boolean asleep)
     {
         isAsleep = asleep;
+        leisureTime = 0;
     }
 
     @Override
@@ -1354,7 +1360,7 @@ public class CitizenData implements ICitizenData
         nbtTagCompound.put(TAG_CHILDREN, childrenNBT);
         nbtTagCompound.putInt(TAG_PARTNER, partner);
         nbtTagCompound.putBoolean(TAG_ACTIVE, this.isWorking);
-
+        nbtTagCompound.putInt(TAG_LEISURE, this.leisureTime);
 
         @NotNull final ListTag avQuestNBT = new ListTag();
         for (final ResourceLocation quest : availableQuests)
@@ -1533,6 +1539,7 @@ public class CitizenData implements ICitizenData
 
         partner = nbtTagCompound.getInt(TAG_PARTNER);
         this.isWorking = nbtTagCompound.getBoolean(TAG_ACTIVE);
+        this.leisureTime = nbtTagCompound.getInt(TAG_LEISURE);
 
         @NotNull final ListTag availQuestNbt = nbtTagCompound.getList(TAG_AV_QUESTS, TAG_STRING);
         for (int i = 0; i < availQuestNbt.size(); i++)
@@ -1615,9 +1622,19 @@ public class CitizenData implements ICitizenData
             return;
         }
 
+        final int homeBuildingLevel = homeBuilding == null ? 1 : homeBuilding.getBuildingLevel();
+        if (leisureTime > 0)
+        {
+            leisureTime -= tickRate;
+        }
+        else if (MathUtils.RANDOM.nextInt(TICKS_SECOND * 60 * (int) (60 / (homeBuildingLevel / 2.0)) / tickRate) <= 0)
+        {
+            leisureTime = (int) (TICKS_SECOND * 60 * 3.0);
+        }
+
         if (interactedRecently > 0)
         {
-            interactedRecently -= TICKS_SECOND * 3;
+            interactedRecently -= tickRate;
             if (interactedRecently <= 0)
             {
                 interactedRecentlyPlayers.clear();
@@ -2102,5 +2119,11 @@ public class CitizenData implements ICitizenData
     public double getDiseaseModifier()
     {
         return citizenFoodHandler.getDiseaseModifier(getJob() == null ? 1 : getJob().getDiseaseModifier());
+    }
+
+    @Override
+    public int getLeisureTime()
+    {
+        return this.leisureTime;
     }
 }

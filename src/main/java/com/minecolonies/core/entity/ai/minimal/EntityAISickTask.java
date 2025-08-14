@@ -85,7 +85,7 @@ public class EntityAISickTask implements IStateAI
     private BlockPos usedBed;
 
     /**
-     * The different types of AIStates related to eating.
+     * The different types of AIStates related to being sick.
      */
     public enum DiseaseState implements IState
     {

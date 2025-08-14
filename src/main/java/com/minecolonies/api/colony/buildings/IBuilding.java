@@ -516,4 +516,12 @@ public interface IBuilding extends IBuildingContainer, IModuleContainer<IBuildin
         getColony().writeToItemStack(stack);
         new BuildingId(getID()).writeToItemStack(stack);
     }
+
+    /**
+     * Gets the list of tags, and finds all locations registered there.
+     * @param tagName the name of the tag to query
+     * @return all the matching BlockPos, or an empty list if not found
+     */
+    @NotNull
+    List<BlockPos> getLocationsFromTag(@NotNull final String tagName);
 }

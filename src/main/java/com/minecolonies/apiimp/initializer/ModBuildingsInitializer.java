@@ -217,7 +217,6 @@ public final class ModBuildingsInitializer
           .setRegistryName(new ResourceLocation(Constants.MOD_ID, ModBuildings.GUARD_TOWER_ID))
           .addBuildingModuleProducer(KNIGHT_TOWER_WORK)
           .addBuildingModuleProducer(RANGER_TOWER_WORK)
-          .addBuildingModuleProducer(DRUID_TOWER_WORK)
           .addBuildingModuleProducer(GUARD_TOOL)
           .addBuildingModuleProducer(GUARD_ENTITY_LIST)
           .addBuildingModuleProducer(GUARD_SETTINGS)
@@ -652,5 +651,20 @@ public final class ModBuildingsInitializer
                                                                                            .addBuildingModuleProducer(ITEMLIST_FUEL)
                                                                                            .addBuildingModuleProducer(STATS_MODULE)
                                                                                            .createBuildingEntry());
+
+        ModBuildings.gateHouse = DEFERRED_REGISTER.register(ModBuildings.GATE_HOUSE_ID, () -> new BuildingEntry.Builder()
+            .setBuildingBlock(ModBlocks.blockHutGateHouse)
+            .setBuildingProducer(BuildingGateHouse::new)
+            .setBuildingViewProducer(() -> BuildingGateHouse.View::new)
+            .setRegistryName(new ResourceLocation(Constants.MOD_ID, ModBuildings.GATE_HOUSE_ID))
+            .addBuildingModuleProducer(KNIGHT_GATE_WORK)
+            .addBuildingModuleProducer(RANGER_GATE_WORK)
+            .addBuildingModuleProducer(GUARD_ENTITY_LIST)
+            .addBuildingModuleProducer(GATE_GUARD_SETTINGS)
+            .addBuildingModuleProducer(MIN_STOCK)
+            .addBuildingModuleProducer(BED)
+            .addBuildingModuleProducer(STATS_MODULE)
+            .addBuildingModuleProducer(CONNECTION_MODULE)
+            .createBuildingEntry());
     }
 }
