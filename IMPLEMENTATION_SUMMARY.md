@@ -2,7 +2,7 @@
 
 ## AStages Research Effect Implementation
 
-This implementation adds a new research effect type that integrates Minecolonies research with the AStages mod. The feature allows modpack authors to grant AStages stages to colony managers when specific research is completed.
+This implementation adds a new research effect type that integrates Minecolonies research with Alessandro Casale's AStages mod. The feature allows modpack authors to grant AStages stages to colony managers when specific research is completed.
 
 ## Key Features Implemented
 
@@ -13,10 +13,11 @@ This implementation adds a new research effect type that integrates Minecolonies
 - Integrates with existing research effect system
 
 ### 2. AStages Integration (AStagesHelper)
-- Uses reflection for soft dependency on AStages mod
-- Provides utility methods for granting/revoking stages
+- Uses reflection for soft dependency on Alessandro Casale's AStages mod
+- Provides utility methods for granting/revoking stages using the capability system
 - Handles colony manager detection and stage management
 - Logs appropriate messages when AStages is not available
+- Updated to use correct package paths and API methods
 
 ### 3. JSON Parsing Support
 - Extended `ResearchListener` to parse AStages effects from JSON
