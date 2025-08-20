@@ -4,7 +4,7 @@ This feature adds support for granting AStages stages to colony managers when re
 
 ## Overview
 
-The AStages Research Effect allows modpack authors to integrate Minecolonies research with the AStages mod, providing a way to gate content based on colony research progression.
+The AStages Research Effect allows modpack authors to integrate Minecolonies research with Alessandro Casale's AStages mod, providing a way to gate content based on colony research progression.
 
 ## Usage
 
@@ -62,16 +62,17 @@ Here's a complete research example that grants the "advanced_weaponry" stage:
 - **Soft Dependency**: The implementation uses reflection to interact with AStages, so the mod is not required to be installed.
 - **Event-Driven**: Uses Minecraft's event system to handle player login and colony permission changes.
 - **Multi-Colony Support**: Players who manage multiple colonies will keep stages as long as at least one of their colonies has the research completed.
+- **Capability System**: Uses Alessandro Casale's AStages capability system for proper stage management.
 
 ## Requirements
 
-- AStages mod (optional, but required for the effect to work)
+- Alessandro Casale's AStages mod (optional, but required for the effect to work)
 - Minecolonies with this research effect implementation
 
 ## Files Modified
 
 - `AStagesResearchEffect.java`: Main effect implementation
-- `AStagesHelper.java`: AStages integration utility
+- `AStagesHelper.java`: AStages integration utility (updated for Alessandro Casale's API)
 - `ResearchEffectManager.java`: Extended to handle AStages effects
 - `ResearchListener.java`: JSON parsing support
 - `Permissions.java`: Permission change hooks

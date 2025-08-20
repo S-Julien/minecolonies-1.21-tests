@@ -3,6 +3,7 @@ package com.minecolonies.core.research;
 import com.minecolonies.api.colony.IColony;
 import com.minecolonies.api.util.Log;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.fml.ModList;
 
 import java.lang.reflect.Method;
@@ -13,10 +14,13 @@ import java.lang.reflect.Method;
 public class AStagesHelper
 {
     private static boolean astagesLoaded = false;
-    private static Class<?> stageUtilClass;
+    private static Class<?> astagesUtilClass;
+    private static Class<?> playerStageClass;
+    private static Class<?> playerStageProviderClass;
+    private static Object playerStageCapability;
+    private static Method hasStageMethod;
     private static Method addStageMethod;
     private static Method removeStageMethod;
-    private static Method hasStageMethod;
 
     static
     {
@@ -26,10 +30,19 @@ public class AStagesHelper
             {
                 astagesLoaded = true;
                 // Reflect to AStages classes to avoid hard dependency
-                stageUtilClass = Class.forName("net.darkhax.astages.util.StageUtil");
-                addStageMethod = stageUtilClass.getMethod("addStage", ServerPlayer.class, String.class);
-                removeStageMethod = stageUtilClass.getMethod("removeStage", ServerPlayer.class, String.class);
-                hasStageMethod = stageUtilClass.getMethod("hasStage", ServerPlayer.class, String.class);
+                astagesUtilClass = Class.forName("com.alessandro.astages.util.AStagesUtil");
+                playerStageClass = Class.forName("com.alessandro.astages.capability.PlayerStage");
+                playerStageProviderClass = Class.forName("com.alessandro.astages.capability.PlayerStageProvider");
+                
+                // Get the hasStage method from AStagesUtil
+                hasStageMethod = astagesUtilClass.getMethod("hasStage", Player.class, String.class);
+                
+                // Get methods from PlayerStage class for add/remove operations
+                addStageMethod = playerStageClass.getMethod("addStage", String.class);
+                removeStageMethod = playerStageClass.getMethod("removeStage", String.class);
+                
+                // Get the PLAYER_STAGE capability field
+                playerStageCapability = playerStageProviderClass.getField("PLAYER_STAGE").get(null);
                 
                 Log.getLogger().info("AStages integration enabled for research effects.");
             }
@@ -71,8 +84,20 @@ public class AStagesHelper
 
         try
         {
-            addStageMethod.invoke(null, player, stage);
-            return true;
+            // Get the PlayerStage capability from the player
+            Object capability = player.getClass().getMethod("getCapability", Class.forName("net.minecraftforge.common.capabilities.Capability"))
+                    .invoke(player, playerStageCapability);
+            
+            // Get the PlayerStage instance from the LazyOptional
+            Object lazyOptional = capability;
+            Object playerStageInstance = lazyOptional.getClass().getMethod("orElse", Object.class).invoke(lazyOptional, (Object) null);
+            
+            if (playerStageInstance != null)
+            {
+                addStageMethod.invoke(playerStageInstance, stage);
+                return true;
+            }
+            return false;
         }
         catch (Exception e)
         {
@@ -97,8 +122,20 @@ public class AStagesHelper
 
         try
         {
-            removeStageMethod.invoke(null, player, stage);
-            return true;
+            // Get the PlayerStage capability from the player
+            Object capability = player.getClass().getMethod("getCapability", Class.forName("net.minecraftforge.common.capabilities.Capability"))
+                    .invoke(player, playerStageCapability);
+            
+            // Get the PlayerStage instance from the LazyOptional
+            Object lazyOptional = capability;
+            Object playerStageInstance = lazyOptional.getClass().getMethod("orElse", Object.class).invoke(lazyOptional, (Object) null);
+            
+            if (playerStageInstance != null)
+            {
+                removeStageMethod.invoke(playerStageInstance, stage);
+                return true;
+            }
+            return false;
         }
         catch (Exception e)
         {
@@ -145,11 +182,12 @@ public class AStagesHelper
             return;
         }
 
-        for (ServerPlayer player : colony.getMessagePlayerEntities())
+        for (net.minecraft.world.entity.player.Player player : colony.getMessagePlayerEntities())
         {
-            if (colony.getPermissions().hasPermission(player, com.minecolonies.api.colony.permissions.Action.MANAGE_HUTS))
+            if (player instanceof ServerPlayer serverPlayer && 
+                colony.getPermissions().hasPermission(player, com.minecolonies.api.colony.permissions.Action.MANAGE_HUTS))
             {
-                grantStage(player, stage);
+                grantStage(serverPlayer, stage);
             }
         }
     }
@@ -167,11 +205,12 @@ public class AStagesHelper
             return;
         }
 
-        for (ServerPlayer player : colony.getMessagePlayerEntities())
+        for (net.minecraft.world.entity.player.Player player : colony.getMessagePlayerEntities())
         {
-            if (colony.getPermissions().hasPermission(player, com.minecolonies.api.colony.permissions.Action.MANAGE_HUTS))
+            if (player instanceof ServerPlayer serverPlayer && 
+                colony.getPermissions().hasPermission(player, com.minecolonies.api.colony.permissions.Action.MANAGE_HUTS))
             {
-                revokeStage(player, stage);
+                revokeStage(serverPlayer, stage);
             }
         }
     }
